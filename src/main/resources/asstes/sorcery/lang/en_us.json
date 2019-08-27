@@ -1,0 +1,16 @@
+{
+
+
+  "block.sorcery.polished_chondrite": "Polished Chondrite",
+  "block.sorcery.chondrite_bricks": "Chondrite Bricks",
+  "block.sorcery.chondrite_brick_stairs": "Chondrite Brick Stairs",
+  "block.sorcery.chondrite_brick_slab": "Chondrite Brick Slab",
+  "block.sorcery.chondrite_brick_wall": "Chondrite Brick Wall",
+  "block.sorcery.chondrite_blast_furnace": "Chondrite Blast Furnace",
+  "item.sorcery.chondrite_chunk": "Chondrite Chunk",
+  "item.sorcery.lodestone": "Lodestone",
+  "item.sorcery.chondrite_ingot": "Chondrite Ingot",
+
+
+  "itemGroup.Sorcery": "Sorcery"
+}

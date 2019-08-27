@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "name": "loadstone",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "spacetime:loadstone",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "iron_ore",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ore"
+        }
+      ]
+    }
+  ]
+}

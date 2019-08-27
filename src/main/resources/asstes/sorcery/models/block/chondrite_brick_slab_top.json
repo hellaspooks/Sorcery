@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab_top",
+  "textures": {
+    "bottom": "sorcery:blocks/chondrite_bricks",
+    "top": "sorcery:blocks/chondrite_bricks",
+    "side": "sorcery:blocks/chondrite_bricks"
+  }
+}
