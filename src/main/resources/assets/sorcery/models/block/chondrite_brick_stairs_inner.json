@@ -1,0 +1,8 @@
+{
+"parent": "block/inner_stairs",
+"textures": {
+"bottom": "sorcery:blocks/chondrite_bricks",
+"top": "sorcery:blocks/chondrite_bricks",
+"side": "sorcery:blocks/chondrite_bricks"
+}
+}

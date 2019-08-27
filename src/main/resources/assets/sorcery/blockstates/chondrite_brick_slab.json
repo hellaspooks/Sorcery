@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "sorcery:block/chondrite_brick_slab" },
+    "type=top": { "model": "sorcery:block/chondrite_brick_slab_top" },
+    "type=double": { "model": "sorcery:block/chondrite_bricks" }
+  }
+}
