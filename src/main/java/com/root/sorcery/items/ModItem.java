@@ -21,5 +21,7 @@ public class ModItem extends Item {
         lodestone = new ModItem( "lodestone");
         chondrite_chunk = new ModItem( "chondrite_chunk");
         chondrite_ingot = new ModItem("chondrite_ingot");
+        
+        Geode.init();
     }
 }
