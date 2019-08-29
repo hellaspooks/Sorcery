@@ -23,5 +23,6 @@ public class ModItem extends Item {
         chondrite_ingot = new ModItem("chondrite_ingot");
         
         Geode.init();
+        Crystals.init();
     }
 }

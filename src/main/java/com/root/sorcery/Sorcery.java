@@ -96,7 +96,7 @@ public class Sorcery
 
         @SubscribeEvent
         public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event){
-           event.getRegistry().register(TileEntityType.Builder.create(ChondriteBlastFurnaceEntity::new, ModBlock.chondrite_furnace).build(null).setRegistryName("chondrite_blast_furnace"));
+           //event.getRegistry().register(TileEntityType.Builder.create(ChondriteBlastFurnaceEntity::new, ModBlock.chondrite_furnace).build(null).setRegistryName("chondrite_blast_furnace"));
              }
 
         }

@@ -19,7 +19,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-import static com.root.sorcery.blocks.ModBlock.chondrite_furnace_entity;
+//import static com.root.sorcery.blocks.ModBlock.chondrite_furnace_entity;
 
 public class ChondriteBlastFurnaceEntity extends TileEntity implements ITickableTileEntity {
 
@@ -28,7 +28,7 @@ public class ChondriteBlastFurnaceEntity extends TileEntity implements ITickable
  public boolean lit;
 
     public ChondriteBlastFurnaceEntity() {
-        super(chondrite_furnace_entity);
+        super(null);
 
     }
 

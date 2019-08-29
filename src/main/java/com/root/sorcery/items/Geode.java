@@ -1,6 +1,6 @@
-package com.root.sorcery.Items;
+package com.root.sorcery.items;
 
-public class Geode extends ModItem{
+public class Geode extends ModItem {
     Geode(String registryName) {
         super(registryName);
     }

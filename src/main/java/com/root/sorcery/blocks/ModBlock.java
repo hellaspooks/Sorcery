@@ -28,8 +28,8 @@ public class ModBlock extends Block {
         @ObjectHolder("sorcery:chondriteblastfurnace")
         public static ChondriteBlastFurnace chondrite_furnace;
 
-        @ObjectHolder("sorcery:chondriteblastfurnace")
-        public static TileEntityType<ChondriteBlastFurnaceEntity> chondrite_furnace_entity;
+        //@ObjectHolder("sorcery:chondriteblastfurnace")
+        //public static TileEntityType<ChondriteBlastFurnaceEntity> chondrite_furnace_entity;
 
 
 
@@ -44,9 +44,9 @@ public class ModBlock extends Block {
 
     public static void init(){
 
-     //   chondrite_blast_furnace = new ChondriteBlastFurnace();
-        chondrite_blast_furnace_block = (BlockItem) new BlockItem(chondrite_furnace, new Item.Properties().group(sorcery)).setRegistryName("chondrite_blast_furnace_block");
-        Registry.register(Registry.ITEM, "chondrite_blast_furnace_block", chondrite_blast_furnace_block);
+        //chondrite_blast_furnace = new ChondriteBlastFurnace();
+        //chondrite_blast_furnace_block = (BlockItem) new BlockItem(chondrite_furnace, new Item.Properties().group(sorcery)).setRegistryName("chondrite_blast_furnace_block");
+        //Registry.register(Registry.ITEM, "chondrite_blast_furnace_block", chondrite_blast_furnace_block);
 
             reliquary = new ModBlock(Material.ROCK, 3.0F, 6.0F, SoundType.STONE, "reliquary");
             reliquary_block = (BlockItem) new BlockItem(reliquary, new Item.Properties().group(sorcery)).setRegistryName("reliquary_block");
