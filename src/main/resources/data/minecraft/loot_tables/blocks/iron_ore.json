@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "spacetime:loadstone",
+          "name": "sorcery:lodestone",
           "functions": [
             {
               "function": "minecraft:set_count",
