@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "sorcery:lodestone"
+  },
+  "result": "minecraft:iron_nugget",
+  "experience": 0.10,
+  "cookingtime": 100
+}
