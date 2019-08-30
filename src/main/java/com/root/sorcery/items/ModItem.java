@@ -1,5 +1,6 @@
 package com.root.sorcery.items;
 
+import com.root.sorcery.setup.ModMaterials;
 import com.root.sorcery.setup.ModSetup;
 import net.minecraft.item.Item;
 import net.minecraft.util.registry.Registry;
