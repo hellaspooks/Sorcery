@@ -16,11 +16,13 @@ public class ModItem extends Item {
     public static ModItem lodestone;
     public static ModItem chondrite_chunk;
     public static ModItem chondrite_ingot;
+    public static ModItem siderite_ingot;
 
     public static void init(){
         lodestone = new ModItem( "lodestone");
         chondrite_chunk = new ModItem( "chondrite_chunk");
         chondrite_ingot = new ModItem("chondrite_ingot");
+        siderite_ingot = new ModItem("siderite_ingot");
         
         Geode.init();
         Crystals.init();
