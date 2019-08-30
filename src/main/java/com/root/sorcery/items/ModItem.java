@@ -26,5 +26,6 @@ public class ModItem extends Item {
         
         Geode.init();
         Crystals.init();
+        ModMaterials.init();
     }
 }
