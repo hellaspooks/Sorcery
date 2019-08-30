@@ -1,7 +1,9 @@
 package com.root.sorcery.items;
 
+import net.minecraft.item.Item;
+
 public class Geode extends ModItem {
-    Geode(String registryName) {
+    private Geode(String registryName) {
         super(registryName);
     }
     
@@ -10,5 +12,11 @@ public class Geode extends ModItem {
     
     public static void init(){
         geode = new Geode("geode");
+    }
+
+    public static boolean isGeode(Item item) {
+        if (geode.getItem() == item)
+            return true;
+        return false;
     }
 }
