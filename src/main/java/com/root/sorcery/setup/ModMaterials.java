@@ -14,7 +14,7 @@ import java.util.function.Supplier;
             return Ingredient.fromItems(ModItem.chondrite_ingot);
         }),
         SIDERITE(3, 1800, 8.5F, 3.5F, 20, () -> {
-            return Ingredient.fromItems(new IItemProvider[]{Items.DIAMOND});
+            return Ingredient.fromItems(ModItem.siderite_ingot);
         });
 
         private final int harvestLevel;
