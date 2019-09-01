@@ -23,7 +23,7 @@ public class Crystals extends ModItem {
         sugilite = new Crystals("sugilite");
         jasper = new Crystals("jasper");
         serpentine = new Crystals("serpentine");
-        nuummite = new Crystals("nuumite");
+        nuummite = new Crystals("nuummite");
     }
 
     public static ItemStack getRandomCrystal() {
