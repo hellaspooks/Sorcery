@@ -1,6 +1,6 @@
-package com.root.sorcery.Setup;
+package com.root.sorcery.setup;
 
-import com.root.sorcery.Items.ModItem;
+import com.root.sorcery.items.ModItem;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
