@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " CC",
+    " SC",
+    " S "
+  ],
+  "key": {
+    "C": {
+      "item": "sorcery:chondrite_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "sorcery:chondrite_axe",
+    "count": 1
+  }
+}
