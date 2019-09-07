@@ -1,9 +1,34 @@
 {
-
-
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+    },
+    "transform": "forge:default-block",
+    "custom": {
+      "flip-v": true
+    }
+  },
   "variants": {
-  "": {"model":  "sorcery:block/reliquary"}
-}
-
-
+    "normal": {
+      "model": "sorcery:block/reliquary.obj"
+    },
+    "facing=north": {
+      "model": "sorcery:block/reliquary.obj"
+    },
+    "facing=south": {
+      "model": "sorcery:block/reliquary.obj",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "sorcery:block/reliquary.obj",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "sorcery:block/reliquary.obj",
+      "y": 90
+    },
+    "inventory": {
+      "model": "sorcery:block/reliquary.obj"
+    }
+  }
 }
