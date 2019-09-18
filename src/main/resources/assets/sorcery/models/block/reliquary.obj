@@ -1,6 +1,5 @@
 # Made in Blockbench 3.0.3
 mtllib reliquary.mtl
-usemtl none
 
 o cube
 v 10 -4 8

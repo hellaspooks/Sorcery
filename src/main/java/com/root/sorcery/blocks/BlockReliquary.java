@@ -2,11 +2,7 @@ package com.root.sorcery.blocks;
 
 import com.root.sorcery.structure.StructurePattern;
 import com.root.sorcery.tile_entities.TileReliquary;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.pattern.BlockStateMatcher;
 import net.minecraft.item.BlockItemUseContext;
@@ -38,16 +34,22 @@ public class BlockReliquary extends Block
     public BlockReliquary(Material material, Float hardness, Float resistance, SoundType sound, String registryName)
     {
         super(Properties.create(material).sound(sound).hardnessAndResistance(hardness, resistance));
-        this.setRegistryName(registryName);
+        setRegistryName(registryName);
         Registry.register(Registry.BLOCK, registryName, this);
 
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+        setDefaultState(stateContainer.getBaseState().with(FACING, Direction.NORTH));
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state)
+    {
+        return BlockRenderType.MODEL;
     }
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
-        return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
+        return getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
     }
 
     @Override
@@ -102,8 +104,10 @@ public class BlockReliquary extends Block
     {
         if (RELIQUARY_PATTERN == null)
         {
-            Predicate<CachedBlockInfo> bookshelfPredicate = CachedBlockInfo.hasState(BlockStateMatcher.forBlock(BOOKSHELF));
-            Predicate<CachedBlockInfo> glowstonePredicate = CachedBlockInfo.hasState(BlockStateMatcher.forBlock(GLOWSTONE));
+            Predicate<CachedBlockInfo> bookshelfPredicate =
+                    CachedBlockInfo.hasState(BlockStateMatcher.forBlock(BOOKSHELF));
+            Predicate<CachedBlockInfo> glowstonePredicate =
+                    CachedBlockInfo.hasState(BlockStateMatcher.forBlock(GLOWSTONE));
             Predicate<CachedBlockInfo> lecternPredicate = CachedBlockInfo.hasState(BlockStateMatcher.forBlock(LECTERN));
 
             RELIQUARY_PATTERN = StructurePattern.build()
