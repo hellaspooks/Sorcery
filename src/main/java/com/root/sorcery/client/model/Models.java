@@ -31,7 +31,7 @@ public class Models
                 ".obj")).process(ImmutableMap.of("flip-v", "true"));
 
         TRSRTransformation modelTRSRT = ((TRSRTransformation) model.getDefaultState()).compose(new TRSRTransformation(
-                null,
+                new Vector3f(0.5f, 0.5f, 0.5f),
                 null,
                 new Vector3f(0.0625F, 0.0625F, 0.0625F),
                 null));

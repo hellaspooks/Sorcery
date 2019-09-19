@@ -2,7 +2,12 @@ package com.root.sorcery.blocks;
 
 import com.root.sorcery.structure.StructurePattern;
 import com.root.sorcery.tile_entities.TileReliquary;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.HorizontalBlock;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.pattern.BlockStateMatcher;
 import net.minecraft.item.BlockItemUseContext;
@@ -38,6 +43,18 @@ public class BlockReliquary extends Block
         Registry.register(Registry.BLOCK, registryName, this);
 
         setDefaultState(stateContainer.getBaseState().with(FACING, Direction.NORTH));
+    }
+
+    @Override
+    public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean isSolid(BlockState state)
+    {
+        return false;
     }
 
     @Override
