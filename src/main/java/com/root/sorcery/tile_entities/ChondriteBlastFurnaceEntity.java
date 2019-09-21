@@ -16,8 +16,11 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+//import org.checkerframework.checker.nullness.qual.NonNull;
+//import org.checkerframework.checker.nullness.qual.Nullable;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 //import static com.root.sorcery.blocks.ModBlock.chondrite_furnace_entity;
 
@@ -64,9 +67,9 @@ public class ChondriteBlastFurnaceEntity extends TileEntity implements ITickable
         return handler;
     }
 
-    @NonNull
+    @Nonnull
     @Override
-    public<T>LazyOptional<T> getCapability(@NonNull Capability<T> cap, @Nullable Direction side){
+    public<T>LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side){
 
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
             return LazyOptional.of(() -> (T) getHandler());
