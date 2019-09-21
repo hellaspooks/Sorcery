@@ -100,6 +100,7 @@ public class Sorcery
         {
             //event.getRegistry().register(TileEntityType.Builder.create(ChondriteBlastFurnaceEntity::new, ModBlock.chondrite_furnace).build(null).setRegistryName("chondrite_blast_furnace"));
             event.getRegistry().register(ModBlock.TILE_RELIQUARY.setRegistryName("reliquary"));
+            event.getRegistry().register(ModBlock.TILE_CHONDRITE_BLAST_FURNACE.setRegistryName("chondrite_blast_furnace"));
         }
 
     }
