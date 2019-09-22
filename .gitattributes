@@ -1,0 +1,5 @@
+* text eol=lf
+
+*.png binary
+*.obj text eol=lf
+*.json text eol=lf
