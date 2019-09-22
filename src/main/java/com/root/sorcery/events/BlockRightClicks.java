@@ -33,7 +33,7 @@ public class BlockRightClicks {
             return;
 
         if (!event.getPlayer().isSneaking()) {
-            Utils.dropItemInWorld(event.getPos(), event.getPlayer(), Crystals.getRandomCrystal(), 2f, event.getWorld());
+            Utils.dropItemInWorld(event.getPos(), Crystals.getRandomCrystal(), event.getWorld());
             ItemStack replaceItemStack = event.getPlayer().getHeldItemMainhand();
             replaceItemStack.setCount(replaceItemStack.getCount() - 1);
             event.getPlayer().inventory.setInventorySlotContents(Utils.getIndexOfMainHand(event.getPlayer()), replaceItemStack);
@@ -44,7 +44,7 @@ public class BlockRightClicks {
 
             ArrayList<ItemStack> items = Crystals.getRandomCrystal(amount);
             for (ItemStack item : items) {
-                Utils.dropItemInWorld(event.getPos(), event.getPlayer(), item, 2f, world);
+                Utils.dropItemInWorld(event.getPos(), item, world);
             }
 
             event.getPlayer().inventory.setInventorySlotContents(Utils.getIndexOfMainHand(event.getPlayer()), new ItemStack(Items.AIR));
