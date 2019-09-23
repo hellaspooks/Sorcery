@@ -1,25 +1,22 @@
 {
-
-
   "block.sorcery.polished_chondrite": "Polished Chondrite",
   "block.sorcery.chondrite_bricks": "Chondrite Bricks",
   "block.sorcery.chondrite_brick_stairs": "Chondrite Brick Stairs",
   "block.sorcery.chondrite_brick_slab": "Chondrite Brick Slab",
   "block.sorcery.chondrite_brick_wall": "Chondrite Brick Wall",
   "block.sorcery.chondrite_blast_furnace": "Chondrite Blast Furnace",
-
   "item.sorcery.chondrite_chunk": "Chondrite Chunk",
   "item.sorcery.lodestone": "Lodestone",
   "item.sorcery.chondrite_ingot": "Chondrite Ingot",
-   "item.sorcery.siderite_ingot": "Siderite Ingot",
-   "item.sorcery.chondrite_pickaxe": "Chondrite Pickaxe",
+  "item.sorcery.siderite_ingot": "Siderite Ingot",
+  "item.sorcery.chondrite_pickaxe": "Chondrite Pickaxe",
   "item.sorcery.chondrite_axe": "Chondrite Axe",
   "item.sorcery.chondrite_shovel": "Chondrite Shovel",
   "item.sorcery.chondrite_hoe": "Chondrite Hoe",
   "item.sorcery.siderite_pickaxe": "Siderite Pickaxe",
-    "item.sorcery.siderite_axe": "Siderite Axe",
-    "item.sorcery.siderite_shovel": "Siderite Shovel",
-    "item.sorcery.siderite_hoe": "Siderite Hoe",
+  "item.sorcery.siderite_axe": "Siderite Axe",
+  "item.sorcery.siderite_shovel": "Siderite Shovel",
+  "item.sorcery.siderite_hoe": "Siderite Hoe",
   "item.sorcery.geode": "Geode",
   "item.sorcery.sigil_slate": "Sigil Slate",
   "item.sorcery.sigil_evocation": " Evocation Sigil",
@@ -28,7 +25,5 @@
   "item.sorcery.sigil_abjuration": "Abjuration Sigil",
   "item.sorcery.sigil_necromancy": "Necromancy Sigil",
   "item.sorcery.sigil_transmutation": "Transmutation Sigil",
-
-
   "itemGroup.Sorcery": "Sorcery"
 }
