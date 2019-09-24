@@ -1,5 +1,6 @@
 package com.root.sorcery;
 
+import com.root.sorcery.arcana.CapabilityArcana;
 import com.root.sorcery.block.ModBlock;
 import com.root.sorcery.block.ModSlab;
 import com.root.sorcery.block.ModStairs;
@@ -45,7 +46,7 @@ public class Sorcery
         // Register the doClientStuff method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
-        // Register ourselves for server and other game event we are interested in
+        // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(BlockRightClickEvent.class);
         MinecraftForge.EVENT_BUS.register(StructureFormHandlerEvent.class);
@@ -72,7 +73,7 @@ public class Sorcery
         LOGGER.info("HELLO from server starting");
     }
 
-    // You can use EventBusSubscriber to automatically subscribe event on the contained class (this is subscribing to the MOD
+    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents
