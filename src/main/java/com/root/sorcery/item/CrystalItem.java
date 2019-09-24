@@ -1,29 +1,29 @@
-package com.root.sorcery.items;
+package com.root.sorcery.item;
 
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 
-public class Crystals extends ModItem {
+public class CrystalItem extends ModItem {
 
-    private Crystals(String registryName) {
+    private CrystalItem(String registryName) {
         super(registryName);
     }
 
-    public static Crystals carnelian;
-    public static Crystals chalcedony;
-    public static Crystals sugilite;
-    public static Crystals jasper;
-    public static Crystals serpentine;
-    public static Crystals nuummite;
+    public static CrystalItem carnelian;
+    public static CrystalItem chalcedony;
+    public static CrystalItem sugilite;
+    public static CrystalItem jasper;
+    public static CrystalItem serpentine;
+    public static CrystalItem nuummite;
 
     public static void init() {
-        carnelian = new Crystals("carnelian");
-        chalcedony = new Crystals("chalcedony");
-        sugilite = new Crystals("sugilite");
-        jasper = new Crystals("jasper");
-        serpentine = new Crystals("serpentine");
-        nuummite = new Crystals("nuummite");
+        carnelian = new CrystalItem("carnelian");
+        chalcedony = new CrystalItem("chalcedony");
+        sugilite = new CrystalItem("sugilite");
+        jasper = new CrystalItem("jasper");
+        serpentine = new CrystalItem("serpentine");
+        nuummite = new CrystalItem("nuummite");
     }
 
     public static ItemStack getRandomCrystal() {

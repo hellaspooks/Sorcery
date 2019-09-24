@@ -1,6 +1,6 @@
-package com.root.sorcery.events;
+package com.root.sorcery.event;
 
-import com.root.sorcery.blocks.BlockReliquary;
+import com.root.sorcery.block.ReliquaryBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
@@ -8,7 +8,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import static net.minecraft.block.LecternBlock.FACING;
 
-public class StructureFormHandler
+public class StructureFormHandlerEvent
 {
     @SubscribeEvent
     public static void onBlockPlaced(EntityPlaceEvent event)
@@ -16,7 +16,7 @@ public class StructureFormHandler
         if (event.getPlacedBlock().getBlock() == Blocks.LECTERN)
         {
             Direction direction = event.getEntity().getEntityWorld().getBlockState(event.getPos()).get(FACING).getOpposite();
-            BlockReliquary.checkAndTryPlacement(event.getEntity().getEntityWorld(), event.getPos(), direction);
+            ReliquaryBlock.checkAndTryPlacement(event.getEntity().getEntityWorld(), event.getPos(), direction);
         }
     }
 }

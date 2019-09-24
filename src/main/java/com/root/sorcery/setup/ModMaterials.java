@@ -1,10 +1,8 @@
 package com.root.sorcery.setup;
 
-import com.root.sorcery.items.ModItem;
+import com.root.sorcery.item.ModItem;
 import net.minecraft.item.IItemTier;
-import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
 import net.minecraft.util.LazyLoadBase;
 
 import java.util.function.Supplier;

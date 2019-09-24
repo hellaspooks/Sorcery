@@ -1,23 +1,18 @@
-package com.root.sorcery.tile_entities;
+package com.root.sorcery.tileentity;
 
-import com.root.sorcery.blocks.ModBlock;
-import net.minecraft.entity.player.PlayerEntity;
+import com.root.sorcery.block.ModBlock;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.BlastFurnaceContainer;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nonnull;
 
-public class TileChondriteBlastFurnace extends AbstractFurnaceTileEntity {
+public class ChondriteBlastFurnaceTileEntity extends AbstractFurnaceTileEntity {
 
-    public TileChondriteBlastFurnace(){
+    public ChondriteBlastFurnaceTileEntity(){
         super(ModBlock.TILE_CHONDRITE_BLAST_FURNACE, IRecipeType.BLASTING);
     }
 

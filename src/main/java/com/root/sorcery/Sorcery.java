@@ -1,13 +1,13 @@
 package com.root.sorcery;
 
 import com.root.sorcery.arcana.CapabilityArcana;
-import com.root.sorcery.blocks.ModBlock;
-import com.root.sorcery.blocks.ModSlab;
-import com.root.sorcery.blocks.ModStairs;
-import com.root.sorcery.blocks.ModWall;
-import com.root.sorcery.events.BlockRightClicks;
-import com.root.sorcery.events.StructureFormHandler;
-import com.root.sorcery.items.ModItem;
+import com.root.sorcery.block.ModBlock;
+import com.root.sorcery.block.ModSlab;
+import com.root.sorcery.block.ModStairs;
+import com.root.sorcery.block.ModWall;
+import com.root.sorcery.event.BlockRightClickEvent;
+import com.root.sorcery.event.StructureFormHandlerEvent;
+import com.root.sorcery.item.ModItem;
 import com.root.sorcery.setup.ClientProxy;
 import com.root.sorcery.setup.IProxy;
 import com.root.sorcery.setup.ModSetup;
@@ -48,19 +48,17 @@ public class Sorcery
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(BlockRightClicks.class);
-        MinecraftForge.EVENT_BUS.register(StructureFormHandler.class);
+        MinecraftForge.EVENT_BUS.register(BlockRightClickEvent.class);
+        MinecraftForge.EVENT_BUS.register(StructureFormHandlerEvent.class);
     }
 
-    private void setup(FMLCommonSetupEvent event)
+    private void setup(final FMLCommonSetupEvent event)
     {
-        CapabilityArcana.register();
-
         setup.init();
         proxy.init();
     }
 
-    private void doClientStuff(FMLClientSetupEvent event)
+    private void doClientStuff(final FMLClientSetupEvent event)
     {
         // do something that can only be done on the client
         LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
@@ -81,7 +79,7 @@ public class Sorcery
     public static class RegistryEvents
     {
         @SubscribeEvent
-        public static void onBlocksRegistry(RegistryEvent.Register<Block> event)
+        public static void onBlocksRegistry(final RegistryEvent.Register<Block> event)
         {
             ModBlock.init();
             ModStairs.init();
@@ -92,14 +90,14 @@ public class Sorcery
         }
 
         @SubscribeEvent
-        public static void onItemsRegistry(RegistryEvent.Register<Item> event)
+        public static void onItemsRegistry(final RegistryEvent.Register<Item> event)
         {
 
             ModItem.init();
         }
 
         @SubscribeEvent
-        public static void onTileEntityRegistry(RegistryEvent.Register<TileEntityType<?>> event)
+        public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event)
         {
             //event.getRegistry().register(TileEntityType.Builder.create(ChondriteBlastFurnaceEntity::new, ModBlock.chondrite_furnace).build(null).setRegistryName("chondrite_blast_furnace"));
             event.getRegistry().register(ModBlock.TILE_RELIQUARY.setRegistryName("reliquary"));
