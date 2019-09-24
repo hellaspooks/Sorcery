@@ -1,5 +1,6 @@
 package com.root.sorcery;
 
+import com.root.sorcery.arcana.CapabilityArcana;
 import com.root.sorcery.blocks.ModBlock;
 import com.root.sorcery.blocks.ModSlab;
 import com.root.sorcery.blocks.ModStairs;
@@ -51,13 +52,15 @@ public class Sorcery
         MinecraftForge.EVENT_BUS.register(StructureFormHandler.class);
     }
 
-    private void setup(final FMLCommonSetupEvent event)
+    private void setup(FMLCommonSetupEvent event)
     {
+        CapabilityArcana.register();
+
         setup.init();
         proxy.init();
     }
 
-    private void doClientStuff(final FMLClientSetupEvent event)
+    private void doClientStuff(FMLClientSetupEvent event)
     {
         // do something that can only be done on the client
         LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
@@ -78,7 +81,7 @@ public class Sorcery
     public static class RegistryEvents
     {
         @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> event)
+        public static void onBlocksRegistry(RegistryEvent.Register<Block> event)
         {
             ModBlock.init();
             ModStairs.init();
@@ -89,14 +92,14 @@ public class Sorcery
         }
 
         @SubscribeEvent
-        public static void onItemsRegistry(final RegistryEvent.Register<Item> event)
+        public static void onItemsRegistry(RegistryEvent.Register<Item> event)
         {
 
             ModItem.init();
         }
 
         @SubscribeEvent
-        public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event)
+        public static void onTileEntityRegistry(RegistryEvent.Register<TileEntityType<?>> event)
         {
             //event.getRegistry().register(TileEntityType.Builder.create(ChondriteBlastFurnaceEntity::new, ModBlock.chondrite_furnace).build(null).setRegistryName("chondrite_blast_furnace"));
             event.getRegistry().register(ModBlock.TILE_RELIQUARY.setRegistryName("reliquary"));
