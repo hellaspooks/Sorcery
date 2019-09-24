@@ -1,12 +1,12 @@
 package com.root.sorcery;
 
-import com.root.sorcery.blocks.ModBlock;
-import com.root.sorcery.blocks.ModSlab;
-import com.root.sorcery.blocks.ModStairs;
-import com.root.sorcery.blocks.ModWall;
-import com.root.sorcery.events.BlockRightClicks;
-import com.root.sorcery.events.StructureFormHandler;
-import com.root.sorcery.items.ModItem;
+import com.root.sorcery.block.ModBlock;
+import com.root.sorcery.block.ModSlab;
+import com.root.sorcery.block.ModStairs;
+import com.root.sorcery.block.ModWall;
+import com.root.sorcery.event.BlockRightClickEvent;
+import com.root.sorcery.event.StructureFormHandlerEvent;
+import com.root.sorcery.item.ModItem;
 import com.root.sorcery.setup.ClientProxy;
 import com.root.sorcery.setup.IProxy;
 import com.root.sorcery.setup.ModSetup;
@@ -45,10 +45,10 @@ public class Sorcery
         // Register the doClientStuff method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
-        // Register ourselves for server and other game events we are interested in
+        // Register ourselves for server and other game event we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(BlockRightClicks.class);
-        MinecraftForge.EVENT_BUS.register(StructureFormHandler.class);
+        MinecraftForge.EVENT_BUS.register(BlockRightClickEvent.class);
+        MinecraftForge.EVENT_BUS.register(StructureFormHandlerEvent.class);
     }
 
     private void setup(final FMLCommonSetupEvent event)
@@ -72,7 +72,7 @@ public class Sorcery
         LOGGER.info("HELLO from server starting");
     }
 
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
+    // You can use EventBusSubscriber to automatically subscribe event on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents

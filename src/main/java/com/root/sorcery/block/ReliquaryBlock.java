@@ -1,7 +1,7 @@
-package com.root.sorcery.blocks;
+package com.root.sorcery.block;
 
 import com.root.sorcery.structure.StructurePattern;
-import com.root.sorcery.tile_entities.TileReliquary;
+import com.root.sorcery.tileentity.ReliquaryTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -27,16 +27,16 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static com.root.sorcery.blocks.ModBlock.reliquary;
+import static com.root.sorcery.block.ModBlock.reliquary;
 import static net.minecraft.block.Blocks.*;
 
-public class BlockReliquary extends Block
+public class ReliquaryBlock extends Block
 {
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 
     private static StructurePattern RELIQUARY_PATTERN;
 
-    public BlockReliquary(Material material, Float hardness, Float resistance, SoundType sound, String registryName)
+    public ReliquaryBlock(Material material, Float hardness, Float resistance, SoundType sound, String registryName)
     {
         super(Properties.create(material).sound(sound).hardnessAndResistance(hardness, resistance));
         setRegistryName(registryName);
@@ -97,7 +97,7 @@ public class BlockReliquary extends Block
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        return new TileReliquary();
+        return new ReliquaryTileEntity();
     }
 
     public static void checkAndTryPlacement(World w, BlockPos pos, Direction direction)

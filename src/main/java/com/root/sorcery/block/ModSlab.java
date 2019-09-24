@@ -1,4 +1,4 @@
-package com.root.sorcery.blocks;
+package com.root.sorcery.block;
 
 import com.root.sorcery.setup.ModSetup;
 import net.minecraft.block.Block;

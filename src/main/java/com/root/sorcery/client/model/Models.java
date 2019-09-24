@@ -52,6 +52,6 @@ public class Models
     @SubscribeEvent
     public static void onPreTextureStitch(TextureStitchEvent.Pre event)
     {
-        event.addSprite(ResourceLocation.tryCreate(MODID + ":blocks/reliquary"));
+        event.addSprite(ResourceLocation.tryCreate(MODID + ":block/reliquary"));
     }
 }

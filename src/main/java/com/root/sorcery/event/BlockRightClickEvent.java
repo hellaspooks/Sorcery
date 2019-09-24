@@ -1,7 +1,7 @@
-package com.root.sorcery.events;
+package com.root.sorcery.event;
 
-import com.root.sorcery.items.Crystals;
-import com.root.sorcery.items.Geode;
+import com.root.sorcery.item.CrystalItem;
+import com.root.sorcery.item.GeodeItem;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -15,7 +15,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.ArrayList;
 
-public class BlockRightClicks {
+public class BlockRightClickEvent {
 
     @SubscribeEvent
     public static void leftClickStoneCutter(PlayerInteractEvent.LeftClickBlock event) {
@@ -29,11 +29,11 @@ public class BlockRightClicks {
             return;
         if (itemUsed == null)
             return;
-        if (!Geode.isGeode(itemUsed))
+        if (!GeodeItem.isGeode(itemUsed))
             return;
 
         if (!event.getPlayer().isSneaking()) {
-            Utils.dropItemInWorld(event.getPos(), Crystals.getRandomCrystal(), event.getWorld());
+            Utils.dropItemInWorld(event.getPos(), CrystalItem.getRandomCrystal(), event.getWorld());
             ItemStack replaceItemStack = event.getPlayer().getHeldItemMainhand();
             replaceItemStack.setCount(replaceItemStack.getCount() - 1);
             event.getPlayer().inventory.setInventorySlotContents(Utils.getIndexOfMainHand(event.getPlayer()), replaceItemStack);
@@ -42,7 +42,7 @@ public class BlockRightClicks {
             int amount = itemStack.getCount();
             World world = event.getWorld();
 
-            ArrayList<ItemStack> items = Crystals.getRandomCrystal(amount);
+            ArrayList<ItemStack> items = CrystalItem.getRandomCrystal(amount);
             for (ItemStack item : items) {
                 Utils.dropItemInWorld(event.getPos(), item, world);
             }
