@@ -1,6 +1,5 @@
 package com.root.sorcery;
 
-import com.root.sorcery.arcana.CapabilityArcana;
 import com.root.sorcery.block.ModBlock;
 import com.root.sorcery.block.ModSlab;
 import com.root.sorcery.block.ModStairs;
@@ -12,9 +11,11 @@ import com.root.sorcery.setup.ClientProxy;
 import com.root.sorcery.setup.IProxy;
 import com.root.sorcery.setup.ModSetup;
 import com.root.sorcery.setup.ServerProxy;
+import com.root.sorcery.spell.ModSpell;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,8 +25,11 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.RegistryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.root.sorcery.spell.Spell;
+import com.root.sorcery.spell.TestSpell;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Constants.MODID)
@@ -78,6 +82,20 @@ public class Sorcery
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents
     {
+
+        @SubscribeEvent
+        public static void registerRegistry(RegistryEvent.NewRegistry event){
+            new RegistryBuilder<Spell>().setType(Spell.class)
+                    .setName(new ResourceLocation(Constants.MODID, "spell"))
+                    .create();
+
+        }
+
+        @SubscribeEvent
+        public static void registerSpells(RegistryEvent.Register<Spell> event){
+            ModSpell.registerSpells(event);
+        }
+
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event)
         {
