@@ -11,7 +11,7 @@ public class GeodeItem extends ModItem {
     public static GeodeItem geodeItem;
     
     public static void init(){
-        geodeItem = new GeodeItem("geodeItem");
+        geodeItem = new GeodeItem("geode_item");
     }
 
     public static boolean isGeode(Item item) {
