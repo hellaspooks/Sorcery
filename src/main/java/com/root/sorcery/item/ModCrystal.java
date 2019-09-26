@@ -3,7 +3,8 @@ package com.root.sorcery.item;
 /**
  * Registration for Crystal items.
  */
-public class ModCrystal extends ModItem{
+public class ModCrystal extends ModItem
+{
 
 
     public static CrystalItem carnelian;
@@ -13,7 +14,8 @@ public class ModCrystal extends ModItem{
     public static CrystalItem serpentine;
     public static CrystalItem nuummite;
 
-    public static void init() {
+    public static void init()
+    {
         carnelian = new CrystalItem("carnelian");
         chalcedony = new CrystalItem("chalcedony");
         sugilite = new CrystalItem("sugilite");

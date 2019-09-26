@@ -6,7 +6,8 @@ package com.root.sorcery.item;
  * ModGeode, ModCrystal, and ModTools.
  * Note that this split is organizational only, and it doesn't really matter where its registered, as long as it is.
  */
-public class ModItem {
+public class ModItem
+{
 
 
 
@@ -23,7 +24,8 @@ public class ModItem {
     public static ItemBase sigil_transmutation;
 
 
-    public static void init(){
+    public static void init()
+    {
         lodestone = new ItemBase( "lodestone");
         chondrite_chunk = new ItemBase( "chondrite_chunk");
         chondrite_ingot = new ItemBase("chondrite_ingot");

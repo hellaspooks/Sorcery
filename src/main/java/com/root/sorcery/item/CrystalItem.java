@@ -6,17 +6,21 @@ import java.util.ArrayList;
 
 import static com.root.sorcery.item.ModCrystal.*;
 
-public class CrystalItem extends ItemBase {
+public class CrystalItem extends ItemBase
+{
 
-    public CrystalItem(String registryName) {
+    public CrystalItem(String registryName)
+    {
         super(registryName);
     }
 
 
-    public static ItemStack getRandomCrystal() {
+    public static ItemStack getRandomCrystal()
+    {
         int randomNumb = (int) ((Math.random() * 6) + 1);
 
-        switch (randomNumb) {
+        switch (randomNumb)
+        {
             case 1:
                 return new ItemStack(carnelian.getItem());
             case 2:
@@ -34,15 +38,18 @@ public class CrystalItem extends ItemBase {
         }
     }
 
-    public static ArrayList<ItemStack> getRandomCrystal(int amount) {
+    public static ArrayList<ItemStack> getRandomCrystal(int amount)
+    {
         int randomNumb;
         ArrayList<ItemStack> crystals = new ArrayList<>();
 
         int carn = 0, cha = 0, sug = 0, jas = 0, ser = 0, nuu = 0;
 
-        for (int i = 0; i < amount; i++) {
+        for (int i = 0; i < amount; i++)
+        {
             randomNumb = (int) (Math.random() * 6 + 1);
-            switch (randomNumb) {
+            switch (randomNumb)
+            {
                 case 1:
                     carn++;
                     break;

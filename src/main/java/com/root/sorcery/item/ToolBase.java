@@ -27,11 +27,13 @@ import java.util.Set;
 import static com.root.sorcery.item.ModTools.chondrite_hoe;
 import static com.root.sorcery.item.ModTools.siderite_hoe;
 
-public class ToolBase extends ToolItem {
+public class ToolBase extends ToolItem
+{
 
     protected static final Map<Block, BlockState> HOE_LOOKUP = Maps.newHashMap(ImmutableMap.of(Blocks.GRASS_BLOCK, Blocks.FARMLAND.getDefaultState(), Blocks.GRASS_PATH, Blocks.FARMLAND.getDefaultState(), Blocks.DIRT, Blocks.FARMLAND.getDefaultState(), Blocks.COARSE_DIRT, Blocks.DIRT.getDefaultState()));
 
-    public ToolBase(@Nullable float attackDamageIn, float attackSpeedIn, IItemTier tier, @Nullable Set<Block> set, @Nullable ToolType type, Item.Properties properties, String registryName) {
+    public ToolBase(@Nullable float attackDamageIn, float attackSpeedIn, IItemTier tier, @Nullable Set<Block> set, @Nullable ToolType type, Item.Properties properties, String registryName)
+    {
         super(attackDamageIn, attackSpeedIn, tier, set, properties.group(ModSetup.sorcery).addToolType(type, tier.getHarvestLevel()));
         this.setRegistryName(registryName);
         Registry.register(Registry.ITEM, registryName, this);
@@ -39,21 +41,28 @@ public class ToolBase extends ToolItem {
 
     }
 
-    public ActionResultType onItemUse(ItemUseContext context) {
-        if(context.getItem().getItem() == chondrite_hoe.getItem() || context.getItem().getItem() == siderite_hoe.getItem()){
+    public ActionResultType onItemUse(ItemUseContext context)
+    {
+        if(context.getItem().getItem() == chondrite_hoe.getItem() || context.getItem().getItem() == siderite_hoe.getItem())
+        {
             World world = context.getWorld();
             BlockPos blockpos = context.getPos();
             int hook = net.minecraftforge.event.ForgeEventFactory.onHoeUse(context);
             if (hook != 0) return hook > 0 ? ActionResultType.SUCCESS : ActionResultType.FAIL;
-            if (context.getFace() != Direction.DOWN && world.isAirBlock(blockpos.up())) {
+            if (context.getFace() != Direction.DOWN && world.isAirBlock(blockpos.up()))
+            {
                 BlockState blockstate = HOE_LOOKUP.get(world.getBlockState(blockpos).getBlock());
-                if (blockstate != null) {
+                if (blockstate != null)
+                {
                     PlayerEntity playerentity = context.getPlayer();
                     world.playSound(playerentity, blockpos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    if (!world.isRemote) {
+                    if (!world.isRemote)
+                    {
                         world.setBlockState(blockpos, blockstate, 11);
-                        if (playerentity != null) {
-                            context.getItem().damageItem(1, playerentity, (p_220043_1_) -> {
+                        if (playerentity != null)
+                        {
+                            context.getItem().damageItem(1, playerentity, (p_220043_1_) ->
+                            {
                                 p_220043_1_.sendBreakAnimation(context.getHand());
                             });
                         }
