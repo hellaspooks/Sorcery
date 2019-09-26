@@ -1,4 +1,4 @@
-package com.root.sorcery.item;
+package com.root.sorcery.item.tool;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -16,7 +16,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 
@@ -24,19 +23,17 @@ import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Set;
 
-import static com.root.sorcery.item.ModTools.chondrite_hoe;
-import static com.root.sorcery.item.ModTools.siderite_hoe;
+import static com.root.sorcery.item.tool.ModTool.chondrite_hoe;
+import static com.root.sorcery.item.tool.ModTool.siderite_hoe;
 
-public class ToolBase extends ToolItem
+public class ToolMod extends ToolItem
 {
 
     protected static final Map<Block, BlockState> HOE_LOOKUP = Maps.newHashMap(ImmutableMap.of(Blocks.GRASS_BLOCK, Blocks.FARMLAND.getDefaultState(), Blocks.GRASS_PATH, Blocks.FARMLAND.getDefaultState(), Blocks.DIRT, Blocks.FARMLAND.getDefaultState(), Blocks.COARSE_DIRT, Blocks.DIRT.getDefaultState()));
 
-    public ToolBase(@Nullable float attackDamageIn, float attackSpeedIn, IItemTier tier, @Nullable Set<Block> set, @Nullable ToolType type, Item.Properties properties, String registryName)
+    public ToolMod(@Nullable float attackDamageIn, float attackSpeedIn, IItemTier tier, @Nullable Set<Block> set, @Nullable ToolType type, Item.Properties properties)
     {
         super(attackDamageIn, attackSpeedIn, tier, set, properties.group(ModSetup.sorcery).addToolType(type, tier.getHarvestLevel()));
-        this.setRegistryName(registryName);
-        Registry.register(Registry.ITEM, registryName, this);
 
 
     }

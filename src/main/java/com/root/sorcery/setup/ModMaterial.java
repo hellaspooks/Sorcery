@@ -7,7 +7,7 @@ import net.minecraft.util.LazyLoadBase;
 
 import java.util.function.Supplier;
 
-    public enum ModMaterials implements IItemTier {
+    public enum ModMaterial implements IItemTier {
         CHONDRITE(2, 300, 6.5F, 2.0F, 18, () -> {
             return Ingredient.fromItems(ModItem.chondrite_ingot);
         }),
@@ -22,7 +22,7 @@ import java.util.function.Supplier;
         private final int enchantability;
         private final LazyLoadBase<Ingredient> repairMaterial;
 
-        private ModMaterials(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn, int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
+        private ModMaterial(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn, int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
             this.harvestLevel = harvestLevelIn;
             this.maxUses = maxUsesIn;
             this.efficiency = efficiencyIn;

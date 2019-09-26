@@ -2,13 +2,13 @@ package com.root.sorcery.item;
 
 import net.minecraft.item.Item;
 
-import static com.root.sorcery.item.ModGeode.geodeItem;
+import static com.root.sorcery.item.ModItem.geode;
 
-public class GeodeItem extends ItemBase
+public class GeodeItem extends ItemMod
 {
-    public GeodeItem(String registryName)
+    public GeodeItem()
     {
-        super(registryName);
+        super();
     }
     
     
@@ -16,7 +16,7 @@ public class GeodeItem extends ItemBase
 
     public static boolean isGeode(Item item)
     {
-        if (geodeItem.getItem() == item)
+        if (geode.getItem() == item)
             return true;
         return false;
     }
