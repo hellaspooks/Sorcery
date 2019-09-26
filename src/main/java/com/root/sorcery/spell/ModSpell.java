@@ -2,7 +2,8 @@ package com.root.sorcery.spell;
 
 import net.minecraftforge.event.RegistryEvent.Register;
 
-public class ModSpell {
+public class ModSpell
+{
 
     public static final Spell testSpell = new TestSpell().setRegistryName("testspell");
 
