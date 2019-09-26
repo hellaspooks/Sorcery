@@ -1,45 +1,45 @@
 package com.root.sorcery.item;
 
-import com.root.sorcery.setup.ModSetup;
-import net.minecraft.item.Item;
-import net.minecraft.util.registry.Registry;
+/**
+ * Here is where we register the items in the mod.
+ * Registration can be handled either here directly, or in sub-classes as seen below with
+ * ModGeode, ModCrystal, and ModTools.
+ * Note that this split is organizational only, and it doesn't really matter where its registered, as long as it is.
+ */
+public class ModItem
+{
 
-public class ModItem extends Item {
 
-    ModItem(String registryName){
-        super(new Item.Properties().group(ModSetup.sorcery));
-        this.setRegistryName(registryName);
-        Registry.register(Registry.ITEM, registryName, this);
 
-    }
+    public static ItemBase lodestone;
+    public static ItemBase chondrite_chunk;
+    public static ItemBase chondrite_ingot;
+    public static ItemBase siderite_ingot;
+    public static ItemBase sigil_slate;
+    public static ItemBase sigil_evocation;
+    public static ItemBase sigil_conjuration;
+    public static ItemBase sigil_abjuration;
+    public static ItemBase sigil_enchantment;
+    public static ItemBase sigil_necromancy;
+    public static ItemBase sigil_transmutation;
 
-    public static ModItem lodestone;
-    public static ModItem chondrite_chunk;
-    public static ModItem chondrite_ingot;
-    public static ModItem siderite_ingot;
-    public static ModItem sigil_slate;
-    public static ModItem sigil_evocation;
-    public static ModItem sigil_conjuration;
-    public static ModItem sigil_abjuration;
-    public static ModItem sigil_enchantment;
-    public static ModItem sigil_necromancy;
-    public static ModItem sigil_transmutation;
 
-    public static void init(){
-        lodestone = new ModItem( "lodestone");
-        chondrite_chunk = new ModItem( "chondrite_chunk");
-        chondrite_ingot = new ModItem("chondrite_ingot");
-        siderite_ingot = new ModItem("siderite_ingot");
-        sigil_slate = new ModItem("sigil_slate");
-        sigil_evocation = new ModItem("sigil_evocation");
-        sigil_conjuration = new ModItem("sigil_conjuration");
-        sigil_abjuration = new ModItem("sigil_abjuration");
-        sigil_enchantment = new ModItem("sigil_enchantment");
-        sigil_necromancy = new ModItem("sigil_necromancy");
-        sigil_transmutation = new ModItem("sigil_transmutation");
-        
-        GeodeItem.init();
-        CrystalItem.init();
+    public static void init()
+    {
+        lodestone = new ItemBase( "lodestone");
+        chondrite_chunk = new ItemBase( "chondrite_chunk");
+        chondrite_ingot = new ItemBase("chondrite_ingot");
+        siderite_ingot = new ItemBase("siderite_ingot");
+        sigil_slate = new ItemBase("sigil_slate");
+        sigil_evocation = new ItemBase("sigil_evocation");
+        sigil_conjuration = new ItemBase("sigil_conjuration");
+        sigil_abjuration = new ItemBase("sigil_abjuration");
+        sigil_enchantment = new ItemBase("sigil_enchantment");
+        sigil_necromancy = new ItemBase("sigil_necromancy");
+        sigil_transmutation = new ItemBase("sigil_transmutation");
+
+        ModGeode.init();
+        ModCrystal.init();
         ModTools.init();
     }
 }

@@ -4,32 +4,23 @@ import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 
-public class CrystalItem extends ModItem {
+import static com.root.sorcery.item.ModCrystal.*;
 
-    private CrystalItem(String registryName) {
+public class CrystalItem extends ItemBase
+{
+
+    public CrystalItem(String registryName)
+    {
         super(registryName);
     }
 
-    public static CrystalItem carnelian;
-    public static CrystalItem chalcedony;
-    public static CrystalItem sugilite;
-    public static CrystalItem jasper;
-    public static CrystalItem serpentine;
-    public static CrystalItem nuummite;
 
-    public static void init() {
-        carnelian = new CrystalItem("carnelian");
-        chalcedony = new CrystalItem("chalcedony");
-        sugilite = new CrystalItem("sugilite");
-        jasper = new CrystalItem("jasper");
-        serpentine = new CrystalItem("serpentine");
-        nuummite = new CrystalItem("nuummite");
-    }
+    public static ItemStack getRandomCrystal()
+    {
+        int randomNumb = (int) ((Math.random() * 6) + 1);
 
-    public static ItemStack getRandomCrystal() {
-        int randomNumb = (int) (Math.random() * 6 + 1);
-
-        switch (randomNumb) {
+        switch (randomNumb)
+        {
             case 1:
                 return new ItemStack(carnelian.getItem());
             case 2:
@@ -47,15 +38,18 @@ public class CrystalItem extends ModItem {
         }
     }
 
-    public static ArrayList<ItemStack> getRandomCrystal(int amount) {
+    public static ArrayList<ItemStack> getRandomCrystal(int amount)
+    {
         int randomNumb;
         ArrayList<ItemStack> crystals = new ArrayList<>();
 
         int carn = 0, cha = 0, sug = 0, jas = 0, ser = 0, nuu = 0;
 
-        for (int i = 0; i < amount; i++) {
+        for (int i = 0; i < amount; i++)
+        {
             randomNumb = (int) (Math.random() * 6 + 1);
-            switch (randomNumb) {
+            switch (randomNumb)
+            {
                 case 1:
                     carn++;
                     break;

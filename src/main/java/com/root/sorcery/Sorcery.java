@@ -29,7 +29,6 @@ import net.minecraftforge.registries.RegistryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.root.sorcery.spell.Spell;
-import com.root.sorcery.spell.TestSpell;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Constants.MODID)
