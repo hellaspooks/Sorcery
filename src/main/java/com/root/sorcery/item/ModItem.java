@@ -1,7 +1,8 @@
 package com.root.sorcery.item;
 
 import net.minecraft.item.Item;
-import net.minecraft.util.registry.Registry;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.registries.ObjectHolder;
 
 /**
  * Here is where we register the items in the mod.
@@ -15,63 +16,85 @@ public class ModItem
 
 
     // Materials
+    @ObjectHolder("sorcery:lodestone")
     public static Item lodestone;
+
+    @ObjectHolder("sorcery:chondrite_chunk")
     public static Item chondrite_chunk;
+
+    @ObjectHolder("sorcery:chondrite_ingot")
     public static Item chondrite_ingot;
+
+    @ObjectHolder("sorcery:siderite_ingot")
     public static Item siderite_ingot;
+
+    @ObjectHolder("sorcery:sigil_slate")
     public static Item sigil_slate;
 
     // Sigils
+    @ObjectHolder("sorcery:sigil_evocation")
     public static Item sigil_evocation;
+    @ObjectHolder("sorcery:sigil_conjuration")
     public static Item sigil_conjuration;
+    @ObjectHolder("sorcery:sigil_abjuration")
     public static Item sigil_abjuration;
+    @ObjectHolder("sorcery:sigil_enchantment")
     public static Item sigil_enchantment;
+    @ObjectHolder("sorcery:sigil_necromancy")
     public static Item sigil_necromancy;
+    @ObjectHolder("sorcery:sigil_transmutation")
     public static Item sigil_transmutation;
 
 
     // Crystals
+    @ObjectHolder("sorcery:carnelian")
     public static Item carnelian;
+    @ObjectHolder("sorcery:chalcedony")
     public static Item chalcedony;
+    @ObjectHolder("sorcery:sugilite")
     public static Item sugilite;
+    @ObjectHolder("sorcery:jasper")
     public static Item jasper;
+    @ObjectHolder("sorcery:serpentine")
     public static Item serpentine;
+    @ObjectHolder("sorcery:nuummite")
     public static Item nuummite;
 
     // Geode
+    @ObjectHolder("sorcery:geode")
     public static Item geode;
 
-    public static void init()
+    public static void init(RegistryEvent.Register<Item> event)
     {
         // Materials
-        lodestone = itemFactory(ItemEnum.MATERIAL, "lodestone");
-        chondrite_chunk = itemFactory(ItemEnum.MATERIAL, "chondrite_chunk");
-        chondrite_ingot = itemFactory(ItemEnum.MATERIAL, "chondrite_ingot");
-        siderite_ingot = itemFactory(ItemEnum.MATERIAL, "siderite_ingot");
-        sigil_slate = itemFactory(ItemEnum.MATERIAL, "sigil_slate");
+        lodestone = itemFactory(ItemEnum.MATERIAL, "lodestone", event);
+        chondrite_chunk = itemFactory(ItemEnum.MATERIAL, "chondrite_chunk", event);
+        chondrite_ingot = itemFactory(ItemEnum.MATERIAL, "chondrite_ingot", event);
+        siderite_ingot = itemFactory(ItemEnum.MATERIAL, "siderite_ingot", event);
+        sigil_slate = itemFactory(ItemEnum.MATERIAL, "sigil_slate", event);
 
         // Sigils
-        sigil_evocation = itemFactory(ItemEnum.SIGIL, "sigil_evocation");
-        sigil_conjuration = itemFactory(ItemEnum.SIGIL,"sigil_conjuration");
-        sigil_abjuration = itemFactory(ItemEnum.SIGIL,"sigil_abjuration");
-        sigil_enchantment = itemFactory(ItemEnum.SIGIL,"sigil_enchantment");
-        sigil_necromancy = itemFactory(ItemEnum.SIGIL,"sigil_necromancy");
-        sigil_transmutation = itemFactory(ItemEnum.SIGIL,"sigil_transmutation");
+        sigil_evocation = itemFactory(ItemEnum.SIGIL, "sigil_evocation", event);
+        sigil_conjuration = itemFactory(ItemEnum.SIGIL,"sigil_conjuration", event);
+        sigil_abjuration = itemFactory(ItemEnum.SIGIL,"sigil_abjuration", event);
+        sigil_enchantment = itemFactory(ItemEnum.SIGIL,"sigil_enchantment", event);
+        sigil_necromancy = itemFactory(ItemEnum.SIGIL,"sigil_necromancy", event);
+        sigil_transmutation = itemFactory(ItemEnum.SIGIL,"sigil_transmutation", event);
 
         // Crystals
-        carnelian = itemFactory(ItemEnum.CRYSTAL,"carnelian");
-        chalcedony = itemFactory(ItemEnum.CRYSTAL, "chalcedony");
-        sugilite = itemFactory(ItemEnum.CRYSTAL,"sugilite");
-        jasper = itemFactory(ItemEnum.CRYSTAL,"jasper");
-        serpentine = itemFactory(ItemEnum.CRYSTAL,"serpentine");
-        nuummite = itemFactory(ItemEnum.CRYSTAL,"nuummite");
+        carnelian = itemFactory(ItemEnum.CRYSTAL,"carnelian", event);
+        chalcedony = itemFactory(ItemEnum.CRYSTAL, "chalcedony", event);
+        sugilite = itemFactory(ItemEnum.CRYSTAL,"sugilite", event);
+        jasper = itemFactory(ItemEnum.CRYSTAL,"jasper", event);
+        serpentine = itemFactory(ItemEnum.CRYSTAL,"serpentine", event);
+        nuummite = itemFactory(ItemEnum.CRYSTAL,"nuummite", event);
 
         // Geode
-        geode = itemFactory(ItemEnum.GEODE, "geode");
+        geode = itemFactory(ItemEnum.GEODE, "geode", event);
 
     }
 
-    public static Item itemFactory(ItemEnum itemEnum, String registryName)
+    public static Item itemFactory(ItemEnum itemEnum, String registryName, RegistryEvent.Register<Item> event)
     {
         Item item = null;
         switch (itemEnum)
@@ -94,7 +117,7 @@ public class ModItem
         }
 
         item.setRegistryName(registryName);
-        Registry.register(Registry.ITEM, registryName, item);
+        event.getRegistry().register(item);
 
         return item;
 

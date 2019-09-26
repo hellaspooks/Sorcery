@@ -111,8 +111,8 @@ public class Sorcery
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event)
         {
 
-            ModItem.init();
-            ModTool.init();
+            ModItem.init(event);
+            ModTool.init(event);
         }
 
         @SubscribeEvent

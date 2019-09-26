@@ -2,14 +2,19 @@ package com.root.sorcery.item.tool;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import com.root.sorcery.item.tool.ToolMod;
 import com.root.sorcery.setup.ModMaterial;
 import com.root.sorcery.setup.ModSetup;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.*;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.item.AxeItem;
+import net.minecraft.item.HoeItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.ShovelItem;
+import net.minecraft.item.ToolItem;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.registries.ObjectHolder;
 
 import javax.annotation.Nullable;
 import java.util.Set;
@@ -27,36 +32,51 @@ public class ModTool
 
 
 
+    @ObjectHolder("sorcery:chondrite_pickaxe")
     public static ToolItem chondrite_pickaxe;
+
+    @ObjectHolder("sorcery:siderite_pickaxe")
     public static ToolItem siderite_pickaxe;
+
+    @ObjectHolder("sorcery:chondrite_axe")
     public static ToolItem chondrite_axe;
+
+    @ObjectHolder("sorcery:siderite_axe")
     public static ToolItem siderite_axe;
+
+    @ObjectHolder("sorcery:chondrite_shovel")
     public static ToolItem chondrite_shovel;
+
+    @ObjectHolder("sorcery:siderite_shovel")
     public static ToolItem siderite_shovel;
+
+    @ObjectHolder("sorcery:chondrite_hoe")
     public static ToolItem chondrite_hoe;
+
+    @ObjectHolder("sorcery:siderite_hoe")
     public static ToolItem siderite_hoe;
 
 
-    public static void init()
+    public static void init(RegistryEvent.Register<Item> event)
     {
         // Pickaxes
-        chondrite_pickaxe = toolFactory(ToolType.PICKAXE, ModMaterial.CHONDRITE, "chondrite_pickaxe" , 1.0F, 1.5F);
-        siderite_pickaxe = toolFactory(ToolType.PICKAXE, ModMaterial.SIDERITE, "siderite_pickaxe", 2.0F, 2.5F);
+        chondrite_pickaxe = toolFactory(ToolType.PICKAXE, ModMaterial.CHONDRITE, "chondrite_pickaxe" , 1.0F, 1.5F, event);
+        siderite_pickaxe = toolFactory(ToolType.PICKAXE, ModMaterial.SIDERITE, "siderite_pickaxe", 2.0F, 2.5F, event);
 
         // Axes
-        chondrite_axe = toolFactory(ToolType.AXE, ModMaterial.CHONDRITE, "chondrite_axe", 2.0f, 1.5f);
-        siderite_axe = toolFactory(ToolType.AXE, ModMaterial.SIDERITE, "siderite_axe", 2.5f, 3.0f);
+        chondrite_axe = toolFactory(ToolType.AXE, ModMaterial.CHONDRITE, "chondrite_axe", 2.0f, 1.5f, event);
+        siderite_axe = toolFactory(ToolType.AXE, ModMaterial.SIDERITE, "siderite_axe", 2.5f, 3.0f, event);
 
         // Shovels
-        chondrite_shovel = toolFactory(ToolType.SHOVEL, ModMaterial.CHONDRITE, "chondrite_shovel", 1.0F, 1.0F);
-        siderite_shovel = toolFactory(ToolType.SHOVEL, ModMaterial.SIDERITE, "siderite_shovel", 1.5F, 2.0F);
+        chondrite_shovel = toolFactory(ToolType.SHOVEL, ModMaterial.CHONDRITE, "chondrite_shovel", 1.0F, 1.0F, event);
+        siderite_shovel = toolFactory(ToolType.SHOVEL, ModMaterial.SIDERITE, "siderite_shovel", 1.5F, 2.0F, event);
 
         // Hoes
-        chondrite_hoe = toolFactory(null, ModMaterial.CHONDRITE, "chondrite_hoe", 0.0F, 1.0F);
-        siderite_hoe = toolFactory(null, ModMaterial.SIDERITE, "siderite_hoe", 0.0F, 2.0F);
+        chondrite_hoe = toolFactory(null, ModMaterial.CHONDRITE, "chondrite_hoe", 0.0F, 1.0F, event);
+        siderite_hoe = toolFactory(null, ModMaterial.SIDERITE, "siderite_hoe", 0.0F, 2.0F, event);
     }
 
-    public static ToolItem toolFactory(@Nullable ToolType toolType, ModMaterial material, String registryName, float attackDamage, float attackSpeed)
+    public static ToolItem toolFactory(@Nullable ToolType toolType, ModMaterial material, String registryName, float attackDamage, float attackSpeed, RegistryEvent.Register<Item> event)
     {
         ToolItem toolItem = null;
 
@@ -84,7 +104,7 @@ public class ModTool
 
         }
         toolItem.setRegistryName(registryName);
-        Registry.register(Registry.ITEM, registryName, toolItem);
+        event.getRegistry().register(toolItem);
         return toolItem;
 
     }
