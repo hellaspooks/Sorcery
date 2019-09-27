@@ -1,8 +1,12 @@
 package com.root.sorcery.item;
-
+import com.root.sorcery.block.ModBlock;
+import com.root.sorcery.setup.ModSetup;
+import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
+
 
 /**
  * Here is where we register the items in the mod.
@@ -92,6 +96,26 @@ public class ModItem
         // Geode
         geode = itemFactory(ItemEnum.GEODE, "geode", event);
 
+        // Register Block Items
+        Item.Properties properties = new Item.Properties().group(ModSetup.sorcery);
+
+        // Simple Blocks
+        blockItemFactory(ModBlock.CHONDRITE_BRICKS, properties, event);
+        blockItemFactory(ModBlock.POLISHED_CHONDRITE, properties, event);
+
+        // Slabs
+        blockItemFactory(ModBlock.CHONDRITE_BRICK_SLAB, properties, event);
+
+        // Stairs
+        blockItemFactory(ModBlock.CHONDRITE_BRICK_STAIRS, properties, event);
+
+        // Walls
+        blockItemFactory(ModBlock.CHONDRITE_BRICK_WALL, properties, event);
+
+        // Blocks with tile entities
+        blockItemFactory(ModBlock.RELIQUARY, properties, event);
+        blockItemFactory(ModBlock.CHONDRITE_BLAST_FURNACE, properties, event);
+
     }
 
     public static Item itemFactory(ItemEnum itemEnum, String registryName, RegistryEvent.Register<Item> event)
@@ -120,7 +144,11 @@ public class ModItem
         event.getRegistry().register(item);
 
         return item;
+    }
 
+    public static void blockItemFactory(Block block, Item.Properties properties, RegistryEvent.Register<Item> event)
+    {
+        event.getRegistry().register(new BlockItem(block, properties).setRegistryName(block.getRegistryName()));
     }
 
 }

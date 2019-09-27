@@ -3,63 +3,129 @@ package com.root.sorcery.block;
 import com.root.sorcery.tileentity.ChondriteBlastFurnaceTileEntity;
 import com.root.sorcery.tileentity.ReliquaryTileEntity;
 import net.minecraft.block.Block;
+import net.minecraft.block.SlabBlock;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.registry.Registry;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
-import java.util.Collections;
 
-import static com.root.sorcery.setup.ModSetup.sorcery;
-
-
-public class ModBlock extends Block
+public class ModBlock
 {
-    public ModBlock(Material material, Float hardness, Float resistance, SoundType sound, String registryName)
+
+    // Simple Blocks
+    @ObjectHolder("sorcery:polished_chondrite")
+    public static Block POLISHED_CHONDRITE;
+
+    @ObjectHolder("sorcery:chondrite_bricks")
+    public static Block CHONDRITE_BRICKS;
+
+    // Stairs
+    @ObjectHolder("sorcery:chondrite_brick_stairs")
+    public static StairsBlock CHONDRITE_BRICK_STAIRS;
+
+    // Slabs
+    @ObjectHolder("sorcery:chondrite_brick_slab")
+    public static SlabBlock CHONDRITE_BRICK_SLAB;
+
+    // Walls
+    @ObjectHolder("sorcery:chondrite_brick_wall")
+    public static WallBlock CHONDRITE_BRICK_WALL;
+
+    // Tile Blocks
+    @ObjectHolder("sorcery:reliquary")
+    public static Block RELIQUARY;
+
+    @ObjectHolder("sorcery:reliquary")
+    public static TileEntityType<ReliquaryTileEntity> RELIQUARY_TILE;
+
+    @ObjectHolder("sorcery:chondrite_blast_furnace")
+    public static Block CHONDRITE_BLAST_FURNACE;
+
+    @ObjectHolder("sorcery:chondrite_blast_furnace")
+    public static TileEntityType<ChondriteBlastFurnaceTileEntity> CHONDRITE_BLAST_FURNACE_TILE;
+
+
+    public static void init(RegistryEvent.Register<Block> event)
     {
-        super(Properties.create(material).sound(sound).hardnessAndResistance(hardness, resistance));
-        this.setRegistryName(registryName);
-        Registry.register(Registry.BLOCK, registryName, this);
+        // Simple Blocks
+        POLISHED_CHONDRITE = simpleBlockFactory(event, "polished_chondrite", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
+        CHONDRITE_BRICKS = simpleBlockFactory(event, "chondrite_bricks", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
+
+        // Slabs
+        CHONDRITE_BRICK_SLAB = slabFactory(event, CHONDRITE_BRICKS, "chondrite_brick_slab");
+
+        // Walls
+        CHONDRITE_BRICK_WALL = wallFactory(event, CHONDRITE_BRICKS, "chondrite_brick_wall");
+
+        // Stairs
+        CHONDRITE_BRICK_STAIRS = stairsFactory(event, CHONDRITE_BRICKS, "chondrite_brick_stairs");
+
+
+        // Tile Blocks
+        CHONDRITE_BLAST_FURNACE = new ChondriteBlastFurnaceBlock();
+        registerTileBlocks(event, "chondrite_blast_furnace", CHONDRITE_BLAST_FURNACE);
+        RELIQUARY = new ReliquaryBlock();
+        registerTileBlocks(event, "reliquary", RELIQUARY);
+
+
 
 
     }
 
-    @ObjectHolder("sorcery:chondriteblastfurnace")
-    public static TileEntityType<ReliquaryTileEntity> TILE_RELIQUARY;
-    public static TileEntityType<ChondriteBlastFurnaceTileEntity> TILE_CHONDRITE_BLAST_FURNACE;
-
-    public static ModBlock  polished_chondrite;
-    public static BlockItem polished_chondrite_block;
-    public static ModBlock  chondrite_bricks;
-    public static BlockItem chondrite_bricks_block;
-    public static Block     reliquary;
-    public static BlockItem reliquary_block;
-    public static ChondriteBlastFurnaceBlock chondrite_blast_furnace;
-    public static BlockItem chondrite_blast_furnace_block;
-
-    public static void init()
+    public static Block simpleBlockFactory(RegistryEvent.Register<Block> event, String registryName, Material material, Float hardness, Float resistance, SoundType sound)
     {
+        Block block = new Block(Block.Properties
+                .create(material)
+                .hardnessAndResistance(hardness, resistance)
+                .sound(sound));
 
-        reliquary = new ReliquaryBlock(Material.ROCK, 3.0F, 6.0F, SoundType.STONE, "reliquary");
-        reliquary_block = (BlockItem) new BlockItem(reliquary, new Item.Properties().group(sorcery)).setRegistryName("reliquary_block");
-        Registry.register(Registry.ITEM, "reliquary_block", reliquary_block);
+        block.setRegistryName(registryName);
+        event.getRegistry().register(block);
 
-        polished_chondrite = new ModBlock(Material.ROCK, 3.0F, 5.0F, SoundType.STONE, "polished_chondrite");
-        polished_chondrite_block = (BlockItem) new BlockItem(polished_chondrite, new Item.Properties().group(sorcery)).setRegistryName("polished_chondrite_block");
-        Registry.register(Registry.ITEM, "polished_chondrite_block", polished_chondrite_block);
+        return block;
 
-        chondrite_bricks = new ModBlock(Material.ROCK, 3.0F, 5.0F, SoundType.STONE, "chondrite_bricks");
-        chondrite_bricks_block = (BlockItem) new BlockItem(chondrite_bricks, new Item.Properties().group(sorcery)).setRegistryName("chondrite_bricks_block");
-        Registry.register(Registry.ITEM, "chondrite_bricks_block", chondrite_bricks_block);
-
-        chondrite_blast_furnace = new ChondriteBlastFurnaceBlock();
-        chondrite_blast_furnace_block = (BlockItem) new BlockItem(chondrite_blast_furnace, new Item.Properties().group(sorcery)).setRegistryName("chondrite_blast_furnace_block");
-        Registry.register(Registry.ITEM, "chondrite_blast_furnace_block", chondrite_blast_furnace_block);
-
-        TILE_RELIQUARY = new TileEntityType<>(ReliquaryTileEntity::new, Collections.singleton(reliquary), null);
-        TILE_CHONDRITE_BLAST_FURNACE = new TileEntityType<>(ChondriteBlastFurnaceTileEntity::new, Collections.singleton(chondrite_blast_furnace), null);
     }
+
+    public static SlabBlock slabFactory(RegistryEvent.Register<Block> event, Block block, String registryName)
+    {
+        SlabBlock slabBlock = new SlabBlock(Block.Properties.from(block));
+
+        slabBlock.setRegistryName(registryName);
+
+        event.getRegistry().register(slabBlock);
+
+        return slabBlock;
+    }
+
+    public static WallBlock wallFactory(RegistryEvent.Register<Block> event, Block block, String registryName)
+    {
+        WallBlock wallBlock = new WallBlock(Block.Properties.from(block));
+
+        wallBlock.setRegistryName(registryName);
+        event.getRegistry().register(wallBlock);
+
+        return wallBlock;
+    }
+
+    public static StairsBlock stairsFactory(RegistryEvent.Register<Block> event, Block block, String registryName)
+    {
+        StairsBlock stairsBlock = new StairMod(block);
+
+        stairsBlock.setRegistryName(registryName);
+        event.getRegistry().register(stairsBlock);
+
+        return stairsBlock;
+    }
+
+    public static void registerTileBlocks(RegistryEvent.Register<Block> event, String registryName, Block block)
+    {
+        block.setRegistryName(registryName);
+        event.getRegistry().register(block);
+    }
+
+
 }

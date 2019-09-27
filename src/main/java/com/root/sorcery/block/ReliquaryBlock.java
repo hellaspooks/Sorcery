@@ -19,7 +19,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
@@ -27,20 +26,23 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static com.root.sorcery.block.ModBlock.reliquary;
-import static net.minecraft.block.Blocks.*;
+import static com.root.sorcery.block.ModBlock.RELIQUARY;
+import static net.minecraft.block.Blocks.BOOKSHELF;
+import static net.minecraft.block.Blocks.GLOWSTONE;
+import static net.minecraft.block.Blocks.LECTERN;
 
 public class ReliquaryBlock extends Block
 {
-    public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 
+    private static Float hardness = 3.0F;
+    private static Float resistance = 6.0F;
+
+    public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
     private static StructurePattern RELIQUARY_PATTERN;
 
-    public ReliquaryBlock(Material material, Float hardness, Float resistance, SoundType sound, String registryName)
+    public ReliquaryBlock()
     {
-        super(Properties.create(material).sound(sound).hardnessAndResistance(hardness, resistance));
-        setRegistryName(registryName);
-        Registry.register(Registry.BLOCK, registryName, this);
+        super(Properties.create(Material.ROCK).hardnessAndResistance( hardness, resistance).sound(SoundType.STONE));
 
         setDefaultState(stateContainer.getBaseState().with(FACING, Direction.NORTH));
     }
@@ -114,7 +116,7 @@ public class ReliquaryBlock extends Block
             w.playEvent(2001, point, Block.getStateId(previousState));
         });
 
-        w.setBlockState(pos, reliquary.getDefaultState().with(FACING, direction.getOpposite()));
+        w.setBlockState(pos, RELIQUARY.getDefaultState().with(FACING, direction.getOpposite()));
     }
 
     private static StructurePattern getReliquaryPattern()

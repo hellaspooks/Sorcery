@@ -7,6 +7,6 @@ public class ReliquaryTileEntity extends TileEntity
 {
     public ReliquaryTileEntity()
     {
-        super(ModBlock.TILE_RELIQUARY);
+        super(ModBlock.RELIQUARY_TILE);
     }
 }
