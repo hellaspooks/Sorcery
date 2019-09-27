@@ -6,19 +6,21 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
-//import net.minecraft.stats.Stats;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 public class ChondriteBlastFurnaceBlock extends AbstractFurnaceBlock {
 
-    public ChondriteBlastFurnaceBlock() {
-        super(Properties.create(Material.IRON).hardnessAndResistance(2.0f).sound(SoundType.METAL));
-        this.setRegistryName("chondrite_blast_furnace");
-        Registry.register(Registry.BLOCK, "chondrite_blast_furnace", this);
+    private static Material material = Material.IRON;
+    private static SoundType sound = SoundType.METAL;
+    private static Float hardness = 2.0F;
+    private static Float resistance = 2.0F;
+
+    public ChondriteBlastFurnaceBlock(String registryName) {
+        super(Properties.create(material).hardnessAndResistance(hardness, resistance).sound(sound));
+        this.setRegistryName(registryName);
 
     }
 

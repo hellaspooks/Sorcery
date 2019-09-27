@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
 public class ChondriteBlastFurnaceTileEntity extends AbstractFurnaceTileEntity {
 
     public ChondriteBlastFurnaceTileEntity(){
-        super(ModBlock.TILE_CHONDRITE_BLAST_FURNACE, IRecipeType.BLASTING);
+        super(ModBlock.chondrite_blast_furnace_tile, IRecipeType.BLASTING);
     }
 
     @Override

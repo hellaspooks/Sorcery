@@ -1,9 +1,9 @@
 package com.root.sorcery;
 
 import com.root.sorcery.block.ModBlock;
-import com.root.sorcery.block.ModSlab;
-import com.root.sorcery.block.ModStairs;
-import com.root.sorcery.block.ModWall;
+import com.root.sorcery.block.SlabMod;
+import com.root.sorcery.block.StairMod;
+import com.root.sorcery.block.WallMod;
 import com.root.sorcery.event.BlockRightClickEvent;
 import com.root.sorcery.event.StructureFormHandlerEvent;
 import com.root.sorcery.item.ModItem;
@@ -13,6 +13,7 @@ import com.root.sorcery.setup.IProxy;
 import com.root.sorcery.setup.ModSetup;
 import com.root.sorcery.setup.ServerProxy;
 import com.root.sorcery.spell.ModSpell;
+import com.root.sorcery.tileentity.ModTile;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
@@ -99,12 +100,7 @@ public class Sorcery
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event)
         {
-            ModBlock.init();
-            ModStairs.init();
-            ModSlab.init();
-            ModWall.init();
-
-
+            ModBlock.init(event);
         }
 
         @SubscribeEvent
@@ -118,9 +114,7 @@ public class Sorcery
         @SubscribeEvent
         public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event)
         {
-            //event.getRegistry().register(TileEntityType.Builder.create(ChondriteBlastFurnaceEntity::new, ModBlock.chondrite_furnace).build(null).setRegistryName("chondrite_blast_furnace"));
-            event.getRegistry().register(ModBlock.TILE_RELIQUARY.setRegistryName("reliquary"));
-            event.getRegistry().register(ModBlock.TILE_CHONDRITE_BLAST_FURNACE.setRegistryName("chondrite_blast_furnace"));
+            ModTile.init(event);
         }
 
     }
