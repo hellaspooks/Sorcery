@@ -31,7 +31,7 @@ import static net.minecraft.block.Blocks.BOOKSHELF;
 import static net.minecraft.block.Blocks.GLOWSTONE;
 import static net.minecraft.block.Blocks.LECTERN;
 
-public class ReliquaryBlock extends BlockMod
+public class ReliquaryBlock extends Block
 {
 
     private static Float hardness = 3.0F;
@@ -40,9 +40,9 @@ public class ReliquaryBlock extends BlockMod
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
     private static StructurePattern RELIQUARY_PATTERN;
 
-    public ReliquaryBlock(String registryName)
+    public ReliquaryBlock()
     {
-        super(registryName, Material.ROCK, hardness, resistance, SoundType.STONE);
+        super(Properties.create(Material.ROCK).hardnessAndResistance( hardness, resistance).sound(SoundType.STONE));
 
         setDefaultState(stateContainer.getBaseState().with(FACING, Direction.NORTH));
     }

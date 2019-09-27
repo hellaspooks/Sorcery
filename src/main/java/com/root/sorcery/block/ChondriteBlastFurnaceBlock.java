@@ -16,13 +16,12 @@ public class ChondriteBlastFurnaceBlock extends AbstractFurnaceBlock {
     private static Float hardness = 2.0F;
     private static Float resistance = 2.0F;
 
-    public ChondriteBlastFurnaceBlock(String registryName) {
+    public ChondriteBlastFurnaceBlock() {
         super(Properties
                 .create(Material.IRON)
                 .hardnessAndResistance(hardness, resistance)
                 .sound(SoundType.METAL));
 
-        this.setRegistryName(registryName);
 
     }
 

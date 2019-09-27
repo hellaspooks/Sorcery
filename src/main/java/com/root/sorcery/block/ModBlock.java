@@ -1,14 +1,14 @@
 package com.root.sorcery.block;
 
-import com.root.sorcery.setup.ModSetup;
 import com.root.sorcery.tileentity.ChondriteBlastFurnaceTileEntity;
 import com.root.sorcery.tileentity.ReliquaryTileEntity;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -52,46 +52,80 @@ public class ModBlock
     public static void init(RegistryEvent.Register<Block> event)
     {
         // Simple Blocks
-        POLISHED_CHONDRITE = new BlockMod("polished_chondrite", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
-        CHONDRITE_BRICKS = new BlockMod("chondrite_bricks", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
+        POLISHED_CHONDRITE = simpleBlockFactory(event, "polished_chondrite", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
+        CHONDRITE_BRICKS = simpleBlockFactory(event, "chondrite_bricks", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
 
         // Slabs
-        CHONDRITE_BRICK_SLAB = slabFactory(CHONDRITE_BRICKS, "chondrite_brick_slab");
-
+        CHONDRITE_BRICK_SLAB = slabFactory(event, CHONDRITE_BRICKS, "chondrite_brick_slab");
 
         // Walls
-        CHONDRITE_BRICK_WALL = wallFactory(CHONDRITE_BRICKS, "chondrite_brick_wall");
+        CHONDRITE_BRICK_WALL = wallFactory(event, CHONDRITE_BRICKS, "chondrite_brick_wall");
 
-        // Stairs - still need class here as constructor in StairsBlock is protected
-        CHONDRITE_BRICK_STAIRS = new StairMod("chondrite_brick_stairs", ModBlock.CHONDRITE_BRICKS);
+        // Stairs
+        CHONDRITE_BRICK_STAIRS = stairsFactory(event, CHONDRITE_BRICKS, "chondrite_brick_stairs");
+
 
         // Tile Blocks
-        CHONDRITE_BLAST_FURNACE = new ChondriteBlastFurnaceBlock("chondrite_blast_furnace");
-        RELIQUARY = new ReliquaryBlock("reliquary");
+        CHONDRITE_BLAST_FURNACE = new ChondriteBlastFurnaceBlock();
+        registerTileBlocks(event, "chondrite_blast_furnace", CHONDRITE_BLAST_FURNACE);
+        RELIQUARY = new ReliquaryBlock();
+        registerTileBlocks(event, "reliquary", RELIQUARY);
 
 
-        // Register all the blocks
-        event.getRegistry().registerAll(POLISHED_CHONDRITE, CHONDRITE_BRICKS, CHONDRITE_BRICK_SLAB, CHONDRITE_BRICK_STAIRS,
-                CHONDRITE_BRICK_WALL, CHONDRITE_BLAST_FURNACE, RELIQUARY);
 
 
     }
 
-    public static SlabBlock slabFactory(Block block, String registryName)
+    public static Block simpleBlockFactory(RegistryEvent.Register<Block> event, String registryName, Material material, Float hardness, Float resistance, SoundType sound)
+    {
+        Block block = new Block(Block.Properties
+                .create(material)
+                .hardnessAndResistance(hardness, resistance)
+                .sound(sound));
+
+        block.setRegistryName(registryName);
+        event.getRegistry().register(block);
+
+        return block;
+
+    }
+
+    public static SlabBlock slabFactory(RegistryEvent.Register<Block> event, Block block, String registryName)
     {
         SlabBlock slabBlock = new SlabBlock(Block.Properties.from(block));
+
         slabBlock.setRegistryName(registryName);
+
+        event.getRegistry().register(slabBlock);
 
         return slabBlock;
     }
 
-    public static WallBlock wallFactory(Block block, String registryName)
+    public static WallBlock wallFactory(RegistryEvent.Register<Block> event, Block block, String registryName)
     {
         WallBlock wallBlock = new WallBlock(Block.Properties.from(block));
+
         wallBlock.setRegistryName(registryName);
+        event.getRegistry().register(wallBlock);
+
         return wallBlock;
     }
 
+    public static StairsBlock stairsFactory(RegistryEvent.Register<Block> event, Block block, String registryName)
+    {
+        StairsBlock stairsBlock = new StairMod(block);
+
+        stairsBlock.setRegistryName(registryName);
+        event.getRegistry().register(stairsBlock);
+
+        return stairsBlock;
+    }
+
+    public static void registerTileBlocks(RegistryEvent.Register<Block> event, String registryName, Block block)
+    {
+        block.setRegistryName(registryName);
+        event.getRegistry().register(block);
+    }
 
 
 }
