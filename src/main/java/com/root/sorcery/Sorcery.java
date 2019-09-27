@@ -7,6 +7,7 @@ import com.root.sorcery.block.ModWall;
 import com.root.sorcery.event.BlockRightClickEvent;
 import com.root.sorcery.event.StructureFormHandlerEvent;
 import com.root.sorcery.item.ModItem;
+import com.root.sorcery.item.tool.ModTool;
 import com.root.sorcery.setup.ClientProxy;
 import com.root.sorcery.setup.IProxy;
 import com.root.sorcery.setup.ModSetup;
@@ -110,7 +111,8 @@ public class Sorcery
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event)
         {
 
-            ModItem.init();
+            ModItem.init(event);
+            ModTool.init(event);
         }
 
         @SubscribeEvent

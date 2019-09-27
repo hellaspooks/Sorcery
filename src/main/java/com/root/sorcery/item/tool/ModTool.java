@@ -1,20 +1,28 @@
-package com.root.sorcery.item;
+package com.root.sorcery.item.tool;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import com.root.sorcery.setup.ModMaterials;
+import com.root.sorcery.setup.ModMaterial;
 import com.root.sorcery.setup.ModSetup;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.*;
+import net.minecraft.item.AxeItem;
+import net.minecraft.item.HoeItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.ShovelItem;
+import net.minecraft.item.ToolItem;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.registries.ObjectHolder;
 
+import javax.annotation.Nullable;
 import java.util.Set;
 
 /**
  * Registration for tool items.
  */
-public class ModTools
+public class ModTool
 {
 
 
@@ -23,27 +31,85 @@ public class ModTools
     private static final Set<Block> SHOVEL = Sets.newHashSet(Blocks.CLAY, Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.PODZOL, Blocks.FARMLAND, Blocks.GRASS_BLOCK, Blocks.GRAVEL, Blocks.MYCELIUM, Blocks.SAND, Blocks.RED_SAND, Blocks.SNOW_BLOCK, Blocks.SNOW, Blocks.SOUL_SAND, Blocks.GRASS_PATH, Blocks.WHITE_CONCRETE_POWDER, Blocks.ORANGE_CONCRETE_POWDER, Blocks.MAGENTA_CONCRETE_POWDER, Blocks.LIGHT_BLUE_CONCRETE_POWDER, Blocks.YELLOW_CONCRETE_POWDER, Blocks.LIME_CONCRETE_POWDER, Blocks.PINK_CONCRETE_POWDER, Blocks.GRAY_CONCRETE_POWDER, Blocks.LIGHT_GRAY_CONCRETE_POWDER, Blocks.CYAN_CONCRETE_POWDER, Blocks.PURPLE_CONCRETE_POWDER, Blocks.BLUE_CONCRETE_POWDER, Blocks.BROWN_CONCRETE_POWDER, Blocks.GREEN_CONCRETE_POWDER, Blocks.RED_CONCRETE_POWDER, Blocks.BLACK_CONCRETE_POWDER);
 
 
-    public static ToolBase chondrite_pickaxe;
-    public static ToolBase siderite_pickaxe;
-    public static ToolBase chondrite_axe;
-    public static ToolBase siderite_axe;
-    public static ToolBase chondrite_shovel;
-    public static ToolBase siderite_shovel;
-    public static ToolBase chondrite_hoe;
-    public static ToolBase siderite_hoe;
+
+    @ObjectHolder("sorcery:chondrite_pickaxe")
+    public static ToolItem chondrite_pickaxe;
+
+    @ObjectHolder("sorcery:siderite_pickaxe")
+    public static ToolItem siderite_pickaxe;
+
+    @ObjectHolder("sorcery:chondrite_axe")
+    public static ToolItem chondrite_axe;
+
+    @ObjectHolder("sorcery:siderite_axe")
+    public static ToolItem siderite_axe;
+
+    @ObjectHolder("sorcery:chondrite_shovel")
+    public static ToolItem chondrite_shovel;
+
+    @ObjectHolder("sorcery:siderite_shovel")
+    public static ToolItem siderite_shovel;
+
+    @ObjectHolder("sorcery:chondrite_hoe")
+    public static ToolItem chondrite_hoe;
+
+    @ObjectHolder("sorcery:siderite_hoe")
+    public static ToolItem siderite_hoe;
 
 
-    public static void init()
+    public static void init(RegistryEvent.Register<Item> event)
     {
-        chondrite_pickaxe = new ToolBase(1.0F, 1.5F, ModMaterials.CHONDRITE, PICKAXE, ToolType.PICKAXE, new PickaxeItem.Properties().group(ModSetup.sorcery), "chondrite_pickaxe");
-        siderite_pickaxe = new ToolBase(2.0F, 2.5F, ModMaterials.SIDERITE, PICKAXE, ToolType.PICKAXE, new PickaxeItem.Properties().group(ModSetup.sorcery), "siderite_pickaxe");
-        chondrite_axe = new ToolBase(1.5F, 2.0F, ModMaterials.CHONDRITE, AXE, ToolType.AXE, new AxeItem.Properties().group(ModSetup.sorcery), "chondrite_axe");
-        siderite_axe = new ToolBase(2.5F, 3.0F, ModMaterials.SIDERITE, AXE, ToolType.AXE, new AxeItem.Properties().group(ModSetup.sorcery), "siderite_axe");
-        chondrite_shovel = new ToolBase(1.0F, 1.0F, ModMaterials.CHONDRITE, SHOVEL, ToolType.SHOVEL, new ShovelItem.Properties().group(ModSetup.sorcery), "chondrite_shovel");
-        siderite_shovel = new ToolBase(1.5F, 2.0F, ModMaterials.SIDERITE, SHOVEL, ToolType.SHOVEL, new ShovelItem.Properties().group(ModSetup.sorcery), "siderite_shovel");
-        chondrite_hoe = new ToolBase(0.0F, 1.0F, ModMaterials.CHONDRITE, null, null, new HoeItem.Properties().group(ModSetup.sorcery), "chondrite_hoe");
-        siderite_hoe = new ToolBase(0.0F, 2.0F, ModMaterials.SIDERITE, null, null, new HoeItem.Properties().group(ModSetup.sorcery), "siderite_hoe");
+        // Pickaxes
+        chondrite_pickaxe = toolFactory(ToolType.PICKAXE, ModMaterial.CHONDRITE, "chondrite_pickaxe" , 1.0F, 1.5F, event);
+        siderite_pickaxe = toolFactory(ToolType.PICKAXE, ModMaterial.SIDERITE, "siderite_pickaxe", 2.0F, 2.5F, event);
+
+        // Axes
+        chondrite_axe = toolFactory(ToolType.AXE, ModMaterial.CHONDRITE, "chondrite_axe", 2.0f, 1.5f, event);
+        siderite_axe = toolFactory(ToolType.AXE, ModMaterial.SIDERITE, "siderite_axe", 2.5f, 3.0f, event);
+
+        // Shovels
+        chondrite_shovel = toolFactory(ToolType.SHOVEL, ModMaterial.CHONDRITE, "chondrite_shovel", 1.0F, 1.0F, event);
+        siderite_shovel = toolFactory(ToolType.SHOVEL, ModMaterial.SIDERITE, "siderite_shovel", 1.5F, 2.0F, event);
+
+        // Hoes
+        chondrite_hoe = toolFactory(null, ModMaterial.CHONDRITE, "chondrite_hoe", 0.0F, 1.0F, event);
+        siderite_hoe = toolFactory(null, ModMaterial.SIDERITE, "siderite_hoe", 0.0F, 2.0F, event);
     }
+
+    public static ToolItem toolFactory(@Nullable ToolType toolType, ModMaterial material, String registryName, float attackDamage, float attackSpeed, RegistryEvent.Register<Item> event)
+    {
+        ToolItem toolItem = null;
+
+        {
+            if (toolType == ToolType.PICKAXE)
+            {
+                toolItem = new ToolMod(attackDamage, attackSpeed, material, PICKAXE, toolType, new PickaxeItem.Properties().group(ModSetup.sorcery));
+            }
+            else if (toolType == ToolType.AXE)
+            {
+               toolItem = new ToolMod(attackDamage, attackSpeed, material, AXE, toolType, new AxeItem.Properties().group(ModSetup.sorcery));
+            }
+            else if (toolType == ToolType.SHOVEL){
+
+                toolItem = new ToolMod(attackDamage, attackSpeed, material, SHOVEL, toolType, new ShovelItem.Properties().group(ModSetup.sorcery));
+            }
+            else if (toolType == null)
+            {
+                toolItem = new ToolMod(attackDamage, attackSpeed, material, null, null, new HoeItem.Properties().group(ModSetup.sorcery));
+            }
+            else
+            {
+                // Error
+            }
+
+        }
+        toolItem.setRegistryName(registryName);
+        event.getRegistry().register(toolItem);
+        return toolItem;
+
+    }
+
+
 
 
 
