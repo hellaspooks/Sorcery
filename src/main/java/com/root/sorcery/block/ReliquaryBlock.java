@@ -46,6 +46,12 @@ public class ReliquaryBlock extends Block
     }
 
     @Override
+    public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos)
+    {
+        return 0;
+    }
+
+    @Override
     public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos)
     {
         return false;

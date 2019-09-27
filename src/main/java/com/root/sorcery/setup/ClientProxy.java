@@ -1,5 +1,6 @@
 package com.root.sorcery.setup;
 
+import com.root.sorcery.container.Containers;
 import com.root.sorcery.keybinding.KeyBindings;
 import com.root.sorcery.keybinding.KeyInputHandler;
 import net.minecraft.client.Minecraft;
@@ -14,6 +15,7 @@ public class ClientProxy implements IProxy
     public void init()
     {
         OBJLoader.INSTANCE.addDomain("sorcery");
+        Containers.registerScreens();
 
         MinecraftForge.EVENT_BUS.register(new KeyInputHandler());
         KeyBindings.init();
