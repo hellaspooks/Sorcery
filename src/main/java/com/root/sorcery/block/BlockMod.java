@@ -8,7 +8,11 @@ public class BlockMod extends Block
 {
     public BlockMod(String registryName, Material material, Float hardness, Float resistance, SoundType sound)
     {
-        super(Properties.create(material).sound(sound).hardnessAndResistance(hardness, resistance));
+        super(Properties
+                .create(material)
+                .sound(sound)
+                .hardnessAndResistance(hardness, resistance));
+
         setRegistryName(registryName);
 
     }

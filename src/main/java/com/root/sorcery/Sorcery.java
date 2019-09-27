@@ -1,9 +1,6 @@
 package com.root.sorcery;
 
 import com.root.sorcery.block.ModBlock;
-import com.root.sorcery.block.SlabMod;
-import com.root.sorcery.block.StairMod;
-import com.root.sorcery.block.WallMod;
 import com.root.sorcery.event.BlockRightClickEvent;
 import com.root.sorcery.event.StructureFormHandlerEvent;
 import com.root.sorcery.item.ModItem;

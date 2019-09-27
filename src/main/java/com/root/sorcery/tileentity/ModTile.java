@@ -13,12 +13,14 @@ public class ModTile
     {
 
         event.getRegistry().register(TileEntityType.Builder
-                .create(ChondriteBlastFurnaceTileEntity::new, ModBlock.chondrite_blast_furnace)
-                .build(null).setRegistryName("chondrite_blast_furnace"));
+                .create(ChondriteBlastFurnaceTileEntity::new, ModBlock.CHONDRITE_BLAST_FURNACE)
+                .build(null)
+                .setRegistryName("chondrite_blast_furnace"));
 
         event.getRegistry().register(TileEntityType.Builder
-                .create(ReliquaryTileEntity::new, ModBlock.reliquary)
-                .build(null).setRegistryName("reliquary"));
+                .create(ReliquaryTileEntity::new, ModBlock.RELIQUARY)
+                .build(null)
+                .setRegistryName("reliquary"));
 
 
     }

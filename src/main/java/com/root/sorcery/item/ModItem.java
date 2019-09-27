@@ -100,21 +100,21 @@ public class ModItem
         Item.Properties properties = new Item.Properties().group(ModSetup.sorcery);
 
         // Simple Blocks
-        blockItemFactory(ModBlock.chondrite_bricks, properties, event);
-        blockItemFactory(ModBlock.polished_chondrite, properties, event);
+        blockItemFactory(ModBlock.CHONDRITE_BRICKS, properties, event);
+        blockItemFactory(ModBlock.POLISHED_CHONDRITE, properties, event);
 
         // Slabs
-        blockItemFactory(ModBlock.chondrite_brick_slab, properties, event);
+        blockItemFactory(ModBlock.CHONDRITE_BRICK_SLAB, properties, event);
 
         // Stairs
-        blockItemFactory(ModBlock.chondrite_brick_stairs, properties, event);
+        blockItemFactory(ModBlock.CHONDRITE_BRICK_STAIRS, properties, event);
 
         // Walls
-        blockItemFactory(ModBlock.chondrite_brick_wall, properties, event);
+        blockItemFactory(ModBlock.CHONDRITE_BRICK_WALL, properties, event);
 
         // Blocks with tile entities
-        blockItemFactory(ModBlock.reliquary, properties, event);
-        blockItemFactory(ModBlock.chondrite_blast_furnace, properties, event);
+        blockItemFactory(ModBlock.RELIQUARY, properties, event);
+        blockItemFactory(ModBlock.CHONDRITE_BLAST_FURNACE, properties, event);
 
     }
 

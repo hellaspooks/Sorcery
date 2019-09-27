@@ -18,63 +18,80 @@ public class ModBlock
 
     // Simple Blocks
     @ObjectHolder("sorcery:polished_chondrite")
-    public static Block polished_chondrite;
+    public static Block POLISHED_CHONDRITE;
 
     @ObjectHolder("sorcery:chondrite_bricks")
-    public static Block chondrite_bricks;
+    public static Block CHONDRITE_BRICKS;
 
     // Stairs
     @ObjectHolder("sorcery:chondrite_brick_stairs")
-    public static StairsBlock chondrite_brick_stairs;
+    public static StairsBlock CHONDRITE_BRICK_STAIRS;
 
     // Slabs
     @ObjectHolder("sorcery:chondrite_brick_slab")
-    public static SlabBlock chondrite_brick_slab;
+    public static SlabBlock CHONDRITE_BRICK_SLAB;
 
     // Walls
     @ObjectHolder("sorcery:chondrite_brick_wall")
-    public static WallBlock chondrite_brick_wall;
+    public static WallBlock CHONDRITE_BRICK_WALL;
 
     // Tile Blocks
     @ObjectHolder("sorcery:reliquary")
-    public static Block reliquary;
+    public static Block RELIQUARY;
 
     @ObjectHolder("sorcery:reliquary")
-    public static TileEntityType<ReliquaryTileEntity> reliquary_tile;
+    public static TileEntityType<ReliquaryTileEntity> RELIQUARY_TILE;
 
     @ObjectHolder("sorcery:chondrite_blast_furnace")
-    public static Block chondrite_blast_furnace;
+    public static Block CHONDRITE_BLAST_FURNACE;
 
     @ObjectHolder("sorcery:chondrite_blast_furnace")
-    public static TileEntityType<ChondriteBlastFurnaceTileEntity> chondrite_blast_furnace_tile;
+    public static TileEntityType<ChondriteBlastFurnaceTileEntity> CHONDRITE_BLAST_FURNACE_TILE;
 
 
     public static void init(RegistryEvent.Register<Block> event)
     {
         // Simple Blocks
-        polished_chondrite = new BlockMod("polished_chondrite", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
-        chondrite_bricks = new BlockMod("chondrite_bricks", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
+        POLISHED_CHONDRITE = new BlockMod("polished_chondrite", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
+        CHONDRITE_BRICKS = new BlockMod("chondrite_bricks", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
 
         // Slabs
-        chondrite_brick_slab = new SlabMod("chondrite_brick_slab", ModBlock.chondrite_bricks);
+        CHONDRITE_BRICK_SLAB = slabFactory(CHONDRITE_BRICKS, "chondrite_brick_slab");
 
-        // Stairs
-        chondrite_brick_stairs = new StairMod("chondrite_brick_stairs", ModBlock.chondrite_bricks);
 
         // Walls
-        chondrite_brick_wall = new WallMod("chondrite_brick_wall", ModBlock.chondrite_bricks);
+        CHONDRITE_BRICK_WALL = wallFactory(CHONDRITE_BRICKS, "chondrite_brick_wall");
 
+        // Stairs - still need class here as constructor in StairsBlock is protected
+        CHONDRITE_BRICK_STAIRS = new StairMod("chondrite_brick_stairs", ModBlock.CHONDRITE_BRICKS);
 
         // Tile Blocks
-        chondrite_blast_furnace = new ChondriteBlastFurnaceBlock("chondrite_blast_furnace");
-        reliquary = new ReliquaryBlock("reliquary");
+        CHONDRITE_BLAST_FURNACE = new ChondriteBlastFurnaceBlock("chondrite_blast_furnace");
+        RELIQUARY = new ReliquaryBlock("reliquary");
 
 
         // Register all the blocks
-        event.getRegistry().registerAll(polished_chondrite, chondrite_bricks, chondrite_brick_slab, chondrite_brick_stairs,
-                chondrite_brick_wall, chondrite_blast_furnace, reliquary);
+        event.getRegistry().registerAll(POLISHED_CHONDRITE, CHONDRITE_BRICKS, CHONDRITE_BRICK_SLAB, CHONDRITE_BRICK_STAIRS,
+                CHONDRITE_BRICK_WALL, CHONDRITE_BLAST_FURNACE, RELIQUARY);
 
 
     }
+
+    public static SlabBlock slabFactory(Block block, String registryName)
+    {
+        SlabBlock slabBlock = new SlabBlock(Block.Properties.from(block));
+        slabBlock.setRegistryName(registryName);
+
+        return slabBlock;
+    }
+
+    public static WallBlock wallFactory(Block block, String registryName)
+    {
+        WallBlock wallBlock = new WallBlock(Block.Properties.from(block));
+        wallBlock.setRegistryName(registryName);
+        return wallBlock;
+    }
+
+
 
 }
