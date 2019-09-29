@@ -15,24 +15,27 @@ public class ChondriteBlastFurnaceGui extends BaseGuiContainer<ChondriteBlastFur
     public ChondriteBlastFurnaceGui(BuiltContainer container, PlayerInventory inv, ITextComponent title)
     {
         super(container, inv, title);
+
+        xSize = 184;
+        ySize = 174;
     }
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
     {
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.minecraft.getTextureManager().bindTexture(BACKGROUND);
-        int xStart = this.guiLeft;
-        int yStart = this.guiTop;
-        this.blit(xStart, yStart, 0, 0, this.xSize, this.ySize);
+        minecraft.getTextureManager().bindTexture(BACKGROUND);
+        int xStart = guiLeft;
+        int yStart = guiTop;
+        blit(xStart, yStart, 0, 0, xSize, ySize);
         if (getTile().isBurning())
         {
             int k = getBurnLeftScaled();
-            this.blit(xStart + 56, yStart + 36 + 12 - k, 176, 12 - k, 14, k + 1);
+            blit(xStart + 58, yStart + 38 + 12 - k, 184, 12 - k, 14, k + 1);
         }
 
         int l = getCookProgressionScaled();
-        this.blit(xStart + 79, yStart + 34, 176, 14, l + 1, 16);
+        blit(xStart + 81, yStart + 36, 184, 16, l + 1, 16);
     }
 
     public int getBurnLeftScaled()
