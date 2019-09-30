@@ -1,6 +1,7 @@
 package com.root.sorcery.tileentity;
 
 import com.root.sorcery.container.Containers;
+import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -57,6 +58,8 @@ public class ChondriteBlastFurnaceTile extends TileBase implements INamedContain
         if (isClient())
             return;
 
+        boolean lastBurnState = isBurning();
+
         if (isBurning())
         {
             burnTimeLeft -= burnSpeed;
@@ -100,6 +103,9 @@ public class ChondriteBlastFurnaceTile extends TileBase implements INamedContain
                     cookProgression = 0;
             }
         }
+
+        if (lastBurnState != isBurning())
+            world.setBlockState(pos, world.getBlockState(pos).with(AbstractFurnaceBlock.LIT, isBurning()), 3);
     }
 
     private boolean canSmelt()
