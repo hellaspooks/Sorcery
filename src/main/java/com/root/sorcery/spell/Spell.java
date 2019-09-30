@@ -1,6 +1,6 @@
 package com.root.sorcery.spell;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 
@@ -13,8 +13,8 @@ public class Spell extends ForgeRegistryEntry<Spell>
 
     }
 
-    public static void cast(PlayerEntity playerEntity)
+    public ActionResultType cast(SpellUseContext context)
     {
-
+        return ActionResultType.SUCCESS;
     }
 }
