@@ -8,8 +8,10 @@ public class SpellcastingCapability
 
     public static ResourceLocation SPELLCASTING_CAP = new ResourceLocation(com.root.sorcery.Constants.MODID, "spellcastingcap");
 
+    public static SpellcastingStorage SPELL_STORAGE = new SpellcastingStorage();
+
     public static void register()
     {
-        CapabilityManager.INSTANCE.register(ISpellcasting.class, new SpellcastingStorage(), () -> new SpellcastingDefault());
+        CapabilityManager.INSTANCE.register(ISpellcasting.class, SPELL_STORAGE, SpellcastingDefault::new);
     }
 }

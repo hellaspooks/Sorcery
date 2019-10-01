@@ -14,15 +14,28 @@ public interface ISpellcasting extends INBTSerializable<CompoundNBT>
     public void setActiveSpell(ResourceLocation spell);
 
 
-    // Learned Spells
+    // Prepared Spells
 
-    public Set<ResourceLocation> getAllSpells();
+    public Set<ResourceLocation> getPreparedSpells();
 
-    public void setAllSpells(Set<ResourceLocation> allSpells);
+    public void setPreparedSpells(Set<ResourceLocation> allSpells);
 
-    public void addSpell(ResourceLocation spell);
+    public void addPreparedSpell(ResourceLocation spell);
 
-    public void removeSpell(ResourceLocation spell);
+    public void removePreparedSpell(ResourceLocation spell);
 
-    public boolean hasSpell(ResourceLocation spell);
+    public boolean hasPreparedSpell(ResourceLocation spell);
+
+
+    // Known Spells
+
+    public Set<ResourceLocation> getKnownSpells();
+
+    public void setKnownSpells(Set<ResourceLocation> allSpells);
+
+    public void addKnownSpell(ResourceLocation spell);
+
+    public void removeKnownSpell(ResourceLocation spell);
+
+    public boolean hasKnownSpell(ResourceLocation spell);
 }

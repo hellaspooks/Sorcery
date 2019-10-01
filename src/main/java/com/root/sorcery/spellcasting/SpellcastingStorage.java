@@ -21,17 +21,27 @@ public class SpellcastingStorage implements Capability.IStorage<ISpellcasting>
     {
         CompoundNBT tag = new CompoundNBT();
         // Active Spell
-        tag.putString("activespell", instance.getActiveSpell().toString());
+        tag.putString("active_spell", instance.getActiveSpell().toString());
 
-        // All Spells
-        ListNBT spellList = new ListNBT();
+        // Prepared Spells
+        ListNBT preparedSpells = new ListNBT();
 
-        for (ResourceLocation spell : instance.getAllSpells())
+        for (ResourceLocation spell : instance.getPreparedSpells())
         {
-            spellList.add(new StringNBT(spell.toString()));
+            preparedSpells.add(new StringNBT(spell.toString()));
         }
 
-        tag.put("allspells", spellList);
+        tag.put("prepared_spells", preparedSpells);
+
+        // Known Spells
+        ListNBT knownSpells = new ListNBT();
+
+        for (ResourceLocation spell : instance.getKnownSpells())
+        {
+            knownSpells.add(new StringNBT(spell.toString()));
+        }
+
+        tag.put("known_spells", knownSpells);
 
         return tag;
     }
@@ -39,22 +49,36 @@ public class SpellcastingStorage implements Capability.IStorage<ISpellcasting>
     @Override
     public void readNBT(Capability<ISpellcasting> capability, ISpellcasting instance, Direction side, INBT nbt)
     {
+
         // Active Spell
         instance.setActiveSpell(new ResourceLocation(((CompoundNBT) nbt).getString("activespell")));
 
-        // All Spells
-        Set<ResourceLocation> allSpells = Collections.<ResourceLocation>emptySet();
+        // Prepared Spells
+        Set<ResourceLocation> preparedSpells = Collections.emptySet();
 
-        ListNBT spellList = ((CompoundNBT) nbt).getList("activespells", Constants.NBT.TAG_LIST);
+        ListNBT preparedSpellList = ((CompoundNBT) nbt).getList("prepared_spells", Constants.NBT.TAG_LIST);
 
-        int size = spellList.size();
+        int size = preparedSpellList.size();
 
         for ( int i = 0; i < size; i++)
         {
-            allSpells.add( new ResourceLocation(spellList.get(i).toString()));
+            preparedSpells.add( new ResourceLocation(preparedSpellList.get(i).toString()));
         }
 
-        instance.setAllSpells(allSpells);
+        instance.setPreparedSpells(preparedSpells);
 
+        // Known Spells
+        Set<ResourceLocation> knownSpells = Collections.<ResourceLocation>emptySet();
+
+        ListNBT knownSpellList = ((CompoundNBT) nbt).getList("activespells", Constants.NBT.TAG_LIST);
+
+        int size1 = knownSpellList.size();
+
+        for ( int i = 0; i < size1; i++)
+        {
+            knownSpells.add( new ResourceLocation(knownSpellList.get(i).toString()));
+        }
+
+        instance.setKnownSpells(knownSpells);
     }
 }

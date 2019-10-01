@@ -1,10 +1,8 @@
 package com.root.sorcery.spellcasting;
 
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.StringNBT;
+import net.minecraft.nbt.INBT;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.Constants;
 
 import java.util.Collections;
 import java.util.Set;
@@ -13,7 +11,9 @@ public class SpellcastingDefault implements ISpellcasting
 {
     private ResourceLocation activeSpell = new ResourceLocation("sorcery:testspell");
 
-    private Set<ResourceLocation> allSpells = Collections.emptySet();
+    private Set<ResourceLocation> preparedSpells = Collections.emptySet();
+
+    private Set<ResourceLocation> knownSpells = Collections.emptySet();
 
     public SpellcastingDefault(){}
 
@@ -31,79 +31,80 @@ public class SpellcastingDefault implements ISpellcasting
     }
 
     @Override
-    public Set<ResourceLocation> getAllSpells()
+    public Set<ResourceLocation> getPreparedSpells()
     {
-        return this.allSpells;
-    }
-
-    @Override
-    public void setAllSpells(Set<ResourceLocation> allSpells)
-    {
-        this.allSpells = allSpells;
-    }
-
-    @Override
-    public void addSpell(ResourceLocation spell)
-    {
-        this.allSpells.add(spell);
+        return this.preparedSpells;
 
     }
 
     @Override
-    public void removeSpell(ResourceLocation spell)
+    public void setPreparedSpells(Set<ResourceLocation> allSpells)
     {
-        this.allSpells.remove(spell);
+        this.preparedSpells = allSpells;
 
     }
 
     @Override
-    public boolean hasSpell(ResourceLocation spell)
+    public void addPreparedSpell(ResourceLocation spell)
     {
-        return this.allSpells.contains(spell);
+        this.preparedSpells.add(spell);
+
     }
 
-    // Huh
-
-    public CompoundNBT serializeNBT()
+    @Override
+    public void removePreparedSpell(ResourceLocation spell)
     {
+        this.preparedSpells.remove(spell);
 
-        CompoundNBT tag = new CompoundNBT();
-        // Active Spell
-        tag.putString("activespell", this.getActiveSpell().toString());
+    }
 
-        // All Spells
-        ListNBT spellList = new ListNBT();
+    @Override
+    public boolean hasPreparedSpell(ResourceLocation spell)
+    {
+        return this.preparedSpells.contains(spell);
+    }
 
-        for (ResourceLocation spell : this.getAllSpells())
-        {
-            spellList.add(new StringNBT(spell.toString()));
-        }
+    @Override
+    public Set<ResourceLocation> getKnownSpells()
+    {
+        return this.knownSpells;
+    }
 
-        tag.put("allspells", spellList);
+    @Override
+    public void setKnownSpells(Set<ResourceLocation> allSpells)
+    {
+        this.knownSpells = allSpells;
+    }
 
-        return tag;
+    @Override
+    public void addKnownSpell(ResourceLocation spell)
+    {
+        this.knownSpells.add(spell);
+
+    }
+
+    @Override
+    public void removeKnownSpell(ResourceLocation spell)
+    {
+        this.knownSpells.remove(spell);
+
+    }
+
+    @Override
+    public boolean hasKnownSpell(ResourceLocation spell)
+    {
+        return this.knownSpells.contains(spell);
     }
 
     public void deserializeNBT(CompoundNBT nbt)
     {
-        // Active Spell
-        this.setActiveSpell(new ResourceLocation(((CompoundNBT) nbt).getString("activespell")));
-
-        // All Spells
-        Set<ResourceLocation> allSpells = Collections.<ResourceLocation>emptySet();
-
-        ListNBT spellList = ((CompoundNBT) nbt).getList("activespells", Constants.NBT.TAG_LIST);
-
-        int size = spellList.size();
-
-        for ( int i = 0; i < size; i++)
-        {
-            allSpells.add( new ResourceLocation(spellList.get(i).toString()));
-        }
-
-        this.setAllSpells(allSpells);
-
+        SpellcastingCapability.SPELL_STORAGE.readNBT(SpellcastingProvider.SPELLCASTING, this, null, nbt);
     }
 
+    public CompoundNBT serializeNBT()
+    {
+        INBT tag = SpellcastingCapability.SPELL_STORAGE.writeNBT(SpellcastingProvider.SPELLCASTING, this, null);
+        return (CompoundNBT) tag;
+    }
 
 }

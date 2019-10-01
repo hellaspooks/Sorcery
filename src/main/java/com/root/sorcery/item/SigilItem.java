@@ -21,7 +21,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class SigilItem extends ItemMod
 {
-    // private ResourceLocation spellToTest = new ResourceLocation(Constants.MODID, "testspell");
 
     public SigilItem()
     {
@@ -74,9 +73,9 @@ public class SigilItem extends ItemMod
     // Actually casting a spell
     public ActionResultType castSpell(SpellUseContext context)
     {
-        LazyOptional<ISpellcasting> playerCap = context.getPlayer().getCapability(SpellcastingProvider.SPELLCASTING);
+        ISpellcasting playerCap = context.getPlayer().getCapability(SpellcastingProvider.SPELLCASTING).orElseGet(SpellcastingDefault::new);
 
-        ResourceLocation spellToTest = playerCap.orElse(new SpellcastingDefault()).getActiveSpell();
+        ResourceLocation spellToTest = playerCap.getActiveSpell();
 
         ActionResultType actionResultType = GameRegistry.findRegistry(Spell.class).getValue(spellToTest).cast(context);
         return actionResultType;
