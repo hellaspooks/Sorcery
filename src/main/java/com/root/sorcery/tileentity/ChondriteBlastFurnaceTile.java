@@ -1,6 +1,5 @@
 package com.root.sorcery.tileentity;
 
-import com.root.sorcery.block.ModBlock;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.crafting.IRecipeType;
@@ -10,10 +9,12 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nonnull;
 
-public class ChondriteBlastFurnaceTileEntity extends AbstractFurnaceTileEntity {
+public class ChondriteBlastFurnaceTile extends AbstractFurnaceTileEntity
+{
 
-    public ChondriteBlastFurnaceTileEntity(){
-        super(ModBlock.CHONDRITE_BLAST_FURNACE_TILE, IRecipeType.BLASTING);
+    public ChondriteBlastFurnaceTile()
+    {
+        super(ModTile.CHONDRITE_BLAST_FURNACE_TILE, IRecipeType.BLASTING);
     }
 
     @Override

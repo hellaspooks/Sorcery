@@ -1,6 +1,6 @@
 package com.root.sorcery.block;
 
-import com.root.sorcery.tileentity.ChondriteBlastFurnaceTileEntity;
+import com.root.sorcery.tileentity.ChondriteBlastFurnaceTile;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -26,13 +26,16 @@ public class ChondriteBlastFurnaceBlock extends AbstractFurnaceBlock {
     }
 
 
+    @Override
     public TileEntity createNewTileEntity(IBlockReader iBlockReader) {
-        return new ChondriteBlastFurnaceTileEntity();
+        return new ChondriteBlastFurnaceTile();
     }
 
+    @Override
     protected void interactWith(World world, BlockPos blockPos, PlayerEntity playerEntity) {
         TileEntity lvt_4_1_ = world.getTileEntity(blockPos);
-        if (lvt_4_1_ instanceof ChondriteBlastFurnaceTileEntity) {
+        if (lvt_4_1_ instanceof ChondriteBlastFurnaceTile)
+        {
             playerEntity.openContainer((INamedContainerProvider)lvt_4_1_);
             // playerEntity.addStat(Stats.INTERACT_WITH_BLAST_FURNACE);
         }

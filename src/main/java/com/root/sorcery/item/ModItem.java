@@ -116,6 +116,10 @@ public class ModItem
         blockItemFactory(ModBlock.RELIQUARY, properties, event);
         blockItemFactory(ModBlock.CHONDRITE_BLAST_FURNACE, properties, event);
 
+        blockItemFactory(ModBlock.MONOLITH_NORMAL, properties, event);
+        blockItemFactory(ModBlock.MONOLITH_SOLAR, properties, event);
+        blockItemFactory(ModBlock.MONOLITH_LUNAR, properties, event);
+        blockItemFactory(ModBlock.MONOLITH_DARK, properties, event);
     }
 
     public static Item itemFactory(ItemEnum itemEnum, String registryName, RegistryEvent.Register<Item> event)

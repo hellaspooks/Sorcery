@@ -1,7 +1,7 @@
 package com.root.sorcery.block;
 
 import com.root.sorcery.structure.StructurePattern;
-import com.root.sorcery.tileentity.ReliquaryTileEntity;
+import com.root.sorcery.tileentity.ReliquaryTile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -27,9 +27,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import static com.root.sorcery.block.ModBlock.RELIQUARY;
-import static net.minecraft.block.Blocks.BOOKSHELF;
-import static net.minecraft.block.Blocks.GLOWSTONE;
-import static net.minecraft.block.Blocks.LECTERN;
+import static net.minecraft.block.Blocks.*;
 
 public class ReliquaryBlock extends Block
 {
@@ -99,7 +97,7 @@ public class ReliquaryBlock extends Block
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        return new ReliquaryTileEntity();
+        return new ReliquaryTile();
     }
 
     public static void checkAndTryPlacement(World w, BlockPos pos, Direction direction)
