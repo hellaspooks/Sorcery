@@ -6,15 +6,18 @@ import com.root.sorcery.event.BlockRightClickEvent;
 import com.root.sorcery.event.StructureFormHandlerEvent;
 import com.root.sorcery.item.ModItem;
 import com.root.sorcery.item.tool.ModTool;
+import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.setup.ClientProxy;
 import com.root.sorcery.setup.IProxy;
 import com.root.sorcery.setup.ModSetup;
 import com.root.sorcery.setup.ServerProxy;
 import com.root.sorcery.spell.ModSpell;
+import com.root.sorcery.spellcasting.ISpellcasting;
 import com.root.sorcery.spellcasting.SpellcastingCapability;
 import com.root.sorcery.spellcasting.SpellcastingProvider;
 import com.root.sorcery.tileentity.ModTile;
 import net.minecraft.block.Block;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -24,6 +27,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -67,6 +71,8 @@ public class Sorcery
         proxy.init();
         CapabilityArcana.register();
         SpellcastingCapability.register();
+
+        PacketHandler.register();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event)
@@ -136,6 +142,22 @@ public class Sorcery
                 event.addCapability(SpellcastingCapability.SPELLCASTING_CAP, new SpellcastingProvider());
             }
         }
+
+        @SubscribeEvent
+        public static void playerCloneEvent(PlayerEvent.Clone event)
+        {
+            if (event.isWasDeath())
+            {
+                ISpellcasting origCap = event.getOriginal().getCapability(SpellcastingProvider.SPELLCASTING).orElseThrow(NullPointerException::new);
+                ISpellcasting newCap = event.getPlayer().getCapability(SpellcastingProvider.SPELLCASTING).orElseThrow(NullPointerException::new);
+                newCap.setActiveSpell(origCap.getActiveSpell());
+                newCap.setPreparedSpells(origCap.getPreparedSpells());
+                newCap.setKnownSpells(origCap.getKnownSpells());
+            }
+
+
+        }
+
     }
 
     public static Logger getLogger()

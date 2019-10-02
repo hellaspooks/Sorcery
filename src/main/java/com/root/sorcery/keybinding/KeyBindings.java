@@ -1,0 +1,16 @@
+package com.root.sorcery.keybinding;
+
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_K;
+
+public class KeyBindings
+{
+    public static KeyBinding cycleSpell = new KeyBinding("key.cycleSpell", GLFW_KEY_K, "key.categories.sorcery");
+
+    public static void init()
+    {
+        ClientRegistry.registerKeyBinding(cycleSpell);
+    }
+}

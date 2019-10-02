@@ -7,11 +7,9 @@ import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class SpellcastingStorage implements Capability.IStorage<ISpellcasting>
 {
@@ -51,32 +49,32 @@ public class SpellcastingStorage implements Capability.IStorage<ISpellcasting>
     {
 
         // Active Spell
-        instance.setActiveSpell(new ResourceLocation(((CompoundNBT) nbt).getString("activespell")));
+        instance.setActiveSpell(new ResourceLocation(((CompoundNBT) nbt).getString("active_spell")));
 
         // Prepared Spells
-        Set<ResourceLocation> preparedSpells = Collections.emptySet();
+        ArrayList<ResourceLocation> preparedSpells = new ArrayList<>();
 
-        ListNBT preparedSpellList = ((CompoundNBT) nbt).getList("prepared_spells", Constants.NBT.TAG_LIST);
+        ListNBT preparedSpellList = (ListNBT) ((CompoundNBT) nbt).get("prepared_spells");
 
         int size = preparedSpellList.size();
 
         for ( int i = 0; i < size; i++)
         {
-            preparedSpells.add( new ResourceLocation(preparedSpellList.get(i).toString()));
+            preparedSpells.add(new ResourceLocation(preparedSpellList.getString(i)));
         }
 
         instance.setPreparedSpells(preparedSpells);
 
         // Known Spells
-        Set<ResourceLocation> knownSpells = Collections.<ResourceLocation>emptySet();
+        ArrayList<ResourceLocation> knownSpells = new ArrayList<>();
 
-        ListNBT knownSpellList = ((CompoundNBT) nbt).getList("activespells", Constants.NBT.TAG_LIST);
+        ListNBT knownSpellList = (ListNBT) ((CompoundNBT) nbt).get("known_spells");
 
         int size1 = knownSpellList.size();
 
         for ( int i = 0; i < size1; i++)
         {
-            knownSpells.add( new ResourceLocation(knownSpellList.get(i).toString()));
+            knownSpells.add(new ResourceLocation(knownSpellList.getString(i)));
         }
 
         instance.setKnownSpells(knownSpells);

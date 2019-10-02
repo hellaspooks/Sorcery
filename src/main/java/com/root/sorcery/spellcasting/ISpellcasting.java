@@ -4,6 +4,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public interface ISpellcasting extends INBTSerializable<CompoundNBT>
@@ -16,9 +18,9 @@ public interface ISpellcasting extends INBTSerializable<CompoundNBT>
 
     // Prepared Spells
 
-    public Set<ResourceLocation> getPreparedSpells();
+    public ArrayList<ResourceLocation> getPreparedSpells();
 
-    public void setPreparedSpells(Set<ResourceLocation> allSpells);
+    public void setPreparedSpells(ArrayList<ResourceLocation> allSpells);
 
     public void addPreparedSpell(ResourceLocation spell);
 
@@ -29,13 +31,18 @@ public interface ISpellcasting extends INBTSerializable<CompoundNBT>
 
     // Known Spells
 
-    public Set<ResourceLocation> getKnownSpells();
+    public ArrayList<ResourceLocation> getKnownSpells();
 
-    public void setKnownSpells(Set<ResourceLocation> allSpells);
+    public void setKnownSpells(ArrayList<ResourceLocation> allSpells);
 
     public void addKnownSpell(ResourceLocation spell);
 
     public void removeKnownSpell(ResourceLocation spell);
 
     public boolean hasKnownSpell(ResourceLocation spell);
+
+    // Utility
+
+    public void cycleActiveSpell();
+
 }

@@ -4,96 +4,127 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.Collections;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class SpellcastingDefault implements ISpellcasting
 {
-    private ResourceLocation activeSpell = new ResourceLocation("sorcery:testspell");
+    private ResourceLocation activeSpell;
 
-    private Set<ResourceLocation> preparedSpells = Collections.emptySet();
+    private ArrayList<ResourceLocation> preparedSpells = new ArrayList<>();
 
-    private Set<ResourceLocation> knownSpells = Collections.emptySet();
+    private ArrayList<ResourceLocation> knownSpells = new ArrayList<>();
 
-    public SpellcastingDefault(){}
+    public SpellcastingDefault(){
+
+        // Adding defaults for testing purposes
+        ResourceLocation testSpell = new ResourceLocation("sorcery:testspell");
+        ResourceLocation testSpell2 = new ResourceLocation("sorcery:test_spell2");
+
+        this.activeSpell = testSpell;
+
+        this.preparedSpells.add(testSpell);
+        this.preparedSpells.add(testSpell2);
+
+        this.knownSpells.add(testSpell);
+        this.knownSpells.add(testSpell2);
+
+    }
+
+    public void cycleActiveSpell()
+    {
+        int activeSpellIndex = preparedSpells.indexOf(activeSpell);
+        int nextSpellIndex = activeSpellIndex + 1;
+
+        if (nextSpellIndex == preparedSpells.size())
+        {
+            this.activeSpell = preparedSpells.get(0);
+        }
+        else
+        {
+            this.activeSpell = preparedSpells.get(nextSpellIndex);
+        }
+    }
+
 
     @Override
     public ResourceLocation getActiveSpell()
     {
-        return this.activeSpell;
+        return activeSpell;
     }
 
     @Override
     public void setActiveSpell(ResourceLocation spell)
     {
-        this.activeSpell = spell;
+        activeSpell = spell;
 
     }
 
     @Override
-    public Set<ResourceLocation> getPreparedSpells()
+    public ArrayList<ResourceLocation> getPreparedSpells()
     {
-        return this.preparedSpells;
+        return preparedSpells;
 
     }
 
     @Override
-    public void setPreparedSpells(Set<ResourceLocation> allSpells)
+    public void setPreparedSpells(ArrayList<ResourceLocation> allSpells)
     {
-        this.preparedSpells = allSpells;
+        preparedSpells = allSpells;
 
     }
 
     @Override
     public void addPreparedSpell(ResourceLocation spell)
     {
-        this.preparedSpells.add(spell);
+        if (!preparedSpells.contains(spell))
+            preparedSpells.add(spell);
 
     }
 
     @Override
     public void removePreparedSpell(ResourceLocation spell)
     {
-        this.preparedSpells.remove(spell);
+        preparedSpells.remove(spell);
 
     }
 
     @Override
     public boolean hasPreparedSpell(ResourceLocation spell)
     {
-        return this.preparedSpells.contains(spell);
+        return preparedSpells.contains(spell);
     }
 
     @Override
-    public Set<ResourceLocation> getKnownSpells()
+    public ArrayList<ResourceLocation> getKnownSpells()
     {
-        return this.knownSpells;
+        return knownSpells;
     }
 
     @Override
-    public void setKnownSpells(Set<ResourceLocation> allSpells)
+    public void setKnownSpells(ArrayList<ResourceLocation> allSpells)
     {
-        this.knownSpells = allSpells;
+        knownSpells = allSpells;
     }
 
     @Override
     public void addKnownSpell(ResourceLocation spell)
     {
-        this.knownSpells.add(spell);
+        if (!knownSpells.contains(spell))
+            knownSpells.add(spell);
 
     }
 
     @Override
     public void removeKnownSpell(ResourceLocation spell)
     {
-        this.knownSpells.remove(spell);
+        knownSpells.remove(spell);
 
     }
 
     @Override
     public boolean hasKnownSpell(ResourceLocation spell)
     {
-        return this.knownSpells.contains(spell);
+        return knownSpells.contains(spell);
     }
 
     public void deserializeNBT(CompoundNBT nbt)
