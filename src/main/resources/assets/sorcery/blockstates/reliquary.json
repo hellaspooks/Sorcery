@@ -1,8 +1,24 @@
 {
   "forge_marker": 1,
-  "defaults": {
-  },
   "variants": {
-    "": [{}]
+    "facing=south": {
+      "model": "sorcery:block/reliquary",
+      "translation": [0, -1.5, 0]
+    },
+    "facing=west": {
+      "model": "sorcery:block/reliquary",
+      "y": 90,
+      "translation": [0, -1.5, 0]
+    },
+    "facing=north": {
+      "model": "sorcery:block/reliquary",
+      "y": 180,
+      "translation": [0, -1.5, 0]
+    },
+    "facing=east": {
+      "model": "sorcery:block/reliquary",
+      "y": 270,
+      "translation": [0, -1.5, 0]
+    }
   }
 }

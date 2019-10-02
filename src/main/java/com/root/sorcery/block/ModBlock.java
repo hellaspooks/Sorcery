@@ -1,14 +1,11 @@
 package com.root.sorcery.block;
 
-import com.root.sorcery.tileentity.ChondriteBlastFurnaceTileEntity;
-import com.root.sorcery.tileentity.ReliquaryTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -39,15 +36,20 @@ public class ModBlock
     @ObjectHolder("sorcery:reliquary")
     public static Block RELIQUARY;
 
-    @ObjectHolder("sorcery:reliquary")
-    public static TileEntityType<ReliquaryTileEntity> RELIQUARY_TILE;
-
     @ObjectHolder("sorcery:chondrite_blast_furnace")
     public static Block CHONDRITE_BLAST_FURNACE;
 
-    @ObjectHolder("sorcery:chondrite_blast_furnace")
-    public static TileEntityType<ChondriteBlastFurnaceTileEntity> CHONDRITE_BLAST_FURNACE_TILE;
+    @ObjectHolder("sorcery:monolith_normal")
+    public static Block MONOLITH_NORMAL;
 
+    @ObjectHolder("sorcery:monolith_dark")
+    public static Block MONOLITH_DARK;
+
+    @ObjectHolder("sorcery:monolith_solar")
+    public static Block MONOLITH_SOLAR;
+
+    @ObjectHolder("sorcery:monolith_lunar")
+    public static Block MONOLITH_LUNAR;
 
     public static void init(RegistryEvent.Register<Block> event)
     {
@@ -64,16 +66,14 @@ public class ModBlock
         // Stairs
         CHONDRITE_BRICK_STAIRS = stairsFactory(event, CHONDRITE_BRICKS, "chondrite_brick_stairs");
 
-
         // Tile Blocks
-        CHONDRITE_BLAST_FURNACE = new ChondriteBlastFurnaceBlock();
-        registerTileBlocks(event, "chondrite_blast_furnace", CHONDRITE_BLAST_FURNACE);
-        RELIQUARY = new ReliquaryBlock();
-        registerTileBlocks(event, "reliquary", RELIQUARY);
+        registerTileBlocks(event, "chondrite_blast_furnace", new ChondriteBlastFurnaceBlock());
+        registerTileBlocks(event, "reliquary", new ReliquaryBlock());
 
-
-
-
+        registerTileBlocks(event, "monolith_normal", new MonolithBlock());
+        registerTileBlocks(event, "monolith_dark", new MonolithBlock());
+        registerTileBlocks(event, "monolith_lunar", new MonolithBlock());
+        registerTileBlocks(event, "monolith_solar", new MonolithBlock());
     }
 
     public static Block simpleBlockFactory(RegistryEvent.Register<Block> event, String registryName, Material material, Float hardness, Float resistance, SoundType sound)
@@ -87,7 +87,6 @@ public class ModBlock
         event.getRegistry().register(block);
 
         return block;
-
     }
 
     public static SlabBlock slabFactory(RegistryEvent.Register<Block> event, Block block, String registryName)
@@ -126,6 +125,4 @@ public class ModBlock
         block.setRegistryName(registryName);
         event.getRegistry().register(block);
     }
-
-
 }
