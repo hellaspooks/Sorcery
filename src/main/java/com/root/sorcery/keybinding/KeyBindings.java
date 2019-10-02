@@ -7,10 +7,10 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_K;
 
 public class KeyBindings
 {
-    public static KeyBinding cycleSpell = new KeyBinding("key.cycleSpell", GLFW_KEY_K, "key.categories.sorcery");
+    public static final KeyBinding CYCLE_SPELL_KEY = new KeyBinding("key.cycleSpell", GLFW_KEY_K, "key.categories.sorcery");
 
     public static void init()
     {
-        ClientRegistry.registerKeyBinding(cycleSpell);
+        ClientRegistry.registerKeyBinding(CYCLE_SPELL_KEY);
     }
 }

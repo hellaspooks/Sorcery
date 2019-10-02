@@ -1,7 +1,7 @@
 package com.root.sorcery.keybinding;
 
 import com.root.sorcery.network.PacketHandler;
-import com.root.sorcery.network.packets.KeyPressPKT;
+import com.root.sorcery.network.packets.KeyPressPacket;
 import net.minecraft.client.util.InputMappings;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,14 +16,16 @@ public class KeyInputHandler
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event)
     {
-        // Only Check on Key Release, so only triggers once.
+        // For single key-press checks, check on release to avoid duplication
         if (event.getAction() == GLFW_RELEASE)
         {
-            Boolean keyPressed = KeyBindings.cycleSpell.isActiveAndMatches(InputMappings.getInputByCode(event.getKey(), event.getScanCode()));
+            // Input for use in checks below
+            InputMappings.Input keyInput = InputMappings.getInputByCode(event.getKey(), event.getScanCode());
 
-            if (keyPressed)
+            // Add checks for keypresses here
+            if (KeyBindings.CYCLE_SPELL_KEY.isActiveAndMatches(keyInput))
             {
-                    PacketHandler.sendToServer(new KeyPressPKT());
+                    PacketHandler.sendToServer(new KeyPressPacket(1));
             }
         }
     }

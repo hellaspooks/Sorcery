@@ -1,7 +1,7 @@
 package com.root.sorcery.network;
 
 import com.root.sorcery.Constants;
-import com.root.sorcery.network.packets.KeyPressPKT;
+import com.root.sorcery.network.packets.KeyPressPacket;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
@@ -21,7 +21,7 @@ public class PacketHandler
     {
         int disc = 0;
 
-        HANDLER.registerMessage(disc++,KeyPressPKT.class, KeyPressPKT::encode, KeyPressPKT::decode, KeyPressPKT.Handler::handle);
+        HANDLER.registerMessage(disc++, KeyPressPacket.class, KeyPressPacket::encode, KeyPressPacket::decode, KeyPressPacket.Handler::handle);
     }
 
     public static void sendToServer(Object msg)
