@@ -1,5 +1,6 @@
 package com.root.sorcery;
 
+import com.root.sorcery.arcana.CapabilityArcana;
 import com.root.sorcery.block.ModBlock;
 import com.root.sorcery.event.BlockRightClickEvent;
 import com.root.sorcery.event.StructureFormHandlerEvent;
@@ -10,12 +11,18 @@ import com.root.sorcery.setup.IProxy;
 import com.root.sorcery.setup.ModSetup;
 import com.root.sorcery.setup.ServerProxy;
 import com.root.sorcery.spell.ModSpell;
+import com.root.sorcery.spellcasting.SpellcastingCapability;
+import com.root.sorcery.spellcasting.SpellcastingProvider;
 import com.root.sorcery.tileentity.ModTile;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -58,6 +65,8 @@ public class Sorcery
     {
         setup.init();
         proxy.init();
+        CapabilityArcana.register();
+        SpellcastingCapability.register();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event)
@@ -114,6 +123,19 @@ public class Sorcery
             ModTile.init(event);
         }
 
+    }
+
+    @Mod.EventBusSubscriber
+    public static class EventHandlers
+    {
+        @SubscribeEvent
+        public static void attachCapabilitiesEntities(AttachCapabilitiesEvent<Entity> event)
+        {
+            if (event.getObject() instanceof PlayerEntity)
+            {
+                event.addCapability(SpellcastingCapability.SPELLCASTING_CAP, new SpellcastingProvider());
+            }
+        }
     }
 
     public static Logger getLogger()
