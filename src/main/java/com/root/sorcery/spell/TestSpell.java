@@ -7,8 +7,11 @@ import net.minecraft.world.World;
 public class TestSpell extends Spell
 {
 
-    public TestSpell()
+    private String debugMessage;
+
+    public TestSpell(String debugMessageIn)
     {
+        this.debugMessage = debugMessageIn;
 
     }
 
@@ -20,7 +23,7 @@ public class TestSpell extends Spell
 
             if (!world.isRemote())
             {
-                context.getPlayer().sendMessage(new StringTextComponent("Test Spell Cast!"));
+                context.getPlayer().sendMessage(new StringTextComponent(this.debugMessage));
             }
             return ActionResultType.SUCCESS;
         }

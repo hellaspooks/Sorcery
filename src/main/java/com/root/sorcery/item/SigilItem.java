@@ -73,12 +73,18 @@ public class SigilItem extends ItemMod
     // Actually casting a spell
     public ActionResultType castSpell(SpellUseContext context)
     {
-        ISpellcasting playerCap = context.getPlayer().getCapability(SpellcastingProvider.SPELLCASTING).orElseGet(SpellcastingDefault::new);
+        if (!context.getWorld().isRemote) {
+            ISpellcasting playerCap = context.getPlayer().getCapability(SpellcastingProvider.SPELLCASTING).orElseThrow(NullPointerException::new);
 
-        ResourceLocation spellToTest = playerCap.getActiveSpell();
+            ResourceLocation spellToTest = playerCap.getActiveSpell();
 
-        ActionResultType actionResultType = GameRegistry.findRegistry(Spell.class).getValue(spellToTest).cast(context);
-        return actionResultType;
+            ActionResultType actionResultType = GameRegistry.findRegistry(Spell.class).getValue(spellToTest).cast(context);
+            return actionResultType;
+        }
+        else
+        {
+            return ActionResultType.SUCCESS;
+        }
 
     }
 }
