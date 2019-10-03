@@ -1,5 +1,6 @@
 package com.root.sorcery.spellcasting;
 
+import com.root.sorcery.spell.ModSpell;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.ResourceLocation;
@@ -18,17 +19,24 @@ public class SpellcastingDefault implements ISpellcasting
     {
 
         // Adding defaults for testing purposes
-        ResourceLocation testSpell = new ResourceLocation("sorcery:testspell");
-        ResourceLocation testSpell2 = new ResourceLocation("sorcery:test_spell2");
+
+
+        ResourceLocation testSpell = ModSpell.TEST_SPELL.getRegistryName();
+        ResourceLocation testSpell2 = ModSpell.TEST_SPELL_2.getRegistryName();
+        ResourceLocation hasteSpell = ModSpell.HASTE_SPELL.getRegistryName();
+        ResourceLocation blinkSpell = ModSpell.BLINK_SPELL.getRegistryName();
 
         this.activeSpell = testSpell;
 
         this.preparedSpells.add(testSpell);
         this.preparedSpells.add(testSpell2);
+        this.preparedSpells.add(hasteSpell);
+        this.preparedSpells.add(blinkSpell);
 
         this.knownSpells.add(testSpell);
         this.knownSpells.add(testSpell2);
-
+        this.knownSpells.add(hasteSpell);
+        this.knownSpells.add(blinkSpell);
     }
 
     public void cycleActiveSpell()

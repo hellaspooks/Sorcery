@@ -4,6 +4,7 @@ import com.root.sorcery.spellcasting.ISpellcasting;
 import com.root.sorcery.spellcasting.SpellcastingProvider;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -44,6 +45,8 @@ public class KeyPressPacket
                         ISpellcasting playerCap = player.getCapability(SpellcastingProvider.SPELLCASTING).orElseThrow(NullPointerException::new);
 
                         playerCap.cycleActiveSpell();
+
+                        player.sendMessage(new StringTextComponent(String.format("Active Spell is now: %s", playerCap.getActiveSpell().toString())));
                 }
 
             });

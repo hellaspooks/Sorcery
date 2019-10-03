@@ -24,6 +24,7 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -140,6 +141,7 @@ public class Sorcery
             if (event.getObject() instanceof PlayerEntity)
             {
                 event.addCapability(SpellcastingCapability.SPELLCASTING_CAP, new SpellcastingProvider());
+
             }
         }
 
