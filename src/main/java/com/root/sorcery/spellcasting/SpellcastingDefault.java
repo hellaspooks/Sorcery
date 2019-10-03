@@ -14,7 +14,8 @@ public class SpellcastingDefault implements ISpellcasting
 
     private ArrayList<ResourceLocation> knownSpells = new ArrayList<>();
 
-    public SpellcastingDefault(){
+    public SpellcastingDefault()
+    {
 
         // Adding defaults for testing purposes
         ResourceLocation testSpell = new ResourceLocation("sorcery:testspell");

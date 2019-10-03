@@ -26,7 +26,7 @@ public class KeyPressPacket
 
     public static KeyPressPacket decode(PacketBuffer buf)
     {
-        return new KeyPressPacket(buf.readInt());
+        return new KeyPressPacket(buf.readVarInt());
     }
 
     public static class Handler
