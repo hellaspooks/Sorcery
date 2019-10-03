@@ -79,6 +79,10 @@ repositories {
     maven {
         name = 'ourten'
         url = 'http://maven.ferenyr.info/artifactory/libs-release'
+	content {
+		includeGroup "net.voxelindustry"
+		includeGroup "fr.ourten"
+	}
     }
     maven {
         name = 'curios'
