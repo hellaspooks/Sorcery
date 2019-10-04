@@ -1,6 +1,7 @@
 package com.root.sorcery.spell;
 
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -16,25 +17,17 @@ import javax.annotation.Nullable;
 
 public class SpellUseContext
 {
-    protected final World world;
-    protected final BlockPos pos;
-    protected final BlockRayTraceResult rayTraceResult;
-    protected final PlayerEntity player;
-    protected final Hand hand;
-    protected final ItemStack item;
+    private final World world;
+    private final BlockPos pos;
+    private final BlockRayTraceResult rayTraceResult;
+    private final PlayerEntity player;
+    private final Hand hand;
+    private final ItemStack item;
+    private final LivingEntity targetEntity;
 
-    // Grody spellUseContext from ItemUseContext
-    public SpellUseContext(ItemUseContext itemUseContext)
-    {
-        this(itemUseContext.getPlayer(), new BlockRayTraceResult(itemUseContext.getHitVec(), itemUseContext.getFace(), itemUseContext.getPos(), itemUseContext.func_221533_k()), itemUseContext.getHand());
-    }
 
-    public SpellUseContext(PlayerEntity player, BlockRayTraceResult rayTraceResultIn, Hand handIn)
-    {
-        this(player.world, rayTraceResultIn, player.getPosition(), player, handIn, player.getHeldItem(handIn));
-    }
 
-    public SpellUseContext(World worldIn, @Nullable BlockRayTraceResult rayTraceResultIn, BlockPos posIn, @Nullable PlayerEntity playerIn, @Nullable Hand handIn, @Nullable ItemStack heldItem)
+    public SpellUseContext(World worldIn, BlockPos posIn, @Nullable BlockRayTraceResult rayTraceResultIn, @Nullable PlayerEntity playerIn, @Nullable Hand handIn, @Nullable ItemStack heldItem, @Nullable LivingEntity targetEntityIn)
     {
         this.world = worldIn;
         this.pos = posIn;
@@ -42,8 +35,28 @@ public class SpellUseContext
         this.player = playerIn;
         this.hand = handIn;
         this.item = heldItem;
+        this.targetEntity = targetEntityIn;
 
     }
+
+    // Convenience constructor from ItemUseContext
+    public SpellUseContext(ItemUseContext itemUseContext)
+    {
+        this(itemUseContext.getPlayer(), new BlockRayTraceResult(itemUseContext.getHitVec(), itemUseContext.getFace(), itemUseContext.getPos(), itemUseContext.func_221533_k()), itemUseContext.getHand());
+    }
+
+    // Convenience constructor for block hits
+    public SpellUseContext(PlayerEntity player, BlockRayTraceResult rayTraceResultIn, Hand handIn)
+    {
+        this(player.world, player.getPosition(), rayTraceResultIn, player, handIn, player.getHeldItem(handIn), null);
+    }
+
+    // Convenience constructor for entity hits
+    public SpellUseContext(World worldIn, BlockPos pos, PlayerEntity playerIn, Hand handIn, ItemStack itemStackIn, LivingEntity targetEntityIn)
+    {
+        this(worldIn, pos, null, playerIn, handIn, itemStackIn, targetEntityIn);
+    }
+
 
     public PlayerEntity getPlayer()
     {
@@ -84,6 +97,17 @@ public class SpellUseContext
     public World getWorld()
     {
         return this.world;
+    }
+
+    public boolean wasEntityTargeted(){
+        if (targetEntity == null)
+            return false;
+        return true;
+    }
+
+    public LivingEntity getTargetEntity()
+    {
+        return this.targetEntity;
     }
 
 }

@@ -34,7 +34,7 @@ public class SigilItem extends ItemMod
     public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
 
         World worldIn = playerIn.getEntityWorld();
-        SpellUseContext spellContext = new SpellUseContext(worldIn, null, playerIn.getPosition(), playerIn, hand, stack);
+        SpellUseContext spellContext = new SpellUseContext(worldIn, playerIn.getPosition(), null, playerIn, hand, stack, target);
 
         ActionResultType actionResultType = castSpell(spellContext);
 
@@ -63,7 +63,7 @@ public class SigilItem extends ItemMod
 
         ItemStack itemStack = playerIn.getHeldItem(handIn);
 
-        SpellUseContext spellContext = new SpellUseContext(worldIn, null, playerIn.getPosition(), playerIn, handIn, itemStack);
+        SpellUseContext spellContext = new SpellUseContext(worldIn, playerIn.getPosition(), null, playerIn, handIn, itemStack, null);
 
         ActionResultType actionResultType = castSpell(spellContext);
 
