@@ -3,11 +3,11 @@ package com.root.sorcery.spell;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.text.StringTextComponent;
 
-public class ChanneledSpell extends Spell
+public class DurationSpell extends Spell
 {
     int arcanaCost = 1;
 
-    public ChanneledSpell()
+    public DurationSpell()
     {
         this.castDuration = 100;
     }
@@ -19,7 +19,7 @@ public class ChanneledSpell extends Spell
         if (!drainArcana(context, arcanaCost))
             return ActionResultType.FAIL;
 
-        context.getPlayer().sendMessage(new StringTextComponent("Still Channeling!"));
+        context.getPlayer().sendMessage(new StringTextComponent("Duration Spell Cast!"));
 
         return ActionResultType.PASS;
     }

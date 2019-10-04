@@ -100,13 +100,13 @@ public class SpellUseContext
     }
 
     // Convenience constructor from onRightClick
-    public SpellUseContext(World worldIn, PlayerEntity playerIn, Hand handIn)
+    public SpellUseContext(World worldIn, LivingEntity playerIn, Hand handIn)
     {
         this.world = worldIn;
         this.pos = playerIn.getPosition();
         this.arcanaSource = getSourceFromEntity(playerIn);
         this.rayTraceResult = null;
-        this.player = playerIn;
+        this.player = playerIn instanceof PlayerEntity ? (PlayerEntity) playerIn : null;
         this.hand = handIn;
         this.item = playerIn.getHeldItem(handIn);
         this.targetEntity = null;

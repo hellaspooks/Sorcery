@@ -37,7 +37,7 @@ public class ModItem
 
     // Sigils
     @ObjectHolder("sorcery:sigil_evocation")
-    public static SigilItem sigil_evocation;
+    public static Item sigil_evocation;
     @ObjectHolder("sorcery:sigil_conjuration")
     public static Item sigil_conjuration;
     @ObjectHolder("sorcery:sigil_abjuration")
@@ -78,9 +78,7 @@ public class ModItem
         sigil_slate = itemFactory(ItemEnum.MATERIAL, "sigil_slate", event);
 
         // Sigils
-        sigil_evocation = new SigilItem();
-        sigil_evocation.setRegistryName("sigil_evocation");
-        event.getRegistry().register(sigil_evocation);
+        sigil_evocation = itemFactory(ItemEnum.SIGIL, "sigil_evocation", event);
         sigil_conjuration = itemFactory(ItemEnum.SIGIL,"sigil_conjuration", event);
         sigil_abjuration = itemFactory(ItemEnum.SIGIL,"sigil_abjuration", event);
         sigil_enchantment = itemFactory(ItemEnum.SIGIL,"sigil_enchantment", event);

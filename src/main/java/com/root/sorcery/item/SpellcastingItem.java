@@ -22,18 +22,12 @@ public class SpellcastingItem extends ItemMod
     @Override
     public int getUseDuration(ItemStack stack)
     {
-        return 72000;
+        return 100;
     }
 
     @Override
-    public UseAction getUseAction(ItemStack stack)
-    {
+    public UseAction getUseAction(ItemStack stack){
         return UseAction.BOW;
-    }
-
-    @Override
-    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft)
-    {
     }
 
     // When item is used on an entity
@@ -67,25 +61,42 @@ public class SpellcastingItem extends ItemMod
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
-        System.out.println("In on item right click");
-        SpellUseContext spellContext = new SpellUseContext(worldIn, playerIn, handIn);
-
+        Spell spellToCast = getSpellFromEntity(playerIn);
         ItemStack itemStack = playerIn.getHeldItem(handIn);
-        ActionResultType actionResultType = castSpell(spellContext);
+        // If instant cast spell
+        if (spellToCast.getCastDuration() == 0)
+        {
+            SpellUseContext spellContext = new SpellUseContext(worldIn, playerIn, handIn);
+            ActionResultType actionResultType = castSpell(spellContext);
+            return new ActionResult<>(actionResultType, itemStack);
+        }
+        else
+        {
+            playerIn.setActiveHand(handIn);
+            return new ActionResult<>(ActionResultType.SUCCESS, itemStack);
+        }
 
-        return new ActionResult<>(actionResultType, itemStack);
     }
+
+    @Override
+    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving)
+    {
+        SpellUseContext spellContext = new SpellUseContext(worldIn, entityLiving, entityLiving.getActiveHand());
+        castSpell(spellContext);
+        return stack;
+    }
+
 
 
     // Actually casting a spell
     public ActionResultType castSpell(SpellUseContext context)
     {
         if (!context.getWorld().isRemote) {
-            ISpellcasting playerCap = context.getPlayer().getCapability(SpellcastingCapability.SPELLCASTING).orElseThrow(NullPointerException::new);
 
-            ResourceLocation spellToTest = playerCap.getActiveSpell();
+            Spell spellToCast = getSpellFromEntity(context.getPlayer());
 
-            ActionResultType actionResultType = GameRegistry.findRegistry(Spell.class).getValue(spellToTest).cast(context);
+
+            ActionResultType actionResultType = spellToCast.cast(context);
             return actionResultType;
         }
         else
@@ -94,4 +105,12 @@ public class SpellcastingItem extends ItemMod
         }
 
     }
+
+    private static Spell getSpellFromEntity(LivingEntity entity)
+    {
+        ResourceLocation spellName = entity.getCapability(SpellcastingCapability.SPELLCASTING).orElseThrow(NullPointerException::new).getActiveSpell();
+
+        return GameRegistry.findRegistry(Spell.class).getValue(spellName);
+    }
+
 }

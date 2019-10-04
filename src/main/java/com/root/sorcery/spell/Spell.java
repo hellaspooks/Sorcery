@@ -9,7 +9,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class Spell extends ForgeRegistryEntry<Spell>
 {
-    public int castDuration = 5;
+    public int castDuration = 0;
 
     public Spell()
     {
