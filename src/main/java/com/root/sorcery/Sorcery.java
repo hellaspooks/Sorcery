@@ -1,8 +1,10 @@
 package com.root.sorcery;
 
-import com.root.sorcery.arcana.CapabilityArcana;
+import com.root.sorcery.arcana.ArcanaCapability;
+import com.root.sorcery.arcana.ArcanaProvider;
 import com.root.sorcery.block.ModBlock;
 import com.root.sorcery.event.BlockRightClickEvent;
+import com.root.sorcery.event.DurationSpellEvent;
 import com.root.sorcery.event.StructureFormHandlerEvent;
 import com.root.sorcery.item.ModItem;
 import com.root.sorcery.item.tool.ModTool;
@@ -17,15 +19,12 @@ import com.root.sorcery.spellcasting.SpellcastingCapability;
 import com.root.sorcery.spellcasting.SpellcastingProvider;
 import com.root.sorcery.tileentity.ModTile;
 import net.minecraft.block.Block;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -64,13 +63,14 @@ public class Sorcery
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(BlockRightClickEvent.class);
         MinecraftForge.EVENT_BUS.register(StructureFormHandlerEvent.class);
+        MinecraftForge.EVENT_BUS.register(DurationSpellEvent.class);
     }
 
     private void setup(final FMLCommonSetupEvent event)
     {
         setup.init();
         proxy.init();
-        CapabilityArcana.register();
+        ArcanaCapability.register();
         SpellcastingCapability.register();
 
         PacketHandler.register();
@@ -140,7 +140,8 @@ public class Sorcery
         {
             if (event.getObject() instanceof PlayerEntity)
             {
-                event.addCapability(SpellcastingCapability.SPELLCASTING_CAP, new SpellcastingProvider());
+                event.addCapability(SpellcastingCapability.SPELLCASTING_LOC, new SpellcastingProvider());
+                event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
 
             }
         }
@@ -150,8 +151,8 @@ public class Sorcery
         {
             if (event.isWasDeath())
             {
-                ISpellcasting origCap = event.getOriginal().getCapability(SpellcastingProvider.SPELLCASTING).orElseThrow(NullPointerException::new);
-                ISpellcasting newCap = event.getPlayer().getCapability(SpellcastingProvider.SPELLCASTING).orElseThrow(NullPointerException::new);
+                ISpellcasting origCap = event.getOriginal().getCapability(SpellcastingCapability.SPELLCASTING).orElseThrow(NullPointerException::new);
+                ISpellcasting newCap = event.getPlayer().getCapability(SpellcastingCapability.SPELLCASTING).orElseThrow(NullPointerException::new);
                 newCap.setActiveSpell(origCap.getActiveSpell());
                 newCap.setPreparedSpells(origCap.getPreparedSpells());
                 newCap.setKnownSpells(origCap.getKnownSpells());

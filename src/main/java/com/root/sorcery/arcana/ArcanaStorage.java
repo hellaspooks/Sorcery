@@ -13,6 +13,8 @@ public class ArcanaStorage implements IArcanaStorage, INBTSerializable<CompoundN
     public ArcanaStorage(int capacity)
     {
         this.capacity = capacity;
+        // Testing, setting arcana to max
+        this.arcana = capacity;
     }
 
     @Override

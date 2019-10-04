@@ -10,6 +10,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class BlinkSpell extends Spell
 {
+    private int arcanaCost = 42;
     private double blinkDistance;
 
     public BlinkSpell(double blinkDistanceIn)
@@ -21,6 +22,9 @@ public class BlinkSpell extends Spell
     @Override
     public ActionResultType cast(SpellUseContext context)
     {
+        if (!drainArcana(context, arcanaCost))
+            return ActionResultType.FAIL;
+
         PlayerEntity player = context.getPlayer();
 
         Vec3d lookVec = player.getLookVec();

@@ -18,6 +18,9 @@ public class TestSpell extends Spell
     @Override
     public ActionResultType cast(SpellUseContext context)
     {
+        if (!drainArcana(context, 0))
+            return ActionResultType.FAIL;
+
         World world = context.getWorld();
         if ( context.getPlayer() != null){
 

@@ -1,18 +1,22 @@
 package com.root.sorcery.arcana;
 
+import com.root.sorcery.Constants;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.IntNBT;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 
-public class CapabilityArcana
+public class ArcanaCapability
 {
     @CapabilityInject(IArcanaStorage.class)
     public static Capability<IArcanaStorage> ARCANA = null;
+
+    public static ResourceLocation ARCANA_LOC = new ResourceLocation(Constants.MODID, "arcanacap");
 
     public static void register()
     {

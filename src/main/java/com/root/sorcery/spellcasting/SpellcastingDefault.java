@@ -25,6 +25,7 @@ public class SpellcastingDefault implements ISpellcasting
         ResourceLocation testSpell2 = ModSpell.TEST_SPELL_2.getRegistryName();
         ResourceLocation hasteSpell = ModSpell.HASTE_SPELL.getRegistryName();
         ResourceLocation blinkSpell = ModSpell.BLINK_SPELL.getRegistryName();
+        ResourceLocation channeledSpell = ModSpell.TEST_CHANNELED_SPELL.getRegistryName();
 
         this.activeSpell = testSpell;
 
@@ -32,11 +33,13 @@ public class SpellcastingDefault implements ISpellcasting
         this.preparedSpells.add(testSpell2);
         this.preparedSpells.add(hasteSpell);
         this.preparedSpells.add(blinkSpell);
+        this.preparedSpells.add(channeledSpell);
 
         this.knownSpells.add(testSpell);
         this.knownSpells.add(testSpell2);
         this.knownSpells.add(hasteSpell);
         this.knownSpells.add(blinkSpell);
+        this.knownSpells.add(channeledSpell);
     }
 
     public void cycleActiveSpell()
@@ -138,12 +141,12 @@ public class SpellcastingDefault implements ISpellcasting
 
     public void deserializeNBT(CompoundNBT nbt)
     {
-        SpellcastingCapability.SPELL_STORAGE.readNBT(SpellcastingProvider.SPELLCASTING, this, null, nbt);
+        SpellcastingCapability.SPELLCASTING_STORAGE.readNBT(SpellcastingCapability.SPELLCASTING, this, null, nbt);
     }
 
     public CompoundNBT serializeNBT()
     {
-        INBT tag = SpellcastingCapability.SPELL_STORAGE.writeNBT(SpellcastingProvider.SPELLCASTING, this, null);
+        INBT tag = SpellcastingCapability.SPELLCASTING_STORAGE.writeNBT(SpellcastingCapability.SPELLCASTING, this, null);
         return (CompoundNBT) tag;
     }
 

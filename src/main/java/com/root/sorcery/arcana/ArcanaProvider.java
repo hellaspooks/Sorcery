@@ -1,28 +1,25 @@
-package com.root.sorcery.spellcasting;
+package com.root.sorcery.arcana;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class SpellcastingProvider implements ICapabilitySerializable<CompoundNBT>
+public class ArcanaProvider implements ICapabilitySerializable<CompoundNBT>
 {
+    private final IArcanaStorage impl = new ArcanaStorage(1000);
 
-    private final ISpellcasting impl = new SpellcastingDefault();
-
-    private final LazyOptional<ISpellcasting> cap = LazyOptional.of(() -> impl);
-
+    private final LazyOptional<IArcanaStorage> cap = LazyOptional.of(() -> impl);
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side)
     {
-        if (capability == SpellcastingCapability.SPELLCASTING)
+        if (capability == ArcanaCapability.ARCANA)
         {
             return cap.cast();
         }
@@ -40,5 +37,4 @@ public class SpellcastingProvider implements ICapabilitySerializable<CompoundNBT
     {
         impl.deserializeNBT(nbt);
     }
-
 }
