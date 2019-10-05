@@ -79,6 +79,10 @@ repositories {
     maven {
         name = 'ourten'
         url = 'http://maven.ferenyr.info/artifactory/libs-release'
+        content {
+            includeGroup 'net.voxelindustry'
+            includeGroup 'fr.ourten'
+        }
     }
     maven {
         name = 'curios'
@@ -89,10 +93,9 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${project.forge_version}"
 
-    // Ourten i also had to comment these out to make things work
-    //api "net.voxelindustry:brokkgui-core:${project.brokkgui_version}"
-    //api fg.deobf("net.voxelindustry:brokkgui-binding-mc1.14:${project.brokkgui_version}")
-   // api fg.deobf("net.voxelindustry:steamlayer-core:${project.steamlayer_version}")
+    api "net.voxelindustry:brokkgui-core:${project.brokkgui_version}"
+    api fg.deobf("net.voxelindustry:brokkgui-binding-mc1.14:${project.brokkgui_version}")
+    api fg.deobf("net.voxelindustry:steamlayer-core:${project.steamlayer_version}")
 
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios:${project.curios_version}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios:${project.curios_version}:api")
