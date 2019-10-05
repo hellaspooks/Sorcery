@@ -36,8 +36,6 @@ public class KeyPressPacket
         public static void handle(final KeyPressPacket message, Supplier<NetworkEvent.Context> ctx)
         {
             ctx.get().enqueueWork(() -> {
-                System.out.println("Handling Packet");
-
                 switch (message.key)
                 {
                     // Cycle Spell Key

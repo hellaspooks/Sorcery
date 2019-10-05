@@ -2,7 +2,6 @@ package com.root.sorcery.item;
 
 import com.root.sorcery.spell.Spell;
 import com.root.sorcery.spell.SpellUseContext;
-import com.root.sorcery.spellcasting.ISpellcasting;
 import com.root.sorcery.spellcasting.SpellcastingCapability;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,6 +35,12 @@ public class SpellcastingItem extends ItemMod
 
         World worldIn = playerIn.getEntityWorld();
         SpellUseContext spellContext = new SpellUseContext(worldIn, playerIn.getPosition(), playerIn, hand, stack, target);
+        Spell spellToCast = getSpellFromEntity(playerIn);
+
+        if (spellToCast.getCastDuration() > 0){
+            ActionResult<ItemStack> actionItem =  onItemRightClick(worldIn, playerIn, hand);
+            return true;
+        }
 
         ActionResultType actionResultType = castSpell(spellContext);
 
@@ -54,7 +59,17 @@ public class SpellcastingItem extends ItemMod
     public ActionResultType onItemUse(ItemUseContext context)
     {
         SpellUseContext spellContext = new SpellUseContext(context);
-        return castSpell(spellContext);
+        Spell spellToCast = getSpellFromEntity(context.getPlayer());
+
+        if (spellToCast.getCastDuration() == 0)
+        {
+            return castSpell(spellContext);
+        }
+        else
+        {
+            return onItemRightClick(context.getWorld(), context.getPlayer(), context.getHand()).getType();
+        }
+
     }
 
     // When item is used not targeting anything
