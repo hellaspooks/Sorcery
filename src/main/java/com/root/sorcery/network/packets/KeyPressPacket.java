@@ -1,6 +1,7 @@
 package com.root.sorcery.network.packets;
 
 import com.root.sorcery.spellcasting.ISpellcasting;
+import com.root.sorcery.spellcasting.SpellcastingCapability;
 import com.root.sorcery.spellcasting.SpellcastingProvider;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
@@ -35,14 +36,12 @@ public class KeyPressPacket
         public static void handle(final KeyPressPacket message, Supplier<NetworkEvent.Context> ctx)
         {
             ctx.get().enqueueWork(() -> {
-                System.out.println("Handling Packet");
-
                 switch (message.key)
                 {
                     // Cycle Spell Key
                     case 1:
                         ServerPlayerEntity player = ctx.get().getSender();
-                        ISpellcasting playerCap = player.getCapability(SpellcastingProvider.SPELLCASTING).orElseThrow(NullPointerException::new);
+                        ISpellcasting playerCap = player.getCapability(SpellcastingCapability.SPELLCASTING).orElseThrow(NullPointerException::new);
 
                         playerCap.cycleActiveSpell();
 

@@ -1,6 +1,9 @@
 package com.root.sorcery.arcana;
 
-public interface IArcanaStorage
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.common.util.INBTSerializable;
+
+public interface IArcanaStorage extends INBTSerializable<CompoundNBT>
 {
     int receiveArcana(int maxReceive, boolean simulate);
 
