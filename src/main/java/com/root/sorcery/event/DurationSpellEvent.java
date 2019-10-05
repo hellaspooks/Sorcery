@@ -14,13 +14,11 @@ public class DurationSpellEvent
     @SubscribeEvent
     public static void durationSpell(LivingEntityUseItemEvent.Start event)
     {
-        System.out.println("In Start Using event");
+        System.out.println("In duration spell event");
         if (event.getItem().getItem() instanceof SpellcastingItem)
         {
-            System.out.println("Using spellcasting item.");
             ISpellcasting cap = event.getEntityLiving().getCapability(SpellcastingCapability.SPELLCASTING, null).orElseThrow(NullPointerException::new);
             Spell spell = GameRegistry.findRegistry(Spell.class).getValue(cap.getActiveSpell());
-            System.out.println(String.format("Spell duration = %d", spell.getCastDuration()));
 
             if (spell.getCastDuration() == 0)
             {

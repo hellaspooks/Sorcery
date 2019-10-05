@@ -9,6 +9,8 @@ public class DurationSpell extends Spell
 
     public DurationSpell()
     {
+        // This is actually all that has to happen for a spell to have a cast duration,
+        // everything else is handled in the DurationSpellEvent handler
         this.castDuration = 100;
     }
 
@@ -21,7 +23,7 @@ public class DurationSpell extends Spell
 
         context.getPlayer().sendMessage(new StringTextComponent("Duration Spell Cast!"));
 
-        return ActionResultType.PASS;
+        return ActionResultType.SUCCESS;
     }
 
 }

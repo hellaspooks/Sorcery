@@ -118,12 +118,10 @@ public class SpellUseContext
         return entity.getCapability(ArcanaCapability.ARCANA, null).orElseThrow(NullPointerException::new);
     }
 
-
     public PlayerEntity getPlayer()
     {
         return this.player;
     }
-
 
     public ItemStack getItem()
     {
@@ -153,6 +151,11 @@ public class SpellUseContext
     public Vec3d getHitVec()
     {
         return this.rayTraceResult.getHitVec();
+    }
+
+    public Hand getHand()
+    {
+        return this.hand;
     }
 
     public World getWorld()
