@@ -41,7 +41,7 @@ public class ChondriteBlastFurnaceTile extends TileBase implements INamedContain
 
     public ChondriteBlastFurnaceTile()
     {
-        super(ModTile.CHRONDRITE_BLAST_FURNACE);
+        super(ModTile.CHONDRITE_BLAST_FURNACE_TILE);
 
         inventory = new InventoryHandler(3);
         inventory.setOnSlotChange(slot ->
