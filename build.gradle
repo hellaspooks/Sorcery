@@ -79,10 +79,6 @@ repositories {
     maven {
         name = 'ourten'
         url = 'http://maven.ferenyr.info/artifactory/libs-release'
-        content {
-            includeGroup 'net.voxelindustry'
-            includeGroup 'fr.ourten'
-        }
     }
     maven {
         name = 'curios'
@@ -99,6 +95,8 @@ dependencies {
 
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios:${project.curios_version}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios:${project.curios_version}:api")
+
+    compileOnly "org.projectlombok:lombok:1.18.10"
 }
 
 jar {
