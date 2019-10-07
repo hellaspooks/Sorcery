@@ -78,6 +78,7 @@ public class SpellcastingItem extends ItemMod
         }
         else
         {
+            spellToCast.doSpellEffects(context);
             return ActionResultType.FAIL;
         }
     }
