@@ -9,6 +9,8 @@ import com.root.sorcery.event.StructureFormHandlerEvent;
 import com.root.sorcery.item.ModItem;
 import com.root.sorcery.item.tool.ModTool;
 import com.root.sorcery.network.PacketHandler;
+import com.root.sorcery.particle.ModParticle;
+import com.root.sorcery.particle.SimpleParticle;
 import com.root.sorcery.setup.ClientProxy;
 import com.root.sorcery.setup.IProxy;
 import com.root.sorcery.setup.ModSetup;
@@ -19,11 +21,14 @@ import com.root.sorcery.spellcasting.SpellcastingCapability;
 import com.root.sorcery.spellcasting.SpellcastingProvider;
 import com.root.sorcery.tileentity.ModTile;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -74,6 +79,7 @@ public class Sorcery
         SpellcastingCapability.register();
 
         PacketHandler.register();
+
     }
 
     private void doClientStuff(final FMLClientSetupEvent event)
@@ -115,6 +121,7 @@ public class Sorcery
             ModBlock.init(event);
         }
 
+
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event)
         {
@@ -127,6 +134,20 @@ public class Sorcery
         public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event)
         {
             ModTile.init(event);
+        }
+
+    }
+
+    @Mod.EventBusSubscriber(modid = Constants.MODID, value= Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class ClientRegistryEvents
+    {
+
+        @SubscribeEvent
+        public static void registerParticleFactories(final ParticleFactoryRegisterEvent event)
+        {
+            Minecraft mc = Minecraft.getInstance();
+
+            mc.particles.registerFactory(ModParticle.TESTPARTICLE, SimpleParticle.Factory::new);
         }
 
     }

@@ -41,4 +41,6 @@ public class Spell extends ForgeRegistryEntry<Spell>
         return castDuration;
     }
 
+    public void doSpellEffects(SpellUseContext context){}
+
 }
