@@ -10,11 +10,11 @@ public class ModSpell
 
     public static Spell TEST_SPELL_2 = new TestSpell("Test Spell 2: Electric Boogaloo");
 
-    public static Spell HASTE_SPELL = new PotionSpell(Effects.HASTE, 600);
+    public static PotionSpell HASTE_SPELL = new PotionSpell(Effects.HASTE, 600);
 
-    public static Spell BLINK_SPELL =   new BlinkSpell(30);
+    public static BlinkSpell BLINK_SPELL =   new BlinkSpell(30);
 
-    public static Spell DURATION_SPELL = new DurationSpell();
+    public static DurationSpell DURATION_SPELL = new DurationSpell();
 
 
     public static void registerSpells(Register<Spell> event)

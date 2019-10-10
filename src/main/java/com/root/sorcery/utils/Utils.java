@@ -15,6 +15,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import static net.minecraft.block.Block.doesSideFillSquare;
 import static net.minecraft.block.Block.spawnAsEntity;
 
 public class Utils {
@@ -47,5 +48,10 @@ public class Utils {
     {
         ResourceLocation spellLoc = getSpellCapFromEntity(entity).getActiveSpell();
         return GameRegistry.findRegistry(Spell.class).getValue(spellLoc);
+    }
+
+    public static Vec3d nBlocksAlongVector(Vec3d pos, Vec3d unitVector, float distance)
+    {
+       return pos.add(unitVector.getX() * distance, unitVector.getY() * distance, unitVector.getZ() * distance);
     }
 }

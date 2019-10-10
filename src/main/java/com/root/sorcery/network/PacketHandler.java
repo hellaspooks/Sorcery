@@ -1,9 +1,12 @@
 package com.root.sorcery.network;
 
 import com.root.sorcery.Constants;
+import com.root.sorcery.network.packets.SpellCapSyncPacket;
 import com.root.sorcery.network.packets.KeyPressPacket;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 public class PacketHandler
@@ -22,6 +25,7 @@ public class PacketHandler
         int disc = 0;
 
         HANDLER.registerMessage(disc++, KeyPressPacket.class, KeyPressPacket::encode, KeyPressPacket::decode, KeyPressPacket.Handler::handle);
+        HANDLER.registerMessage(disc++, SpellCapSyncPacket.class, SpellCapSyncPacket::encode, SpellCapSyncPacket::decode, SpellCapSyncPacket.Handler::handle);
     }
 
     public static void sendToServer(Object msg)
@@ -29,4 +33,9 @@ public class PacketHandler
         HANDLER.sendToServer(msg);
     }
 
+
+    public static void sendToPlayer(ServerPlayerEntity player, Object msg)
+    {
+        HANDLER.send(PacketDistributor.PLAYER.with(()->player), msg);
+    }
 }

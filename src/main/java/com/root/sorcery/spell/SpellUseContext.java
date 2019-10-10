@@ -179,4 +179,12 @@ public class SpellUseContext
         return arcanaSource;
     }
 
+    public boolean hasHitPos()
+    {
+        if (this.rayTraceResult == null)
+            return false;
+
+        return true;
+    }
+
 }

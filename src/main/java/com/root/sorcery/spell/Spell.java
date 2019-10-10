@@ -37,7 +37,6 @@ public class Spell extends ForgeRegistryEntry<Spell>
     }
 
     public int getCastDuration(){
-        System.out.println("Getting Cast Duration");
         return castDuration;
     }
 

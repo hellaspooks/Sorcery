@@ -2,6 +2,9 @@ package com.root.sorcery.keybinding;
 
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.KeyPressPacket;
+import com.root.sorcery.spellcasting.ISpellcasting;
+import com.root.sorcery.spellcasting.SpellcastingCapability;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.InputMappings;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,7 +28,7 @@ public class KeyInputHandler
             // Add checks for keypresses here
             if (KeyBindings.CYCLE_SPELL_KEY.isActiveAndMatches(keyInput))
             {
-                    PacketHandler.sendToServer(new KeyPressPacket(1));
+                PacketHandler.sendToServer(new KeyPressPacket(1));
             }
         }
     }
