@@ -81,7 +81,7 @@ repositories {
         url = 'http://maven.ferenyr.info/artifactory/libs-release'
     }
     maven {
-        name = 'curios'
+        name = "curios"
         url = "https://maven.theillusivec4.top/"
     }
 }
