@@ -9,6 +9,7 @@ import com.root.sorcery.event.StructureFormHandlerEvent;
 import com.root.sorcery.item.ModItem;
 import com.root.sorcery.item.tool.ModTool;
 import com.root.sorcery.network.PacketHandler;
+import com.root.sorcery.network.packets.SpellCapSyncPacket;
 import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.SimpleParticle;
 import com.root.sorcery.setup.ClientProxy;
@@ -19,12 +20,15 @@ import com.root.sorcery.spell.ModSpell;
 import com.root.sorcery.spellcasting.ISpellcasting;
 import com.root.sorcery.spellcasting.SpellcastingCapability;
 import com.root.sorcery.spellcasting.SpellcastingProvider;
+import com.root.sorcery.spellcasting.SpellcastingStorage;
 import com.root.sorcery.tileentity.ModTile;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -177,8 +181,16 @@ public class Sorcery
                 newCap.setPreparedSpells(origCap.getPreparedSpells());
                 newCap.setKnownSpells(origCap.getKnownSpells());
             }
+        }
 
+        @SubscribeEvent
+        public static void playerLoginEvent(PlayerEvent.PlayerLoggedInEvent event)
+        {
+            ISpellcasting playerCap = event.getPlayer().getCapability(SpellcastingCapability.SPELLCASTING, null).orElseThrow(NullPointerException::new);
 
+            ServerPlayerEntity serverPlayer = event.getPlayer().getServer().getPlayerList().getPlayerByUUID(event.getPlayer().getUniqueID());
+
+            PacketHandler.sendToPlayer(serverPlayer, new SpellCapSyncPacket((CompoundNBT) SpellcastingCapability.SPELLCASTING_STORAGE.writeNBT(SpellcastingCapability.SPELLCASTING, playerCap, null)));
         }
 
     }

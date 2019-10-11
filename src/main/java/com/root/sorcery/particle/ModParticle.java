@@ -12,14 +12,14 @@ import net.minecraftforge.registries.ObjectHolder;
 public class ModParticle
 {
 
-    @ObjectHolder("sorcery:testparticle")
+    @ObjectHolder("sorcery:puff")
     public static BasicParticleType TESTPARTICLE;
 
     @SubscribeEvent
     public static void registerParticles(RegistryEvent.Register<ParticleType<?>> event)
     {
 
-        TESTPARTICLE = basicParticleFactory("sorcery:testparticle", event);
+        TESTPARTICLE = basicParticleFactory("sorcery:puff", event);
 
     }
 

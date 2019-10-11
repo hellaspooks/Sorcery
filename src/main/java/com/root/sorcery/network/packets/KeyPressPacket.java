@@ -1,9 +1,10 @@
 package com.root.sorcery.network.packets;
 
+import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.spellcasting.ISpellcasting;
 import com.root.sorcery.spellcasting.SpellcastingCapability;
-import com.root.sorcery.spellcasting.SpellcastingProvider;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -46,6 +47,8 @@ public class KeyPressPacket
                         playerCap.cycleActiveSpell();
 
                         player.sendMessage(new StringTextComponent(String.format("Active Spell is now: %s", playerCap.getActiveSpell().toString())));
+                        PacketHandler.sendToPlayer(player, new SpellCapSyncPacket((CompoundNBT) SpellcastingCapability.SPELLCASTING_STORAGE.writeNBT(SpellcastingCapability.SPELLCASTING, playerCap, null)));
+
                 }
 
             });
