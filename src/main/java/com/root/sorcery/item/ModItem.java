@@ -10,12 +10,12 @@ import net.minecraftforge.registries.ObjectHolder;
 
 /**
  * Here is where we register the items in the mod.
- * Registration can be handled either here directly, or in sub-classes as seen below with
- * ModGeode, ModCrystal, and ModTool.
- * Note that this split is organizational only, and it doesn't really matter where its registered, as long as it is.
+ * Names in ObjectHolders correspond to resource pack names.
  */
 public class ModItem
 {
+
+    public static final Item.Properties ITEM_PROPS = new Item.Properties().group(ModSetup.sorcery);
 
 
 
@@ -70,83 +70,71 @@ public class ModItem
 
     public static void init(RegistryEvent.Register<Item> event)
     {
+        // Simple Items
         // Materials
-        lodestone = itemFactory(ItemEnum.MATERIAL, "lodestone", event);
-        chondrite_chunk = itemFactory(ItemEnum.MATERIAL, "chondrite_chunk", event);
-        chondrite_ingot = itemFactory(ItemEnum.MATERIAL, "chondrite_ingot", event);
-        siderite_ingot = itemFactory(ItemEnum.MATERIAL, "siderite_ingot", event);
-        sigil_slate = itemFactory(ItemEnum.MATERIAL, "sigil_slate", event);
+        lodestone = simpleItemFactory("lodestone", event);
+        chondrite_chunk = simpleItemFactory("chondrite_chunk", event);
+        chondrite_ingot = simpleItemFactory("chondrite_ingot", event);
+        siderite_ingot = simpleItemFactory("siderite_ingot", event);
+        sigil_slate = simpleItemFactory("sigil_slate", event);
 
-        // Sigils
-        sigil_evocation = itemFactory(ItemEnum.SIGIL, "sigil_evocation", event);
-        sigil_conjuration = itemFactory(ItemEnum.SIGIL,"sigil_conjuration", event);
-        sigil_abjuration = itemFactory(ItemEnum.SIGIL,"sigil_abjuration", event);
-        sigil_enchantment = itemFactory(ItemEnum.SIGIL,"sigil_enchantment", event);
-        sigil_necromancy = itemFactory(ItemEnum.SIGIL,"sigil_necromancy", event);
-        sigil_transmutation = itemFactory(ItemEnum.SIGIL,"sigil_transmutation", event);
 
         // Crystals
-        carnelian = itemFactory(ItemEnum.CRYSTAL,"carnelian", event);
-        chalcedony = itemFactory(ItemEnum.CRYSTAL, "chalcedony", event);
-        sugilite = itemFactory(ItemEnum.CRYSTAL,"sugilite", event);
-        jasper = itemFactory(ItemEnum.CRYSTAL,"jasper", event);
-        serpentine = itemFactory(ItemEnum.CRYSTAL,"serpentine", event);
-        nuummite = itemFactory(ItemEnum.CRYSTAL,"nuummite", event);
+        carnelian = simpleItemFactory("carnelian", event);
+        chalcedony = simpleItemFactory( "chalcedony", event);
+        sugilite = simpleItemFactory("sugilite", event);
+        jasper = simpleItemFactory("jasper", event);
+        serpentine = simpleItemFactory("serpentine", event);
+        nuummite = simpleItemFactory("nuummite", event);
 
         // Geode
-        geode = itemFactory(ItemEnum.GEODE, "geode", event);
+        geode = registerItem( "geode", new GeodeItem(ITEM_PROPS), event);
+
+        // Sigils
+        sigil_evocation = registerItem("sigil_evocation", new SigilItem(ITEM_PROPS), event);
+        sigil_conjuration = registerItem("sigil_conjuration", new SigilItem(ITEM_PROPS), event);
+        sigil_abjuration = registerItem("sigil_abjuration", new SigilItem(ITEM_PROPS), event);
+        sigil_enchantment = registerItem("sigil_enchantment", new SigilItem(ITEM_PROPS), event);
+        sigil_necromancy = registerItem("sigil_necromancy", new SigilItem(ITEM_PROPS), event);
+        sigil_transmutation = registerItem("sigil_transmutation", new SigilItem(ITEM_PROPS), event);
 
         // Register Block Items
-        Item.Properties properties = new Item.Properties().group(ModSetup.sorcery);
 
         // Simple Blocks
-        blockItemFactory(ModBlock.CHONDRITE_BRICKS, properties, event);
-        blockItemFactory(ModBlock.POLISHED_CHONDRITE, properties, event);
+        blockItemFactory(ModBlock.CHONDRITE_BRICKS, ITEM_PROPS, event);
+        blockItemFactory(ModBlock.POLISHED_CHONDRITE, ITEM_PROPS, event);
 
         // Slabs
-        blockItemFactory(ModBlock.CHONDRITE_BRICK_SLAB, properties, event);
+        blockItemFactory(ModBlock.CHONDRITE_BRICK_SLAB, ITEM_PROPS, event);
 
         // Stairs
-        blockItemFactory(ModBlock.CHONDRITE_BRICK_STAIRS, properties, event);
+        blockItemFactory(ModBlock.CHONDRITE_BRICK_STAIRS, ITEM_PROPS, event);
 
         // Walls
-        blockItemFactory(ModBlock.CHONDRITE_BRICK_WALL, properties, event);
+        blockItemFactory(ModBlock.CHONDRITE_BRICK_WALL, ITEM_PROPS, event);
 
         // Blocks with tile entities
-        blockItemFactory(ModBlock.RELIQUARY, properties, event);
-        blockItemFactory(ModBlock.CHONDRITE_BLAST_FURNACE, properties, event);
+        blockItemFactory(ModBlock.RELIQUARY, ITEM_PROPS, event);
+        blockItemFactory(ModBlock.CHONDRITE_BLAST_FURNACE, ITEM_PROPS, event);
 
-        blockItemFactory(ModBlock.MONOLITH_NORMAL, properties, event);
-        blockItemFactory(ModBlock.MONOLITH_SOLAR, properties, event);
-        blockItemFactory(ModBlock.MONOLITH_LUNAR, properties, event);
-        blockItemFactory(ModBlock.MONOLITH_DARK, properties, event);
+        blockItemFactory(ModBlock.MONOLITH_NORMAL, ITEM_PROPS, event);
+        blockItemFactory(ModBlock.MONOLITH_SOLAR, ITEM_PROPS, event);
+        blockItemFactory(ModBlock.MONOLITH_LUNAR, ITEM_PROPS, event);
+        blockItemFactory(ModBlock.MONOLITH_DARK, ITEM_PROPS, event);
     }
 
-    public static Item itemFactory(ItemEnum itemEnum, String registryName, RegistryEvent.Register<Item> event)
+    public static Item simpleItemFactory(String registryName, RegistryEvent.Register<Item> event)
     {
-        Item item = null;
-        switch (itemEnum)
-        {
-            case GEODE:
-                item = new GeodeItem();
-                break;
-            case CRYSTAL:
-                item = new CrystalItem();
-                break;
-            case SIGIL:
-                item = new SigilItem();
-                break;
-            case MATERIAL:
-                item = new MaterialItem();
-                break;
-            default:
-                // Error
-                break;
-        }
-
+        Item item = new Item(ITEM_PROPS);
         item.setRegistryName(registryName);
         event.getRegistry().register(item);
+        return item;
+    }
 
+    public static Item registerItem(String registryName, Item item, RegistryEvent.Register<Item> event)
+    {
+        item.setRegistryName(registryName);
+        event.getRegistry().register(item);
         return item;
     }
 

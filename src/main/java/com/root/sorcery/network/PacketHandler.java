@@ -1,6 +1,7 @@
 package com.root.sorcery.network;
 
 import com.root.sorcery.Constants;
+import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
 import com.root.sorcery.network.packets.SpellCapSyncPacket;
 import com.root.sorcery.network.packets.KeyPressPacket;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -26,6 +27,7 @@ public class PacketHandler
 
         HANDLER.registerMessage(disc++, KeyPressPacket.class, KeyPressPacket::encode, KeyPressPacket::decode, KeyPressPacket.Handler::handle);
         HANDLER.registerMessage(disc++, SpellCapSyncPacket.class, SpellCapSyncPacket::encode, SpellCapSyncPacket::decode, SpellCapSyncPacket.Handler::handle);
+        HANDLER.registerMessage(disc++, ArcanaCapSyncPacket.class, ArcanaCapSyncPacket::encode, ArcanaCapSyncPacket::decode, ArcanaCapSyncPacket.Handler::handle);
     }
 
     public static void sendToServer(Object msg)
