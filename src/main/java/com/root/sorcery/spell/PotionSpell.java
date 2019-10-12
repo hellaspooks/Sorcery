@@ -6,7 +6,7 @@ import net.minecraft.util.ActionResultType;
 
 public class PotionSpell extends Spell
 {
-    private int arcanaCost = 50;
+    // Potion effect to apply
     private Effect effect;
     // Duration in ticks, 1 second = 20 ticks
     private int duration;
@@ -16,13 +16,12 @@ public class PotionSpell extends Spell
     {
         this.effect = effectIn;
         this.duration = durationIn;
+        this.arcanaCost = 50;
     }
 
     @Override
-    public ActionResultType cast(SpellUseContext context)
+    public ActionResultType castServer(SpellUseContext context)
     {
-        if (!drainArcana(context, arcanaCost))
-            return ActionResultType.FAIL;
 
         if (context.wasEntityTargeted())
         {

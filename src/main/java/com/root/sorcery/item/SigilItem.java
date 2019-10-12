@@ -9,6 +9,7 @@ import com.root.sorcery.spellcasting.SpellcastingDefault;
 import com.root.sorcery.spellcasting.SpellcastingProvider;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
@@ -23,9 +24,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class SigilItem extends SpellcastingItem
 {
 
-    public SigilItem()
+    public SigilItem(Item.Properties properties)
     {
-        super();
+        super(properties);
     }
 
 }

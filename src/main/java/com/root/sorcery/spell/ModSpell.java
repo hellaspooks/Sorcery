@@ -6,29 +6,30 @@ import net.minecraftforge.event.RegistryEvent.Register;
 public class ModSpell
 {
 
-    public static Spell TEST_SPELL = new TestSpell("Test Spell 1");
+    public static final Spell TEST_SPELL = new TestSpell("Test Spell 1");
 
-    public static Spell TEST_SPELL_2 = new TestSpell("Test Spell 2: Electric Boogaloo");
+    public static final Spell TEST_SPELL_2 = new TestSpell("Test Spell 2: Electric Boogaloo");
 
-    public static PotionSpell HASTE_SPELL = new PotionSpell(Effects.HASTE, 600);
+    public static final PotionSpell HASTE_SPELL = new PotionSpell(Effects.HASTE, 600);
 
-    public static BlinkSpell BLINK_SPELL =   new BlinkSpell(30);
+    public static final BlinkSpell BLINK_SPELL = new BlinkSpell(30);
 
-    public static DurationSpell DURATION_SPELL = new DurationSpell();
+    public static final DurationSpell DURATION_SPELL = new DurationSpell();
 
 
-    public static void registerSpells(Register<Spell> event)
+    public static void init(Register<Spell> event)
     {
-        TEST_SPELL.setRegistryName("sorcery:testspell");
-        TEST_SPELL_2.setRegistryName("sorcery:test_spell2");
-        HASTE_SPELL.setRegistryName("sorcery:haste_spell");
-        BLINK_SPELL.setRegistryName("sorcery:blink_spell");
-        DURATION_SPELL.setRegistryName("sorcery:duration_spell");
-        event.getRegistry().register(HASTE_SPELL);
-        event.getRegistry().register(TEST_SPELL);
-        event.getRegistry().register(TEST_SPELL_2);
-        event.getRegistry().register(BLINK_SPELL);
-        event.getRegistry().register(DURATION_SPELL);
+        registerSpell("sorcery:testspell", TEST_SPELL, event);
+        registerSpell("sorcery:test_spell2", TEST_SPELL_2, event);
+        registerSpell("sorcery:haste_spell", HASTE_SPELL, event);
+        registerSpell("sorcery:blink_spell", BLINK_SPELL, event);
+        registerSpell("sorcery:duration_spell", DURATION_SPELL, event);
+    }
+
+    public static void registerSpell(String registryName, Spell spell, Register<Spell> event)
+    {
+       spell.setRegistryName(registryName);
+       event.getRegistry().register(spell);
     }
 
 }

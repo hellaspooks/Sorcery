@@ -7,10 +7,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
-
 import java.util.function.Supplier;
-
-import static com.root.sorcery.spellcasting.SpellcastingCapability.SPELLCASTING_STORAGE;
 
 public class SpellCapSyncPacket
 {
@@ -43,10 +40,10 @@ public class SpellCapSyncPacket
 
                ISpellcasting playerCap = Minecraft.getInstance().player.getCapability(SpellcastingCapability.SPELLCASTING).orElseThrow(NullPointerException::new);
 
-               SPELLCASTING_STORAGE.readNBT(SpellcastingCapability.SPELLCASTING, playerCap, null, message.capNBT);
+               SpellcastingCapability.SPELLCASTING.readNBT(playerCap, null, message.capNBT);
             } else {
                ISpellcasting playerCap = ctx.get().getSender().getCapability(SpellcastingCapability.SPELLCASTING).orElseThrow(NullPointerException::new);
-               SPELLCASTING_STORAGE.readNBT(SpellcastingCapability.SPELLCASTING, playerCap, null, message.capNBT);
+               SpellcastingCapability.SPELLCASTING.readNBT(playerCap, null, message.capNBT);
             }
 
          });

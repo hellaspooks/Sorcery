@@ -22,18 +22,11 @@ public class TestSpell extends Spell
     }
 
     @Override
-    public ActionResultType cast(SpellUseContext context)
+    public ActionResultType castServer(SpellUseContext context)
     {
-        if (!drainArcana(context, 0))
-            return ActionResultType.FAIL;
 
-        World world = context.getWorld();
         if ( context.getPlayer() != null){
-
-            if (!world.isRemote())
-            {
-                context.getPlayer().sendMessage(new StringTextComponent(this.debugMessage));
-            }
+            context.getPlayer().sendMessage(new StringTextComponent(this.debugMessage));
             return ActionResultType.SUCCESS;
         }
         else
@@ -44,9 +37,8 @@ public class TestSpell extends Spell
     }
 
     @Override
-    public void doSpellEffects(SpellUseContext context)
+    public void castClient(SpellUseContext context)
     {
-        System.out.println("In do FX");
         ParticleEffects.poofEffect(ModParticle.TESTPARTICLE, context);
     }
 }

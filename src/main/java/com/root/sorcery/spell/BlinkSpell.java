@@ -1,5 +1,6 @@
 package com.root.sorcery.spell;
 
+import com.root.sorcery.utils.Utils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
@@ -10,30 +11,22 @@ import net.minecraft.util.math.Vec3d;
 
 public class BlinkSpell extends Spell
 {
-    private int arcanaCost = 42;
     private double blinkDistance;
 
     public BlinkSpell(double blinkDistanceIn)
     {
         this.blinkDistance = blinkDistanceIn;
+        this.arcanaCost = 42;
     }
 
 
     @Override
-    public ActionResultType cast(SpellUseContext context)
+    public ActionResultType castServer(SpellUseContext context)
     {
-        if (!drainArcana(context, arcanaCost))
-            return ActionResultType.FAIL;
 
         PlayerEntity player = context.getPlayer();
 
-        Vec3d lookVec = player.getLookVec();
-
-        Vec3d playerLookPos = player.getEyePosition(1.0F);
-        Vec3d playerLookEnd = playerLookPos.add(lookVec.mul(blinkDistance, blinkDistance, blinkDistance));
-
-
-        BlockRayTraceResult blockRTR = context.getWorld().rayTraceBlocks(new RayTraceContext(playerLookPos, playerLookEnd, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, player));
+        BlockRayTraceResult blockRTR = Utils.blockAlongRay(player.getEyePosition(1.0f), player.getLookVec(), blinkDistance, context.getWorld(), player);
 
 
         // if raytrace hits a block, teleport to that block, ,if it doesnt, teleport the full distance
@@ -57,7 +50,8 @@ public class BlinkSpell extends Spell
         }
         else
         {
-            player.teleportKeepLoaded(playerLookEnd.getX(), playerLookEnd.getY(), playerLookEnd.getZ());
+            Vec3d finalVec = Utils.nBlocksAlongVector(player.getEyePosition(1.0f), player.getLookVec(), (float) blinkDistance);
+            player.teleportKeepLoaded(finalVec.getX(), finalVec.getY(), finalVec.getZ());
             return ActionResultType.SUCCESS;
         }
     }

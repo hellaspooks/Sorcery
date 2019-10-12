@@ -4,6 +4,7 @@ import com.root.sorcery.spell.Spell;
 import com.root.sorcery.spell.SpellUseContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.UseAction;
@@ -14,8 +15,13 @@ import net.minecraft.world.World;
 
 import static com.root.sorcery.utils.Utils.getSpellFromEntity;
 
-public class SpellcastingItem extends ItemMod
+public class SpellcastingItem extends Item
 {
+    public SpellcastingItem(Item.Properties properties)
+    {
+        super(properties);
+    }
+
     @Override
     public int getUseDuration(ItemStack stack)
     {
@@ -72,15 +78,8 @@ public class SpellcastingItem extends ItemMod
             context.getPlayer().setActiveHand(context.getHand());
             return ActionResultType.PASS;
         }
-        // Else, if on server, cast spell
-        if ( !context.getWorld().isRemote() ) {
-            return spellToCast.cast(context);
-        }
-        else
-        {
-            spellToCast.doSpellEffects(context);
-            return ActionResultType.FAIL;
-        }
+        // Otherwise, cast the spell
+        return spellToCast.cast(context);
     }
 
     // Duration spells finish here
@@ -89,8 +88,7 @@ public class SpellcastingItem extends ItemMod
     {
         SpellUseContext spellContext = new SpellUseContext(worldIn, entityLiving, entityLiving.getActiveHand());
         Spell spellToCast = getSpellFromEntity(entityLiving);
-        if ( !worldIn.isRemote() )
-            spellToCast.cast(spellContext);
+        spellToCast.cast(spellContext);
         return stack;
     }
 

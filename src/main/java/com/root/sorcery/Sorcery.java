@@ -2,13 +2,14 @@ package com.root.sorcery;
 
 import com.root.sorcery.arcana.ArcanaCapability;
 import com.root.sorcery.arcana.ArcanaProvider;
+import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.block.ModBlock;
-import com.root.sorcery.event.BlockRightClickEvent;
 import com.root.sorcery.event.DurationSpellEvent;
 import com.root.sorcery.event.StructureFormHandlerEvent;
 import com.root.sorcery.item.ModItem;
 import com.root.sorcery.item.tool.ModTool;
 import com.root.sorcery.network.PacketHandler;
+import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
 import com.root.sorcery.network.packets.SpellCapSyncPacket;
 import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.SimpleParticle;
@@ -20,7 +21,6 @@ import com.root.sorcery.spell.ModSpell;
 import com.root.sorcery.spellcasting.ISpellcasting;
 import com.root.sorcery.spellcasting.SpellcastingCapability;
 import com.root.sorcery.spellcasting.SpellcastingProvider;
-import com.root.sorcery.spellcasting.SpellcastingStorage;
 import com.root.sorcery.tileentity.ModTile;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -70,7 +70,6 @@ public class Sorcery
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(BlockRightClickEvent.class);
         MinecraftForge.EVENT_BUS.register(StructureFormHandlerEvent.class);
         MinecraftForge.EVENT_BUS.register(DurationSpellEvent.class);
     }
@@ -101,22 +100,20 @@ public class Sorcery
         LOGGER.info("HELLO from server starting");
     }
 
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
+    // Common Registry events
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents
+    public static class CommonRegistryEvents
     {
         @SubscribeEvent
         public static void registerRegistry(RegistryEvent.NewRegistry event){
             new RegistryBuilder<Spell>().setType(Spell.class)
                     .setName(new ResourceLocation(Constants.MODID, "spell"))
                     .create();
-
         }
 
         @SubscribeEvent
         public static void registerSpells(RegistryEvent.Register<Spell> event){
-            ModSpell.registerSpells(event);
+            ModSpell.init(event);
         }
 
         @SubscribeEvent
@@ -142,6 +139,7 @@ public class Sorcery
 
     }
 
+    // Client-side registry events
     @Mod.EventBusSubscriber(modid = Constants.MODID, value= Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientRegistryEvents
     {
@@ -156,6 +154,7 @@ public class Sorcery
 
     }
 
+    // Event Handlers
     @Mod.EventBusSubscriber
     public static class EventHandlers
     {
@@ -166,7 +165,6 @@ public class Sorcery
             {
                 event.addCapability(SpellcastingCapability.SPELLCASTING_LOC, new SpellcastingProvider());
                 event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
-
             }
         }
 
@@ -186,11 +184,13 @@ public class Sorcery
         @SubscribeEvent
         public static void playerLoginEvent(PlayerEvent.PlayerLoggedInEvent event)
         {
-            ISpellcasting playerCap = event.getPlayer().getCapability(SpellcastingCapability.SPELLCASTING, null).orElseThrow(NullPointerException::new);
+            IArcanaStorage playerArcanaCap = event.getPlayer().getCapability(ArcanaCapability.ARCANA, null).orElseThrow(NullPointerException::new);
+            ISpellcasting playerSpellCap = event.getPlayer().getCapability(SpellcastingCapability.SPELLCASTING, null).orElseThrow(NullPointerException::new);
 
             ServerPlayerEntity serverPlayer = event.getPlayer().getServer().getPlayerList().getPlayerByUUID(event.getPlayer().getUniqueID());
 
-            PacketHandler.sendToPlayer(serverPlayer, new SpellCapSyncPacket((CompoundNBT) SpellcastingCapability.SPELLCASTING_STORAGE.writeNBT(SpellcastingCapability.SPELLCASTING, playerCap, null)));
+            PacketHandler.sendToPlayer(serverPlayer, new SpellCapSyncPacket((CompoundNBT) SpellcastingCapability.SPELLCASTING.writeNBT(playerSpellCap, null)));
+            PacketHandler.sendToPlayer(serverPlayer, new ArcanaCapSyncPacket(ArcanaCapability.ARCANA.writeNBT(playerArcanaCap, null)));
         }
 
     }
