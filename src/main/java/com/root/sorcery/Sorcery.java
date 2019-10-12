@@ -13,6 +13,7 @@ import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
 import com.root.sorcery.network.packets.SpellCapSyncPacket;
 import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.SimpleParticle;
+import com.root.sorcery.particle.SlowOutParticle;
 import com.root.sorcery.setup.ClientProxy;
 import com.root.sorcery.setup.IProxy;
 import com.root.sorcery.setup.ModSetup;
@@ -149,7 +150,8 @@ public class Sorcery
         {
             Minecraft mc = Minecraft.getInstance();
 
-            mc.particles.registerFactory(ModParticle.TESTPARTICLE, SimpleParticle.Factory::new);
+            mc.particles.registerFactory(ModParticle.SIMPLE_PUFF, SimpleParticle.Factory::new);
+            mc.particles.registerFactory(ModParticle.SPARK_SLOW, SlowOutParticle.Factory::new);
         }
 
     }

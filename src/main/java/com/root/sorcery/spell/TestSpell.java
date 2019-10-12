@@ -2,13 +2,10 @@ package com.root.sorcery.spell;
 
 import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.ParticleEffects;
-import net.minecraft.client.Minecraft;
-import net.minecraft.particles.ParticleTypes;
+import com.root.sorcery.utils.Utils;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
-import org.lwjgl.system.CallbackI;
 
 public class TestSpell extends Spell
 {
@@ -39,6 +36,7 @@ public class TestSpell extends Spell
     @Override
     public void castClient(SpellUseContext context)
     {
-        ParticleEffects.poofEffect(ModParticle.TESTPARTICLE, context);
+        Vec3d particleLocation = Utils.nBlocksAlongVector(context.getPlayer().getEyePosition(0), context.getPlayer().getLook(0), 1f);
+        ParticleEffects.risePoof(context.getWorld(), ModParticle.SIMPLE_PUFF, particleLocation, 0.2, 20, 0.1);
     }
 }

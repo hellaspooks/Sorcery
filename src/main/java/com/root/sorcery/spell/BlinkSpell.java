@@ -1,5 +1,7 @@
 package com.root.sorcery.spell;
 
+import com.root.sorcery.particle.ModParticle;
+import com.root.sorcery.particle.ParticleEffects;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResultType;
@@ -54,5 +56,12 @@ public class BlinkSpell extends Spell
             player.teleportKeepLoaded(finalVec.getX(), finalVec.getY(), finalVec.getZ());
             return ActionResultType.SUCCESS;
         }
+    }
+
+    @Override
+    public void castClient(SpellUseContext context)
+    {
+        Vec3d particleLocation = context.getPlayer().getPositionVec().add(0,1, 0);
+        ParticleEffects.expandingSphere(context.getWorld(), ModParticle.SPARK_SLOW, particleLocation, 100, 0.5);
     }
 }
