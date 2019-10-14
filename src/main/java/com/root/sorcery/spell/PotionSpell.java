@@ -44,8 +44,7 @@ public class PotionSpell extends Spell
     @Override
     public void castClient(SpellUseContext context)
     {
-        // Vec3d particleLocation = context.getPlayer().getPositionVec().add(0,1, 0);
-        Vec3d particleLocation = Utils.nBlocksAlongVector(context.getPlayer().getEyePosition(0), context.getPlayer().getLook(0), 1f);
-        ParticleEffects.expandingSphere(context.getWorld(), ModParticle.SIMPLE_PUFF, particleLocation, 100, 0.5);
+        Vec3d particleLocation = context.getPlayer().getPositionVec().add(0,1, 0);
+        ParticleEffects.ringHorizontal(context.getWorld(), ModParticle.SIMPLE_PUFF, particleLocation, 100, 0.5);
     }
 }
