@@ -5,16 +5,17 @@ import com.root.sorcery.spellcasting.ISpellcasting;
 import com.root.sorcery.spellcasting.SpellcastingCapability;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MoverType;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.CapabilityProvider;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import static net.minecraft.block.Block.doesSideFillSquare;
 import static net.minecraft.block.Block.spawnAsEntity;
 
 public class Utils {
@@ -34,18 +35,17 @@ public class Utils {
             if (mainHandItem == player.inventory.getStackInSlot(i))
                 index = i;
         }
-
         return index;
     }
 
-    public static ISpellcasting getSpellCapFromEntity(LivingEntity entity)
+    public static ISpellcasting getSpellCap(CapabilityProvider<?> capProvider)
     {
-        return entity.getCapability(SpellcastingCapability.SPELLCASTING, null).orElseThrow(NullPointerException::new);
+        return capProvider.getCapability(SpellcastingCapability.SPELLCASTING, null).orElseThrow(NullPointerException::new);
     }
 
     public static Spell getSpellFromEntity(LivingEntity entity)
     {
-        ResourceLocation spellLoc = getSpellCapFromEntity(entity).getActiveSpell();
+        ResourceLocation spellLoc = getSpellCap(entity).getActiveSpell();
         return GameRegistry.findRegistry(Spell.class).getValue(spellLoc);
     }
 

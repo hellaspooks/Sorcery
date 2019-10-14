@@ -25,5 +25,6 @@
   "item.sorcery.sigil_abjuration": "Abjuration Sigil",
   "item.sorcery.sigil_necromancy": "Necromancy Sigil",
   "item.sorcery.sigil_transmutation": "Transmutation Sigil",
+  "item.sorcery.cryptoglyph": "Cryptoglyph",
   "itemGroup.Sorcery": "Sorcery"
 }
