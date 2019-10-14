@@ -72,31 +72,31 @@ public class ModItem
     {
         // Simple Items
         // Materials
-        lodestone = simpleItemFactory("lodestone", event);
-        chondrite_chunk = simpleItemFactory("chondrite_chunk", event);
-        chondrite_ingot = simpleItemFactory("chondrite_ingot", event);
-        siderite_ingot = simpleItemFactory("siderite_ingot", event);
-        sigil_slate = simpleItemFactory("sigil_slate", event);
+        simpleItemFactory("lodestone", event);
+        simpleItemFactory("chondrite_chunk", event);
+        simpleItemFactory("chondrite_ingot", event);
+        simpleItemFactory("siderite_ingot", event);
+        simpleItemFactory("sigil_slate", event);
 
 
         // Crystals
-        carnelian = simpleItemFactory("carnelian", event);
-        chalcedony = simpleItemFactory( "chalcedony", event);
-        sugilite = simpleItemFactory("sugilite", event);
-        jasper = simpleItemFactory("jasper", event);
-        serpentine = simpleItemFactory("serpentine", event);
-        nuummite = simpleItemFactory("nuummite", event);
+        simpleItemFactory("carnelian", event);
+        simpleItemFactory( "chalcedony", event);
+        simpleItemFactory("sugilite", event);
+        simpleItemFactory("jasper", event);
+        simpleItemFactory("serpentine", event);
+        simpleItemFactory("nuummite", event);
 
         // Geode
-        geode = registerItem( "geode", new GeodeItem(ITEM_PROPS), event);
+        registerItem( "geode", new GeodeItem(ITEM_PROPS), event);
 
         // Sigils
-        sigil_evocation = registerItem("sigil_evocation", new SigilItem(ITEM_PROPS), event);
-        sigil_conjuration = registerItem("sigil_conjuration", new SigilItem(ITEM_PROPS), event);
-        sigil_abjuration = registerItem("sigil_abjuration", new SigilItem(ITEM_PROPS), event);
-        sigil_enchantment = registerItem("sigil_enchantment", new SigilItem(ITEM_PROPS), event);
-        sigil_necromancy = registerItem("sigil_necromancy", new SigilItem(ITEM_PROPS), event);
-        sigil_transmutation = registerItem("sigil_transmutation", new SigilItem(ITEM_PROPS), event);
+        registerItem("sigil_evocation", new SigilItem(ITEM_PROPS), event);
+        registerItem("sigil_conjuration", new SigilItem(ITEM_PROPS), event);
+        registerItem("sigil_abjuration", new SigilItem(ITEM_PROPS), event);
+        registerItem("sigil_enchantment", new SigilItem(ITEM_PROPS), event);
+        registerItem("sigil_necromancy", new SigilItem(ITEM_PROPS), event);
+        registerItem("sigil_transmutation", new SigilItem(ITEM_PROPS), event);
 
         // Register Block Items
 
@@ -123,19 +123,17 @@ public class ModItem
         blockItemFactory(ModBlock.MONOLITH_DARK, ITEM_PROPS, event);
     }
 
-    public static Item simpleItemFactory(String registryName, RegistryEvent.Register<Item> event)
+    public static void simpleItemFactory(String registryName, RegistryEvent.Register<Item> event)
     {
         Item item = new Item(ITEM_PROPS);
         item.setRegistryName(registryName);
         event.getRegistry().register(item);
-        return item;
     }
 
-    public static Item registerItem(String registryName, Item item, RegistryEvent.Register<Item> event)
+    public static void registerItem(String registryName, Item item, RegistryEvent.Register<Item> event)
     {
         item.setRegistryName(registryName);
         event.getRegistry().register(item);
-        return item;
     }
 
     public static void blockItemFactory(Block block, Item.Properties properties, RegistryEvent.Register<Item> event)
