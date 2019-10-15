@@ -8,13 +8,13 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityProvider;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import java.util.ArrayList;
+import java.util.Vector;
 
 import static net.minecraft.block.Block.spawnAsEntity;
 
@@ -59,4 +59,23 @@ public class Utils {
         Vec3d rayEnd = rayStart.add(rayUnitVec.mul(rayLength, rayLength, rayLength));
         return world.rayTraceBlocks(new RayTraceContext(rayStart, rayEnd, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, entity));
     }
+
+    // Actually likely not needed, leaving here for now though
+    public static ArrayList<Vec2f> randomPointsInCircle(World world, double radius, int numPoints)
+    {
+        ArrayList<Vec2f> points = new ArrayList<>();
+        double[] rand1 = world.rand.doubles(numPoints).toArray();
+        double[] rand2 = world.rand.doubles(numPoints).toArray();
+        double[] rand3 = world.rand.doubles(numPoints).toArray();
+
+        for (int i = 0; i < numPoints; i++)
+        {
+            double t = 2 * Math.PI * rand1[i];
+            double u = rand2[i] + rand3[i];
+            double r = ( u > 1) ? 2 - u : u;
+            points.add(new Vec2f((float)(r * Math.cos(t)), (float)(r * Math.sin(t))));
+        }
+        return points;
+    }
+
 }
