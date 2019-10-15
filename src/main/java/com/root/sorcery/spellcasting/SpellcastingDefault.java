@@ -22,38 +22,47 @@ public class SpellcastingDefault implements ISpellcasting
 
 
         ResourceLocation testSpell = ModSpell.TEST_SPELL.getRegistryName();
-        ResourceLocation testSpell2 = ModSpell.TEST_SPELL_2.getRegistryName();
-        ResourceLocation hasteSpell = ModSpell.HASTE_SPELL.getRegistryName();
-        ResourceLocation blinkSpell = ModSpell.BLINK_SPELL.getRegistryName();
-        ResourceLocation durationSpell = ModSpell.DURATION_SPELL.getRegistryName();
+        // ResourceLocation testSpell2 = ModSpell.TEST_SPELL_2.getRegistryName();
+        // ResourceLocation hasteSpell = ModSpell.HASTE_SPELL.getRegistryName();
+        // ResourceLocation blinkSpell = ModSpell.BLINK_SPELL.getRegistryName();
+        // ResourceLocation durationSpell = ModSpell.DURATION_SPELL.getRegistryName();
 
         this.activeSpell = testSpell;
 
         this.preparedSpells.add(testSpell);
-        this.preparedSpells.add(testSpell2);
-        this.preparedSpells.add(hasteSpell);
-        this.preparedSpells.add(blinkSpell);
-        this.preparedSpells.add(durationSpell);
+        // this.preparedSpells.add(testSpell2);
+        // this.preparedSpells.add(hasteSpell);
+        // this.preparedSpells.add(blinkSpell);
+        // this.preparedSpells.add(durationSpell);
 
         this.knownSpells.add(testSpell);
-        this.knownSpells.add(testSpell2);
-        this.knownSpells.add(hasteSpell);
-        this.knownSpells.add(blinkSpell);
-        this.knownSpells.add(durationSpell);
+        // this.knownSpells.add(testSpell2);
+        // this.knownSpells.add(hasteSpell);
+        // this.knownSpells.add(blinkSpell);
+        // this.knownSpells.add(durationSpell);
     }
 
     public void cycleActiveSpell()
     {
-        int activeSpellIndex = preparedSpells.indexOf(activeSpell);
-        int nextSpellIndex = activeSpellIndex + 1;
+        if (!this.preparedSpells.isEmpty())
+        {
+            int activeSpellIndex = 0;
 
-        if (nextSpellIndex == preparedSpells.size())
-        {
-            this.activeSpell = preparedSpells.get(0);
-        }
-        else
-        {
-            this.activeSpell = preparedSpells.get(nextSpellIndex);
+            if (this.activeSpell != null)
+            {
+                activeSpellIndex = preparedSpells.indexOf(activeSpell);
+            }
+
+            int nextSpellIndex = activeSpellIndex + 1;
+
+            if (nextSpellIndex == preparedSpells.size())
+            {
+                this.activeSpell = preparedSpells.get(0);
+            }
+            else
+            {
+                this.activeSpell = preparedSpells.get(nextSpellIndex);
+            }
         }
     }
 

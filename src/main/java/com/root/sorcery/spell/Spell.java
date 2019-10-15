@@ -5,6 +5,9 @@ import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -13,6 +16,8 @@ public class Spell extends ForgeRegistryEntry<Spell>
 {
     public int castDuration = 0;
     public int arcanaCost = 0;
+    public SoundEvent sound = SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP;
+    public SoundCategory soundCategory = SoundCategory.BLOCKS;
 
     public Spell()
     {
@@ -29,11 +34,13 @@ public class Spell extends ForgeRegistryEntry<Spell>
                 return ActionResultType.FAIL;
         }
 
-        // If aracana was successfully drained, cast the client+server spell components
+        // If arcana was successfully drained, cast the client+server spell components, and play sounds
+        this.playSound(context);
+
         if (context.getWorld().isRemote())
         {
             castClient(context);
-            return ActionResultType.PASS;
+            return ActionResultType.SUCCESS;
         }
         else
         {
@@ -51,6 +58,12 @@ public class Spell extends ForgeRegistryEntry<Spell>
     public void castClient(SpellUseContext context)
     {
 
+    }
+
+    // Play sound effects, override if you want different behavior
+    public void playSound(SpellUseContext context)
+    {
+        context.getWorld().playSound(context.getPlayer(), context.getPos(), this.sound, this.soundCategory, 1.0F, context.getWorld().rand.nextFloat() * 0.4F + 0.8F);
     }
 
 

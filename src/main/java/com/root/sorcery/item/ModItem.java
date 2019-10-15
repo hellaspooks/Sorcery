@@ -68,6 +68,10 @@ public class ModItem
     @ObjectHolder("sorcery:geode")
     public static Item geode;
 
+    // Arcanomicon
+    @ObjectHolder("sorcery:cryptoglyph")
+    public static Item cryptoglyph;
+
     public static void init(RegistryEvent.Register<Item> event)
     {
         // Simple Items
@@ -97,6 +101,9 @@ public class ModItem
         registerItem("sigil_enchantment", new SigilItem(ITEM_PROPS), event);
         registerItem("sigil_necromancy", new SigilItem(ITEM_PROPS), event);
         registerItem("sigil_transmutation", new SigilItem(ITEM_PROPS), event);
+
+        // Arcanomicon
+        registerItem("cryptoglyph", new SpellGrantingItem(ITEM_PROPS), event);
 
         // Register Block Items
 

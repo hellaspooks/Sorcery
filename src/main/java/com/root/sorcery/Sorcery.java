@@ -7,6 +7,7 @@ import com.root.sorcery.block.ModBlock;
 import com.root.sorcery.event.DurationSpellEvent;
 import com.root.sorcery.event.StructureFormHandlerEvent;
 import com.root.sorcery.item.ModItem;
+import com.root.sorcery.item.SpellGrantingItem;
 import com.root.sorcery.item.tool.ModTool;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
@@ -29,6 +30,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
@@ -167,6 +169,15 @@ public class Sorcery
             {
                 event.addCapability(SpellcastingCapability.SPELLCASTING_LOC, new SpellcastingProvider());
                 event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
+            }
+        }
+
+        @SubscribeEvent
+        public static void attachCapabilitiesItems(AttachCapabilitiesEvent<ItemStack> event)
+        {
+            if (event.getObject().getItem() instanceof SpellGrantingItem)
+            {
+                event.addCapability(SpellcastingCapability.SPELLCASTING_LOC, new SpellcastingProvider());
             }
         }
 

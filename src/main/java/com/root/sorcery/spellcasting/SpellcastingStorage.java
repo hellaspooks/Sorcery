@@ -18,6 +18,7 @@ public class SpellcastingStorage implements Capability.IStorage<ISpellcasting>
     public INBT writeNBT(Capability<ISpellcasting> capability, ISpellcasting instance, Direction side)
     {
         CompoundNBT tag = new CompoundNBT();
+
         // Active Spell
         tag.putString("active_spell", instance.getActiveSpell().toString());
 
