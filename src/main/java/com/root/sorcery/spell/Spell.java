@@ -18,6 +18,7 @@ public class Spell extends ForgeRegistryEntry<Spell>
     public int arcanaCost = 0;
     public SoundEvent sound = SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP;
     public SoundCategory soundCategory = SoundCategory.BLOCKS;
+    public CastType castType = CastType.INSTANT;
 
     public Spell()
     {
@@ -92,6 +93,11 @@ public class Spell extends ForgeRegistryEntry<Spell>
 
     public int getCastDuration(){
         return castDuration;
+    }
+
+    public CastType getCastType()
+    {
+        return this.castType;
     }
 
 

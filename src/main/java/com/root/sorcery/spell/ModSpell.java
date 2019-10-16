@@ -18,6 +18,8 @@ public class ModSpell
 
     public static final IgniteSpell IGNITE_SPELL = new IgniteSpell();
 
+    public static final CombustionSpell COMBUSTION_SPELL = new CombustionSpell();
+
 
     public static void init(Register<Spell> event)
     {
@@ -27,6 +29,7 @@ public class ModSpell
         registerSpell("sorcery:blink_spell", BLINK_SPELL, event);
         registerSpell("sorcery:duration_spell", DURATION_SPELL, event);
         registerSpell("sorcery:ignite_spell", IGNITE_SPELL, event);
+        registerSpell("sorcery:combustion_spell", COMBUSTION_SPELL, event);
     }
 
     public static void registerSpell(String registryName, Spell spell, Register<Spell> event)

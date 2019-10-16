@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityProvider;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+
 import static net.minecraft.block.Block.spawnAsEntity;
 
 public class Utils {
@@ -59,4 +60,5 @@ public class Utils {
         Vec3d rayEnd = rayStart.add(rayUnitVec.mul(rayLength, rayLength, rayLength));
         return world.rayTraceBlocks(new RayTraceContext(rayStart, rayEnd, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, entity));
     }
+
 }

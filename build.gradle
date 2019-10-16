@@ -76,6 +76,7 @@ minecraft {
 }
 
 repositories {
+    jcenter()
     maven {
         name = 'ourten'
         url = 'http://maven.ferenyr.info/artifactory/libs-release'
