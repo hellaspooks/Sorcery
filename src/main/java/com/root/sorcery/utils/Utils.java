@@ -60,22 +60,4 @@ public class Utils {
         return world.rayTraceBlocks(new RayTraceContext(rayStart, rayEnd, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, entity));
     }
 
-    // Actually likely not needed, leaving here for now though
-    public static ArrayList<Vec2f> randomPointsInCircle(World world, double radius, int numPoints)
-    {
-        ArrayList<Vec2f> points = new ArrayList<>();
-        double[] rand1 = world.rand.doubles(numPoints).toArray();
-        double[] rand2 = world.rand.doubles(numPoints).toArray();
-        double[] rand3 = world.rand.doubles(numPoints).toArray();
-
-        for (int i = 0; i < numPoints; i++)
-        {
-            double t = 2 * Math.PI * rand1[i];
-            double u = rand2[i] + rand3[i];
-            double r = ( u > 1) ? 2 - u : u;
-            points.add(new Vec2f((float)(r * Math.cos(t)), (float)(r * Math.sin(t))));
-        }
-        return points;
-    }
-
 }

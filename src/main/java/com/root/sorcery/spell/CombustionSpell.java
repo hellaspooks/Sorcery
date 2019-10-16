@@ -28,7 +28,7 @@ public class CombustionSpell extends Spell
     public void castClient(SpellUseContext context)
     {
         Vec3d particleLocation = Utils.nBlocksAlongVector(context.getPlayer().getEyePosition(0), context.getPlayer().getLook(0), 1f).add(0, -.1, 0);
-        ParticleEffects.coneSpray(context.getWorld(), ParticleTypes.FLAME, particleLocation, context.getPlayer().getLookVec(), 100, 0.5, 0.2);
-        ParticleEffects.coneSpray(context.getWorld(), ParticleTypes.SMOKE, particleLocation, context.getPlayer().getLookVec(), 50, 0.3, 0.2);
+        ParticleEffects.coneSpray(context.getWorld(), ParticleTypes.FLAME, particleLocation, context.getPlayer().getLookVec(), 40, 0.5, 0.2);
+        ParticleEffects.coneSpray(context.getWorld(), ParticleTypes.SMOKE, particleLocation, context.getPlayer().getLookVec(), 10, 0.3, 0.2);
     }
 }

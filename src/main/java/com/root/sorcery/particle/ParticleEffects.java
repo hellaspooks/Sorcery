@@ -58,7 +58,18 @@ public class ParticleEffects
 
     public static void coneSpray(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
     {
-        Vec3d vecP = lookVec.crossProduct(new Vec3d(0, 1, 0)).normalize();
+        Vec3d arbitraryVec = new Vec3d(0, 1, 0);
+
+        // Make sure arbitrary vector is not paralell to look vector
+        if (lookVec.getY() == 1 || lookVec.getY() == -1)
+        {
+            if (lookVec.getX() == 0 && lookVec.getZ() == 0)
+            {
+                arbitraryVec = new Vec3d(1, 0, 0);
+            }
+        }
+
+        Vec3d vecP = lookVec.crossProduct(arbitraryVec).normalize();
         Vec3d vecQ = lookVec.crossProduct(vecP).normalize();
 
 
