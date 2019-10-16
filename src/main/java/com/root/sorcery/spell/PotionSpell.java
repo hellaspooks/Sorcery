@@ -2,7 +2,6 @@ package com.root.sorcery.spell;
 
 import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.ParticleEffects;
-import com.root.sorcery.utils.Utils;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResultType;
