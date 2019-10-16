@@ -1,5 +1,6 @@
 package com.root.sorcery.item;
 
+import com.root.sorcery.spell.CastType;
 import com.root.sorcery.spell.Spell;
 import com.root.sorcery.spell.SpellUseContext;
 import net.minecraft.entity.LivingEntity;
@@ -73,7 +74,7 @@ public class SpellcastingItem extends Item
         Spell spellToCast = getSpellFromEntity(context.getPlayer());
 
         // If duration spell, set active hand and pass
-        if ( spellToCast.getCastDuration() != 0)
+        if ( spellToCast.getCastType() == CastType.DURATION || spellToCast.getCastType() == CastType.CHANNELED)
         {
             context.getPlayer().setActiveHand(context.getHand());
             return ActionResultType.PASS;

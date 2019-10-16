@@ -13,13 +13,15 @@ public class CombustionSpell extends Spell
     public CombustionSpell()
     {
         this.arcanaCost = 1;
+        this.castDuration = 100;
+        this.castType = CastType.CHANNELED;
         this.sound = SoundEvents.ITEM_FIRECHARGE_USE;
     }
 
     @Override
     public ActionResultType castServer(SpellUseContext context)
     {
-        return ActionResultType.PASS;
+        return ActionResultType.SUCCESS;
     }
 
     @Override

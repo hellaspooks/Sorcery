@@ -12,6 +12,7 @@ public class DurationSpell extends Spell
         // everything else is handled in the DurationSpellEvent handler
         this.castDuration = 100;
         this.arcanaCost = 1;
+        this.castType = CastType.DURATION;
     }
 
     // This is triggered when the action finishes, not before
