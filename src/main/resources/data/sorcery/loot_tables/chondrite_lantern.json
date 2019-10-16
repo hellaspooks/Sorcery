@@ -1,0 +1,185 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "block_state_property",
+          "block": "sorcery:chondrite_lantern",
+          "properties": {
+            "color": "blue"
+          }
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "group",
+          "children": [
+            {
+              "type": "item",
+              "name": "sorcery:chalcedony"
+            },
+            {
+              "type": "item",
+              "name": "sorcery:chondrite_lantern"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "condition": "block_state_property",
+          "block": "sorcery:chondrite_lantern",
+          "properties": {
+            "color": "black"
+          }
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "group",
+          "children": [
+            {
+              "type": "item",
+              "name": "sorcery:nuumite"
+            },
+            {
+              "type": "item",
+              "name": "sorcery:chondrite_lantern"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "condition": "block_state_property",
+          "block": "sorcery:chondrite_lantern",
+          "properties": {
+            "color": "red"
+          }
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "group",
+          "children": [
+            {
+              "type": "item",
+              "name": "sorcery:carnelian"
+            },
+            {
+              "type": "item",
+              "name": "sorcery:chondrite_lantern"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "condition": "block_state_property",
+          "block": "sorcery:chondrite_lantern",
+          "properties": {
+            "color": "green"
+          }
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "group",
+          "children": [
+            {
+              "type": "item",
+              "name": "sorcery:serpentine"
+            },
+            {
+              "type": "item",
+              "name": "sorcery:chondrite_lantern"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "condition": "block_state_property",
+          "block": "sorcery:chondrite_lantern",
+          "properties": {
+            "color": "yellow"
+          }
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "group",
+          "children": [
+            {
+              "type": "item",
+              "name": "sorcery:jasper"
+            },
+            {
+              "type": "item",
+              "name": "sorcery:chondrite_lantern"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "condition": "block_state_property",
+          "block": "sorcery:chondrite_lantern",
+          "properties": {
+            "color": "purple"
+          }
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "group",
+          "children": [
+            {
+              "type": "item",
+              "name": "sorcery:sugilite"
+            },
+            {
+              "type": "item",
+              "name": "sorcery:chondrite_lantern"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "condition": "block_state_property",
+          "block": "sorcery:chondrite_lantern",
+          "properties": {
+            "color": "none"
+          }
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+          {
+            "type": "item",
+            "name": "sorcery:chondrite_lantern"
+          }
+      ]
+    }
+  ]
+}

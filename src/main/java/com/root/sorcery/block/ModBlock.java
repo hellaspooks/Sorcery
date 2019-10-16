@@ -51,11 +51,16 @@ public class ModBlock
     @ObjectHolder("sorcery:monolith_lunar")
     public static Block MONOLITH_LUNAR;
 
+    @ObjectHolder("sorcery:chondrite_lantern")
+    public static Block CHONDRITE_LANTERN;
+
     public static void init(RegistryEvent.Register<Block> event)
     {
         // Simple Blocks
         POLISHED_CHONDRITE = simpleBlockFactory(event, "polished_chondrite", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
         CHONDRITE_BRICKS = simpleBlockFactory(event, "chondrite_bricks", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
+
+       registerBlock(new ChondriteLanternBlock(), "chondrite_lantern", event);
 
         // Slabs
         CHONDRITE_BRICK_SLAB = slabFactory(event, CHONDRITE_BRICKS, "chondrite_brick_slab");
@@ -87,6 +92,12 @@ public class ModBlock
         event.getRegistry().register(block);
 
         return block;
+    }
+
+    public static void registerBlock(Block block, String registryName, RegistryEvent.Register<Block> event)
+    {
+        block.setRegistryName(registryName);
+        event.getRegistry().register(block);
     }
 
     public static SlabBlock slabFactory(RegistryEvent.Register<Block> event, Block block, String registryName)
