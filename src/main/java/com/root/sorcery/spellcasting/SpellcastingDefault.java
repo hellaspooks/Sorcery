@@ -26,6 +26,7 @@ public class SpellcastingDefault implements ISpellcasting
         // ResourceLocation hasteSpell = ModSpell.HASTE_SPELL.getRegistryName();
         // ResourceLocation blinkSpell = ModSpell.BLINK_SPELL.getRegistryName();
         // ResourceLocation durationSpell = ModSpell.DURATION_SPELL.getRegistryName();
+        // ResourceLocation plantDeathSpell = ModSpell.PLANT_DEATH_SPELL.getRegistryName();
 
         this.activeSpell = testSpell;
 
@@ -34,12 +35,14 @@ public class SpellcastingDefault implements ISpellcasting
         // this.preparedSpells.add(hasteSpell);
         // this.preparedSpells.add(blinkSpell);
         // this.preparedSpells.add(durationSpell);
+        // this.preparedSpells.add(plantDeathSpell);
 
         this.knownSpells.add(testSpell);
         // this.knownSpells.add(testSpell2);
         // this.knownSpells.add(hasteSpell);
         // this.knownSpells.add(blinkSpell);
         // this.knownSpells.add(durationSpell);
+        // this.knownSpells.add(plantDeathSpell);
     }
 
     public void cycleActiveSpell()
