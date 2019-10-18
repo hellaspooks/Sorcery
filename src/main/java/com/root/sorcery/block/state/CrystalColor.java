@@ -4,18 +4,21 @@ import net.minecraft.util.IStringSerializable;
 
 public enum CrystalColor implements IStringSerializable
 {
-    NONE("none"),
-    BLACK("black"),
-    BLUE("blue"),
-    GREEN("green"),
-    PURPLE("purple"),
-    RED("red"),
-    YELLOw("yellow");
+    NONE("none", "none"),
+    BLACK("black", "nuummite"),
+    BLUE("blue", "chalcedony"),
+    GREEN("green", "serpentine"),
+    PURPLE("purple", "sugilite"),
+    RED("red", "carnelian"),
+    YELLOW("yellow", "jasper");
 
     private final String name;
 
-    private CrystalColor(String name) {
+    private final String crystalName;
+
+    private CrystalColor(String name, String crystalName) {
         this.name = name;
+        this.crystalName = crystalName;
     }
 
     public String toString() {
@@ -25,5 +28,10 @@ public enum CrystalColor implements IStringSerializable
     public String getName()
     {
         return this.name;
+    }
+
+    public String getCrystalName()
+    {
+        return this.crystalName;
     }
 }

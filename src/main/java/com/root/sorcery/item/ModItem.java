@@ -84,12 +84,12 @@ public class ModItem
 
 
         // Crystals
-        simpleItemFactory("carnelian", event);
-        simpleItemFactory( "chalcedony", event);
-        simpleItemFactory("sugilite", event);
-        simpleItemFactory("jasper", event);
-        simpleItemFactory("serpentine", event);
-        simpleItemFactory("nuummite", event);
+        registerItem("carnelian", new CrystalItem(ITEM_PROPS), event);
+        registerItem( "chalcedony", new CrystalItem(ITEM_PROPS), event);
+        registerItem("sugilite", new CrystalItem(ITEM_PROPS), event);
+        registerItem("jasper", new CrystalItem(ITEM_PROPS), event);
+        registerItem("serpentine", new CrystalItem(ITEM_PROPS), event);
+        registerItem("nuummite", new CrystalItem(ITEM_PROPS), event);
 
         // Geode
         registerItem( "geode", new GeodeItem(ITEM_PROPS), event);

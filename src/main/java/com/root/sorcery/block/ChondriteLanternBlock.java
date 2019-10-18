@@ -1,15 +1,21 @@
 package com.root.sorcery.block;
 
+import com.root.sorcery.Constants;
 import com.root.sorcery.block.state.CrystalColor;
 import com.root.sorcery.block.state.States;
+import com.root.sorcery.item.CrystalItem;
+import com.root.sorcery.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.AirItem;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
@@ -18,6 +24,7 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -27,12 +34,13 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import javax.annotation.Nullable;
 
 public class ChondriteLanternBlock extends Block
 {
-    private static Float hardness = 3.0F;
+    private static Float hardness = 1.5F;
     private static Float resistance = 6.0F;
 
     public static final EnumProperty<CrystalColor> COLOR = States.CRYSTAL_COLOR;
@@ -49,8 +57,35 @@ public class ChondriteLanternBlock extends Block
     // WIP
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        Item playerItem = player.getHeldItem(handIn).getItem();
+        if (!worldIn.isRemote)
+        {
+            if (handIn == Hand.OFF_HAND)
+            {
+                return false;
+            }
 
+            // pop out old crystal
+            String crystalName = state.get(COLOR).getCrystalName();
+            Item crystalItem = GameRegistry.findRegistry(Item.class).getValue(new ResourceLocation(Constants.MODID, crystalName));
+            ItemEntity crystalEntity = new ItemEntity(worldIn, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(crystalItem));
+            worldIn.addEntity(crystalEntity);
+
+
+            Item playerItem = player.getHeldItem(handIn).getItem();
+            CrystalColor color = CrystalColor.NONE;
+            // if crystal in hand
+            if (playerItem instanceof CrystalItem)
+            {
+                color = Utils.COLOR_CRYSTAL_MAP.get(playerItem.getRegistryName().getPath());
+                worldIn.setBlockState(pos, state.with(COLOR, color), 11);
+                player.getHeldItem(handIn).shrink(1);
+
+            } else if (playerItem instanceof AirItem)
+            {
+                worldIn.setBlockState(pos, state.with(COLOR, color), 11);
+            }
+            return true;
+        }
         return false;
     }
 

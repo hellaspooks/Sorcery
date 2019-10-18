@@ -1,0 +1,122 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "sorcery:chondrite_lantern"
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "condition": "block_state_property",
+          "block": "sorcery:chondrite_lantern",
+          "properties": {
+            "color": "blue"
+          }
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "sorcery:chalcedony"
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "condition": "block_state_property",
+          "block": "sorcery:chondrite_lantern",
+          "properties": {
+            "color": "black"
+          }
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "sorcery:nuummite"
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "condition": "block_state_property",
+          "block": "sorcery:chondrite_lantern",
+          "properties": {
+            "color": "red"
+          }
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "sorcery:carnelian"
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "condition": "block_state_property",
+          "block": "sorcery:chondrite_lantern",
+          "properties": {
+            "color": "green"
+          }
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "sorcery:serpentine"
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "condition": "block_state_property",
+          "block": "sorcery:chondrite_lantern",
+          "properties": {
+            "color": "yellow"
+          }
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "sorcery:jasper"
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "condition": "block_state_property",
+          "block": "sorcery:chondrite_lantern",
+          "properties": {
+            "color": "purple"
+          }
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "sorcery:sugilite"
+        }
+      ]
+    }
+  ]
+}
