@@ -84,12 +84,12 @@ public class ModItem
 
 
         // Crystals
-        simpleItemFactory("carnelian", event);
-        simpleItemFactory( "chalcedony", event);
-        simpleItemFactory("sugilite", event);
-        simpleItemFactory("jasper", event);
-        simpleItemFactory("serpentine", event);
-        simpleItemFactory("nuummite", event);
+        registerItem("carnelian", new CrystalItem(ITEM_PROPS), event);
+        registerItem( "chalcedony", new CrystalItem(ITEM_PROPS), event);
+        registerItem("sugilite", new CrystalItem(ITEM_PROPS), event);
+        registerItem("jasper", new CrystalItem(ITEM_PROPS), event);
+        registerItem("serpentine", new CrystalItem(ITEM_PROPS), event);
+        registerItem("nuummite", new CrystalItem(ITEM_PROPS), event);
 
         // Geode
         registerItem( "geode", new GeodeItem(ITEM_PROPS), event);
@@ -120,6 +120,7 @@ public class ModItem
         // Walls
         blockItemFactory(ModBlock.CHONDRITE_BRICK_WALL, ITEM_PROPS, event);
 
+
         // Blocks with tile entities
         blockItemFactory(ModBlock.RELIQUARY, ITEM_PROPS, event);
         blockItemFactory(ModBlock.CHONDRITE_BLAST_FURNACE, ITEM_PROPS, event);
@@ -128,6 +129,7 @@ public class ModItem
         blockItemFactory(ModBlock.MONOLITH_SOLAR, ITEM_PROPS, event);
         blockItemFactory(ModBlock.MONOLITH_LUNAR, ITEM_PROPS, event);
         blockItemFactory(ModBlock.MONOLITH_DARK, ITEM_PROPS, event);
+        blockItemFactory(ModBlock.CHONDRITE_LANTERN, ITEM_PROPS, event);
     }
 
     public static void simpleItemFactory(String registryName, RegistryEvent.Register<Item> event)

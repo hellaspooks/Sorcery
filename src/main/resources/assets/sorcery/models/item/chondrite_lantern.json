@@ -1,0 +1,7 @@
+{
+  "parent": "sorcery:block/chondrite_lantern",
+  "textures": {
+    "all": "sorcery:blocks/chondrite_lantern",
+    "particles": "sorcery:blocks/chondrite_lantern"
+  }
+}

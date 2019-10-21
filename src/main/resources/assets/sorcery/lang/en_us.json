@@ -5,6 +5,7 @@
   "block.sorcery.chondrite_brick_slab": "Chondrite Brick Slab",
   "block.sorcery.chondrite_brick_wall": "Chondrite Brick Wall",
   "block.sorcery.chondrite_blast_furnace": "Chondrite Blast Furnace",
+  "block.sorcery.chondrite_lantern": "Chondrite Lantern",
   "item.sorcery.chondrite_chunk": "Chondrite Chunk",
   "item.sorcery.lodestone": "Lodestone",
   "item.sorcery.chondrite_ingot": "Chondrite Ingot",
@@ -26,5 +27,11 @@
   "item.sorcery.sigil_necromancy": "Necromancy Sigil",
   "item.sorcery.sigil_transmutation": "Transmutation Sigil",
   "item.sorcery.cryptoglyph": "Cryptoglyph",
+  "item.sorcery.carnelian": "Carnelian Crystal",
+  "item.sorcery.chalcedony": "Chalcedony Crystal",
+  "item.sorcery.jasper": "Jasper Crystal",
+  "item.sorcery.serpentine": "Serpentine Crystal",
+  "item.sorcery.nuummite": "Nuummite Crystal",
+  "item.sorcery.sugilite": "Sugilite Crystal",
   "itemGroup.Sorcery": "Sorcery"
 }

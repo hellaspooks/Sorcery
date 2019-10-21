@@ -1,0 +1,44 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "sorcery:blocks/chondrite_lantern",
+      "particle": "sorcery:blocks/chondrite_lantern"
+    },
+    "model": "sorcery:block/chondrite_lantern",
+    "uvlock": true
+  },
+  "variants": {
+    "hanging": {
+      "true": {
+        "model": "sorcery:block/chondrite_lantern_hanging"
+      },
+      "false": {
+        "model": "sorcery:block/chondrite_lantern"
+      }
+    },
+    "color": {
+      "none": {
+        "textures": { "all":  "sorcery:blocks/chondrite_lantern", "particle": "sorcery:blocks/chondrite_lantern" }
+      },
+      "black": {
+        "textures": { "all":  "sorcery:blocks/chondrite_lantern_black", "particle": "sorcery:blocks/chondrite_lantern"}
+      },
+      "blue": {
+        "textures": { "all":  "sorcery:blocks/chondrite_lantern_blue", "particle": "sorcery:blocks/chondrite_lantern"}
+      },
+      "green": {
+        "textures": { "all":  "sorcery:blocks/chondrite_lantern_green", "particle": "sorcery:blocks/chondrite_lantern"}
+      },
+      "purple": {
+        "textures": { "all":  "sorcery:blocks/chondrite_lantern_purple", "particle": "sorcery:blocks/chondrite_lantern"}
+      },
+      "red": {
+        "textures": { "all":  "sorcery:blocks/chondrite_lantern_red", "particle": "sorcery:blocks/chondrite_lantern"}
+      },
+      "yellow": {
+        "textures": { "all":  "sorcery:blocks/chondrite_lantern_yellow", "particle": "sorcery:blocks/chondrite_lantern"}
+      }
+    }
+  }
+}

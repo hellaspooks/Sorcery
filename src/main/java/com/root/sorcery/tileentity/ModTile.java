@@ -1,9 +1,13 @@
 package com.root.sorcery.tileentity;
 
 import com.root.sorcery.block.ModBlock;
+import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
+
+import java.util.function.Supplier;
 
 
 public class ModTile
@@ -29,7 +33,6 @@ public class ModTile
                 .create(ReliquaryTile::new, ModBlock.RELIQUARY)
                 .build(null)
                 .setRegistryName("reliquary"));
-
 
     }
 
