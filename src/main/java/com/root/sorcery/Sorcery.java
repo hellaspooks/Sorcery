@@ -4,6 +4,7 @@ import com.root.sorcery.arcana.ArcanaCapability;
 import com.root.sorcery.arcana.ArcanaProvider;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.block.ModBlock;
+import com.root.sorcery.entity.ModEntity;
 import com.root.sorcery.event.DurationSpellEvent;
 import com.root.sorcery.event.StructureFormHandlerEvent;
 import com.root.sorcery.item.ModItem;
@@ -27,6 +28,7 @@ import com.root.sorcery.tileentity.ModTile;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
@@ -141,6 +143,13 @@ public class Sorcery
         {
             ModTile.init(event);
         }
+
+        @SubscribeEvent
+        public static void onEntityTypeRegistry(final RegistryEvent.Register<EntityType<?>> event)
+        {
+            ModEntity.init(event);
+        }
+
 
     }
 
