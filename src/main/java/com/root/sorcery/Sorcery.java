@@ -131,8 +131,17 @@ public class Sorcery
 
 
         @SubscribeEvent
+        public static void onEntityTypeRegistry(final RegistryEvent.Register<EntityType<?>> event)
+        {
+            ModEntity.register(event);
+        }
+
+        @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event)
         {
+
+            // Have to init this here for spawn eggs
+            ModEntity.init();
 
             ModItem.init(event);
             ModTool.init(event);
@@ -144,11 +153,6 @@ public class Sorcery
             ModTile.init(event);
         }
 
-        @SubscribeEvent
-        public static void onEntityTypeRegistry(final RegistryEvent.Register<EntityType<?>> event)
-        {
-            ModEntity.init(event);
-        }
 
 
     }

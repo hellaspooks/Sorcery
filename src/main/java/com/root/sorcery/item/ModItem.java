@@ -1,9 +1,11 @@
 package com.root.sorcery.item;
 import com.root.sorcery.block.ModBlock;
+import com.root.sorcery.entity.ModEntity;
 import com.root.sorcery.setup.ModSetup;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -72,6 +74,9 @@ public class ModItem
     @ObjectHolder("sorcery:cryptoglyph")
     public static Item cryptoglyph;
 
+    @ObjectHolder("sorcery:toad_spawn_egg")
+    public static Item toad_spawn_egg;
+
     public static void init(RegistryEvent.Register<Item> event)
     {
         // Simple Items
@@ -104,6 +109,9 @@ public class ModItem
 
         // Arcanomicon
         registerItem("cryptoglyph", new SpellGrantingItem(ITEM_PROPS), event);
+
+        //Spawn Eggs
+        registerItem("toad_spawn_egg", new SpawnEggItem(ModEntity.TOAD, 4470310, 10592673, ITEM_PROPS), event);
 
         // Register Block Items
 

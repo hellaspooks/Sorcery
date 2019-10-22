@@ -2,7 +2,7 @@ package com.root.sorcery.setup;
 
 import com.root.sorcery.container.Containers;
 import com.root.sorcery.entity.ToadEntity;
-import com.root.sorcery.entity.ToadEntityRenderer;
+import com.root.sorcery.entity.renderer.ToadEntityRenderer;
 import com.root.sorcery.keybinding.KeyBindings;
 import com.root.sorcery.keybinding.KeyInputHandler;
 import net.minecraft.client.Minecraft;

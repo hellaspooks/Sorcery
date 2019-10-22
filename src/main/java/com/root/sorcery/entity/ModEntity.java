@@ -10,15 +10,23 @@ public class ModEntity
 {
 
     @ObjectHolder("sorcery:toad")
-    public static EntityType<ToadEntity> TOAD_ENTITY;
+    public static EntityType<ToadEntity> TOAD;
 
-    public static void init(RegistryEvent.Register<EntityType<?>> event)
+
+
+    public static void init()
     {
-        event.getRegistry().register(EntityType.Builder.create(ToadEntity::new, EntityClassification.CREATURE)
-        .size(1,1)
-        .setShouldReceiveVelocityUpdates(false)
-        .build("toad")
-        .setRegistryName(Constants.MODID, "toad"));
+        TOAD = (EntityType<ToadEntity>) EntityType.Builder.create(ToadEntity::new, EntityClassification.CREATURE)
+            .size(1,1)
+            .setShouldReceiveVelocityUpdates(false)
+            .build("toad")
+            .setRegistryName(Constants.MODID, "toad");
+    }
+
+
+    public static void register(RegistryEvent.Register<EntityType<?>> event)
+    {
+        event.getRegistry().register(TOAD);
 
     }
 }
