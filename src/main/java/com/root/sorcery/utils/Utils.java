@@ -1,9 +1,10 @@
 package com.root.sorcery.utils;
 
+import com.root.sorcery.arcana.ArcanaCapability;
+import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.block.state.CrystalColor;
 import com.root.sorcery.spell.Spell;
 import com.root.sorcery.spellcasting.ISpellcasting;
-import com.root.sorcery.spellcasting.SpellcastingCapability;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,6 +15,8 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityProvider;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -25,6 +28,12 @@ import java.util.Map;
 import static net.minecraft.block.Block.spawnAsEntity;
 
 public class Utils {
+
+    @CapabilityInject(ISpellcasting.class)
+    static Capability<ISpellcasting> SPELLCASTING = null;
+
+    @CapabilityInject(IArcanaStorage.class)
+    static Capability<IArcanaStorage> ARCANA_STORAGE = null;
 
     public static final EnumMap<CrystalColor, String> CRYSTAL_COLOR_MAP = getCrystalColorMap();
 
@@ -50,7 +59,12 @@ public class Utils {
 
     public static ISpellcasting getSpellCap(CapabilityProvider<?> capProvider)
     {
-        return capProvider.getCapability(SpellcastingCapability.SPELLCASTING, null).orElseThrow(NullPointerException::new);
+        return capProvider.getCapability(SPELLCASTING, null).orElseThrow(NullPointerException::new);
+    }
+
+    public static IArcanaStorage getArcanaCap(CapabilityProvider<?> capabilityProvider)
+    {
+        return capabilityProvider.getCapability(ARCANA_STORAGE, null).orElseThrow(NullPointerException::new);
     }
 
     public static Spell getSpellFromEntity(LivingEntity entity)

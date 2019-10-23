@@ -21,6 +21,7 @@ public class CombustionSpell extends Spell
     @Override
     public ActionResultType castServer(SpellUseContext context)
     {
+        
         return ActionResultType.SUCCESS;
     }
 

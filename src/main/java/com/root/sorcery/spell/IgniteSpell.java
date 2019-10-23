@@ -20,6 +20,12 @@ public class IgniteSpell extends Spell
         if (context.getHitPos() != null)
         {
             BlockPos firePos = context.getHitPos().offset(context.getHitFace());
+
+            if (!context.getWorld().isAirBlock(firePos))
+            {
+                return ActionResultType.FAIL;
+            }
+
             BlockState blockState = ((FireBlock) Blocks.FIRE).getStateForPlacement(context.getWorld(), firePos);
             context.getWorld().setBlockState(firePos, blockState, 11);
             return ActionResultType.SUCCESS;
