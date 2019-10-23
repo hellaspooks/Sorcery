@@ -56,6 +56,62 @@ public class ToadEntity extends TameableEntity
         this.goalSelector.addGoal(11, new LookAtGoal(this, PlayerEntity.class, 10.0F));
     }
 
+    public void writeAdditional(CompoundNBT compound)
+    {
+        super.writeAdditional(compound);
+        compound.putInt("toadType", this.getToadTypeInt());
+    }
+
+    public void readAdditional(CompoundNBT compound)
+    {
+        super.readAdditional(compound);
+        this.setToadTypeInt(compound.getInt("toadType"));
+    }
+
+    public int getToadTypeInt()
+    {
+        return this.dataManager.get(TOAD_TYPE);
+    }
+
+    public void setToadTypeInt(int toadType)
+    {
+        this.dataManager.set(TOAD_TYPE, toadType);
+    }
+
+    @Nullable
+    @Override
+    public AgeableEntity createChild(AgeableEntity ageable)
+    {
+        return null;
+    }
+
+    protected void registerData()
+    {
+        super.registerData();
+        this.dataManager.register(TOAD_TYPE, 0);
+    }
+
+    // Below this is code lifted from the rabbit
+
+    /**
+     * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
+     * use this to react to sunlight and start to burn.
+     */
+    public void livingTick()
+    {
+        super.livingTick();
+        if (this.jumpTicks != this.jumpDuration)
+        {
+            ++this.jumpTicks;
+        } else if (this.jumpDuration != 0)
+        {
+            this.jumpTicks = 0;
+            this.jumpDuration = 0;
+            this.setJumping(false);
+        }
+
+    }
+
     public void updateAITasks()
     {
         if (this.currentMoveTypeDuration > 0)
@@ -137,60 +193,6 @@ public class ToadEntity extends TameableEntity
     {
         this.updateMoveTypeDuration();
         this.disableJumpControl();
-    }
-
-    /**
-     * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
-     * use this to react to sunlight and start to burn.
-     */
-    public void livingTick()
-    {
-        super.livingTick();
-        if (this.jumpTicks != this.jumpDuration)
-        {
-            ++this.jumpTicks;
-        } else if (this.jumpDuration != 0)
-        {
-            this.jumpTicks = 0;
-            this.jumpDuration = 0;
-            this.setJumping(false);
-        }
-
-    }
-
-    @Nullable
-    @Override
-    public AgeableEntity createChild(AgeableEntity ageable)
-    {
-        return null;
-    }
-
-    protected void registerData()
-    {
-        super.registerData();
-        this.dataManager.register(TOAD_TYPE, 0);
-    }
-
-    public void writeAdditional(CompoundNBT compound)
-    {
-        super.writeAdditional(compound);
-        compound.putInt("toadType", this.getToadTypeInt());
-    }
-
-    public void readAdditional(CompoundNBT compound)
-    {
-        super.readAdditional(compound);
-        this.setToadTypeInt(compound.getInt("toadType"));
-    }
-
-    public int getToadTypeInt()
-    {
-        return this.dataManager.get(TOAD_TYPE);
-    }
-
-    public void setToadTypeInt(int toadType)
-    {
-        this.dataManager.set(TOAD_TYPE, toadType);
     }
 
     protected float getJumpUpwardsMotion()

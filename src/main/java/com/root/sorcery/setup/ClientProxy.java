@@ -2,7 +2,7 @@ package com.root.sorcery.setup;
 
 import com.root.sorcery.container.Containers;
 import com.root.sorcery.entity.ToadEntity;
-import com.root.sorcery.entity.renderer.ToadEntityRenderer;
+import com.root.sorcery.entity.renderer.ToadRenderer;
 import com.root.sorcery.keybinding.KeyBindings;
 import com.root.sorcery.keybinding.KeyInputHandler;
 import net.minecraft.client.Minecraft;
@@ -23,7 +23,7 @@ public class ClientProxy implements IProxy
         MinecraftForge.EVENT_BUS.register(new KeyInputHandler());
         KeyBindings.init();
 
-        RenderingRegistry.registerEntityRenderingHandler(ToadEntity.class, ToadEntityRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ToadEntity.class, ToadRenderer::new);
     }
 
     @Override

@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.util.math.MathHelper;
 
-public class ToadEntityModel extends EntityModel<ToadEntity>
+public class ToadModel extends EntityModel<ToadEntity>
 {
     public RendererModel Body;
     public RendererModel Tongue;
@@ -20,7 +20,7 @@ public class ToadEntityModel extends EntityModel<ToadEntity>
     private float jumpRotation;
 
 
-    public ToadEntityModel()
+    public ToadModel()
     {
         this.textureWidth = 32;
         this.textureHeight = 32;
