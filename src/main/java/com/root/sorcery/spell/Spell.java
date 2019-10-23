@@ -29,11 +29,9 @@ public class Spell extends ForgeRegistryEntry<Spell>
     public ActionResultType cast(SpellUseContext context)
     {
 
-        // Try to drain Arcana, Server side only
-        if (!context.getWorld().isRemote()) {
-            if (!drainArcana(context, this.arcanaCost))
-                return ActionResultType.FAIL;
-        }
+        // Try to drain Arcana
+        if (!drainArcana(context, this.arcanaCost))
+            return ActionResultType.FAIL;
 
         // If arcana was successfully drained, cast the client+server spell components, and play sounds
         this.playSound(context);
@@ -74,7 +72,7 @@ public class Spell extends ForgeRegistryEntry<Spell>
         if (context.getArcanaSource().getArcanaStored() >= arcanaCost){
             context.getArcanaSource().extractArcana(arcanaCost, false);
             // Debug message for development
-            context.getPlayer().sendMessage(new StringTextComponent(String.format("Remaining Arcana: %d", context.getArcanaSource().getArcanaStored())));
+            context.getPlayer().sendStatusMessage(new StringTextComponent(String.format("Remaining Arcana: %d", context.getArcanaSource().getArcanaStored())), true);
 
             if(!context.getWorld().isRemote())
             {

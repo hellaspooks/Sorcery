@@ -5,11 +5,14 @@ import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.block.state.CrystalColor;
 import com.root.sorcery.spell.Spell;
 import com.root.sorcery.spellcasting.ISpellcasting;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
@@ -21,8 +24,10 @@ import net.minecraftforge.common.capabilities.CapabilityProvider;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static net.minecraft.block.Block.spawnAsEntity;
@@ -103,6 +108,24 @@ public class Utils {
             map.put(crystalColor.getCrystalName(), crystalColor);
         }
         return map;
+    }
+
+    public static List<Entity> entitiesInCone(World world, BlockPos pos, Entity excludeEnt, Vec3d startPos, Vec3d lookVec, int range, double angleRads)
+    {
+        AxisAlignedBB aaBB = new AxisAlignedBB(pos.add(range, range, range), pos.add(-range, -range, -range));
+        List<Entity> entList = world.getEntitiesWithinAABBExcludingEntity(excludeEnt, aaBB);
+        List<Entity> finalList = new ArrayList<>();
+        for ( Entity entity : entList)
+        {
+            Vec3d pathVec = entity.getPositionVec().subtract(startPos);
+            Double angleBetween = Math.acos(pathVec.dotProduct(lookVec) / (pathVec.length() * lookVec.length()));
+
+            if (angleBetween <= angleRads)
+            {
+                finalList.add(entity);
+            }
+        }
+        return finalList;
     }
 
 }
