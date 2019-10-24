@@ -43,6 +43,7 @@ public class Spell extends ForgeRegistryEntry<Spell>
         }
         else
         {
+            doParticleEffects(context);
             return castServer(context);
         }
     }
@@ -58,6 +59,9 @@ public class Spell extends ForgeRegistryEntry<Spell>
     {
 
     }
+
+    // Send packets to play particle effects
+    public void doParticleEffects(SpellUseContext context){}
 
     // Play sound effects, override if you want different behavior
     public void playSound(SpellUseContext context)

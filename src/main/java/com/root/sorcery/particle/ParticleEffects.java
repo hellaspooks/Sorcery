@@ -14,32 +14,32 @@ public class ParticleEffects
 {
 
     // Bunch of particles within random radius of location, that rise with speed riseSpeed
-    public static void risePoof(World world, IParticleData particle, Vec3d location, double radius, int numParticles, double riseSpeed)
+    public static void risePoof(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
     {
         double[] xShifts = world.getRandom().doubles(numParticles, -radius, radius).toArray();
         double[] yShifts =  world.getRandom().doubles(numParticles, -radius, radius).toArray();
         double[] zShifts =  world.getRandom().doubles(numParticles, -radius, radius).toArray();
         for (int i = 0; i < numParticles; i++)
         {
-            Vec3d pos = location.add(xShifts[i], yShifts[i], zShifts[i]);
-            world.addParticle(particle, pos.getX(), pos.getY(), pos.getZ(), 0, riseSpeed, 0);
+            Vec3d pos = loc.add(xShifts[i], yShifts[i], zShifts[i]);
+            world.addParticle(particle, pos.getX(), pos.getY(), pos.getZ(), 0, speed, 0);
         }
     }
 
     // Horizontal ring of evenly space particles around location
-    public static void ringHorizontal(World world, IParticleData particle, Vec3d location, int numParticles, double speed)
+    public static void ringHorizontal(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
     {
         for (int i = 0; i < numParticles; i++)
         {
             double angleRadians = ((2 * Math.PI) / numParticles) * i;
             double vecX = Math.cos(angleRadians) * speed;
             double vecZ = Math.sin(angleRadians) * speed;
-            world.addParticle(particle, location.getX(), location.getY(), location.getZ(), vecX, 0, vecZ);
+            world.addParticle(particle, loc.getX(), loc.getY(), loc.getZ(), vecX, 0, vecZ);
         }
     }
 
     // Expanding sphere of ~roughly evenly spaced particles surrounding location
-    public static void expandingSphere(World world, IParticleData particle, Vec3d location, int numParticles, double speed)
+    public static void expandingSphere(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
     {
         double rand = world.getRandom().nextDouble() * numParticles;
         double offset = 2.0/numParticles;
@@ -52,7 +52,7 @@ public class ParticleEffects
             double x = Math.cos(phi) * r;
             double z = Math.sin(phi) * r;
             Vec3d pathVec = new Vec3d(x, y, z).normalize();
-            world.addParticle(particle, location.getX(), location.getY(), location.getZ(), pathVec.getX() * speed,pathVec.getY() * speed, pathVec.getZ() * speed);
+            world.addParticle(particle, loc.getX(), loc.getY(), loc.getZ(), pathVec.getX() * speed,pathVec.getY() * speed, pathVec.getZ() * speed);
         }
     }
 

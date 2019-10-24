@@ -1,5 +1,8 @@
 package com.root.sorcery.spell;
 
+import com.root.sorcery.network.PacketHandler;
+import com.root.sorcery.network.packets.ParticleEffectPacket;
+import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.ParticleEffects;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.entity.CreatureEntity;
@@ -46,10 +49,15 @@ public class CombustionSpell extends Spell
     }
 
     @Override
-    public void castClient(SpellUseContext context)
+    public void doParticleEffects(SpellUseContext context)
     {
-        Vec3d particleLocation = Utils.nBlocksAlongVector(context.getPlayer().getEyePosition(0), context.getPlayer().getLook(0), 1f).add(0, -.1, 0);
-        ParticleEffects.coneSpray(context.getWorld(), ParticleTypes.FLAME, particleLocation, context.getPlayer().getLookVec(), 40, 0.5, 0.2);
-        ParticleEffects.coneSpray(context.getWorld(), ParticleTypes.SMOKE, particleLocation, context.getPlayer().getLookVec(), 10, 0.3, 0.2);
+        Vec3d loc = Utils.nBlocksAlongVector(context.getPlayer().getEyePosition(0), context.getPlayer().getLook(0), 1f).add(0, -.1, 0);
+        Vec3d look = context.getPlayer().getLookVec();
+
+        ParticleEffectPacket pkt1 = new ParticleEffectPacket(3, ParticleTypes.FLAME, loc, look, 40, 0.5, 0.2);
+        ParticleEffectPacket pkt2 = new ParticleEffectPacket(3, ParticleTypes.SMOKE, loc, look, 10, 0.3, 0.2);
+
+        PacketHandler.sendToAllTracking(context.getPlayer(), pkt1);
+        PacketHandler.sendToAllTracking(context.getPlayer(), pkt2);
     }
 }

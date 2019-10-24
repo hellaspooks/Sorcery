@@ -32,5 +32,4 @@ public class IgniteSpell extends Spell
         }
         return ActionResultType.FAIL;
     }
-
 }

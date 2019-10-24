@@ -1,5 +1,7 @@
 package com.root.sorcery.spell;
 
+import com.root.sorcery.network.PacketHandler;
+import com.root.sorcery.network.packets.ParticleEffectPacket;
 import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.ParticleEffects;
 import net.minecraft.potion.Effect;
@@ -41,9 +43,13 @@ public class PotionSpell extends Spell
     }
 
     @Override
-    public void castClient(SpellUseContext context)
+    public void doParticleEffects(SpellUseContext context)
     {
-        Vec3d particleLocation = context.getPlayer().getPositionVec().add(0,1, 0);
-        ParticleEffects.ringHorizontal(context.getWorld(), ModParticle.SIMPLE_PUFF, particleLocation, 100, 0.5);
+        Vec3d loc = context.getPlayer().getPositionVec().add(0,1, 0);
+        Vec3d look = context.getPlayer().getLook(1);
+
+        ParticleEffectPacket pkt = new ParticleEffectPacket(2, ModParticle.SIMPLE_PUFF, loc, look, 100, 0.5, 0.2);
+
+        PacketHandler.sendToAllTracking(context.getPlayer(), pkt);
     }
 }

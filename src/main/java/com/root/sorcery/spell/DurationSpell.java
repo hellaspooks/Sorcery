@@ -19,7 +19,6 @@ public class DurationSpell extends Spell
     @Override
     public ActionResultType castServer(SpellUseContext context){
 
-
         context.getPlayer().sendMessage(new StringTextComponent("Duration Spell Cast!"));
 
         return ActionResultType.SUCCESS;

@@ -1,5 +1,7 @@
 package com.root.sorcery.spell;
 
+import com.root.sorcery.network.PacketHandler;
+import com.root.sorcery.network.packets.ParticleEffectPacket;
 import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.ParticleEffects;
 import com.root.sorcery.utils.Utils;
@@ -34,9 +36,14 @@ public class TestSpell extends Spell
     }
 
     @Override
-    public void castClient(SpellUseContext context)
+    public void doParticleEffects(SpellUseContext context)
     {
-        Vec3d particleLocation = Utils.nBlocksAlongVector(context.getPlayer().getEyePosition(0), context.getPlayer().getLook(0), 1f);
-        ParticleEffects.risePoof(context.getWorld(), ModParticle.SIMPLE_PUFF, particleLocation, 0.2, 20, 0.1);
+
+        Vec3d loc = Utils.nBlocksAlongVector(context.getPlayer().getEyePosition(0), context.getPlayer().getLook(0), 1f);
+        Vec3d look = context.getPlayer().getLookVec();
+
+        ParticleEffectPacket pkt = new ParticleEffectPacket(0, ModParticle.SIMPLE_PUFF, loc, look, 20, 0.1, 0.2);
+
+        PacketHandler.sendToAllTracking(context.getPlayer(), pkt);
     }
 }
