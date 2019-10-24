@@ -1,7 +1,13 @@
 package com.root.sorcery.block;
 
+import com.root.sorcery.arcana.ArcanaCapability;
+import com.root.sorcery.arcana.IArcanaStorage;
+import com.root.sorcery.network.PacketHandler;
+import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
 import com.root.sorcery.structure.StructurePattern;
+import com.root.sorcery.tileentity.ModTile;
 import com.root.sorcery.tileentity.ReliquaryTile;
+import com.root.sorcery.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -10,15 +16,21 @@ import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.pattern.BlockStateMatcher;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.CachedBlockInfo;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
@@ -44,6 +56,28 @@ public class ReliquaryBlock extends Block
 
         setDefaultState(stateContainer.getBaseState().with(FACING, Direction.NORTH));
     }
+
+    @Override
+    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+    {
+        if (!worldIn.isRemote) {
+            TileEntity tile = worldIn.getTileEntity(pos);
+
+            if (tile instanceof ReliquaryTile) {
+                IArcanaStorage playerCap = Utils.getArcanaCap(player);
+                int arcanaExtracted = ((ReliquaryTile) tile).getArcanaForPlayer();
+                playerCap.receiveArcana(arcanaExtracted, false);
+
+                // Sync arcana with client
+                ServerPlayerEntity serverPlayer = worldIn.getServer().getPlayerList().getPlayerByUUID(player.getUniqueID());
+                PacketHandler.sendToPlayer(serverPlayer, new ArcanaCapSyncPacket(ArcanaCapability.ARCANA.writeNBT(playerCap, null)));
+
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     @Override
     public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos)
@@ -94,7 +128,7 @@ public class ReliquaryBlock extends Block
     }
 
     @Override
-    public boolean hasTileEntity()
+    public boolean hasTileEntity(BlockState state)
     {
         return true;
     }
@@ -103,6 +137,7 @@ public class ReliquaryBlock extends Block
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
+        System.out.println("creating tile entity");
         return new ReliquaryTile();
     }
 

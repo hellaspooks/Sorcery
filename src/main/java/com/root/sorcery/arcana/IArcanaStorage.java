@@ -12,4 +12,6 @@ public interface IArcanaStorage extends INBTSerializable<CompoundNBT>
     int getArcanaStored();
 
     int getMaxArcanaStored();
+
+    void setMaxArcanaStored(int maxArcana);
 }

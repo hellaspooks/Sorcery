@@ -25,6 +25,8 @@ import com.root.sorcery.spellcasting.ISpellcasting;
 import com.root.sorcery.spellcasting.SpellcastingCapability;
 import com.root.sorcery.spellcasting.SpellcastingProvider;
 import com.root.sorcery.tileentity.ModTile;
+import com.root.sorcery.tileentity.MonolithTile;
+import com.root.sorcery.tileentity.ReliquaryTile;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -34,6 +36,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -152,9 +155,6 @@ public class Sorcery
         {
             ModTile.init(event);
         }
-
-
-
     }
 
     // Client-side registry events
@@ -194,6 +194,19 @@ public class Sorcery
             {
                 event.addCapability(SpellcastingCapability.SPELLCASTING_LOC, new SpellcastingProvider());
             }
+        }
+
+        @SubscribeEvent
+        public static void attachCapabilitiesTileEntities(AttachCapabilitiesEvent<TileEntity> event)
+        {
+            if (event.getObject().getTileEntity() instanceof ReliquaryTile)
+            {
+                event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
+            } else if (event.getObject().getTileEntity() instanceof MonolithTile)
+            {
+                event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
+            }
+
         }
 
         @SubscribeEvent

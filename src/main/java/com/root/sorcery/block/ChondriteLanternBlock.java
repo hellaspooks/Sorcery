@@ -54,7 +54,7 @@ public class ChondriteLanternBlock extends Block
         this.setDefaultState(this.stateContainer.getBaseState().with(HANGING, Boolean.valueOf(false)).with(COLOR, CrystalColor.NONE));
     }
 
-    // WIP
+    @Override
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
         if (!worldIn.isRemote)
