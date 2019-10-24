@@ -47,6 +47,7 @@ import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -83,6 +84,7 @@ public class Sorcery
         MinecraftForge.EVENT_BUS.register(DurationSpellEvent.class);
     }
 
+
     private void setup(final FMLCommonSetupEvent event)
     {
         setup.init();
@@ -90,9 +92,7 @@ public class Sorcery
         ArcanaCapability.register();
         SpellcastingCapability.register();
 
-        PacketHandler.register();
-
-
+        PacketHandler.init();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event)
