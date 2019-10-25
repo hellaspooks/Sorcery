@@ -4,16 +4,16 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.root.sorcery.Constants;
 import com.root.sorcery.arcana.ArcanaCapability;
 import com.root.sorcery.arcana.IArcanaStorage;
+import com.root.sorcery.item.SpellcastingItem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.item.Item;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.system.CallbackI;
 
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Constants.MODID)
@@ -31,6 +31,7 @@ public class DrawScreenEvent
         }
 
         Minecraft mc = Minecraft.getInstance();
+        Item heldItem = mc.player.getHeldItemMainhand().getItem();
 
         IArcanaStorage playerCap = mc.player.getCapability(ArcanaCapability.ARCANA, null).orElseThrow(NullPointerException::new);
 
@@ -39,8 +40,15 @@ public class DrawScreenEvent
             return;
         }
 
-        int posX = mc.mainWindow.getScaledWidth() / 2 - 91;
-        int posY = mc.mainWindow.getScaledHeight() / 2 - 10;
+        if (heldItem == null || !(heldItem instanceof SpellcastingItem))
+        {
+            return;
+        }
+
+        int posX = 5;
+        int posY = mc.mainWindow.getScaledHeight() - 10;
+
+        String arcanaString = String.format("%.2f / %d", ((double)playerCap.getArcanaStored())/100, playerCap.getMaxArcanaStored()/100);
 
         mc.textureManager.bindTexture(barTexture);
 
@@ -61,6 +69,8 @@ public class DrawScreenEvent
 
         // Overlay
         mc.ingameGUI.blit(posX, posY, 0, 10, 91,5);
+
+        mc.fontRenderer.drawString(arcanaString, posX + 20, posY -10, 16777215);
 
         GlStateManager.disableBlend();
         GlStateManager.disableAlphaTest();

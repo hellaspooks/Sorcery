@@ -75,8 +75,6 @@ public class Spell extends ForgeRegistryEntry<Spell>
     {
         if (context.getArcanaSource().getArcanaStored() >= arcanaCost){
             context.getArcanaSource().extractArcana(arcanaCost, false);
-            // Debug message for development
-            context.getPlayer().sendStatusMessage(new StringTextComponent(String.format("Remaining Arcana: %d", context.getArcanaSource().getArcanaStored())), true);
 
             if(!context.getWorld().isRemote())
             {
