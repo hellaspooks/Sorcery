@@ -1,0 +1,13 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "rod": "sorcery:staves/acacia_rod",
+      "catalyst": "sorcery:staves/initiate_catalyst",
+      "fitting": "sorcery:staves/initiate_gold_fittings",
+      "particle": "sorcery:staves/acacia_rod"
+    },
+    "model": "sorcery:item/i_staff",
+    "uvlock": true
+  }
+}

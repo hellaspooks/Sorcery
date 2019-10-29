@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.BasicState;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -25,6 +26,7 @@ import static com.root.sorcery.Constants.MODID;
 public class Models
 {
     private static final Random RAND = new Random();
+
 
     @SubscribeEvent
     public static void onModelBakeEvent(ModelBakeEvent event)

@@ -11,45 +11,45 @@ import java.util.function.Supplier;
 
 public class SpellCapSyncPacket
 {
-   private CompoundNBT capNBT;
+    private CompoundNBT capNBT;
 
-   public SpellCapSyncPacket(){}
+    public SpellCapSyncPacket(){}
 
-   public SpellCapSyncPacket(CompoundNBT nbtIn)
-   {
-      this.capNBT = nbtIn;
-   }
+    public SpellCapSyncPacket(CompoundNBT nbtIn)
+    {
+        this.capNBT = nbtIn;
+    }
 
-   public static void encode(SpellCapSyncPacket pkt, PacketBuffer buf)
-   {
-      buf.writeCompoundTag(pkt.capNBT);
+    public static void encode(SpellCapSyncPacket pkt, PacketBuffer buf)
+    {
+        buf.writeCompoundTag(pkt.capNBT);
 
-   }
+    }
 
-   public static SpellCapSyncPacket decode(PacketBuffer buf)
-   {
-      return new SpellCapSyncPacket(buf.readCompoundTag());
-   }
+    public static SpellCapSyncPacket decode(PacketBuffer buf)
+    {
+        return new SpellCapSyncPacket(buf.readCompoundTag());
+    }
 
-   public static class Handler
-   {
-      public static void handle(final SpellCapSyncPacket message, Supplier<NetworkEvent.Context> ctx)
-      {
-         ctx.get().enqueueWork(() -> {
-            if (ctx.get().getDirection().getReceptionSide().isClient()) {
+    public static class Handler
+    {
+        public static void handle(final SpellCapSyncPacket message, Supplier<NetworkEvent.Context> ctx)
+        {
+            ctx.get().enqueueWork(() -> {
+                if (ctx.get().getDirection().getReceptionSide().isClient()) {
 
-               ISpellcasting playerCap = Minecraft.getInstance().player.getCapability(SpellcastingCapability.SPELLCASTING).orElseThrow(NullPointerException::new);
+                    ISpellcasting playerCap = Minecraft.getInstance().player.getCapability(SpellcastingCapability.SPELLCASTING).orElseThrow(NullPointerException::new);
 
-               SpellcastingCapability.SPELLCASTING.readNBT(playerCap, null, message.capNBT);
-            } else {
-               ISpellcasting playerCap = ctx.get().getSender().getCapability(SpellcastingCapability.SPELLCASTING).orElseThrow(NullPointerException::new);
-               SpellcastingCapability.SPELLCASTING.readNBT(playerCap, null, message.capNBT);
-            }
+                    SpellcastingCapability.SPELLCASTING.readNBT(playerCap, null, message.capNBT);
+                } else {
+                    ISpellcasting playerCap = ctx.get().getSender().getCapability(SpellcastingCapability.SPELLCASTING).orElseThrow(NullPointerException::new);
+                    SpellcastingCapability.SPELLCASTING.readNBT(playerCap, null, message.capNBT);
+                }
 
-         });
-         ctx.get().getPacketHandled();
-      }
-   }
+            });
+            ctx.get().getPacketHandled();
+        }
+    }
 
 
 }

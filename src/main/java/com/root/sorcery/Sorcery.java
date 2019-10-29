@@ -1,9 +1,11 @@
 package com.root.sorcery;
 
+import com.google.common.collect.ImmutableMap;
 import com.root.sorcery.arcana.ArcanaCapability;
 import com.root.sorcery.arcana.ArcanaProvider;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.block.ModBlock;
+import com.root.sorcery.client.model.StaffModelLoader;
 import com.root.sorcery.entity.ModEntity;
 import com.root.sorcery.event.DurationSpellEvent;
 import com.root.sorcery.event.StructureFormHandlerEvent;
@@ -28,7 +30,14 @@ import com.root.sorcery.tileentity.ModTile;
 import com.root.sorcery.tileentity.MonolithTile;
 import com.root.sorcery.tileentity.ReliquaryTile;
 import net.minecraft.block.Block;
+import net.minecraft.block.RailState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.IUnbakedModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelRotation;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,14 +49,21 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.model.BasicState;
+import net.minecraftforge.client.model.ForgeBlockStateV1;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.PerspectiveMapWrapper;
+import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -69,6 +85,8 @@ public class Sorcery
 
 
     private static final Logger LOGGER = LogManager.getLogger();
+
+    private static final TRSRTransformation THIRD_PERSON_BLOCK = ForgeBlockStateV1.Transforms.convert(0, 2.5f, 0, 75, 45, 0, 0.375f);
 
     public Sorcery()
     {
@@ -155,6 +173,34 @@ public class Sorcery
         {
             ModTile.init(event);
         }
+
+        @SubscribeEvent
+        public static void registerCustomModels(ModelRegistryEvent event)
+        {
+            // Loads model, and adds to model loader
+            ModelResourceLocation model_loc =  new ModelResourceLocation(new ResourceLocation(Constants.MODID, "i_staff"), "inventory");
+            ModelLoader.addSpecialModel(model_loc);
+
+            // Registers Custom Model Loader
+            ModelLoaderRegistry.registerLoader(new StaffModelLoader());
+        }
+
+        @SubscribeEvent
+        public static void modelBakeEvent(ModelBakeEvent event)
+        {
+            try {
+                IUnbakedModel model = ModelLoaderRegistry.getModelOrLogError(new ResourceLocation("sorcery:item/initiate_staff"),
+                        "Missing i_staff model");
+
+                IBakedModel bakedModel = model.bake(event.getModelLoader(), ModelLoader.defaultTextureGetter(),
+                        new BasicState(model.getDefaultState(), true), DefaultVertexFormats.ITEM);
+
+                event.getModelRegistry().put(new ModelResourceLocation("sorcery:initiate_staff", "inventory"), bakedModel);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     // Client-side registry events
@@ -171,12 +217,14 @@ public class Sorcery
             mc.particles.registerFactory(ModParticle.SPARK_SLOW, SlowOutParticle.Factory::new);
         }
 
+
     }
 
     // Event Handlers
     @Mod.EventBusSubscriber
     public static class EventHandlers
     {
+
         @SubscribeEvent
         public static void attachCapabilitiesEntities(AttachCapabilitiesEvent<Entity> event)
         {
