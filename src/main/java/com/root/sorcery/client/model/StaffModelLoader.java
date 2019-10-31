@@ -3,6 +3,7 @@ package com.root.sorcery.client.model;
 import com.google.common.collect.ImmutableMap;
 import com.root.sorcery.Constants;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IUnbakedModel;
@@ -10,17 +11,15 @@ import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.texture.ISprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.BasicState;
 import net.minecraftforge.client.model.ICustomModelLoader;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 
 import javax.annotation.Nullable;
@@ -34,9 +33,6 @@ import java.util.function.Function;
 
 public class StaffModelLoader implements ICustomModelLoader
 {
-    public static final ResourceLocation INITIATE_MODEL_RL = new ResourceLocation(Constants.MODID, "item/i_staff");
-    //public static final ModelResourceLocation INITIATE_MODEL_MRL = new ModelResourceLocation(INITIATE_MODEL_RL, "inventory");
-
 
     public StaffModelLoader()
     {
@@ -51,11 +47,7 @@ public class StaffModelLoader implements ICustomModelLoader
     @Override
     public boolean accepts(ResourceLocation modelLocation)
     {
-        System.out.println("Accept model?");
-        System.out.println(modelLocation.toString());
-        boolean accepted = modelLocation.toString().equals("sorcery:models/item/initiate_staff");
-        System.out.println(accepted);
-        return accepted;
+        return modelLocation.toString().equals("sorcery:models/item/sorcerous_staff");
     }
 
     @Override
@@ -67,22 +59,27 @@ public class StaffModelLoader implements ICustomModelLoader
     public class StaffModel implements IUnbakedModel
     {
 
-        private IUnbakedModel baseModel;
+        private IUnbakedModel initiateModel;
+        private IUnbakedModel apprenticeModel;
+        private IUnbakedModel magicianModel;
+        private IUnbakedModel archmageModel;
 
-        private ResourceLocation rodLocation = new ResourceLocation(Constants.MODID, "staves/jungle_rod");
-        private ResourceLocation catalystLocation = new ResourceLocation(Constants.MODID, "staves/initiate_catalyst");
-        private ResourceLocation fittingLocation = new ResourceLocation(Constants.MODID, "staves/initiate_gold_fittings");
+        public final ResourceLocation initiateModelRL = new ResourceLocation(Constants.MODID, "item/initiate_staff_model");
+        public final ResourceLocation apprenticeModelRL = new ResourceLocation(Constants.MODID, "item/apprentice_staff_model");
+        public final ResourceLocation magicianModelRL = new ResourceLocation(Constants.MODID, "item/magician_staff_model");
+        public final ResourceLocation archmageModelRL = new ResourceLocation(Constants.MODID, "item/archmage_staff_model");
+
+
+        private String defaultRod = "oak_rod";
+        private String defaultFitting = "_iron_fittings";
+        private String defaultCatalyst = "_catalyst";
 
         public StaffModel()
         {
-            this.baseModel = ModelLoaderRegistry.getModelOrLogError(INITIATE_MODEL_RL, "model missing");
-        }
-
-        public StaffModel(ResourceLocation rodLocation, ResourceLocation catalystLocation, ResourceLocation fittingLocation)
-        {
-            this.rodLocation = rodLocation;
-            this.catalystLocation = catalystLocation;
-            this.fittingLocation = fittingLocation;
+            this.initiateModel = ModelLoaderRegistry.getModelOrLogError(initiateModelRL, "model missing");
+            this.apprenticeModel = ModelLoaderRegistry.getModelOrLogError(apprenticeModelRL, "model missing");
+            this.magicianModel = ModelLoaderRegistry.getModelOrLogError(magicianModelRL, "model missing");
+            this.archmageModel = ModelLoaderRegistry.getModelOrLogError(archmageModelRL, "model missing");
         }
 
         @Override
@@ -95,84 +92,116 @@ public class StaffModelLoader implements ICustomModelLoader
         public Collection<ResourceLocation> getTextures(Function<ResourceLocation, IUnbakedModel> modelGetter, Set<String> missingTextureErrors)
         {
             Set<ResourceLocation> deps = Collections.EMPTY_SET;
-
-            deps.add(rodLocation);
-            deps.add(catalystLocation);
-            deps.add(fittingLocation);
-
             return deps;
         }
 
         @Override
         public IBakedModel bake(ModelBakery bakery, Function<ResourceLocation, TextureAtlasSprite> spriteGetter, ISprite sprite, VertexFormat format)
         {
-
-            IUnbakedModel retexBase = this.retexture(this.rodLocation, this.catalystLocation, this.fittingLocation);
+            IUnbakedModel retexBase = this.retexture(null, null, null, null);
 
             IBakedModel bakedBase = retexBase.bake(bakery, spriteGetter, sprite, format);
             return new BakedStaffModel(this, bakedBase, bakery, spriteGetter, sprite, format);
         }
 
 
-        // In progress, not final
-        public IUnbakedModel retexture(ResourceLocation rodLocation, ResourceLocation catalystLocation, ResourceLocation fittingLocation) {
-
+        public IUnbakedModel retexture(@Nullable String staffType, @Nullable ResourceLocation newRod, @Nullable ResourceLocation newCatalyst, @Nullable ResourceLocation newFitting)
+        {
             ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
 
-            builder.put("rod", rodLocation.toString());
-            builder.put("catalyst", catalystLocation.toString());
-            builder.put("fitting", fittingLocation.toString());
+            if (staffType == null)
+            {
+                staffType = "initiate";
+            }
 
-            return this.baseModel.retexture(builder.build());
+            if (newRod != null)
+            {
+                builder.put("rod", newRod.toString());
+            } else {
+                builder.put("rod", Constants.MODID + ":staves/" + defaultRod);
+            }
+
+            if ( newCatalyst != null)
+            {
+                builder.put("catalyst", newCatalyst.toString());
+            } else {
+                builder.put("catalyst", Constants.MODID + ":staves/" + staffType + defaultCatalyst);
+            }
+
+            if ( newFitting != null)
+            {
+                builder.put("fitting", newFitting.toString());
+            } else {
+                builder.put("fitting", Constants.MODID + ":staves/" + staffType + defaultFitting);
+            }
+
+            ImmutableMap<String, String> map = builder.build();
+
+            switch (staffType)
+            {
+                case "apprentice":
+                    return this.apprenticeModel.retexture(map);
+                case "magician":
+                    return this.magicianModel.retexture(map);
+                case "archmage":
+                    return this.archmageModel.retexture(map);
+                default:
+                    return this.initiateModel.retexture(map);
+            }
         }
-
-
     }
 
     public class BakedStaffModel implements IBakedModel
     {
-        private HashMap<Integer, IBakedModel> cache = new HashMap<>();
+        private HashMap<String, IBakedModel> cache = new HashMap<>();
         private ModelBakery bakery;
         private Function<ResourceLocation, TextureAtlasSprite> spriteGetter;
         private ISprite sprite;
         private VertexFormat format;
         private IBakedModel def;
-        private ItemOverrideList overrides = new StaffModelOverrideList();
-        private IUnbakedModel parent;
+        private ItemOverrideList overrides;
+        private StaffModel parent;
 
-        public BakedStaffModel(IUnbakedModel parent, IBakedModel def, ModelBakery bakery, Function<ResourceLocation, TextureAtlasSprite> spriteGetter, ISprite sprite, VertexFormat format) {
+        public BakedStaffModel(StaffModel parent, IBakedModel def, ModelBakery bakery, Function<ResourceLocation, TextureAtlasSprite> spriteGetter, ISprite sprite, VertexFormat format)
+        {
             this.parent = parent;
             this.def = def;
             this.bakery = bakery;
             this.spriteGetter = spriteGetter;
             this.sprite = sprite;
             this.format = format;
+            this.overrides = new StaffModelOverrideList(bakery);
         }
 
         @SuppressWarnings("deprecation")
         @Override
-        public List<BakedQuad> getQuads(BlockState state, Direction side, Random rand) {
+        public List<BakedQuad> getQuads(BlockState state, Direction side, Random rand)
+        {
             return def.getQuads(state, side, rand);
         }
 
         @Override
-        public boolean isAmbientOcclusion() {
+        public boolean isAmbientOcclusion()
+        {
             return def.isAmbientOcclusion();
         }
 
         @Override
-        public boolean isGui3d() {
+        public boolean isGui3d()
+        {
             return def.isGui3d();
         }
 
         @Override
-        public boolean isBuiltInRenderer() {
+        public boolean isBuiltInRenderer()
+        {
             return def.isBuiltInRenderer();
         }
 
         @SuppressWarnings("deprecation")
         @Override
-        public TextureAtlasSprite getParticleTexture() {
+        public TextureAtlasSprite getParticleTexture()
+        {
             return def.getParticleTexture();
         }
 
@@ -187,18 +216,45 @@ public class StaffModelLoader implements ICustomModelLoader
     public class StaffModelOverrideList extends ItemOverrideList
     {
 
-        public StaffModelOverrideList()
+        private ModelBakery bakery;
+        private Function<ResourceLocation, TextureAtlasSprite> textureGetter;
+
+        public StaffModelOverrideList(ModelBakery bakery)
         {
             super();
+            this.bakery = bakery;
+            this.textureGetter = location -> Minecraft.getInstance().getTextureMap().getAtlasSprite(location.toString());
         }
 
         @Override
         public IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn)
         {
             BakedStaffModel bakedStaffModel = (BakedStaffModel) model;
+            CompoundNBT nbt = stack.getOrCreateTag();
+
+            StaffModel staffModel = bakedStaffModel.parent;
+
+            String staffType = nbt.contains("staffType") ? nbt.getString("staffType") : "initiate";
+            String rod = nbt.contains("rod") ? nbt.getString("rod") : "BLANK";
+            String catalyst = nbt.contains("catalyst") ? nbt.getString("catalyst") : "BLANK";
+            String fitting = nbt.contains("fitting") ? nbt.getString("fitting") : "BLANK";
+
+            String cacheKey = staffType + rod + catalyst + fitting;
+
+            if (!bakedStaffModel.cache.containsKey(cacheKey))
+            {
+                ResourceLocation rodRL = (rod.equals("BLANK")) ? null : new ResourceLocation(Constants.MODID, "staves/" + rod + "_rod");
+
+                ResourceLocation catalystRL = ( catalyst.equals("BLANK") ) ? null : new ResourceLocation(Constants.MODID, "staves/" + staffType + "_catalyst");
+
+                ResourceLocation fittingRL = ( fitting.equals("BLANK")) ? null : new ResourceLocation(Constants.MODID, "staves/" + staffType + "_" + fitting + "_fittings");
 
 
-            return model;
+                IUnbakedModel newModel = staffModel.retexture(staffType, rodRL, catalystRL, fittingRL);
+
+                bakedStaffModel.cache.put(cacheKey, newModel.bake(this.bakery, this.textureGetter, bakedStaffModel.sprite, bakedStaffModel.format));
+            }
+            return bakedStaffModel.cache.get(cacheKey);
         }
     }
 }

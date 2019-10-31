@@ -80,8 +80,8 @@ public class ModItem
 
     // Staves
 
-    @ObjectHolder("sorcery:initiate_staff")
-    public static Item initiate_staff;
+    @ObjectHolder("sorcery:sorcerous_staff")
+    public static Item sorcerous_staff;
 
     public static void init(RegistryEvent.Register<Item> event)
     {
@@ -120,7 +120,7 @@ public class ModItem
         registerItem("toad_spawn_egg", new SpawnEggItem(ModEntity.TOAD, 4470310, 10592673, ITEM_PROPS), event);
 
         // Staffs
-        registerItem("initiate_staff", new StaffItem(ITEM_PROPS), event);
+        registerItem("sorcerous_staff", new StaffItem(ITEM_PROPS), event);
 
         // Register Block Items
 

@@ -1,6 +1,5 @@
 package com.root.sorcery;
 
-import com.google.common.collect.ImmutableMap;
 import com.root.sorcery.arcana.ArcanaCapability;
 import com.root.sorcery.arcana.ArcanaProvider;
 import com.root.sorcery.arcana.IArcanaStorage;
@@ -71,8 +70,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.root.sorcery.spell.Spell;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.ArrayList;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Constants.MODID)
@@ -84,8 +82,6 @@ public class Sorcery
 
 
     private static final Logger LOGGER = LogManager.getLogger();
-
-    private static final TRSRTransformation THIRD_PERSON_BLOCK = ForgeBlockStateV1.Transforms.convert(0, 2.5f, 0, 75, 45, 0, 0.375f);
 
     public Sorcery()
     {
@@ -190,23 +186,23 @@ public class Sorcery
         }
 
         @SubscribeEvent
-        public static void registerCustomModels(ModelRegistryEvent event)
+        public static void onModelRegistryEvent(ModelRegistryEvent event)
         {
             // Registers Custom Model Loader
             ModelLoaderRegistry.registerLoader(new StaffModelLoader());
         }
 
         @SubscribeEvent
-        public static void modelBakeEvent(ModelBakeEvent event)
+        public static void onModelBakeEvent(ModelBakeEvent event)
         {
             try {
                 // Loads model from registered model loader
-                IUnbakedModel model = ModelLoaderRegistry.getModel(new ResourceLocation(Constants.MODID, "item/initiate_staff"));
+                IUnbakedModel model = ModelLoaderRegistry.getModel(new ResourceLocation(Constants.MODID, "item/sorcerous_staff"));
 
                 IBakedModel bakedModel = model.bake(event.getModelLoader(), ModelLoader.defaultTextureGetter(),
                         new BasicState(model.getDefaultState(), false), DefaultVertexFormats.ITEM);
 
-                event.getModelRegistry().put(new ModelResourceLocation("sorcery:initiate_staff", "inventory"), bakedModel);
+                event.getModelRegistry().put(new ModelResourceLocation("sorcery:sorcerous_staff", "inventory"), bakedModel);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -214,13 +210,44 @@ public class Sorcery
         }
 
         @SubscribeEvent
-        public static void textureStitch(TextureStitchEvent.Pre event)
+        public static void onTextureStitchEventPre(TextureStitchEvent.Pre event)
         {
             // texture dependencies not working, so adding needed textures here
-            event.addSprite(new ResourceLocation(Constants.MODID, "staves/acacia_rod"));
-            event.addSprite(new ResourceLocation(Constants.MODID, "staves/initiate_gold_fittings"));
-            event.addSprite(new ResourceLocation(Constants.MODID, "staves/initiate_catalyst"));
-            event.addSprite(new ResourceLocation(Constants.MODID, "staves/jungle_rod"));
+
+            ArrayList<String> baseTypes = new ArrayList<>();
+            baseTypes.add("initiate");
+            baseTypes.add("apprentice");
+            baseTypes.add("magician");
+            baseTypes.add("archmage");
+
+            ArrayList<String> fittingTypes = new ArrayList<>();
+            fittingTypes.add("iron");
+            fittingTypes.add("gold");
+            fittingTypes.add("chondrite");
+            fittingTypes.add("siderite");
+
+            ArrayList<String> rodTypes = new ArrayList<>();
+            rodTypes.add("acacia");
+            rodTypes.add("birch");
+            rodTypes.add("dark_oak");
+            rodTypes.add("jungle");
+            rodTypes.add("oak");
+            rodTypes.add("spruce");
+
+            for (String base : baseTypes)
+            {
+                event.addSprite(new ResourceLocation(Constants.MODID, "staves/" + base + "_catalyst"));
+
+                for (String fitting : fittingTypes)
+                {
+                    event.addSprite(new ResourceLocation(Constants.MODID, "staves/" + base + "_" + fitting + "_fittings"));
+                }
+            }
+
+            for (String rod : rodTypes)
+            {
+                event.addSprite(new ResourceLocation(Constants.MODID, "staves/" + rod + "_rod"));
+            }
         }
 
 
