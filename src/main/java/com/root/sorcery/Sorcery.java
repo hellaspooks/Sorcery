@@ -30,13 +30,10 @@ import com.root.sorcery.tileentity.ModTile;
 import com.root.sorcery.tileentity.MonolithTile;
 import com.root.sorcery.tileentity.ReliquaryTile;
 import net.minecraft.block.Block;
-import net.minecraft.block.RailState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IUnbakedModel;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.client.renderer.model.ModelRotation;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -52,12 +49,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.BasicState;
 import net.minecraftforge.client.model.ForgeBlockStateV1;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.client.model.PerspectiveMapWrapper;
-import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -74,6 +70,9 @@ import net.minecraftforge.registries.RegistryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.root.sorcery.spell.Spell;
+
+import java.util.Collection;
+import java.util.Collections;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Constants.MODID)
@@ -174,33 +173,6 @@ public class Sorcery
             ModTile.init(event);
         }
 
-        @SubscribeEvent
-        public static void registerCustomModels(ModelRegistryEvent event)
-        {
-            // Loads model, and adds to model loader
-            ModelResourceLocation model_loc =  new ModelResourceLocation(new ResourceLocation(Constants.MODID, "i_staff"), "inventory");
-            ModelLoader.addSpecialModel(model_loc);
-
-            // Registers Custom Model Loader
-            ModelLoaderRegistry.registerLoader(new StaffModelLoader());
-        }
-
-        @SubscribeEvent
-        public static void modelBakeEvent(ModelBakeEvent event)
-        {
-            try {
-                IUnbakedModel model = ModelLoaderRegistry.getModelOrLogError(new ResourceLocation("sorcery:item/initiate_staff"),
-                        "Missing i_staff model");
-
-                IBakedModel bakedModel = model.bake(event.getModelLoader(), ModelLoader.defaultTextureGetter(),
-                        new BasicState(model.getDefaultState(), true), DefaultVertexFormats.ITEM);
-
-                event.getModelRegistry().put(new ModelResourceLocation("sorcery:initiate_staff", "inventory"), bakedModel);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     // Client-side registry events
@@ -215,6 +187,40 @@ public class Sorcery
 
             mc.particles.registerFactory(ModParticle.SIMPLE_PUFF, SimpleParticle.Factory::new);
             mc.particles.registerFactory(ModParticle.SPARK_SLOW, SlowOutParticle.Factory::new);
+        }
+
+        @SubscribeEvent
+        public static void registerCustomModels(ModelRegistryEvent event)
+        {
+            // Registers Custom Model Loader
+            ModelLoaderRegistry.registerLoader(new StaffModelLoader());
+        }
+
+        @SubscribeEvent
+        public static void modelBakeEvent(ModelBakeEvent event)
+        {
+            try {
+                // Loads model from registered model loader
+                IUnbakedModel model = ModelLoaderRegistry.getModel(new ResourceLocation(Constants.MODID, "item/initiate_staff"));
+
+                IBakedModel bakedModel = model.bake(event.getModelLoader(), ModelLoader.defaultTextureGetter(),
+                        new BasicState(model.getDefaultState(), false), DefaultVertexFormats.ITEM);
+
+                event.getModelRegistry().put(new ModelResourceLocation("sorcery:initiate_staff", "inventory"), bakedModel);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @SubscribeEvent
+        public static void textureStitch(TextureStitchEvent.Pre event)
+        {
+            // texture dependencies not working, so adding needed textures here
+            event.addSprite(new ResourceLocation(Constants.MODID, "staves/acacia_rod"));
+            event.addSprite(new ResourceLocation(Constants.MODID, "staves/initiate_gold_fittings"));
+            event.addSprite(new ResourceLocation(Constants.MODID, "staves/initiate_catalyst"));
+            event.addSprite(new ResourceLocation(Constants.MODID, "staves/jungle_rod"));
         }
 
 
