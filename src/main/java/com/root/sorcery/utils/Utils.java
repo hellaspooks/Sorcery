@@ -110,10 +110,15 @@ public class Utils {
         return map;
     }
 
-    public static List<Entity> entitiesInCone(World world, BlockPos pos, Entity excludeEnt, Vec3d startPos, Vec3d lookVec, int range, double angleRads)
+    public static List<Entity> entitiesInRange(World world, BlockPos pos, int range, Entity excludeEnt)
     {
         AxisAlignedBB aaBB = new AxisAlignedBB(pos.add(range, range, range), pos.add(-range, -range, -range));
-        List<Entity> entList = world.getEntitiesWithinAABBExcludingEntity(excludeEnt, aaBB);
+        return world.getEntitiesWithinAABBExcludingEntity(excludeEnt, aaBB);
+    }
+
+    public static List<Entity> entitiesInCone(World world, BlockPos pos, Entity excludeEnt, Vec3d startPos, Vec3d lookVec, int range, double angleRads)
+    {
+        List<Entity> entList = entitiesInRange(world, pos, range, excludeEnt);
         List<Entity> finalList = new ArrayList<>();
         for ( Entity entity : entList)
         {

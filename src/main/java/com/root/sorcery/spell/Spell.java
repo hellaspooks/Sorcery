@@ -8,20 +8,20 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 
 public class Spell extends ForgeRegistryEntry<Spell>
 {
+    public int arcanaCost;
     public int castDuration = 0;
-    public int arcanaCost = 0;
     public SoundEvent sound = SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP;
     public SoundCategory soundCategory = SoundCategory.BLOCKS;
     public CastType castType = CastType.INSTANT;
 
-    public Spell()
+    public Spell(int arcanaCost)
     {
+        this.arcanaCost = arcanaCost;
     }
 
     // Main casting method, mostly dispatch to castServer and castClient methods
