@@ -4,6 +4,7 @@ import com.root.sorcery.arcana.ArcanaCapability;
 import com.root.sorcery.arcana.ArcanaProvider;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.block.ModBlock;
+import com.root.sorcery.client.model.StaffModelLoader;
 import com.root.sorcery.entity.ModEntity;
 import com.root.sorcery.event.DurationSpellEvent;
 import com.root.sorcery.event.StructureFormHandlerEvent;
@@ -29,6 +30,10 @@ import com.root.sorcery.tileentity.MonolithTile;
 import com.root.sorcery.tileentity.ReliquaryTile;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.IUnbakedModel;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,14 +45,20 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.model.BasicState;
+import net.minecraftforge.client.model.ForgeBlockStateV1;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -58,6 +69,8 @@ import net.minecraftforge.registries.RegistryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.root.sorcery.spell.Spell;
+
+import java.util.ArrayList;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Constants.MODID)
@@ -155,6 +168,7 @@ public class Sorcery
         {
             ModTile.init(event);
         }
+
     }
 
     // Client-side registry events
@@ -171,12 +185,79 @@ public class Sorcery
             mc.particles.registerFactory(ModParticle.SPARK_SLOW, SlowOutParticle.Factory::new);
         }
 
+        @SubscribeEvent
+        public static void onModelRegistryEvent(ModelRegistryEvent event)
+        {
+            // Registers Custom Model Loader
+            ModelLoaderRegistry.registerLoader(new StaffModelLoader());
+        }
+
+        @SubscribeEvent
+        public static void onModelBakeEvent(ModelBakeEvent event)
+        {
+            try {
+                // Loads model from registered model loader
+                IUnbakedModel model = ModelLoaderRegistry.getModel(new ResourceLocation(Constants.MODID, "item/sorcerous_staff"));
+
+                IBakedModel bakedModel = model.bake(event.getModelLoader(), ModelLoader.defaultTextureGetter(),
+                        new BasicState(model.getDefaultState(), false), DefaultVertexFormats.ITEM);
+
+                event.getModelRegistry().put(new ModelResourceLocation("sorcery:sorcerous_staff", "inventory"), bakedModel);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @SubscribeEvent
+        public static void onTextureStitchEventPre(TextureStitchEvent.Pre event)
+        {
+            // texture dependencies not working, so adding needed textures here
+
+            ArrayList<String> baseTypes = new ArrayList<>();
+            baseTypes.add("initiate");
+            baseTypes.add("apprentice");
+            baseTypes.add("magician");
+            baseTypes.add("archmage");
+
+            ArrayList<String> fittingTypes = new ArrayList<>();
+            fittingTypes.add("iron");
+            fittingTypes.add("gold");
+            fittingTypes.add("chondrite");
+            fittingTypes.add("siderite");
+
+            ArrayList<String> rodTypes = new ArrayList<>();
+            rodTypes.add("acacia");
+            rodTypes.add("birch");
+            rodTypes.add("dark_oak");
+            rodTypes.add("jungle");
+            rodTypes.add("oak");
+            rodTypes.add("spruce");
+
+            for (String base : baseTypes)
+            {
+                event.addSprite(new ResourceLocation(Constants.MODID, "staves/" + base + "_catalyst"));
+
+                for (String fitting : fittingTypes)
+                {
+                    event.addSprite(new ResourceLocation(Constants.MODID, "staves/" + base + "_" + fitting + "_fittings"));
+                }
+            }
+
+            for (String rod : rodTypes)
+            {
+                event.addSprite(new ResourceLocation(Constants.MODID, "staves/" + rod + "_rod"));
+            }
+        }
+
+
     }
 
     // Event Handlers
     @Mod.EventBusSubscriber
     public static class EventHandlers
     {
+
         @SubscribeEvent
         public static void attachCapabilitiesEntities(AttachCapabilitiesEvent<Entity> event)
         {

@@ -74,8 +74,14 @@ public class ModItem
     @ObjectHolder("sorcery:cryptoglyph")
     public static Item cryptoglyph;
 
+    // Spawn Eggs
     @ObjectHolder("sorcery:toad_spawn_egg")
     public static Item toad_spawn_egg;
+
+    // Staves
+
+    @ObjectHolder("sorcery:sorcerous_staff")
+    public static Item sorcerous_staff;
 
     public static void init(RegistryEvent.Register<Item> event)
     {
@@ -112,6 +118,9 @@ public class ModItem
 
         //Spawn Eggs
         registerItem("toad_spawn_egg", new SpawnEggItem(ModEntity.TOAD, 4470310, 10592673, ITEM_PROPS), event);
+
+        // Staffs
+        registerItem("sorcerous_staff", new StaffItem(ITEM_PROPS), event);
 
         // Register Block Items
 
