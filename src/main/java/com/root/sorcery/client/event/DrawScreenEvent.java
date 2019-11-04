@@ -33,47 +33,53 @@ public class DrawScreenEvent
         Minecraft mc = Minecraft.getInstance();
         Item heldItem = mc.player.getHeldItemMainhand().getItem();
 
-        IArcanaStorage playerCap = mc.player.getCapability(ArcanaCapability.ARCANA, null).orElseThrow(NullPointerException::new);
 
-        if (playerCap == null)
+        try
         {
-            return;
+            IArcanaStorage playerCap = mc.player.getCapability(ArcanaCapability.ARCANA, null).orElseThrow(NullPointerException::new);
+
+            if (playerCap == null)
+            {
+                return;
+            }
+
+            if (heldItem == null || !(heldItem instanceof SpellcastingItem))
+            {
+                return;
+            }
+
+            int posX = 5;
+            int posY = mc.mainWindow.getScaledHeight() - 10;
+
+            String arcanaString = String.format("%.2f / %d", ((double)playerCap.getArcanaStored())/100, playerCap.getMaxArcanaStored()/100);
+
+            mc.textureManager.bindTexture(barTexture);
+
+
+            GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+            GlStateManager.enableAlphaTest();
+            GlStateManager.enableBlend();
+            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+            // Background
+            mc.ingameGUI.blit(posX, posY, 0, 0, 91,5);
+
+            int barWidth =(int)((((double)playerCap.getArcanaStored())/((double)playerCap.getMaxArcanaStored())) * 91.0);
+
+            // Foreground
+            mc.ingameGUI.blit(posX, posY, 0, 5, barWidth, 5);
+
+            // Overlay
+            mc.ingameGUI.blit(posX, posY, 0, 10, 91,5);
+
+            mc.fontRenderer.drawString(arcanaString, posX + 20, posY -10, 16777215);
+
+            GlStateManager.disableBlend();
+            GlStateManager.disableAlphaTest();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
-
-        if (heldItem == null || !(heldItem instanceof SpellcastingItem))
-        {
-            return;
-        }
-
-        int posX = 5;
-        int posY = mc.mainWindow.getScaledHeight() - 10;
-
-        String arcanaString = String.format("%.2f / %d", ((double)playerCap.getArcanaStored())/100, playerCap.getMaxArcanaStored()/100);
-
-        mc.textureManager.bindTexture(barTexture);
-
-
-        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-
-        GlStateManager.enableAlphaTest();
-        GlStateManager.enableBlend();
-        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
-        // Background
-        mc.ingameGUI.blit(posX, posY, 0, 0, 91,5);
-
-        int barWidth =(int)((((double)playerCap.getArcanaStored())/((double)playerCap.getMaxArcanaStored())) * 91.0);
-
-        // Foreground
-        mc.ingameGUI.blit(posX, posY, 0, 5, barWidth, 5);
-
-        // Overlay
-        mc.ingameGUI.blit(posX, posY, 0, 10, 91,5);
-
-        mc.fontRenderer.drawString(arcanaString, posX + 20, posY -10, 16777215);
-
-        GlStateManager.disableBlend();
-        GlStateManager.disableAlphaTest();
 
     }
 

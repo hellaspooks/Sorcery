@@ -4,9 +4,12 @@ import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ParticleEffectPacket;
 import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.ParticleEffects;
+import com.root.sorcery.potion.ModEffect;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
@@ -18,8 +21,8 @@ public class BlinkSpell extends Spell
 
     public BlinkSpell(double blinkDistanceIn)
     {
+        super(50);
         this.blinkDistance = blinkDistanceIn;
-        this.arcanaCost = 42;
     }
 
 
@@ -29,10 +32,25 @@ public class BlinkSpell extends Spell
 
         PlayerEntity player = context.getPlayer();
 
+        // Check for dimensional fraying/ apply fraying
+        EffectInstance frayingEffect = player.getActivePotionEffect(ModEffect.DIMENSIONAL_FRAYING);
+        int duration = 40;
+        // Existing fraying, damage and square time
+        if (frayingEffect != null)
+        {
+            // Damage equal to time remaining, capped at 5 minutes
+            int timeRemainingSecs = (int) Math.ceil((double)frayingEffect.getDuration() / 20);
+            player.attackEntityFrom(DamageSource.WITHER, timeRemainingSecs);
+            // Re-apply effect with time squared
+            duration = Math.min( timeRemainingSecs * 2 * 20, 300 * 20);
+        }
+
+        EffectInstance newEffect = new EffectInstance(ModEffect.DIMENSIONAL_FRAYING, duration);
+        player.addPotionEffect(newEffect);
+
         BlockRayTraceResult blockRTR = Utils.blockAlongRay(player.getEyePosition(1.0f), player.getLookVec(), blinkDistance, context.getWorld(), player);
 
-
-        // if raytrace hits a block, teleport to that block, ,if it doesnt, teleport the full distance
+        // if raytrace hits a block, teleport to that block, ,if it doesn't, teleport the full distance
         if (blockRTR.getType() == RayTraceResult.Type.BLOCK)
         {
 

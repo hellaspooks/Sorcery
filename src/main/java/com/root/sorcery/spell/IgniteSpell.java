@@ -11,6 +11,7 @@ public class IgniteSpell extends Spell
 {
     public IgniteSpell()
     {
+        super(5);
         this.sound = SoundEvents.ITEM_FIRECHARGE_USE;
     }
 

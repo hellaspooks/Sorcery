@@ -16,6 +16,7 @@ public class TestSpell extends Spell
 
     public TestSpell(String debugMessageIn)
     {
+        super(0);
         this.debugMessage = debugMessageIn;
 
     }

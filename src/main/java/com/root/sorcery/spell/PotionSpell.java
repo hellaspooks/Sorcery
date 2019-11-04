@@ -19,9 +19,9 @@ public class PotionSpell extends Spell
 
     public PotionSpell(Effect effectIn, int durationIn)
     {
+        super(50);
         this.effect = effectIn;
         this.duration = durationIn;
-        this.arcanaCost = 50;
     }
 
     @Override

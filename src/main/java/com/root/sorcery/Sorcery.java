@@ -17,6 +17,7 @@ import com.root.sorcery.network.packets.SpellCapSyncPacket;
 import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.SimpleParticle;
 import com.root.sorcery.particle.SlowOutParticle;
+import com.root.sorcery.potion.ModEffect;
 import com.root.sorcery.setup.ClientProxy;
 import com.root.sorcery.setup.IProxy;
 import com.root.sorcery.setup.ModSetup;
@@ -41,6 +42,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.Effect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
@@ -50,11 +52,9 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.BasicState;
-import net.minecraftforge.client.model.ForgeBlockStateV1;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -128,14 +128,16 @@ public class Sorcery
     public static class CommonRegistryEvents
     {
         @SubscribeEvent
-        public static void registerRegistry(RegistryEvent.NewRegistry event){
+        public static void registerRegistry(RegistryEvent.NewRegistry event)
+        {
             new RegistryBuilder<Spell>().setType(Spell.class)
                     .setName(new ResourceLocation(Constants.MODID, "spell"))
                     .create();
         }
 
         @SubscribeEvent
-        public static void registerSpells(RegistryEvent.Register<Spell> event){
+        public static void registerSpells(RegistryEvent.Register<Spell> event)
+        {
             ModSpell.init(event);
         }
 
@@ -167,6 +169,12 @@ public class Sorcery
         public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event)
         {
             ModTile.init(event);
+        }
+
+        @SubscribeEvent
+        public static void onEffectRegistry(final RegistryEvent.Register<Effect> event)
+        {
+            ModEffect.init(event);
         }
 
     }

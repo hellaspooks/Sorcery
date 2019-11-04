@@ -17,8 +17,8 @@ public class PlantDeathSpell extends Spell
     private double spellRange;
 
     public PlantDeathSpell(double spellRange) {
+        super(2);
         this.spellRange = spellRange;
-        this.arcanaCost = 2;
     }
 
     @Override

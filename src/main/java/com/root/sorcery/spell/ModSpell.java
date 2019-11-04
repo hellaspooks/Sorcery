@@ -22,6 +22,8 @@ public class ModSpell
 
     public static final PlantDeathSpell PLANT_DEATH_SPELL = new PlantDeathSpell(2);
 
+    public static final RepelSpell REPEL_SPELL = new RepelSpell(8, 4);
+
 
     public static void init(Register<Spell> event)
     {
@@ -33,6 +35,7 @@ public class ModSpell
         registerSpell("sorcery:ignite_spell", IGNITE_SPELL, event);
         registerSpell("sorcery:combustion_spell", COMBUSTION_SPELL, event);
         registerSpell("sorcery:plant_death_spell", PLANT_DEATH_SPELL, event);
+        registerSpell("sorvery:repel_spell", REPEL_SPELL, event);
     }
 
     public static void registerSpell(String registryName, Spell spell, Register<Spell> event)

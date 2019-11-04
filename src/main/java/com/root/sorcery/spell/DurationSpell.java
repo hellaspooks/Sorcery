@@ -8,10 +8,10 @@ public class DurationSpell extends Spell
 
     public DurationSpell()
     {
+        super(1);
         // This is actually all that has to happen for a spell to have a cast duration,
         // everything else is handled in the DurationSpellEvent handler
         this.castDuration = 100;
-        this.arcanaCost = 1;
         this.castType = CastType.DURATION;
     }
 
