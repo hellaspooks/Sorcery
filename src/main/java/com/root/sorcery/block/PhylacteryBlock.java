@@ -4,10 +4,9 @@ import com.root.sorcery.arcana.ArcanaCapability;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
-import com.root.sorcery.tileentity.MonolithTile;
+import com.root.sorcery.tileentity.PhylacteryTile;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -23,32 +22,14 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class MonolithBlock extends Block
+public class PhylacteryBlock extends Block
 {
-    private static Float hardness   = 3.0F;
+    private static Float hardness = 3.0F;
     private static Float resistance = 6.0F;
 
-    public MonolithBlock()
+    public PhylacteryBlock()
     {
-        super(Properties.create(Material.ROCK).hardnessAndResistance(hardness, resistance).sound(SoundType.STONE));
-    }
-
-    @Override
-    public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos)
-    {
-        return false;
-    }
-
-    @Override
-    public boolean isSolid(BlockState state)
-    {
-        return false;
-    }
-
-    @Override
-    public BlockRenderType getRenderType(BlockState state)
-    {
-        return BlockRenderType.MODEL;
+        super(Properties.create(Material.ROCK).hardnessAndResistance( hardness, resistance).sound(SoundType.STONE));
     }
 
     @Override
@@ -61,19 +42,20 @@ public class MonolithBlock extends Block
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        System.out.println("created monolith tile");
-        return new MonolithTile();
+        System.out.println("created phylactery tile");
+        return new PhylacteryTile();
     }
 
+    @Override
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
         if (!worldIn.isRemote) {
             TileEntity tile = worldIn.getTileEntity(pos);
 
-            if (tile instanceof MonolithTile) {
+            if (tile instanceof PhylacteryTile) {
 
                 // for dev
-                player.sendStatusMessage(new StringTextComponent(String.format("Stored Arcana: %d", ((MonolithTile) tile).getStoredArcana())), true);
+                player.sendStatusMessage(new StringTextComponent(String.format("Stored Arcana: %d", ((PhylacteryTile) tile).getStoredArcana())), true);
 
                 if (player.isSneaking())
                 {
@@ -81,7 +63,7 @@ public class MonolithBlock extends Block
                 }
 
                 IArcanaStorage playerCap = Utils.getArcanaCap(player);
-                int arcanaExtracted = ((MonolithTile) tile).getArcanaForPlayer();
+                int arcanaExtracted = ((PhylacteryTile) tile).getArcanaForPlayer();
                 playerCap.receiveArcana(arcanaExtracted, false);
 
                 // Sync arcana with client

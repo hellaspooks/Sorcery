@@ -3,16 +3,20 @@ package com.root.sorcery.item;
 import com.root.sorcery.spell.CastType;
 import com.root.sorcery.spell.Spell;
 import com.root.sorcery.spell.SpellUseContext;
+import com.root.sorcery.utils.Utils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.UseAction;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 import static com.root.sorcery.utils.Utils.getSpellFromEntity;
 
@@ -93,4 +97,19 @@ public class SpellcastingItem extends Item
         return stack;
     }
 
+    @Override
+    public CompoundNBT getShareTag(ItemStack stack)
+    {
+        CompoundNBT baseTag = stack.getTag();
+        CompoundNBT arcanaTag = Utils.getArcanaCap(stack).serializeNBT();
+        baseTag.put("arcanaCap", arcanaTag);
+        return baseTag;
+    }
+
+    @Override
+    public void readShareTag(ItemStack stack, @Nullable CompoundNBT nbt)
+    {
+        Utils.getArcanaCap(stack).deserializeNBT(nbt.getCompound("arcanaCap"));
+        stack.setTag(nbt);
+    }
 }

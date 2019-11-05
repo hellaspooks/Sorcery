@@ -2,12 +2,10 @@ package com.root.sorcery.network;
 
 import com.root.sorcery.Constants;
 import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
+import com.root.sorcery.network.packets.KeyPressPacket;
 import com.root.sorcery.network.packets.ParticleEffectPacket;
 import com.root.sorcery.network.packets.SpellCapSyncPacket;
-import com.root.sorcery.network.packets.KeyPressPacket;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;

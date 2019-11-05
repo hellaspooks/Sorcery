@@ -2,7 +2,6 @@ package com.root.sorcery.item;
 import com.root.sorcery.Constants;
 import com.root.sorcery.block.ModBlock;
 import com.root.sorcery.entity.ModEntity;
-import com.root.sorcery.setup.ModSetup;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -70,10 +69,6 @@ public class ModItem
     // Arcanomicon
     @ObjectHolder("cryptoglyph")
     public static Item cryptoglyph;
-
-    //Phylactery
-    @ObjectHolder("phylactery")
-    public static Item phylactery;
 
     // Spawn Eggs
     @ObjectHolder("toad_spawn_egg")
@@ -153,9 +148,6 @@ public class ModItem
         // Arcanomicon
         registerItem("cryptoglyph", new SpellGrantingItem(Constants.ITEM_PROPS), event);
 
-        // Phylactery
-        registerItem("phylactery", new PhylacteryItem(Constants.ITEM_PROPS), event);
-
         //Spawn Eggs
         registerItem("toad_spawn_egg", new SpawnEggItem(ModEntity.TOAD, 4470310, 10592673, Constants.ITEM_PROPS), event);
 
@@ -210,6 +202,7 @@ public class ModItem
         blockItemFactory(ModBlock.CHONDRITE_LANTERN, Constants.ITEM_PROPS, event);
 
         blockItemFactory(ModBlock.PODIUM, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.PHYLACTERY, Constants.ITEM_PROPS, event);
     }
 
     public static void simpleItemFactory(String registryName, RegistryEvent.Register<Item> event)

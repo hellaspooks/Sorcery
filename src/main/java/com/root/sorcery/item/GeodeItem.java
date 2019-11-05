@@ -1,6 +1,5 @@
 package com.root.sorcery.item;
 
-import com.root.sorcery.spell.SpellUseContext;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.item.ItemEntity;
@@ -9,9 +8,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 
-import static com.root.sorcery.item.ModItem.*;
+import static com.root.sorcery.item.ModItem.carnelian;
+import static com.root.sorcery.item.ModItem.chalcedony;
+import static com.root.sorcery.item.ModItem.geode;
+import static com.root.sorcery.item.ModItem.jasper;
+import static com.root.sorcery.item.ModItem.nuummite;
+import static com.root.sorcery.item.ModItem.serpentine;
+import static com.root.sorcery.item.ModItem.sugilite;
 
 public class GeodeItem extends Item
 {

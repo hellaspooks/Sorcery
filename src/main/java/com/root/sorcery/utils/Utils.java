@@ -1,16 +1,15 @@
 package com.root.sorcery.utils;
 
-import com.root.sorcery.arcana.ArcanaCapability;
+import com.google.common.base.Predicate;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.block.state.CrystalColor;
 import com.root.sorcery.spell.Spell;
 import com.root.sorcery.spellcasting.ISpellcasting;
-import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -23,7 +22,7 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityProvider;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -39,6 +38,7 @@ public class Utils {
 
     @CapabilityInject(IArcanaStorage.class)
     static Capability<IArcanaStorage> ARCANA_STORAGE = null;
+
 
     public static final EnumMap<CrystalColor, String> CRYSTAL_COLOR_MAP = getCrystalColorMap();
 
@@ -132,5 +132,28 @@ public class Utils {
         }
         return finalList;
     }
+
+    public static Predicate<TileEntity> getTESearchPredicate(Class clazz, BlockPos pos, double range)
+    {
+        Predicate<TileEntity> pred = new Predicate<TileEntity>()
+        {
+            @Override
+            public boolean apply(@Nullable TileEntity input)
+            {
+                if (!clazz.isInstance(input))
+                {
+                    return false;
+                }
+                if (!pos.withinDistance(input.getPos(), range))
+                {
+                    return false;
+                }
+                return true;
+            }
+        };
+        return pred;
+    }
+
+
 
 }

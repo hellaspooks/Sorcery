@@ -1,9 +1,8 @@
 package com.root.sorcery.spell;
 
 
-import com.root.sorcery.arcana.ArcanaCapability;
 import com.root.sorcery.arcana.IArcanaStorage;
-import net.minecraft.entity.Entity;
+import com.root.sorcery.utils.Utils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -63,7 +62,7 @@ public class SpellUseContext
     {
         this.world = itemUseContext.getWorld();
         this.pos = itemUseContext.getPlayer().getPosition();
-        this.arcanaSource = getSourceFromEntity(itemUseContext.getPlayer());
+        this.arcanaSource = Utils.getArcanaCap(itemUseContext.getItem());
         this.rayTraceResult = new BlockRayTraceResult(itemUseContext.getHitVec(), itemUseContext.getFace(), itemUseContext.getPos(), itemUseContext.func_221533_k());
         this.player = itemUseContext.getPlayer();
         this.hand = itemUseContext.getHand();
@@ -77,7 +76,7 @@ public class SpellUseContext
     {
         this.world = player.getEntityWorld();
         this.pos = player.getPosition();
-        this.arcanaSource = getSourceFromEntity(player);
+        this.arcanaSource = Utils.getArcanaCap(player.getHeldItem(handIn));
         this.rayTraceResult = rayTraceResultIn;
         this.player = player;
         this.hand = handIn;
@@ -91,7 +90,7 @@ public class SpellUseContext
     {
         this.world = worldIn;
         this.pos = pos;
-        this.arcanaSource = getSourceFromEntity(playerIn);
+        this.arcanaSource = Utils.getArcanaCap(itemStackIn);
         this.rayTraceResult = null;
         this.player = playerIn;
         this.hand = handIn;
@@ -104,18 +103,12 @@ public class SpellUseContext
     {
         this.world = worldIn;
         this.pos = playerIn.getPosition();
-        this.arcanaSource = getSourceFromEntity(playerIn);
-        this.rayTraceResult = null;
+        this.arcanaSource = Utils.getArcanaCap(playerIn.getHeldItem(handIn));
+        this.rayTraceResult = Utils.blockAlongRay(playerIn.getEyePosition(1), playerIn.getLookVec(), 8, worldIn, playerIn);
         this.player = playerIn instanceof PlayerEntity ? (PlayerEntity) playerIn : null;
         this.hand = handIn;
         this.item = playerIn.getHeldItem(handIn);
         this.targetEntity = null;
-    }
-
-
-    private IArcanaStorage getSourceFromEntity(Entity entity)
-    {
-        return entity.getCapability(ArcanaCapability.ARCANA, null).orElseThrow(NullPointerException::new);
     }
 
     public PlayerEntity getPlayer()

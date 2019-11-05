@@ -5,7 +5,6 @@ import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
 import com.root.sorcery.structure.StructurePattern;
-import com.root.sorcery.tileentity.ModTile;
 import com.root.sorcery.tileentity.ReliquaryTile;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.block.Block;
@@ -16,11 +15,9 @@ import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.pattern.BlockStateMatcher;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -39,7 +36,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import static com.root.sorcery.block.ModBlock.RELIQUARY;
-import static net.minecraft.block.Blocks.*;
+import static net.minecraft.block.Blocks.BOOKSHELF;
+import static net.minecraft.block.Blocks.GLOWSTONE;
+import static net.minecraft.block.Blocks.LECTERN;
 
 public class ReliquaryBlock extends Block
 {

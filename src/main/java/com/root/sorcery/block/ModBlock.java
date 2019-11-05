@@ -58,6 +58,9 @@ public class ModBlock
     @ObjectHolder("podium")
     public static Block PODIUM;
 
+    @ObjectHolder("phylactery")
+    public static Block PHYLACTERY;
+
     public static void init(RegistryEvent.Register<Block> event)
     {
         // Simple Blocks
@@ -78,13 +81,14 @@ public class ModBlock
         // Tile Blocks
         registerTileBlocks(event, "chondrite_blast_furnace", new ChondriteBlastFurnaceBlock());
         registerTileBlocks(event, "reliquary", new ReliquaryBlock());
+        registerTileBlocks(event, "podium", new PodiumBlock());
+        registerTileBlocks(event, "phylactery", new PhylacteryBlock());
 
         registerTileBlocks(event, "monolith_normal", new MonolithBlock());
         registerTileBlocks(event, "monolith_dark", new MonolithBlock());
         registerTileBlocks(event, "monolith_lunar", new MonolithBlock());
         registerTileBlocks(event, "monolith_solar", new MonolithBlock());
 
-        registerTileBlocks(event, "podium", new PodiumBlock());
     }
 
     public static Block simpleBlockFactory(RegistryEvent.Register<Block> event, String registryName, Material material, Float hardness, Float resistance, SoundType sound)

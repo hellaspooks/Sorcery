@@ -6,11 +6,11 @@ import net.minecraftforge.event.RegistryEvent.Register;
 public class ModSpell
 {
 
-    public static final Spell TEST_SPELL = new TestSpell("Test Spell 1");
+    public static final Spell TEST_SPELL = new TestSpell("Test Spell 1", 0);
 
-    public static final Spell TEST_SPELL_2 = new TestSpell("Test Spell 2: Electric Boogaloo");
+    public static final Spell REMOVE_ARCANA_SPELL = new TestSpell("Arcana Removed!", 1000);
 
-    public static final PotionSpell HASTE_SPELL = new PotionSpell(Effects.HASTE, 600);
+    public static final PotionSpell SPEED_SPELL = new PotionSpell(Effects.SPEED, 600);
 
     public static final BlinkSpell BLINK_SPELL = new BlinkSpell(30);
 
@@ -24,18 +24,21 @@ public class ModSpell
 
     public static final RepelSpell REPEL_SPELL = new RepelSpell(8, 4);
 
+    public static final ArcanaDrainSpell ARCANA_DRAIN_SPELL = new ArcanaDrainSpell();
+
 
     public static void init(Register<Spell> event)
     {
-        registerSpell("sorcery:testspell", TEST_SPELL, event);
-        registerSpell("sorcery:test_spell2", TEST_SPELL_2, event);
-        registerSpell("sorcery:haste_spell", HASTE_SPELL, event);
+        registerSpell("sorcery:test_spell", TEST_SPELL, event);
+        registerSpell("sorcery:remove_arcana_spell", REMOVE_ARCANA_SPELL, event);
+        registerSpell("sorcery:speed_spell", SPEED_SPELL, event);
         registerSpell("sorcery:blink_spell", BLINK_SPELL, event);
         registerSpell("sorcery:duration_spell", DURATION_SPELL, event);
         registerSpell("sorcery:ignite_spell", IGNITE_SPELL, event);
         registerSpell("sorcery:combustion_spell", COMBUSTION_SPELL, event);
         registerSpell("sorcery:plant_death_spell", PLANT_DEATH_SPELL, event);
-        registerSpell("sorvery:repel_spell", REPEL_SPELL, event);
+        registerSpell("sorcery:repel_spell", REPEL_SPELL, event);
+        registerSpell("sorcery:arcana_drain_spell", ARCANA_DRAIN_SPELL, event);
     }
 
     public static void registerSpell(String registryName, Spell spell, Register<Spell> event)

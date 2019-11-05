@@ -3,7 +3,6 @@ package com.root.sorcery.spell;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ParticleEffectPacket;
 import com.root.sorcery.particle.ModParticle;
-import com.root.sorcery.particle.ParticleEffects;
 import com.root.sorcery.potion.ModEffect;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.entity.player.PlayerEntity;

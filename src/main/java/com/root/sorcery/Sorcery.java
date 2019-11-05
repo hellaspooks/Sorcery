@@ -9,8 +9,9 @@ import com.root.sorcery.entity.ModEntity;
 import com.root.sorcery.event.DurationSpellEvent;
 import com.root.sorcery.event.StructureFormHandlerEvent;
 import com.root.sorcery.item.ModItem;
-import com.root.sorcery.item.PhylacteryItem;
+import com.root.sorcery.item.PortableArcanaItem;
 import com.root.sorcery.item.SpellGrantingItem;
+import com.root.sorcery.item.SpellcastingItem;
 import com.root.sorcery.item.tool.ModTool;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
@@ -24,6 +25,7 @@ import com.root.sorcery.setup.IProxy;
 import com.root.sorcery.setup.ModSetup;
 import com.root.sorcery.setup.ServerProxy;
 import com.root.sorcery.spell.ModSpell;
+import com.root.sorcery.spell.Spell;
 import com.root.sorcery.spellcasting.ISpellcasting;
 import com.root.sorcery.spellcasting.SpellcastingCapability;
 import com.root.sorcery.spellcasting.SpellcastingProvider;
@@ -69,7 +71,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.root.sorcery.spell.Spell;
 
 import java.util.ArrayList;
 
@@ -280,10 +281,15 @@ public class Sorcery
         @SubscribeEvent
         public static void attachCapabilitiesItems(AttachCapabilitiesEvent<ItemStack> event)
         {
+            if (event.getObject().getItem() instanceof SpellcastingItem)
+            {
+                event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
+            }
             if (event.getObject().getItem() instanceof SpellGrantingItem)
             {
                 event.addCapability(SpellcastingCapability.SPELLCASTING_LOC, new SpellcastingProvider());
-            } else if (event.getObject().getItem() instanceof PhylacteryItem)
+            }
+            if (event.getObject().getItem() instanceof PortableArcanaItem)
             {
                 event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
             }

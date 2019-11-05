@@ -17,11 +17,11 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class PhylacteryItem extends Item
+public class PortableArcanaItem extends Item
 {
     private int arcanaRestoreAmount = 10000;
 
-    public PhylacteryItem(Properties properties)
+    public PortableArcanaItem(Properties properties)
     {
         super(properties);
     }

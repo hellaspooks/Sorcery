@@ -3,7 +3,6 @@ package com.root.sorcery.spell;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ParticleEffectPacket;
 import com.root.sorcery.particle.ModParticle;
-import com.root.sorcery.particle.ParticleEffects;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.Vec3d;
@@ -14,9 +13,9 @@ public class TestSpell extends Spell
 
     private String debugMessage;
 
-    public TestSpell(String debugMessageIn)
+    public TestSpell(String debugMessageIn, int arcanaCost)
     {
-        super(0);
+        super(arcanaCost);
         this.debugMessage = debugMessageIn;
 
     }
