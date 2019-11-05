@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.root.sorcery.Constants;
 import com.root.sorcery.arcana.ArcanaCapability;
 import com.root.sorcery.arcana.IArcanaStorage;
+import com.root.sorcery.item.PhylacteryItem;
 import com.root.sorcery.item.SpellcastingItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
@@ -43,7 +44,7 @@ public class DrawScreenEvent
                 return;
             }
 
-            if (heldItem == null || !(heldItem instanceof SpellcastingItem))
+            if (heldItem == null || !(heldItem instanceof SpellcastingItem || heldItem instanceof PhylacteryItem))
             {
                 return;
             }

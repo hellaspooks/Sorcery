@@ -71,6 +71,10 @@ public class ModItem
     @ObjectHolder("cryptoglyph")
     public static Item cryptoglyph;
 
+    //Phylactery
+    @ObjectHolder("phylactery")
+    public static Item phylactery;
+
     // Spawn Eggs
     @ObjectHolder("toad_spawn_egg")
     public static Item toad_spawn_egg;
@@ -149,6 +153,9 @@ public class ModItem
         // Arcanomicon
         registerItem("cryptoglyph", new SpellGrantingItem(Constants.ITEM_PROPS), event);
 
+        // Phylactery
+        registerItem("phylactery", new PhylacteryItem(Constants.ITEM_PROPS), event);
+
         //Spawn Eggs
         registerItem("toad_spawn_egg", new SpawnEggItem(ModEntity.TOAD, 4470310, 10592673, Constants.ITEM_PROPS), event);
 
@@ -201,6 +208,8 @@ public class ModItem
         blockItemFactory(ModBlock.MONOLITH_LUNAR, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.MONOLITH_DARK, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.CHONDRITE_LANTERN, Constants.ITEM_PROPS, event);
+
+        blockItemFactory(ModBlock.PODIUM, Constants.ITEM_PROPS, event);
     }
 
     public static void simpleItemFactory(String registryName, RegistryEvent.Register<Item> event)

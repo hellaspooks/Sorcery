@@ -1,0 +1,48 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"all": "sorcery:blocks/podium"
+	},
+	"elements": [
+		{
+			"from": [2, 0, 2],
+			"to": [14, 3, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [9, 8, 9]},
+			"faces": {
+				"north": {"uv": [10, 14.5, 16, 16], "texture": "#all"},
+				"east": {"uv": [10, 14.5, 16, 16], "texture": "#all"},
+				"south": {"uv": [10, 14.5, 16, 16], "texture": "#all"},
+				"west": {"uv": [10, 14.5, 16, 16], "texture": "#all"},
+				"up": {"uv": [4, 10, 10, 16], "texture": "#all"},
+				"down": {"uv": [4, 10, 10, 16], "texture": "#all", "cullface": "down"}
+			}
+		},
+		{
+			"from": [4, 3, 4],
+			"to": [12, 14, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 11, 12]},
+			"faces": {
+				"north": {"uv": [0, 10.5, 4, 16], "texture": "#all"},
+				"east": {"uv": [0, 10.5, 4, 16], "texture": "#all"},
+				"south": {"uv": [0, 10.5, 4, 16], "texture": "#all"},
+				"west": {"uv": [0, 10.5, 4, 16], "texture": "#all"},
+				"up": {"uv": [0, 0, 8, 8], "texture": "#missing"},
+				"down": {"uv": [0, 0, 8, 8], "texture": "#missing"}
+			}
+		},
+		{
+			"from": [3, 14, 3],
+			"to": [13, 16, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 22, 11]},
+			"faces": {
+				"north": {"uv": [10.5, 15, 15.5, 16], "texture": "#all"},
+				"east": {"uv": [10.5, 15, 15.5, 16], "texture": "#all"},
+				"south": {"uv": [10.5, 15, 15.5, 16], "texture": "#all"},
+				"west": {"uv": [10.5, 15, 15.5, 16], "texture": "#all"},
+				"up": {"uv": [4, 5, 9, 10], "texture": "#all"},
+				"down": {"uv": [4.5, 10.5, 9.5, 15.5], "texture": "#all"}
+			}
+		}
+	]
+}

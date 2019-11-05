@@ -9,6 +9,7 @@ import com.root.sorcery.entity.ModEntity;
 import com.root.sorcery.event.DurationSpellEvent;
 import com.root.sorcery.event.StructureFormHandlerEvent;
 import com.root.sorcery.item.ModItem;
+import com.root.sorcery.item.PhylacteryItem;
 import com.root.sorcery.item.SpellGrantingItem;
 import com.root.sorcery.item.tool.ModTool;
 import com.root.sorcery.network.PacketHandler;
@@ -282,6 +283,9 @@ public class Sorcery
             if (event.getObject().getItem() instanceof SpellGrantingItem)
             {
                 event.addCapability(SpellcastingCapability.SPELLCASTING_LOC, new SpellcastingProvider());
+            } else if (event.getObject().getItem() instanceof PhylacteryItem)
+            {
+                event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
             }
         }
 
@@ -295,7 +299,6 @@ public class Sorcery
             {
                 event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
             }
-
         }
 
         @SubscribeEvent

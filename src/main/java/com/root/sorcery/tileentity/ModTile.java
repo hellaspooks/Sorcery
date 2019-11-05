@@ -1,25 +1,26 @@
 package com.root.sorcery.tileentity;
 
 import com.root.sorcery.block.ModBlock;
-import net.minecraft.block.Block;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
-import java.util.function.Supplier;
 
 
+@ObjectHolder("sorcery")
 public class ModTile
 {
-    @ObjectHolder("sorcery:chondrite_blast_furnace")
+    @ObjectHolder("chondrite_blast_furnace")
     public static TileEntityType<ChondriteBlastFurnaceTile> CHONDRITE_BLAST_FURNACE_TILE;
 
-    @ObjectHolder("sorcery:monolith")
+    @ObjectHolder("monolith")
     public static TileEntityType<MonolithTile> MONOLITH_TILE;
 
-    @ObjectHolder("sorcery:reliquary")
+    @ObjectHolder("reliquary")
     public static TileEntityType<ReliquaryTile> RELIQUARY_TILE;
+
+    @ObjectHolder(("podium"))
+    public static TileEntityType<PodiumTile> PODIUM_TILE;
 
     public static void init(RegistryEvent.Register<TileEntityType<?>> event)
     {
@@ -33,6 +34,11 @@ public class ModTile
                 .create(ReliquaryTile::new, ModBlock.RELIQUARY)
                 .build(null)
                 .setRegistryName("reliquary"));
+
+        event.getRegistry().register(TileEntityType.Builder
+                .create(PodiumTile::new, ModBlock.PODIUM)
+                .build(null)
+                .setRegistryName("podium"));
 
     }
 

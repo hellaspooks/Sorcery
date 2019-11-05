@@ -10,49 +10,53 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
 
+@ObjectHolder("sorcery")
 public class ModBlock
 {
 
     // Simple Blocks
-    @ObjectHolder("sorcery:polished_chondrite")
+    @ObjectHolder("polished_chondrite")
     public static Block POLISHED_CHONDRITE;
 
-    @ObjectHolder("sorcery:chondrite_bricks")
+    @ObjectHolder("chondrite_bricks")
     public static Block CHONDRITE_BRICKS;
 
     // Stairs
-    @ObjectHolder("sorcery:chondrite_brick_stairs")
+    @ObjectHolder("chondrite_brick_stairs")
     public static StairsBlock CHONDRITE_BRICK_STAIRS;
 
     // Slabs
-    @ObjectHolder("sorcery:chondrite_brick_slab")
+    @ObjectHolder("chondrite_brick_slab")
     public static SlabBlock CHONDRITE_BRICK_SLAB;
 
     // Walls
-    @ObjectHolder("sorcery:chondrite_brick_wall")
+    @ObjectHolder("chondrite_brick_wall")
     public static WallBlock CHONDRITE_BRICK_WALL;
 
     // Tile Blocks
-    @ObjectHolder("sorcery:reliquary")
+    @ObjectHolder("reliquary")
     public static Block RELIQUARY;
 
-    @ObjectHolder("sorcery:chondrite_blast_furnace")
+    @ObjectHolder("chondrite_blast_furnace")
     public static Block CHONDRITE_BLAST_FURNACE;
 
-    @ObjectHolder("sorcery:monolith_normal")
+    @ObjectHolder("monolith_normal")
     public static Block MONOLITH_NORMAL;
 
-    @ObjectHolder("sorcery:monolith_dark")
+    @ObjectHolder("monolith_dark")
     public static Block MONOLITH_DARK;
 
-    @ObjectHolder("sorcery:monolith_solar")
+    @ObjectHolder("monolith_solar")
     public static Block MONOLITH_SOLAR;
 
-    @ObjectHolder("sorcery:monolith_lunar")
+    @ObjectHolder("monolith_lunar")
     public static Block MONOLITH_LUNAR;
 
-    @ObjectHolder("sorcery:chondrite_lantern")
+    @ObjectHolder("chondrite_lantern")
     public static Block CHONDRITE_LANTERN;
+
+    @ObjectHolder("podium")
+    public static Block PODIUM;
 
     public static void init(RegistryEvent.Register<Block> event)
     {
@@ -79,6 +83,8 @@ public class ModBlock
         registerTileBlocks(event, "monolith_dark", new MonolithBlock());
         registerTileBlocks(event, "monolith_lunar", new MonolithBlock());
         registerTileBlocks(event, "monolith_solar", new MonolithBlock());
+
+        registerTileBlocks(event, "podium", new PodiumBlock());
     }
 
     public static Block simpleBlockFactory(RegistryEvent.Register<Block> event, String registryName, Material material, Float hardness, Float resistance, SoundType sound)

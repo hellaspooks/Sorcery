@@ -1,0 +1,14 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "sorcery:blocks/podium",
+      "particle": "sorcery:blocks/podium"
+    },
+    "model": "sorcery:block/podium",
+    "uvlock": true
+  },
+  "variants": {
+    "": {"model": "sorcery:block/podium"}
+  }
+}

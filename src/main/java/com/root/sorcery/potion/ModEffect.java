@@ -17,8 +17,8 @@ public class ModEffect
     @ObjectHolder("corrosion")
     public static Effect CORROSION;
 
-    @ObjectHolder("necrotic")
-    public static Effect NECROTIC;
+    @ObjectHolder("necrosis")
+    public static Effect NECROsis;
 
     public static void init(RegistryEvent.Register<Effect> event)
     {
@@ -26,7 +26,7 @@ public class ModEffect
 
         registerEffect("corrosion", (new EffectMod(EffectType.HARMFUL, 1531410).addAttributesModifier(SharedMonsterAttributes.ARMOR, "d5dfa148-cd83-45db-adba-48b6a0925210", 0.5, AttributeModifier.Operation.MULTIPLY_TOTAL)), event);
 
-        registerEffect("necrotic", (new EffectMod(EffectType.HARMFUL, 5378331).addAttributesModifier(SharedMonsterAttributes.MAX_HEALTH, "8589daf4-84a8-4189-beee-57ffa27838bb", -2, AttributeModifier.Operation.ADDITION)), event);
+        registerEffect("necrosis", (new EffectMod(EffectType.HARMFUL, 5378331).addAttributesModifier(SharedMonsterAttributes.MAX_HEALTH, "8589daf4-84a8-4189-beee-57ffa27838bb", -2, AttributeModifier.Operation.ADDITION)), event);
 
     }
 
