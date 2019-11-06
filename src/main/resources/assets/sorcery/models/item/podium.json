@@ -1,0 +1,7 @@
+{
+  "parent": "sorcery:block/podium",
+  "textures": {
+    "0": "sorcery:blocks/podium",
+    "particles": "sorcery:blocks/podium"
+  }
+}

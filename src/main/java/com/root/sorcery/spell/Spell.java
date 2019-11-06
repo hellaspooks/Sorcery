@@ -1,9 +1,5 @@
 package com.root.sorcery.spell;
 
-import com.root.sorcery.arcana.ArcanaCapability;
-import com.root.sorcery.network.PacketHandler;
-import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -76,12 +72,15 @@ public class Spell extends ForgeRegistryEntry<Spell>
         if (context.getArcanaSource().getArcanaStored() >= arcanaCost){
             context.getArcanaSource().extractArcana(arcanaCost, false);
 
-            if(!context.getWorld().isRemote())
-            {
+
+            // Unnecssary if arcana is on item?
+            //if(!context.getWorld().isRemote())
+            //{
                 // Sync arcana with client
-                ServerPlayerEntity serverPlayer = context.getWorld().getServer().getPlayerList().getPlayerByUUID(context.getPlayer().getUniqueID());
-                PacketHandler.sendToPlayer(serverPlayer, new ArcanaCapSyncPacket(ArcanaCapability.ARCANA.writeNBT(context.getArcanaSource(), null)));
-            }
+              //  ServerPlayerEntity serverPlayer = context.getWorld().getServer().getPlayerList().getPlayerByUUID(context.getPlayer().getUniqueID());
+              //  PacketHandler.sendToPlayer(serverPlayer, new ArcanaCapSyncPacket(ArcanaCapability.ARCANA.writeNBT(context.getArcanaSource(), null)));
+            //}
+
             return true;
         }
         else

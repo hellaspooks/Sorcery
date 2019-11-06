@@ -2,8 +2,6 @@ package com.root.sorcery.network.packets;
 
 import com.root.sorcery.arcana.ArcanaCapability;
 import com.root.sorcery.arcana.IArcanaStorage;
-import com.root.sorcery.spellcasting.ISpellcasting;
-import com.root.sorcery.spellcasting.SpellcastingCapability;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -12,8 +10,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
-
-import static com.root.sorcery.spellcasting.SpellcastingCapability.SPELLCASTING_STORAGE;
 
 public class ArcanaCapSyncPacket
 {

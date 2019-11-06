@@ -2,12 +2,13 @@ package com.root.sorcery.client.event;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.root.sorcery.Constants;
-import com.root.sorcery.arcana.ArcanaCapability;
 import com.root.sorcery.arcana.IArcanaStorage;
+import com.root.sorcery.item.PortableArcanaItem;
 import com.root.sorcery.item.SpellcastingItem;
+import com.root.sorcery.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
-import net.minecraft.util.Hand;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -31,27 +32,29 @@ public class DrawScreenEvent
         }
 
         Minecraft mc = Minecraft.getInstance();
-        Item heldItem = mc.player.getHeldItemMainhand().getItem();
+        ItemStack heldItemStack = mc.player.getHeldItemMainhand();
+        Item heldItem = heldItemStack.getItem();
 
 
         try
         {
-            IArcanaStorage playerCap = mc.player.getCapability(ArcanaCapability.ARCANA, null).orElseThrow(NullPointerException::new);
-
-            if (playerCap == null)
+            if (heldItem == null || !(heldItem instanceof SpellcastingItem || heldItem instanceof PortableArcanaItem))
             {
                 return;
             }
 
-            if (heldItem == null || !(heldItem instanceof SpellcastingItem))
+            IArcanaStorage arcanaSource = Utils.getArcanaCap(heldItemStack);
+
+            if (arcanaSource == null)
             {
                 return;
             }
+
 
             int posX = 5;
             int posY = mc.mainWindow.getScaledHeight() - 10;
 
-            String arcanaString = String.format("%.2f / %d", ((double)playerCap.getArcanaStored())/100, playerCap.getMaxArcanaStored()/100);
+            String arcanaString = String.format("%.2f / %d", ((double)arcanaSource.getArcanaStored())/100, arcanaSource.getMaxArcanaStored()/100);
 
             mc.textureManager.bindTexture(barTexture);
 
@@ -65,7 +68,7 @@ public class DrawScreenEvent
             // Background
             mc.ingameGUI.blit(posX, posY, 0, 0, 91,5);
 
-            int barWidth =(int)((((double)playerCap.getArcanaStored())/((double)playerCap.getMaxArcanaStored())) * 91.0);
+            int barWidth =(int)((((double)arcanaSource.getArcanaStored())/((double)arcanaSource.getMaxArcanaStored())) * 91.0);
 
             // Foreground
             mc.ingameGUI.blit(posX, posY, 0, 5, barWidth, 5);

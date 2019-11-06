@@ -2,21 +2,14 @@ package com.root.sorcery.spell;
 
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ParticleEffectPacket;
-import com.root.sorcery.particle.ModParticle;
-import com.root.sorcery.particle.ParticleEffects;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import org.lwjgl.system.CallbackI;
 
 import java.util.List;
 

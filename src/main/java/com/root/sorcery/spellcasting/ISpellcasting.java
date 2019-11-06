@@ -5,8 +5,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 public interface ISpellcasting extends INBTSerializable<CompoundNBT>
 {
