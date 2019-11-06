@@ -133,17 +133,26 @@ public class Utils {
         return finalList;
     }
 
-    public static Predicate<TileEntity> getTESearchPredicate(Class clazz, BlockPos pos, double range)
+    public static Predicate<TileEntity> getTESearchPredicate(Class clazz, TileEntity tile, double range)
     {
         Predicate<TileEntity> pred = new Predicate<TileEntity>()
         {
+            BlockPos pos = tile.getPos();
+
             @Override
             public boolean apply(@Nullable TileEntity input)
             {
+                // Only add selected class
                 if (!clazz.isInstance(input))
                 {
                     return false;
                 }
+                // Don't add self
+                if (input == tile)
+                {
+                    return false;
+                }
+                // Only add items with dinstance
                 if (!pos.withinDistance(input.getPos(), range))
                 {
                     return false;

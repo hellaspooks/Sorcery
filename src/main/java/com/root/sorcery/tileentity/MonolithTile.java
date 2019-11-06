@@ -11,7 +11,7 @@ public class MonolithTile extends ArcanaStorageTile implements ITickableTileEnti
     public MonolithTile()
     {
         super(ModTile.MONOLITH_TILE);
-        this.range = 8;
+        this.transferRange = 8;
         this.arcanaStorage.setMaxArcanaStored(1000);
         this.drainAll = true;
     }

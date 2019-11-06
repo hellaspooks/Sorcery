@@ -21,19 +21,12 @@ public class ArcanaDrainSpell extends Spell
     {
         if (context.hasHitPos())
         {
-            System.out.println("Context has Hit Pos");
             BlockPos pos = context.getHitPos();
-            System.out.println("Hit pos:");
-            System.out.println(pos);
             TileEntity tile = context.getWorld().getTileEntity(pos);
-            System.out.println("Tile Entity?");
-            System.out.println(tile);
 
             if (tile instanceof ArcanaStorageTile)
             {
-                System.out.println("Draining Arcana");
                 int arcanaExtracted = ((ArcanaStorageTile) tile).extractArcana(arcanaDrainRate);
-                System.out.println(String.format("Arcana Drained: %d", arcanaExtracted));
                 context.getArcanaSource().receiveArcana(arcanaExtracted, false);
                 return ActionResultType.SUCCESS;
             }

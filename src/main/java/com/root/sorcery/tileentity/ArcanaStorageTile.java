@@ -9,6 +9,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.util.LazyOptional;
@@ -22,17 +23,18 @@ import java.util.Set;
 
 public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
 {
-    @CapabilityInject(IArcanaStorage.class)
-    protected Capability<IArcanaStorage> ARCANA_CAP = null;
 
+    protected Set<ArcanaStorageTile> arcanaStorageInTransferRange = Collections.EMPTY_SET;
 
-    protected Set<PhylacteryTile> phylacteriesInRange = Collections.EMPTY_SET;
+    protected Set<ArcanaStorageTile> arcanaStorageInSearchRange = Collections.EMPTY_SET;
 
-    protected Predicate<TileEntity> tileEntityPredicate;
+    protected Predicate<TileEntity> searchPredicate;
 
     protected ArcanaStorage arcanaStorage = new ArcanaStorage(10000);
 
-    protected double range = 16;
+    protected double searchRange = 32;
+    protected double transferRange = 16;
+
     protected int transferRate = 100;
 
     protected boolean drainAll = false;
@@ -42,14 +44,32 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
     public ArcanaStorageTile(TileEntityType<?> tileEntityTypeIn)
     {
         super(tileEntityTypeIn);
-        this.tileEntityPredicate = Utils.getTESearchPredicate(PhylacteryTile.class, this.getPos(), this.range);
+        this.searchPredicate = Utils.getTESearchPredicate(ArcanaStorageTile.class, this, this.searchRange);
     }
 
     @Override
     public void onLoad()
     {
         super.onLoad();
-        this.tileEntityPredicate = Utils.getTESearchPredicate(PhylacteryTile.class, this.getPos(), this.range);
+        // get search predicate
+        this.searchPredicate = Utils.getTESearchPredicate(ArcanaStorageTile.class, this, this.searchRange);
+        // get phylacteries in transfer range
+        this.updateArcanaStorageTiles();
+        // Add self to other arcana storage
+        for (ArcanaStorageTile tile : this.arcanaStorageInSearchRange)
+        {
+            tile.addArcanaStorageInRange(this);
+        }
+    }
+
+    @Override
+    public void remove()
+    {
+        for (ArcanaStorageTile tile : this.arcanaStorageInSearchRange)
+        {
+            tile.removeArcanaStorageInRange(this);
+        }
+        super.remove();
     }
 
     @Nonnull
@@ -63,6 +83,18 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
         return super.getCapability(cap, side);
     }
 
+    public int getArcanaForPlayer()
+    {
+        if (arcanaPerWhack <= this.arcanaStorage.getArcanaStored())
+        {
+            this.arcanaStorage.extractArcana(arcanaPerWhack, false);
+            return arcanaPerWhack;
+        } else {
+            int arcanaAmount = this.arcanaStorage.extractArcana(this.arcanaStorage.getArcanaStored(), false);
+            return arcanaAmount;
+        }
+    }
+
     @Override
     public void tick()
     {
@@ -73,19 +105,17 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
 
         long worldTicks = world.getWorld().getGameTime();
 
-        // Every 2 seconds
-        if (worldTicks % 40 == 0)
-        {
-            // Look for other Phylacteries to pass Arcana to
-            this.phylacteriesInRange = this.getPhylacteriesInRange();
-        }
-
         // Every half second
         if (worldTicks % 10 == 0)
         {
             // Pass Arcana to other Phylacteries
-            for (PhylacteryTile otherPhyl : this.phylacteriesInRange)
+            for (ArcanaStorageTile otherPhyl : this.arcanaStorageInTransferRange)
             {
+                // Don't transfer to monoliths
+                if (otherPhyl instanceof MonolithTile)
+                {
+                    return;
+                }
                 if (otherPhyl.getStoredArcana() < this.getStoredArcana() || this.drainAll)
                 {
                     int arcanaRecieved = otherPhyl.recieveArcana(this.transferRate);
@@ -110,34 +140,59 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
         return this.arcanaStorage.extractArcana(arcana, false);
     }
 
-    public void setRange(double range)
+    // Phylactery Network Stuff
+
+    public void addArcanaStorageInRange(ArcanaStorageTile tile)
     {
-        this.range = range;
-        this.tileEntityPredicate = Utils.getTESearchPredicate(PhylacteryTile.class, this.pos, this.range);
+        this.arcanaStorageInSearchRange.add(tile);
+        BlockPos pos = tile.getPos();
+
+        if (pos.withinDistance(this.getPos(), this.transferRange))
+        {
+            this.arcanaStorageInTransferRange.add(tile);
+        }
     }
 
-    private Set<PhylacteryTile> getPhylacteriesInRange()
+    public void removeArcanaStorageInRange(ArcanaStorageTile tile)
     {
-        Set<PhylacteryTile> phylTEs = new HashSet<>();
+        this.arcanaStorageInSearchRange.remove(tile);
+        this.arcanaStorageInTransferRange.remove(tile);
+    }
+
+    public void setRange(double range)
+    {
+        this.transferRange = range;
+        this.updateArcanaStorageTiles();
+    }
+
+    private void updateArcanaStorageTiles()
+    {
+        this.arcanaStorageInSearchRange = this.getArcanaStorageInSearchRange();
+
+        Set<ArcanaStorageTile> storageTEsInRange= new HashSet<>();
+
+        for ( ArcanaStorageTile tile : this.arcanaStorageInSearchRange)
+        {
+            BlockPos pos = tile.getPos();
+            if (pos.withinDistance(this.getPos(), this.transferRange))
+            {
+                storageTEsInRange.add(tile);
+            }
+        }
+        this.arcanaStorageInTransferRange = storageTEsInRange;
+    }
+
+    private Set<ArcanaStorageTile> getArcanaStorageInSearchRange()
+    {
+        Set<ArcanaStorageTile> phylTEs = new HashSet<>();
         List<TileEntity> allTEs = world.loadedTileEntityList;
 
-        for (TileEntity tileEntity : Collections2.filter(allTEs, this.tileEntityPredicate))
+        for (TileEntity tileEntity : Collections2.filter(allTEs, this.searchPredicate))
         {
-            PhylacteryTile tile = (PhylacteryTile) tileEntity;
+            ArcanaStorageTile tile = (ArcanaStorageTile) tileEntity;
             phylTEs.add(tile);
         }
         return phylTEs;
     }
 
-    public int getArcanaForPlayer()
-    {
-        if (arcanaPerWhack <= this.arcanaStorage.getArcanaStored())
-        {
-            this.arcanaStorage.extractArcana(arcanaPerWhack, false);
-            return arcanaPerWhack;
-        } else {
-            int arcanaAmount = this.arcanaStorage.extractArcana(this.arcanaStorage.getArcanaStored(), false);
-            return arcanaAmount;
-        }
-    }
 }
