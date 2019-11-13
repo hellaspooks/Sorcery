@@ -1,5 +1,6 @@
 package com.root.sorcery.spell;
 
+import com.root.sorcery.Config;
 import net.minecraft.potion.Effects;
 import net.minecraftforge.event.RegistryEvent.Register;
 
@@ -10,9 +11,9 @@ public class ModSpell
 
     public static final Spell REMOVE_ARCANA_SPELL = new TestSpell("Arcana Removed!", 1000);
 
-    public static final PotionSpell SPEED_SPELL = new PotionSpell(Effects.SPEED, 600);
+    public static final PotionSpell SPEED_SPELL = new PotionSpell(Effects.SPEED, Config.SPEED_SPELL_COST.get(), Config.SPEED_SPELL_DURATION.get());
 
-    public static final BlinkSpell BLINK_SPELL = new BlinkSpell(30);
+    public static final BlinkSpell BLINK_SPELL = new BlinkSpell();
 
     public static final DurationSpell DURATION_SPELL = new DurationSpell();
 
@@ -20,9 +21,9 @@ public class ModSpell
 
     public static final CombustionSpell COMBUSTION_SPELL = new CombustionSpell();
 
-    public static final PlantDeathSpell PLANT_DEATH_SPELL = new PlantDeathSpell(2);
+    public static final PlantDeathSpell PLANT_DEATH_SPELL = new PlantDeathSpell();
 
-    public static final RepelSpell REPEL_SPELL = new RepelSpell(8, 4);
+    public static final RepelSpell REPEL_SPELL = new RepelSpell();
 
     public static final ArcanaDrainSpell ARCANA_DRAIN_SPELL = new ArcanaDrainSpell();
 
