@@ -1,5 +1,6 @@
 package com.root.sorcery.spell;
 
+import com.root.sorcery.Config;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ParticleEffectPacket;
 import com.root.sorcery.particle.ModParticle;
@@ -16,11 +17,11 @@ public class RepelSpell extends Spell
     private int range;
     private double velocity;
 
-    public RepelSpell(int range, int velocity)
+    public RepelSpell()
     {
-        super(10);
-        this.range = range;
-        this.velocity = velocity;
+        super(Config.REPEL_SPELL_COST.get());
+        this.range = Config.REPEL_SPELL_RANGE.get();
+        this.velocity = Config.REPEL_SPELL_VELOCITY.get() * 0.1;
     }
 
     // Server-side only stuff happens here

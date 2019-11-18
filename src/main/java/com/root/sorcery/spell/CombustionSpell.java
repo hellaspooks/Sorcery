@@ -1,5 +1,6 @@
 package com.root.sorcery.spell;
 
+import com.root.sorcery.Config;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ParticleEffectPacket;
 import com.root.sorcery.utils.Utils;
@@ -15,11 +16,13 @@ import java.util.List;
 
 public class CombustionSpell extends Spell
 {
+    private int dmgPerTick;
 
     public CombustionSpell()
     {
-        super(1);
+        super(Config.COMBUSTION_SPELL_COST.get());
         this.castDuration = 100;
+        this.dmgPerTick = Config.COMBUSTION_SPELL_DAMAGE.get();
         this.castType = CastType.CHANNELED;
         this.sound = SoundEvents.ITEM_FIRECHARGE_USE;
     }
@@ -34,7 +37,7 @@ public class CombustionSpell extends Spell
             if (entity instanceof CreatureEntity)
             {
                 entity.setFire(3);
-                entity.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
+                entity.attackEntityFrom(DamageSource.ON_FIRE, this.dmgPerTick);
             }
         }
 

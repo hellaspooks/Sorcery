@@ -16,9 +16,9 @@ public class PotionSpell extends Spell
     private int duration;
 
 
-    public PotionSpell(Effect effectIn, int durationIn)
+    public PotionSpell(Effect effectIn, int costIn, int durationIn)
     {
-        super(50);
+        super(costIn);
         this.effect = effectIn;
         this.duration = durationIn;
     }

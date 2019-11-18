@@ -1,5 +1,6 @@
 package com.root.sorcery.spell;
 
+import com.root.sorcery.Config;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,9 +17,9 @@ public class PlantDeathSpell extends Spell
 {
     private double spellRange;
 
-    public PlantDeathSpell(double spellRange) {
-        super(2);
-        this.spellRange = spellRange;
+    public PlantDeathSpell() {
+        super(Config.PLANT_DEATH_SPELL_COST.get());
+        this.spellRange = Config.PLANT_DEATH_SPELL_RANGE.get();
     }
 
     @Override

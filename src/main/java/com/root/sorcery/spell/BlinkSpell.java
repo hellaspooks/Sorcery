@@ -1,5 +1,6 @@
 package com.root.sorcery.spell;
 
+import com.root.sorcery.Config;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ParticleEffectPacket;
 import com.root.sorcery.particle.ModParticle;
@@ -18,10 +19,10 @@ public class BlinkSpell extends Spell
 {
     private double blinkDistance;
 
-    public BlinkSpell(double blinkDistanceIn)
+    public BlinkSpell()
     {
-        super(50);
-        this.blinkDistance = blinkDistanceIn;
+        super(Config.BLINK_SPELL_COST.get());
+        this.blinkDistance = Config.BLINK_SPELL_DISTANCE.get();
     }
 
 
