@@ -91,7 +91,7 @@ public class Spell extends ForgeRegistryEntry<Spell>
     }
 
     public int getCastDuration(){
-        return castDuration;
+        return this.castDuration;
     }
 
     public CastType getCastType()

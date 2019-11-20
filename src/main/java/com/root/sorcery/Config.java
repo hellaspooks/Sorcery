@@ -47,6 +47,10 @@ public class Config
     public static ForgeConfigSpec.IntValue SPEED_SPELL_COST;
     public static ForgeConfigSpec.IntValue SPEED_SPELL_DURATION;
 
+    public static ForgeConfigSpec.IntValue FIREBOLT_SPELL_COST;
+    public static ForgeConfigSpec.IntValue FIREBOLT_SPELL_DAMAGE;
+    public static ForgeConfigSpec.IntValue FIREBOLT_SPELL_FIRE_DURATION;
+
 
     // Monolith config items
     public static ForgeConfigSpec.IntValue MONOLITH_NORMAL_GENERATE;
@@ -90,6 +94,10 @@ public class Config
 
         SPEED_SPELL_COST = spellIntParamHelper("speed", "Cost", 200, 0, Integer.MAX_VALUE);
         SPEED_SPELL_DURATION = spellIntParamHelper("speed", "Duration", 100, 0, Integer.MAX_VALUE);
+
+        FIREBOLT_SPELL_COST = spellIntParamHelper("firebolt", "Cost", 100, 0, Integer.MAX_VALUE);
+        FIREBOLT_SPELL_DAMAGE = spellIntParamHelper("firebolt", "Cost", 3, 0, Integer.MAX_VALUE);
+        FIREBOLT_SPELL_FIRE_DURATION = spellIntParamHelper("firebolt", "Cost", 3, 0, Integer.MAX_VALUE);
 
 
         // After every config added

@@ -1,6 +1,7 @@
 package com.root.sorcery.spell;
 
 import com.root.sorcery.Config;
+import com.root.sorcery.Constants;
 import net.minecraft.potion.Effects;
 import net.minecraftforge.event.RegistryEvent.Register;
 
@@ -27,24 +28,27 @@ public class ModSpell
 
     public static final ArcanaDrainSpell ARCANA_DRAIN_SPELL = new ArcanaDrainSpell();
 
+    public static final FireboltSpell FIREBOLT_SPELL = new FireboltSpell();
+
 
     public static void init(Register<Spell> event)
     {
-        registerSpell("sorcery:test_spell", TEST_SPELL, event);
-        registerSpell("sorcery:remove_arcana_spell", REMOVE_ARCANA_SPELL, event);
-        registerSpell("sorcery:speed_spell", SPEED_SPELL, event);
-        registerSpell("sorcery:blink_spell", BLINK_SPELL, event);
-        registerSpell("sorcery:duration_spell", DURATION_SPELL, event);
-        registerSpell("sorcery:ignite_spell", IGNITE_SPELL, event);
-        registerSpell("sorcery:combustion_spell", COMBUSTION_SPELL, event);
-        registerSpell("sorcery:plant_death_spell", PLANT_DEATH_SPELL, event);
-        registerSpell("sorcery:repel_spell", REPEL_SPELL, event);
-        registerSpell("sorcery:arcana_drain_spell", ARCANA_DRAIN_SPELL, event);
+        registerSpell("test_spell", TEST_SPELL, event);
+        registerSpell("remove_arcana_spell", REMOVE_ARCANA_SPELL, event);
+        registerSpell("speed_spell", SPEED_SPELL, event);
+        registerSpell("blink_spell", BLINK_SPELL, event);
+        registerSpell("duration_spell", DURATION_SPELL, event);
+        registerSpell("ignite_spell", IGNITE_SPELL, event);
+        registerSpell("combustion_spell", COMBUSTION_SPELL, event);
+        registerSpell("plant_death_spell", PLANT_DEATH_SPELL, event);
+        registerSpell("repel_spell", REPEL_SPELL, event);
+        registerSpell("arcana_drain_spell", ARCANA_DRAIN_SPELL, event);
+        registerSpell("firebolt_spell", FIREBOLT_SPELL, event);
     }
 
     public static void registerSpell(String registryName, Spell spell, Register<Spell> event)
     {
-       spell.setRegistryName(registryName);
+       spell.setRegistryName(Constants.MODID + ":" + registryName);
        event.getRegistry().register(spell);
     }
 
