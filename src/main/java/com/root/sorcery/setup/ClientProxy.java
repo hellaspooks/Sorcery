@@ -1,7 +1,10 @@
 package com.root.sorcery.setup;
 
 import com.root.sorcery.container.Containers;
+import com.root.sorcery.entity.projectile.FireboltEntity;
+import com.root.sorcery.entity.projectile.SpellProjectileEntity;
 import com.root.sorcery.entity.ToadEntity;
+import com.root.sorcery.entity.renderer.SpellProjectileRenderer;
 import com.root.sorcery.entity.renderer.ToadRenderer;
 import com.root.sorcery.keybinding.KeyBindings;
 import com.root.sorcery.keybinding.KeyInputHandler;
@@ -24,6 +27,8 @@ public class ClientProxy implements IProxy
         KeyBindings.init();
 
         RenderingRegistry.registerEntityRenderingHandler(ToadEntity.class, ToadRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(SpellProjectileEntity.class, SpellProjectileRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(FireboltEntity.class, SpellProjectileRenderer::new);
     }
 
     @Override
