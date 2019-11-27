@@ -11,12 +11,12 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +27,7 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
     protected Set<ArcanaStorageTile> arcanaStorageInTransferRange = Collections.EMPTY_SET;
 
     protected Set<ArcanaStorageTile> arcanaStorageInSearchRange = Collections.EMPTY_SET;
+
 
     protected Predicate<TileEntity> searchPredicate;
 
@@ -40,6 +41,12 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
     protected boolean drainAll = false;
 
     private static int arcanaPerWhack = 1000;
+
+    // new stuff
+
+    protected ArcanaStorageTile arcanaTransferTarget = null;
+
+    boolean manualLinkOnly = true;
 
     public ArcanaStorageTile(TileEntityType<?> tileEntityTypeIn)
     {
@@ -108,19 +115,11 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
         // Every half second
         if (worldTicks % 10 == 0)
         {
-            // Pass Arcana to other Phylacteries
-            for (ArcanaStorageTile otherPhyl : this.arcanaStorageInTransferRange)
+            // Pass Arcana to transfer target
+            if (this.arcanaTransferTarget != null)
             {
-                // Don't transfer to monoliths
-                if (otherPhyl instanceof MonolithTile)
-                {
-                    return;
-                }
-                if (otherPhyl.getStoredArcana() < this.getStoredArcana() || this.drainAll)
-                {
-                    int arcanaRecieved = otherPhyl.recieveArcana(this.transferRate);
-                    this.extractArcana(arcanaRecieved);
-                }
+                int arcanaReceived = this.arcanaTransferTarget.recieveArcana(this.transferRate);
+                this.extractArcana(arcanaReceived);
             }
         }
     }
@@ -150,6 +149,12 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
         if (pos.withinDistance(this.getPos(), this.transferRange))
         {
             this.arcanaStorageInTransferRange.add(tile);
+        }
+
+        if (!this.manualLinkOnly)
+        {
+            ArcanaStorageTile minDistanceTile = Collections.min(this.arcanaStorageInTransferRange, Comparator.comparing(aT -> aT.getDistanceSq(this.pos.getX(), this.pos.getY(), this.pos.getZ())));
+            this.arcanaTransferTarget = minDistanceTile;
         }
     }
 
