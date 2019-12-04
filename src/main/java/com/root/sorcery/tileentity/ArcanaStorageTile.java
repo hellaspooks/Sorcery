@@ -4,12 +4,18 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.root.sorcery.arcana.ArcanaStorage;
 import com.root.sorcery.arcana.IArcanaStorage;
+import com.root.sorcery.particle.ModParticle;
+import com.root.sorcery.particle.ParticleEffects;
 import com.root.sorcery.utils.Utils;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
@@ -48,6 +54,12 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
 
     boolean manualLinkOnly = true;
 
+    protected Vec3d arcanaPulseTarget = null;
+
+    protected Vec3d arcanaPulseSource = null;
+
+    protected Vec3d arcanaPulseOffset = new Vec3d(0.5, 1, 0.5);
+
     public ArcanaStorageTile(TileEntityType<?> tileEntityTypeIn)
     {
         super(tileEntityTypeIn);
@@ -67,6 +79,7 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
         {
             tile.addArcanaStorageInRange(this);
         }
+        this.arcanaPulseSource = new Vec3d(this.getPos()).add(this.arcanaPulseOffset);
     }
 
     @Override
@@ -107,6 +120,11 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
     {
         if (world.isRemote)
         {
+            if (world.getWorld().getGameTime() % 10 == 0) {
+                if (this.arcanaTransferTarget != null) {
+                    ParticleEffects.sendTo(world.getWorld(), ModParticle.SPARK_SLOW, this.arcanaPulseSource, this.arcanaPulseTarget, 1, 1, 0);
+                }
+            }
             return;
         }
 
@@ -198,6 +216,86 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
             phylTEs.add(tile);
         }
         return phylTEs;
+    }
+
+    // New Stuff
+
+    public void setArcanaTransferTarget(ArcanaStorageTile tile)
+    {
+        System.out.println("Setting arcana transfer target!");
+        this.arcanaTransferTarget = tile;
+        this.arcanaPulseTarget = tile.getArcanaPulseTarget();
+        world.notifyBlockUpdate(this.pos, getBlockState(), getBlockState(), 3);
+        markDirty();
+    }
+
+    public void setArcanaTransferTargetPos(int x, int y, int z)
+    {
+        TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+        if (tile instanceof ArcanaStorageTile)
+        {
+            this.setArcanaTransferTarget((ArcanaStorageTile) tile);
+        }
+    }
+
+    @Override
+    public CompoundNBT write(CompoundNBT compound)
+    {
+        CompoundNBT nbt = super.write(new CompoundNBT());
+        if (this.arcanaTransferTarget != null)
+        {
+            BlockPos tPos = this.arcanaTransferTarget.getPos();
+            CompoundNBT targetTag = new CompoundNBT();
+            targetTag.putInt("x", tPos.getX());
+            targetTag.putInt("y", tPos.getY());
+            targetTag.putInt("z", tPos.getZ());
+            nbt.put("aTarget", targetTag);
+        }
+        return nbt;
+    }
+
+    @Override
+    public void read(CompoundNBT compound)
+    {
+        super.read(compound);
+        if (compound.contains("aTarget"))
+        {
+            CompoundNBT nbt = compound.getCompound("aTarget");
+            this.setArcanaTransferTargetPos(nbt.getInt("x"), nbt.getInt("y"), nbt.getInt("z"));
+        }
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundNBT tag)
+    {
+        if (tag.contains("aTarget"))
+        {
+           CompoundNBT nbt = tag.getCompound("aTarget");
+           this.setArcanaTransferTargetPos(nbt.getInt("x"), nbt.getInt("y"), nbt.getInt("z"));
+        }
+    }
+
+    @Override
+    public CompoundNBT getUpdateTag() {
+        CompoundNBT nbt = this.write(new CompoundNBT());
+        return nbt;
+    }
+
+    @Override
+    @Nullable
+    public SUpdateTileEntityPacket getUpdatePacket() {
+        return new SUpdateTileEntityPacket(this.pos, 3, this.getUpdateTag());
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+        super.onDataPacket(net, pkt);
+        handleUpdateTag(pkt.getNbtCompound());
+    }
+
+    public Vec3d getArcanaPulseTarget()
+    {
+        return this.arcanaPulseSource;
     }
 
 }

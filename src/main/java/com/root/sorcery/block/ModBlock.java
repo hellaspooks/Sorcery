@@ -61,6 +61,9 @@ public class ModBlock
     @ObjectHolder("phylactery")
     public static Block PHYLACTERY;
 
+    @ObjectHolder("pylon")
+    public static Block PYLON;
+
     public static void init(RegistryEvent.Register<Block> event)
     {
         // Simple Blocks
@@ -83,6 +86,7 @@ public class ModBlock
         registerTileBlocks(event, "reliquary", new ReliquaryBlock());
         registerTileBlocks(event, "podium", new PodiumBlock());
         registerTileBlocks(event, "phylactery", new PhylacteryBlock());
+        registerTileBlocks(event, "pylon", new PylonBlock());
 
         registerTileBlocks(event, "monolith_normal", new MonolithBlock());
         registerTileBlocks(event, "monolith_dark", new MonolithBlock());

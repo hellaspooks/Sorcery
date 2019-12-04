@@ -25,6 +25,9 @@ public class ModTile
     @ObjectHolder("podium")
     public static TileEntityType<PodiumTile> PODIUM_TILE;
 
+    @ObjectHolder("pylon")
+    public static TileEntityType<PylonTile> PYLON_TILE;
+
 
     public static void init(RegistryEvent.Register<TileEntityType<?>> event)
     {

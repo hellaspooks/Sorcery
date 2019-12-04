@@ -78,6 +78,10 @@ public class ModItem
     @ObjectHolder("sorcerous_staff")
     public static Item sorcerous_staff;
 
+    // Utility Items
+    @ObjectHolder("linking_stick")
+    public static Item linking_stick;
+
     // Staff Components
     // Rods
     @ObjectHolder("acacia_rod")
@@ -153,6 +157,9 @@ public class ModItem
 
         // Staves
         registerItem("sorcerous_staff", new StaffItem(Constants.ITEM_PROPS), event);
+
+        // Utility Items
+        registerItem("linking_stick", new LinkingItem(Constants.ITEM_PROPS), event);
 
         // Staff Components
 

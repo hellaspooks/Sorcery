@@ -4,10 +4,10 @@ import com.root.sorcery.arcana.ArcanaCapability;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
-import com.root.sorcery.tileentity.MonolithTile;
+import com.root.sorcery.tileentity.PhylacteryTile;
+import com.root.sorcery.tileentity.PylonTile;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -23,32 +23,14 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class MonolithBlock extends Block
+public class PylonBlock extends Block
 {
-    private static Float hardness   = 3.0F;
+    private static Float hardness = 3.0F;
     private static Float resistance = 6.0F;
 
-    public MonolithBlock()
+    public PylonBlock()
     {
-        super(Properties.create(Material.ROCK).hardnessAndResistance(hardness, resistance).sound(SoundType.STONE));
-    }
-
-    @Override
-    public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos)
-    {
-        return false;
-    }
-
-    @Override
-    public boolean isSolid(BlockState state)
-    {
-        return false;
-    }
-
-    @Override
-    public BlockRenderType getRenderType(BlockState state)
-    {
-        return BlockRenderType.MODEL;
+        super(Properties.create(Material.ROCK).hardnessAndResistance( hardness, resistance).sound(SoundType.STONE));
     }
 
     @Override
@@ -61,8 +43,7 @@ public class MonolithBlock extends Block
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        System.out.println("created monolith tile");
-        return new MonolithTile();
+        return new PylonTile();
     }
 
 }

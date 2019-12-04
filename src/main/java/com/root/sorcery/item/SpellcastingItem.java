@@ -81,7 +81,7 @@ public class SpellcastingItem extends Item
         if ( spellToCast.getCastType() == CastType.DURATION || spellToCast.getCastType() == CastType.CHANNELED)
         {
             context.getPlayer().setActiveHand(context.getHand());
-            return ActionResultType.PASS;
+            return ActionResultType.SUCCESS;
         }
         // Otherwise, cast the spell
         return spellToCast.cast(context);
