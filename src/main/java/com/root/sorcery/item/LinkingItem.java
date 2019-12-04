@@ -78,7 +78,7 @@ public class LinkingItem extends Item
 
                         if (linkTile != null && linkTile instanceof ArcanaStorageTile)
                         {
-                            ((ArcanaStorageTile) tile).setArcanaTransferTarget((ArcanaStorageTile) linkTile);
+                            ((ArcanaStorageTile) linkTile).setArcanaTransferTarget((ArcanaStorageTile) tile);
                         }
                     }
                 }

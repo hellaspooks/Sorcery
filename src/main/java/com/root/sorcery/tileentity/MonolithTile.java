@@ -13,7 +13,6 @@ public class MonolithTile extends ArcanaStorageTile implements ITickableTileEnti
     public MonolithTile()
     {
         super(ModTile.MONOLITH_TILE);
-        this.transferRange = 8;
         this.arcanaStorage.setMaxArcanaStored(1000);
         this.drainAll = true;
         this.arcanaPulseOffset = new Vec3d(0.5, 2, 0.5);

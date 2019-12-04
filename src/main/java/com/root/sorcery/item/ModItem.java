@@ -208,8 +208,7 @@ public class ModItem
         blockItemFactory(ModBlock.MONOLITH_DARK, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.CHONDRITE_LANTERN, Constants.ITEM_PROPS, event);
 
-        blockItemFactory(ModBlock.PODIUM, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.PHYLACTERY, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.PYLON, Constants.ITEM_PROPS, event);
     }
 
     public static void simpleItemFactory(String registryName, RegistryEvent.Register<Item> event)

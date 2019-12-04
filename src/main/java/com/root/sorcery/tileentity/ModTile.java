@@ -19,12 +19,6 @@ public class ModTile
     @ObjectHolder("reliquary")
     public static TileEntityType<ReliquaryTile> RELIQUARY_TILE;
 
-    @ObjectHolder("phylactery")
-    public static TileEntityType<PhylacteryTile> PHYLACTERY_TILE;
-
-    @ObjectHolder("podium")
-    public static TileEntityType<PodiumTile> PODIUM_TILE;
-
     @ObjectHolder("pylon")
     public static TileEntityType<PylonTile> PYLON_TILE;
 
@@ -47,15 +41,6 @@ public class ModTile
                 .build(null)
                 .setRegistryName("monolith"));
 
-        event.getRegistry().register(TileEntityType.Builder
-                .create(PhylacteryTile::new, ModBlock.PHYLACTERY)
-                .build(null)
-                .setRegistryName("phylactery"));
-
-        event.getRegistry().register(TileEntityType.Builder
-                .create(PodiumTile::new, ModBlock.PODIUM)
-                .build(null)
-                .setRegistryName("podium"));
     }
 
 }

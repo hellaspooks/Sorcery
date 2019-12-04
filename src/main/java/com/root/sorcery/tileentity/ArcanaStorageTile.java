@@ -1,13 +1,13 @@
 package com.root.sorcery.tileentity;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
 import com.root.sorcery.arcana.ArcanaStorage;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.ParticleEffects;
-import com.root.sorcery.utils.Utils;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.IntArrayNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -21,26 +21,13 @@ import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
 {
 
-    protected Set<ArcanaStorageTile> arcanaStorageInTransferRange = Collections.EMPTY_SET;
-
-    protected Set<ArcanaStorageTile> arcanaStorageInSearchRange = Collections.EMPTY_SET;
-
-
-    protected Predicate<TileEntity> searchPredicate;
-
     protected ArcanaStorage arcanaStorage = new ArcanaStorage(10000);
-
-    protected double searchRange = 32;
-    protected double transferRange = 16;
 
     protected int transferRate = 100;
 
@@ -48,72 +35,238 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
 
     private static int arcanaPerWhack = 1000;
 
-    // new stuff
 
-    protected ArcanaStorageTile arcanaTransferTarget = null;
+    // Arcana network vars
+    private ArcanaStorageTile arcanaTransferTarget = null;
 
-    boolean manualLinkOnly = true;
+    private Set<ArcanaStorageTile> arcanaTransferSources = new HashSet<>();
 
-    protected Vec3d arcanaPulseTarget = null;
+    private int[] targetPos = null;
 
-    protected Vec3d arcanaPulseSource = null;
+    // Pulse particles
+
+    private Vec3d arcanaPulseTarget = null;
+
+    private Vec3d arcanaPulseSource = null;
 
     protected Vec3d arcanaPulseOffset = new Vec3d(0.5, 1, 0.5);
+
 
     public ArcanaStorageTile(TileEntityType<?> tileEntityTypeIn)
     {
         super(tileEntityTypeIn);
-        this.searchPredicate = Utils.getTESearchPredicate(ArcanaStorageTile.class, this, this.searchRange);
     }
+    // REFACTOR STARTS HERE
+
+    // Set arcana transfer target
+    public void setArcanaTransferTarget(ArcanaStorageTile tile)
+    {
+        this.arcanaTransferTarget = tile;
+        this.arcanaPulseTarget = tile.getArcanaPulseTarget();
+        tile.addArcanaTransferSource(this);
+        this.updateAndMarkDirty();
+    }
+
+    public void setArcanaTransferTargetPos(int x, int y, int z)
+    {
+        this.targetPos = new int[]{x, y, z};
+        try {
+            TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+            if (tile instanceof ArcanaStorageTile) {
+                this.setArcanaTransferTarget((ArcanaStorageTile) tile);
+            }
+        } catch (NullPointerException e)
+        {
+            System.out.println("target not yet loaded");
+        }
+    }
+
+    // Remove arcana transfer target
+    public void removeArcanaTransferTarget()
+    {
+        this.arcanaTransferTarget = null;
+        this.targetPos = null;
+        this.arcanaPulseTarget = null;
+        this.updateAndMarkDirty();
+    }
+
+    // Add arcana transfer source
+    public void addArcanaTransferSource(ArcanaStorageTile tile)
+    {
+        this.arcanaTransferSources.add(tile);
+        this.updateAndMarkDirty();
+    }
+
+    public void addArcanaTransferSource(int x, int y, int z)
+    {
+        try {
+            TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+            if (tile instanceof ArcanaStorageTile) {
+                this.addArcanaTransferSource((ArcanaStorageTile) tile);
+            }
+        } catch (NullPointerException e)
+        {
+            System.out.println("source not yet loaded");
+        }
+    }
+
+    // Remove Arcana transfer source
+    public void removeArcanaTransferSource(ArcanaStorageTile tile)
+    {
+        if (this.arcanaTransferSources.contains(tile))
+        {
+            this.arcanaTransferSources.remove(tile);
+        }
+        this.updateAndMarkDirty();
+    }
+
+    // Serialize transfer data
+
+    public CompoundNBT writeTransferTag()
+    {
+        CompoundNBT tag = new CompoundNBT();
+
+        // Transfer target
+        if (this.arcanaTransferTarget != null) {
+            BlockPos tPos = this.arcanaTransferTarget.getPos();
+            tag.putIntArray("tPos", new int[]{tPos.getX(), tPos.getY(), tPos.getZ()});
+        }
+
+        // Transfer Sources
+        if (!this.arcanaTransferSources.isEmpty())
+        {
+            ListNBT listNBT = new ListNBT();
+            for (ArcanaStorageTile tile : this.arcanaTransferSources)
+            {
+                BlockPos pos = tile.getPos();
+                IntArrayNBT posTag = new IntArrayNBT(new int[]{pos.getX(), pos.getY(), pos.getZ()});
+                listNBT.add(posTag);
+            }
+            tag.put("sPos", listNBT);
+        }
+
+        return tag;
+    }
+
+    public void readTransferTag(CompoundNBT nbt)
+    {
+        if (nbt.contains("tPos"))
+        {
+            int[] tPos = nbt.getIntArray("tPos");
+            this.setArcanaTransferTargetPos(tPos[0], tPos[1], tPos[2]);
+        } else {
+            this.arcanaTransferTarget = null;
+        }
+
+        if (nbt.contains("sPos"))
+        {
+            // Clear all existing sources
+            this.arcanaTransferSources = new HashSet<>();
+            // Load new sources
+            ListNBT posList = nbt.getList("sPos", 11);
+            for ( INBT posTag : posList)
+            {
+                int[] pos = ((IntArrayNBT) posTag).getIntArray();
+                this.addArcanaTransferSource(pos[0], pos[1], pos[2]);
+            }
+        } else {
+            this.arcanaTransferSources = new HashSet<>();
+        }
+    }
+
+
+    // Sync client
+
+    // tag received by client
+    @Override
+    public void handleUpdateTag(CompoundNBT tag)
+    {
+        if (tag.contains("tData"))
+        {
+            this.readTransferTag(tag.getCompound("tData"));
+        }
+    }
+
+    // get tag to send client
+    @Override
+    public CompoundNBT getUpdateTag() {
+        CompoundNBT nbt = this.write(new CompoundNBT());
+        nbt.put("tData", this.writeTransferTag());
+        return nbt;
+    }
+
+    @Override
+    @Nullable
+    public SUpdateTileEntityPacket getUpdatePacket() {
+        return new SUpdateTileEntityPacket(this.pos, 3, this.getUpdateTag());
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+        super.onDataPacket(net, pkt);
+        handleUpdateTag(pkt.getNbtCompound());
+    }
+
+    // Save to disk
+
+    @Override
+    public void read(CompoundNBT nbt)
+    {
+        super.read(nbt);
+        if (nbt.contains("tData"))
+        {
+            this.readTransferTag(nbt.getCompound("tData"));
+        }
+    }
+
+    @Override
+    public CompoundNBT write(CompoundNBT tag)
+    {
+        CompoundNBT nbt = super.write(tag);
+        nbt.put("tData", this.writeTransferTag());
+        return nbt;
+    }
+
+    // Update and Save
+    public void updateAndMarkDirty()
+    {
+        world.notifyBlockUpdate(pos, this.getBlockState(), this.getBlockState(), 3);
+        markDirty();
+    }
+
+
+    // Arcana Pulse helpers
+    public Vec3d getArcanaPulseTarget()
+    {
+        return this.arcanaPulseSource;
+    }
+
+    public void setArcanaPulseSource()
+    {
+        this.arcanaPulseSource = new Vec3d(pos).add(this.arcanaPulseOffset);
+    }
+
+
+    // Loading and removing
 
     @Override
     public void onLoad()
     {
+        this.setArcanaPulseSource();
         super.onLoad();
-        // get search predicate
-        this.searchPredicate = Utils.getTESearchPredicate(ArcanaStorageTile.class, this, this.searchRange);
-        // get phylacteries in transfer range
-        this.updateArcanaStorageTiles();
-        // Add self to other arcana storage
-        for (ArcanaStorageTile tile : this.arcanaStorageInSearchRange)
-        {
-            tile.addArcanaStorageInRange(this);
-        }
-        this.arcanaPulseSource = new Vec3d(this.getPos()).add(this.arcanaPulseOffset);
     }
 
     @Override
     public void remove()
     {
-        for (ArcanaStorageTile tile : this.arcanaStorageInSearchRange)
+        this.arcanaTransferTarget.removeArcanaTransferSource(this);
+        for (ArcanaStorageTile tile : this.arcanaTransferSources)
         {
-            tile.removeArcanaStorageInRange(this);
+            tile.removeArcanaTransferTarget();
         }
         super.remove();
     }
 
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side)
-    {
-        if (cap instanceof IArcanaStorage)
-        {
-            return LazyOptional.of(() -> arcanaStorage).cast();
-        }
-        return super.getCapability(cap, side);
-    }
-
-    public int getArcanaForPlayer()
-    {
-        if (arcanaPerWhack <= this.arcanaStorage.getArcanaStored())
-        {
-            this.arcanaStorage.extractArcana(arcanaPerWhack, false);
-            return arcanaPerWhack;
-        } else {
-            int arcanaAmount = this.arcanaStorage.extractArcana(this.arcanaStorage.getArcanaStored(), false);
-            return arcanaAmount;
-        }
-    }
 
     @Override
     public void tick()
@@ -140,6 +293,38 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
                 this.extractArcana(arcanaReceived);
             }
         }
+        if (worldTicks % 20 == 0)
+        {
+            if (this.targetPos !=  null)
+            {
+                this.setArcanaTransferTargetPos(this.targetPos[0], this.targetPos[1], this.targetPos[2]);
+            }
+        }
+    }
+
+    // Arcana Handling
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side)
+    {
+        if (cap instanceof IArcanaStorage)
+        {
+            return LazyOptional.of(() -> arcanaStorage).cast();
+        }
+        return super.getCapability(cap, side);
+    }
+
+    public int getArcanaForPlayer()
+    {
+        if (arcanaPerWhack <= this.arcanaStorage.getArcanaStored())
+        {
+            this.arcanaStorage.extractArcana(arcanaPerWhack, false);
+            return arcanaPerWhack;
+        } else {
+            int arcanaAmount = this.arcanaStorage.extractArcana(this.arcanaStorage.getArcanaStored(), false);
+            return arcanaAmount;
+        }
     }
 
     public int recieveArcana(int arcana)
@@ -156,146 +341,4 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
     {
         return this.arcanaStorage.extractArcana(arcana, false);
     }
-
-    // Phylactery Network Stuff
-
-    public void addArcanaStorageInRange(ArcanaStorageTile tile)
-    {
-        this.arcanaStorageInSearchRange.add(tile);
-        BlockPos pos = tile.getPos();
-
-        if (pos.withinDistance(this.getPos(), this.transferRange))
-        {
-            this.arcanaStorageInTransferRange.add(tile);
-        }
-
-        if (!this.manualLinkOnly)
-        {
-            ArcanaStorageTile minDistanceTile = Collections.min(this.arcanaStorageInTransferRange, Comparator.comparing(aT -> aT.getDistanceSq(this.pos.getX(), this.pos.getY(), this.pos.getZ())));
-            this.arcanaTransferTarget = minDistanceTile;
-        }
-    }
-
-    public void removeArcanaStorageInRange(ArcanaStorageTile tile)
-    {
-        this.arcanaStorageInSearchRange.remove(tile);
-        this.arcanaStorageInTransferRange.remove(tile);
-    }
-
-    public void setRange(double range)
-    {
-        this.transferRange = range;
-        this.updateArcanaStorageTiles();
-    }
-
-    private void updateArcanaStorageTiles()
-    {
-        this.arcanaStorageInSearchRange = this.getArcanaStorageInSearchRange();
-
-        Set<ArcanaStorageTile> storageTEsInRange= new HashSet<>();
-
-        for ( ArcanaStorageTile tile : this.arcanaStorageInSearchRange)
-        {
-            BlockPos pos = tile.getPos();
-            if (pos.withinDistance(this.getPos(), this.transferRange))
-            {
-                storageTEsInRange.add(tile);
-            }
-        }
-        this.arcanaStorageInTransferRange = storageTEsInRange;
-    }
-
-    private Set<ArcanaStorageTile> getArcanaStorageInSearchRange()
-    {
-        Set<ArcanaStorageTile> phylTEs = new HashSet<>();
-        List<TileEntity> allTEs = world.loadedTileEntityList;
-
-        for (TileEntity tileEntity : Collections2.filter(allTEs, this.searchPredicate))
-        {
-            ArcanaStorageTile tile = (ArcanaStorageTile) tileEntity;
-            phylTEs.add(tile);
-        }
-        return phylTEs;
-    }
-
-    // New Stuff
-
-    public void setArcanaTransferTarget(ArcanaStorageTile tile)
-    {
-        System.out.println("Setting arcana transfer target!");
-        this.arcanaTransferTarget = tile;
-        this.arcanaPulseTarget = tile.getArcanaPulseTarget();
-        world.notifyBlockUpdate(this.pos, getBlockState(), getBlockState(), 3);
-        markDirty();
-    }
-
-    public void setArcanaTransferTargetPos(int x, int y, int z)
-    {
-        TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
-        if (tile instanceof ArcanaStorageTile)
-        {
-            this.setArcanaTransferTarget((ArcanaStorageTile) tile);
-        }
-    }
-
-    @Override
-    public CompoundNBT write(CompoundNBT compound)
-    {
-        CompoundNBT nbt = super.write(new CompoundNBT());
-        if (this.arcanaTransferTarget != null)
-        {
-            BlockPos tPos = this.arcanaTransferTarget.getPos();
-            CompoundNBT targetTag = new CompoundNBT();
-            targetTag.putInt("x", tPos.getX());
-            targetTag.putInt("y", tPos.getY());
-            targetTag.putInt("z", tPos.getZ());
-            nbt.put("aTarget", targetTag);
-        }
-        return nbt;
-    }
-
-    @Override
-    public void read(CompoundNBT compound)
-    {
-        super.read(compound);
-        if (compound.contains("aTarget"))
-        {
-            CompoundNBT nbt = compound.getCompound("aTarget");
-            this.setArcanaTransferTargetPos(nbt.getInt("x"), nbt.getInt("y"), nbt.getInt("z"));
-        }
-    }
-
-    @Override
-    public void handleUpdateTag(CompoundNBT tag)
-    {
-        if (tag.contains("aTarget"))
-        {
-           CompoundNBT nbt = tag.getCompound("aTarget");
-           this.setArcanaTransferTargetPos(nbt.getInt("x"), nbt.getInt("y"), nbt.getInt("z"));
-        }
-    }
-
-    @Override
-    public CompoundNBT getUpdateTag() {
-        CompoundNBT nbt = this.write(new CompoundNBT());
-        return nbt;
-    }
-
-    @Override
-    @Nullable
-    public SUpdateTileEntityPacket getUpdatePacket() {
-        return new SUpdateTileEntityPacket(this.pos, 3, this.getUpdateTag());
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-        super.onDataPacket(net, pkt);
-        handleUpdateTag(pkt.getNbtCompound());
-    }
-
-    public Vec3d getArcanaPulseTarget()
-    {
-        return this.arcanaPulseSource;
-    }
-
 }
