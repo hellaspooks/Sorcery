@@ -65,32 +65,4 @@ public class MonolithBlock extends Block
         return new MonolithTile();
     }
 
-    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
-    {
-        if (!worldIn.isRemote) {
-            TileEntity tile = worldIn.getTileEntity(pos);
-
-            if (tile instanceof MonolithTile) {
-
-                // for dev
-                player.sendStatusMessage(new StringTextComponent(String.format("Stored Arcana: %d", ((MonolithTile) tile).getStoredArcana())), true);
-
-                if (player.isSneaking())
-                {
-                    return true;
-                }
-
-                IArcanaStorage playerCap = Utils.getArcanaCap(player);
-                int arcanaExtracted = ((MonolithTile) tile).getArcanaForPlayer();
-                playerCap.receiveArcana(arcanaExtracted, false);
-
-                // Sync arcana with client
-                ServerPlayerEntity serverPlayer = worldIn.getServer().getPlayerList().getPlayerByUUID(player.getUniqueID());
-                PacketHandler.sendToPlayer(serverPlayer, new ArcanaCapSyncPacket(ArcanaCapability.ARCANA.writeNBT(playerCap, null)));
-
-                return true;
-            }
-        }
-        return false;
-    }
 }

@@ -38,6 +38,19 @@ public class ParticleEffects
         }
     }
 
+    // line of particles moving towards endpoint
+    public static void sendTo(World world, IParticleData particle, Vec3d origin, Vec3d dest, int density, double speed, double radius)
+    {
+        Vec3d ray = dest.subtract(origin).normalize();
+        double distance = dest.distanceTo(origin);
+        int age = 20;
+        double realSpeed = distance / (double) age;
+        Vec3d vec = ray.mul(realSpeed, realSpeed, realSpeed);
+        world.addParticle(particle, origin.getX(), origin.getY(), origin.getZ(), vec.getX(), vec.getY(), vec.getZ());
+
+
+    }
+
     // Expanding sphere of ~roughly evenly spaced particles surrounding location
     public static void expandingSphere(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
     {

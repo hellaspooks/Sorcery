@@ -55,11 +55,8 @@ public class ModBlock
     @ObjectHolder("chondrite_lantern")
     public static Block CHONDRITE_LANTERN;
 
-    @ObjectHolder("podium")
-    public static Block PODIUM;
-
-    @ObjectHolder("phylactery")
-    public static Block PHYLACTERY;
+    @ObjectHolder("pylon")
+    public static Block PYLON;
 
     public static void init(RegistryEvent.Register<Block> event)
     {
@@ -81,8 +78,7 @@ public class ModBlock
         // Tile Blocks
         registerTileBlocks(event, "chondrite_blast_furnace", new ChondriteBlastFurnaceBlock());
         registerTileBlocks(event, "reliquary", new ReliquaryBlock());
-        registerTileBlocks(event, "podium", new PodiumBlock());
-        registerTileBlocks(event, "phylactery", new PhylacteryBlock());
+        registerTileBlocks(event, "pylon", new PylonBlock());
 
         registerTileBlocks(event, "monolith_normal", new MonolithBlock());
         registerTileBlocks(event, "monolith_dark", new MonolithBlock());

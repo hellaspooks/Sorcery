@@ -78,6 +78,10 @@ public class ModItem
     @ObjectHolder("sorcerous_staff")
     public static Item sorcerous_staff;
 
+    // Utility Items
+    @ObjectHolder("linking_stick")
+    public static Item linking_stick;
+
     // Staff Components
     // Rods
     @ObjectHolder("acacia_rod")
@@ -154,6 +158,9 @@ public class ModItem
         // Staves
         registerItem("sorcerous_staff", new StaffItem(Constants.ITEM_PROPS), event);
 
+        // Utility Items
+        registerItem("linking_stick", new LinkingItem(Constants.ITEM_PROPS), event);
+
         // Staff Components
 
         // Rods
@@ -201,8 +208,7 @@ public class ModItem
         blockItemFactory(ModBlock.MONOLITH_DARK, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.CHONDRITE_LANTERN, Constants.ITEM_PROPS, event);
 
-        blockItemFactory(ModBlock.PODIUM, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.PHYLACTERY, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.PYLON, Constants.ITEM_PROPS, event);
     }
 
     public static void simpleItemFactory(String registryName, RegistryEvent.Register<Item> event)

@@ -4,7 +4,7 @@ import com.root.sorcery.arcana.ArcanaCapability;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
-import com.root.sorcery.tileentity.PhylacteryTile;
+import com.root.sorcery.tileentity.PylonTile;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -22,12 +22,12 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class PhylacteryBlock extends Block
+public class PylonBlock extends Block
 {
     private static Float hardness = 3.0F;
     private static Float resistance = 6.0F;
 
-    public PhylacteryBlock()
+    public PylonBlock()
     {
         super(Properties.create(Material.ROCK).hardnessAndResistance( hardness, resistance).sound(SoundType.STONE));
     }
@@ -43,7 +43,7 @@ public class PhylacteryBlock extends Block
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
         System.out.println("created phylactery tile");
-        return new PhylacteryTile();
+        return new PylonTile();
     }
 
     @Override
@@ -52,10 +52,10 @@ public class PhylacteryBlock extends Block
         if (!worldIn.isRemote) {
             TileEntity tile = worldIn.getTileEntity(pos);
 
-            if (tile instanceof PhylacteryTile) {
+            if (tile instanceof PylonTile) {
 
                 // for dev
-                player.sendStatusMessage(new StringTextComponent(String.format("Stored Arcana: %d", ((PhylacteryTile) tile).getStoredArcana())), true);
+                player.sendStatusMessage(new StringTextComponent(String.format("Stored Arcana: %d", ((PylonTile) tile).getStoredArcana())), true);
 
                 if (player.isSneaking())
                 {
@@ -63,7 +63,7 @@ public class PhylacteryBlock extends Block
                 }
 
                 IArcanaStorage playerCap = Utils.getArcanaCap(player);
-                int arcanaExtracted = ((PhylacteryTile) tile).getArcanaForPlayer();
+                int arcanaExtracted = ((PylonTile) tile).getArcanaForPlayer();
                 playerCap.receiveArcana(arcanaExtracted, false);
 
                 // Sync arcana with client
