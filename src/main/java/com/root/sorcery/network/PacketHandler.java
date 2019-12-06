@@ -12,6 +12,7 @@ import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
+
 public class PacketHandler
 {
     private static final String PROTOCOL_VERSION = Integer.toString(1);
@@ -26,7 +27,6 @@ public class PacketHandler
     public static void init()
     {
         int disc = 0;
-
 
         HANDLER.registerMessage(disc++, KeyPressPacket.class, KeyPressPacket::encode, KeyPressPacket::decode, KeyPressPacket.Handler::handle);
         HANDLER.registerMessage(disc++, SpellCapSyncPacket.class, SpellCapSyncPacket::encode, SpellCapSyncPacket::decode, SpellCapSyncPacket.Handler::handle);

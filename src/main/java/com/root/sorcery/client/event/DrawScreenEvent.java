@@ -23,6 +23,15 @@ public class DrawScreenEvent
 
     private static final ResourceLocation barTexture = new ResourceLocation(Constants.MODID, "textures/gui/hud/bar.png");
 
+    public static boolean showSpellSelection = false;
+
+    private static long showSpellSelectionStart = 0;
+
+    private static ResourceLocation selectedSpell = null;
+
+    private static long showSelectionTicks = 40;
+
+
     @SubscribeEvent
     public static void onDrawScreenPost(RenderGameOverlayEvent.Post event)
     {
@@ -78,6 +87,17 @@ public class DrawScreenEvent
 
             mc.fontRenderer.drawString(arcanaString, posX + 20, posY -10, 16777215);
 
+            if (showSpellSelection)
+            {
+                long tDelta = mc.world.getGameTime() - showSpellSelectionStart;
+                if (tDelta < showSelectionTicks)
+                {
+                    mc.fontRenderer.drawStringWithShadow(selectedSpell.toString(), posX, posY - 20, 16777215);
+                } else {
+                    showSpellSelection = false;
+                }
+            }
+
             GlStateManager.disableBlend();
             GlStateManager.disableAlphaTest();
         } catch (NullPointerException e) {
@@ -86,6 +106,14 @@ public class DrawScreenEvent
 
     }
 
+    public static void setShowSpellSelection(boolean bool)
+    {
+        showSpellSelection = bool;
+    }
 
-
+    public static void setSelectedSpell(ResourceLocation spell)
+    {
+        selectedSpell = spell;
+        showSpellSelectionStart = Minecraft.getInstance().world.getGameTime();
+    }
 }

@@ -10,7 +10,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 public class Spell extends ForgeRegistryEntry<Spell>
 {
     public int arcanaCost;
-    public int castDuration = 0;
+    public int castDuration = 1;
     public SoundEvent sound = SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP;
     public SoundCategory soundCategory = SoundCategory.BLOCKS;
     public CastType castType = CastType.INSTANT;
@@ -71,15 +71,6 @@ public class Spell extends ForgeRegistryEntry<Spell>
     {
         if (context.getArcanaSource().getArcanaStored() >= arcanaCost){
             context.getArcanaSource().extractArcana(arcanaCost, false);
-
-
-            // Unnecssary if arcana is on item?
-            //if(!context.getWorld().isRemote())
-            //{
-                // Sync arcana with client
-              //  ServerPlayerEntity serverPlayer = context.getWorld().getServer().getPlayerList().getPlayerByUUID(context.getPlayer().getUniqueID());
-              //  PacketHandler.sendToPlayer(serverPlayer, new ArcanaCapSyncPacket(ArcanaCapability.ARCANA.writeNBT(context.getArcanaSource(), null)));
-            //}
 
             return true;
         }

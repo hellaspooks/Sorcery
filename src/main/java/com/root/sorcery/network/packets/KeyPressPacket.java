@@ -37,20 +37,32 @@ public class KeyPressPacket
         public static void handle(final KeyPressPacket message, Supplier<NetworkEvent.Context> ctx)
         {
             ctx.get().enqueueWork(() -> {
+                ServerPlayerEntity player = ctx.get().getSender();
+                ISpellcasting playerCap = player.getCapability(SpellcastingCapability.SPELLCASTING).orElseThrow(NullPointerException::new);
                 switch (message.key)
                 {
                     // Cycle Spell Key
                     case 1:
-                        ServerPlayerEntity player = ctx.get().getSender();
-                        ISpellcasting playerCap = player.getCapability(SpellcastingCapability.SPELLCASTING).orElseThrow(NullPointerException::new);
 
-                        playerCap.cycleActiveSpell();
+                        playerCap.cycleActiveSpell(1);
 
-                        player.sendMessage(new StringTextComponent(String.format("Active Spell is now: %s", playerCap.getActiveSpell().toString())));
+                        //player.sendMessage(new StringTextComponent(String.format("Active Spell is now: %s", playerCap.getActiveSpell().toString())));
 
                         // Sync capability to client
                         PacketHandler.sendToPlayer(player, new SpellCapSyncPacket((CompoundNBT) SpellcastingCapability.SPELLCASTING.writeNBT(playerCap, null)));
+                        break;
+                    case 2:
 
+                        playerCap.cycleActiveSpell(-1);
+
+                        //player.sendMessage(new StringTextComponent(String.format("Active Spell is now: %s", playerCap.getActiveSpell().toString())));
+
+                        // Sync capability to client
+                        PacketHandler.sendToPlayer(player, new SpellCapSyncPacket((CompoundNBT) SpellcastingCapability.SPELLCASTING.writeNBT(playerCap, null)));
+                        break;
+                    default:
+                        System.out.println("hit default");
+                        break;
                 }
 
             });
