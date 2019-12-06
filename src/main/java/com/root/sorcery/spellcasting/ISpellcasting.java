@@ -41,6 +41,14 @@ public interface ISpellcasting extends INBTSerializable<CompoundNBT>
 
     // Utility
 
-    public void cycleActiveSpell();
+    public void cycleActiveSpell(int delta);
+
+    public int getIndexFromSpell(ResourceLocation rl);
+
+    public ResourceLocation getSpellFromIndex(int index);
+
+    public ResourceLocation getNextSpell();
+
+    public ResourceLocation getPreviousSpell();
 
 }

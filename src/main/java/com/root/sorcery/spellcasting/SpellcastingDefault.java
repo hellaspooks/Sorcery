@@ -18,57 +18,64 @@ public class SpellcastingDefault implements ISpellcasting
     public SpellcastingDefault()
     {
 
-        // Adding defaults for testing purposes
-
-
         ResourceLocation testSpell = ModSpell.TEST_SPELL.getRegistryName();
-        // ResourceLocation testSpell2 = ModSpell.TEST_SPELL_2.getRegistryName();
-        // ResourceLocation hasteSpell = ModSpell.HASTE_SPELL.getRegistryName();
-        // ResourceLocation blinkSpell = ModSpell.BLINK_SPELL.getRegistryName();
-        // ResourceLocation durationSpell = ModSpell.DURATION_SPELL.getRegistryName();
-        // ResourceLocation plantDeathSpell = ModSpell.PLANT_DEATH_SPELL.getRegistryName();
 
         this.activeSpell = testSpell;
 
         this.preparedSpells.add(testSpell);
-        // this.preparedSpells.add(testSpell2);
-        // this.preparedSpells.add(hasteSpell);
-        // this.preparedSpells.add(blinkSpell);
-        // this.preparedSpells.add(durationSpell);
-        // this.preparedSpells.add(plantDeathSpell);
 
         this.knownSpells.add(testSpell);
-        // this.knownSpells.add(testSpell2);
-        // this.knownSpells.add(hasteSpell);
-        // this.knownSpells.add(blinkSpell);
-        // this.knownSpells.add(durationSpell);
-        // this.knownSpells.add(plantDeathSpell);
     }
 
-    public void cycleActiveSpell()
+    public void cycleActiveSpell(int delta)
     {
-        if (!this.preparedSpells.isEmpty())
+        if (delta >= 0)
         {
-            int activeSpellIndex = 0;
-
-            if (this.activeSpell != null)
-            {
-                activeSpellIndex = preparedSpells.indexOf(activeSpell);
-            }
-
-            int nextSpellIndex = activeSpellIndex + 1;
-
-            if (nextSpellIndex == preparedSpells.size())
-            {
-                this.activeSpell = preparedSpells.get(0);
-            }
-            else
-            {
-                this.activeSpell = preparedSpells.get(nextSpellIndex);
-            }
+            this.activeSpell = this.getNextSpell();
+        } else {
+            this.activeSpell = this.getPreviousSpell();
         }
     }
 
+    @Override
+    public int getIndexFromSpell(ResourceLocation rl)
+    {
+        return preparedSpells.indexOf(rl);
+    }
+
+    @Override
+    public ResourceLocation getSpellFromIndex(int index)
+    {
+        return preparedSpells.get(index);
+    }
+
+    @Override
+    public ResourceLocation getNextSpell()
+    {
+        int nextSpellIndex = preparedSpells.indexOf(this.activeSpell) + 1;
+
+        if (nextSpellIndex >= preparedSpells.size())
+        {
+            return preparedSpells.get(0);
+        } else {
+            return preparedSpells.get(nextSpellIndex);
+        }
+    }
+
+    @Override
+    public ResourceLocation getPreviousSpell()
+    {
+        int previousSpellIndex = preparedSpells.indexOf(activeSpell) - 1;
+
+        if (previousSpellIndex < 0)
+        {
+            return preparedSpells.get(preparedSpells.size() - 1);
+        }
+        else
+        {
+            return preparedSpells.get(previousSpellIndex);
+        }
+    }
 
     @Override
     public ResourceLocation getActiveSpell()
@@ -80,21 +87,18 @@ public class SpellcastingDefault implements ISpellcasting
     public void setActiveSpell(ResourceLocation spell)
     {
         activeSpell = spell;
-
     }
 
     @Override
     public ArrayList<ResourceLocation> getPreparedSpells()
     {
         return preparedSpells;
-
     }
 
     @Override
     public void setPreparedSpells(ArrayList<ResourceLocation> allSpells)
     {
         preparedSpells = allSpells;
-
     }
 
     @Override

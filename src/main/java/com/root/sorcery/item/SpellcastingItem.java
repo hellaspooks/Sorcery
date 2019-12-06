@@ -30,7 +30,7 @@ public class SpellcastingItem extends Item
     @Override
     public int getUseDuration(ItemStack stack)
     {
-        return 1;
+        return 100;
     }
 
     @Override
