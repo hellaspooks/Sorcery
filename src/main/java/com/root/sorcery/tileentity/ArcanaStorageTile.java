@@ -259,7 +259,10 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
     @Override
     public void remove()
     {
-        this.arcanaTransferTarget.removeArcanaTransferSource(this);
+        if (this.arcanaTransferTarget != null)
+        {
+            this.arcanaTransferTarget.removeArcanaTransferSource(this);
+        }
         for (ArcanaStorageTile tile : this.arcanaTransferSources)
         {
             tile.removeArcanaTransferTarget();

@@ -23,8 +23,8 @@ import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Set;
 
-import static com.root.sorcery.item.tool.ModTool.chondrite_hoe;
-import static com.root.sorcery.item.tool.ModTool.siderite_hoe;
+import static com.root.sorcery.item.tool.ModTool.wolfram_hoe;
+import static com.root.sorcery.item.tool.ModTool.mythril_hoe;
 
 public class ToolMod extends ToolItem
 {
@@ -40,7 +40,7 @@ public class ToolMod extends ToolItem
 
     public ActionResultType onItemUse(ItemUseContext context)
     {
-        if(context.getItem().getItem() == chondrite_hoe.getItem() || context.getItem().getItem() == siderite_hoe.getItem())
+        if(context.getItem().getItem() == wolfram_hoe.getItem() || context.getItem().getItem() == mythril_hoe.getItem())
         {
             World world = context.getWorld();
             BlockPos blockpos = context.getPos();

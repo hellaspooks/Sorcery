@@ -9,7 +9,7 @@ public class ModSetup {
     public static ItemGroup sorcery = new ItemGroup("Sorcery"){
         @Override
         public ItemStack createIcon(){
-            return new ItemStack(ModItem.chondrite_chunk);
+            return new ItemStack(ModItem.wolfram_chunk);
 
         }
 

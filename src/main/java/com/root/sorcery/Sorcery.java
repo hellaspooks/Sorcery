@@ -243,8 +243,8 @@ public class Sorcery
             ArrayList<String> fittingTypes = new ArrayList<>();
             fittingTypes.add("iron");
             fittingTypes.add("gold");
-            fittingTypes.add("chondrite");
-            fittingTypes.add("siderite");
+            fittingTypes.add("wolfram");
+            fittingTypes.add("mythril");
 
             ArrayList<String> rodTypes = new ArrayList<>();
             rodTypes.add("acacia");

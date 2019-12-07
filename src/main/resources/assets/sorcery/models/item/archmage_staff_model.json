@@ -3,7 +3,7 @@
 	"textures": {
 		"rod": "sorcery:staves/spruce_rod",
 		"catalyst": "sorcery:staves/archmage_catalyst",
-		"fitting": "sorcery:staves/archmage_siderite_fittings",
+		"fitting": "sorcery:staves/archmage_mythril_fittings",
 		"particle": "sorcery:staves/spruce_rod"
 	},
 	"elements": [

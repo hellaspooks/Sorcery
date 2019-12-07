@@ -3,7 +3,7 @@
 	"textures": {
 		"0": "sorcery:staves/birch_rod",
 		"1": "sorcery:staves/magician_catalyst",
-		"5": "sorcery:staves/magician_chondrite_fittings",
+		"5": "sorcery:staves/magician_wolfram_fittings",
 		"particle": "sorcery:staves/birch_rod"
 	},
 	"elements": [

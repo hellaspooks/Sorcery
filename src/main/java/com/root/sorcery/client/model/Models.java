@@ -32,7 +32,7 @@ public class Models
     {
         fixOrientableModel("reliquary", event);
 
-        fixSimpleModel("monolith_normal", event);
+        fixSimpleModel("monolith_basic", event);
         fixSimpleModel("monolith_dark", event);
         fixSimpleModel("monolith_solar", event);
         fixSimpleModel("monolith_lunar", event);

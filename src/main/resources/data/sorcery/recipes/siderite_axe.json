@@ -7,14 +7,14 @@
   ],
   "key": {
     "C": {
-      "item": "sorcery:siderite_ingot"
+      "item": "sorcery:mythril_ingot"
     },
     "S": {
       "item": "minecraft:stick"
     }
   },
   "result": {
-    "item": "sorcery:siderite_axe",
+    "item": "sorcery:mythril_axe",
     "count": 1
   }
 }
