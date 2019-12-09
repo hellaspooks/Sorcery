@@ -4,6 +4,7 @@ import com.root.sorcery.arcana.ArcanaCapability;
 import com.root.sorcery.arcana.ArcanaProvider;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.block.ModBlock;
+import com.root.sorcery.client.model.Models;
 import com.root.sorcery.client.model.StaffModelLoader;
 import com.root.sorcery.entity.ModEntity;
 import com.root.sorcery.event.DurationSpellEvent;

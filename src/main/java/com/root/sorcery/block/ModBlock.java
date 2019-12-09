@@ -1,6 +1,7 @@
 package com.root.sorcery.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.LogBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.SoundType;
@@ -31,6 +32,9 @@ public class ModBlock
 
     @ObjectHolder("runewood_planks")
     public static Block RUNEWOOD_PLANKS;
+
+    @ObjectHolder("runewood_leaves")
+    public static LeavesBlock RUNEWOOD_LEAVES;
 
 
     // Stairs
@@ -81,25 +85,24 @@ public class ModBlock
     {
         // Simple Blocks
         simpleBlockFactory(event, "polished_wolfram", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
-        WOLFRAM_BRICKS = simpleBlockFactory(event, "wolfram_bricks", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
         simpleBlockFactory(event, "runewood_planks", Material.WOOD, 2.0F, 3.0F, SoundType.WOOD);
 
         // these two will eventually be tileblocks
-        simpleBlockFactory(event, "alchemical_workbench", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
+        registerBlock(new AlchemicalWorkbenchBlock(), "alchemical_workbench", event);
+
         simpleBlockFactory(event, "alchemical_forge", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
 
         registerBlock(new WolframLanternBlock(), "wolfram_lantern", event);
         registerBlock(new StrippedRunewoodLogBlock(), "stripped_runewood_log", event);
         registerBlock(new LogBlock(MaterialColor.RED, Block.Properties.create(Material.WOOD).hardnessAndResistance(3.0F, 2.0F).sound(SoundType.WOOD)), "runewood_log", event);
 
+        registerBlock(new LeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.PLANT)), "runewood_leaves", event);
 
-        // Slabs
+
+        // Blocks with variations
+        WOLFRAM_BRICKS = simpleBlockFactory(event, "wolfram_bricks", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
         WOLFRAM_BRICK_SLAB = slabFactory(event, WOLFRAM_BRICKS, "wolfram_brick_slab");
-
-        // Walls
         WOLFRAM_BRICK_WALL = wallFactory(event, WOLFRAM_BRICKS, "wolfram_brick_wall");
-
-        // Stairs
         WOLFRAM_BRICK_STAIRS = stairsFactory(event, WOLFRAM_BRICKS, "wolfram_brick_stairs");
 
         // Tile Blocks

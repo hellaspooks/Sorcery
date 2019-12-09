@@ -1,0 +1,6 @@
+{
+  "parent": "sorcery:block/runewood_leaves",
+  "textures": {
+    "all": "sorcery:blocks/runewood_leaves"
+  }
+}
