@@ -6,17 +6,18 @@ import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.SpriteTexturedParticle;
 import net.minecraft.particles.BasicParticleType;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-public class SimpleParticle extends SpriteTexturedParticle
+public class RGBAParticle extends SpriteTexturedParticle
 {
     IAnimatedSprite spriteSet;
 
-    public SimpleParticle(World world, double x, double y, double z, double vX, double vY, double vZ, IAnimatedSprite spriteSetIn)
+    public RGBAParticle(World world, double x, double y, double z, double vX, double vY, double vZ, IAnimatedSprite spriteSetIn, float r, float g, float b, float a)
     {
         super(world, x, y, z, vX, vY, vZ);
 
@@ -25,6 +26,10 @@ public class SimpleParticle extends SpriteTexturedParticle
         this.motionY = vY;
         this.motionZ = vZ;
         this.spriteSet = spriteSetIn;
+        this.particleRed = r;
+        this.particleBlue = b;
+        this.particleGreen = g;
+        this.particleAlpha = a;
     }
 
 
@@ -43,7 +48,7 @@ public class SimpleParticle extends SpriteTexturedParticle
 
 
     @OnlyIn(Dist.CLIENT)
-    public static class Factory implements IParticleFactory<BasicParticleType>
+    public static class Factory implements IParticleFactory<RGBAParticleType>
     {
         private final IAnimatedSprite spriteSet;
 
@@ -54,9 +59,9 @@ public class SimpleParticle extends SpriteTexturedParticle
 
         @Nullable
         @Override
-        public Particle makeParticle(BasicParticleType typeIn, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
+        public Particle makeParticle(RGBAParticleType data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
-            SimpleParticle simpleParticle = new SimpleParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, spriteSet);
+            RGBAParticle simpleParticle = new RGBAParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, spriteSet, data.r, data.g, data.b, data.a);
             simpleParticle.setMaxAge(20);
             simpleParticle.selectSpriteWithAge(spriteSet);
             return simpleParticle;

@@ -4,6 +4,7 @@ import com.root.sorcery.arcana.ArcanaStorage;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.ParticleEffects;
+import com.root.sorcery.particle.RGBAParticleType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.IntArrayNBT;
@@ -37,17 +38,17 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
 
 
     // Arcana network vars
-    private ArcanaStorageTile arcanaTransferTarget = null;
+    protected ArcanaStorageTile arcanaTransferTarget = null;
 
-    private Set<ArcanaStorageTile> arcanaTransferSources = new HashSet<>();
+    protected Set<ArcanaStorageTile> arcanaTransferSources = new HashSet<>();
 
-    private int[] targetPos = null;
+    protected int[] targetPos = null;
 
     // Pulse particles
 
-    private Vec3d arcanaPulseTarget = null;
+    protected Vec3d arcanaPulseTarget = null;
 
-    private Vec3d arcanaPulseSource = null;
+    protected Vec3d arcanaPulseSource = null;
 
     protected Vec3d arcanaPulseOffset = new Vec3d(0.5, 1, 0.5);
 
@@ -278,7 +279,8 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
         {
             if (world.getWorld().getGameTime() % 10 == 0) {
                 if (this.arcanaTransferTarget != null) {
-                    ParticleEffects.sendTo(world.getWorld(), ModParticle.SPARK_SLOW, this.arcanaPulseSource, this.arcanaPulseTarget, 1, 1, 0);
+                    RGBAParticleType data = new RGBAParticleType(178f/255f, 102f/255f, 1, 1);
+                    ParticleEffects.sendTo(world.getWorld(), data, this.arcanaPulseSource, this.arcanaPulseTarget, 1, 1, 0);
                 }
             }
             return;

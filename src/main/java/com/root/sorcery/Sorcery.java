@@ -4,7 +4,6 @@ import com.root.sorcery.arcana.ArcanaCapability;
 import com.root.sorcery.arcana.ArcanaProvider;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.block.ModBlock;
-import com.root.sorcery.client.model.Models;
 import com.root.sorcery.client.model.StaffModelLoader;
 import com.root.sorcery.entity.ModEntity;
 import com.root.sorcery.event.DurationSpellEvent;
@@ -18,6 +17,7 @@ import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
 import com.root.sorcery.network.packets.SpellCapSyncPacket;
 import com.root.sorcery.particle.ModParticle;
+import com.root.sorcery.particle.RGBAParticle;
 import com.root.sorcery.particle.SimpleParticle;
 import com.root.sorcery.particle.SlowOutParticle;
 import com.root.sorcery.potion.ModEffect;
@@ -203,7 +203,7 @@ public class Sorcery
             Minecraft mc = Minecraft.getInstance();
 
             mc.particles.registerFactory(ModParticle.SIMPLE_PUFF, SimpleParticle.Factory::new);
-            mc.particles.registerFactory(ModParticle.SPARK_SLOW, SlowOutParticle.Factory::new);
+            mc.particles.registerFactory(ModParticle.RGBA_SPARK, RGBAParticle.Factory::new);
         }
 
         @SubscribeEvent

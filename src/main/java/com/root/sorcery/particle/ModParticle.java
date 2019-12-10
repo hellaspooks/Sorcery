@@ -23,13 +23,19 @@ public class ModParticle
     public static BasicParticleType SIMPLE_PUFF;
 
     @ObjectHolder("sorcery:spark1")
-    public static BasicParticleType SPARK_SLOW;
+    public static RGBAParticleType RGBA_SPARK;
 
     @SubscribeEvent
     public static void registerParticles(RegistryEvent.Register<ParticleType<?>> event)
     {
         SIMPLE_PUFF = basicParticleFactory("sorcery:puff", event);
-        SPARK_SLOW = basicParticleFactory("sorcery:spark1", event);
+        registerParticle(new RGBAParticleType(), "sorcery:spark1", event);
+    }
+
+    public static void registerParticle(ParticleType<?> particleType, String regName, RegistryEvent.Register<ParticleType<?>> event)
+    {
+        particleType.setRegistryName(regName);
+        event.getRegistry().register(particleType);
     }
 
     public static BasicParticleType basicParticleFactory(String regName, RegistryEvent.Register<ParticleType<?>> event)
