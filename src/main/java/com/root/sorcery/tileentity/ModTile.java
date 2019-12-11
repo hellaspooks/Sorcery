@@ -10,8 +10,8 @@ import net.minecraftforge.registries.ObjectHolder;
 @ObjectHolder("sorcery")
 public class ModTile
 {
-    @ObjectHolder("chondrite_blast_furnace")
-    public static TileEntityType<ChondriteBlastFurnaceTile> CHONDRITE_BLAST_FURNACE_TILE;
+    @ObjectHolder("wolfram_blast_furnace")
+    public static TileEntityType<WolframBlastFurnaceTile> WOLFRAM_BLAST_FURNACE_TILE;
 
     @ObjectHolder("monolith")
     public static TileEntityType<MonolithTile> MONOLITH_TILE;
@@ -27,9 +27,9 @@ public class ModTile
     {
 
         event.getRegistry().register(TileEntityType.Builder
-                .create(ChondriteBlastFurnaceTile::new, ModBlock.CHONDRITE_BLAST_FURNACE)
+                .create(WolframBlastFurnaceTile::new, ModBlock.WOLFRAM_BLAST_FURNACE)
                 .build(null)
-                .setRegistryName("chondrite_blast_furnace"));
+                .setRegistryName("wolfram_blast_furnace"));
 
         event.getRegistry().register(TileEntityType.Builder
                 .create(ReliquaryTile::new, ModBlock.RELIQUARY)
@@ -37,10 +37,14 @@ public class ModTile
                 .setRegistryName("reliquary"));
 
         event.getRegistry().register(TileEntityType.Builder
-                .create(MonolithTile::new, ModBlock.MONOLITH_NORMAL)
+                .create(MonolithTile::new, ModBlock.MONOLITH_BASIC)
                 .build(null)
                 .setRegistryName("monolith"));
 
+        event.getRegistry().register(TileEntityType.Builder
+                .create(PylonTile::new, ModBlock.PYLON)
+                .build(null)
+                .setRegistryName("pylon"));
     }
 
 }

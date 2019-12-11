@@ -7,14 +7,14 @@
   ],
   "key": {
     "C": {
-      "item": "sorcery:chondrite_ingot"
+      "item": "sorcery:wolfram_ingot"
     },
     "S": {
       "item": "minecraft:stick"
     }
   },
   "result": {
-    "item": "sorcery:chondrite_hoe",
+    "item": "sorcery:wolfram_hoe",
     "count": 1
   }
 }

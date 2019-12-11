@@ -1,0 +1,24 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "sorcery:block/pylon_inactive",
+    "textures": {
+      "base": "sorcery:blocks/pylon_base",
+      "orb": "sorcery:blocks/pylon_orb_inactive",
+      "particle": "sorcery:blocks/pylon_base"
+    },
+    "uvlock": true
+  },
+  "variants": {
+    "active": {
+      "true": {
+        "model": "sorcery:block/pylon_active",
+        "textures": {"orb": "sorcery:blocks/pylon_orb_active"}
+      },
+      "false": {
+        "model": "sorcery:block/pylon_inactive",
+        "textures": {"orb": "sorcery:blocks/pylon_orb_inactive"}
+      }
+    }
+  }
+}

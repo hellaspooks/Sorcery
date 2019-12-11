@@ -25,8 +25,8 @@ public class SimpleParticle extends SpriteTexturedParticle
         this.motionY = vY;
         this.motionZ = vZ;
         this.spriteSet = spriteSetIn;
-
     }
+
 
     @Override
     public void tick()

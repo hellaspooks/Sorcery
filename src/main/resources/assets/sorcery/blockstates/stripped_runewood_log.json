@@ -1,0 +1,81 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "sorcery:block/stripped_runewood_log",
+    "textures": {
+      "end": "sorcery:blocks/stripped_runewood_log_top",
+      "north": "sorcery:blocks/stripped_runewood_log_side",
+      "south": "sorcery:blocks/stripped_runewood_log_side",
+      "east": "sorcery:blocks/stripped_runewood_log_side",
+      "west": "sorcery:blocks/stripped_runewood_log_side",
+      "particle": "sorcery:blocks/stripped_runewood_log_top"
+    },
+    "uvlock": true
+  },
+  "variants": {
+    "": [{
+      "model": "sorcery:block/stripped_runewood_log"
+    }],
+    "axis": {
+      "y": {"model":  "sorcery:block/stripped_runewood_log"},
+      "z": {"model":  "sorcery:block/stripped_runewood_log", "x": 90},
+      "x": {"model":  "sorcery:block/stripped_runewood_log", "x": 90, "y": 90}
+    },
+    "north_rune": {
+      "0": {
+        "textures": {"north": "sorcery:blocks/stripped_runewood_log_side"}
+      },
+      "1": {
+        "textures": {"north": "sorcery:blocks/stripped_runewood_log_side_1"}
+      },
+      "2": {
+        "textures": {"north": "sorcery:blocks/stripped_runewood_log_side_2"}
+      },
+      "3": {
+        "textures": {"north": "sorcery:blocks/stripped_runewood_log_side_3"}
+      }
+    },
+    "east_rune": {
+      "0": {
+        "textures": {"east": "sorcery:blocks/stripped_runewood_log_side"}
+      },
+      "1": {
+        "textures": {"east": "sorcery:blocks/stripped_runewood_log_side_1"}
+      },
+      "2": {
+        "textures": {"east": "sorcery:blocks/stripped_runewood_log_side_2"}
+      },
+      "3": {
+        "textures": {"east": "sorcery:blocks/stripped_runewood_log_side_3"}
+      }
+    },
+    "south_rune": {
+      "0": {
+        "textures": {"south": "sorcery:blocks/stripped_runewood_log_side"}
+      },
+      "1": {
+        "textures": {"south": "sorcery:blocks/stripped_runewood_log_side_1"}
+      },
+      "2": {
+        "textures": {"south": "sorcery:blocks/stripped_runewood_log_side_2"}
+      },
+      "3": {
+        "textures": {"south": "sorcery:blocks/stripped_runewood_log_side_3"}
+      }
+    },
+    "west_rune": {
+      "0": {
+        "textures": {"west": "sorcery:blocks/stripped_runewood_log_side"}
+      },
+      "1": {
+        "textures": {"west": "sorcery:blocks/stripped_runewood_log_side_1"}
+      },
+      "2": {
+        "textures": {"west": "sorcery:blocks/stripped_runewood_log_side_2"}
+      },
+      "3": {
+        "textures": {"west": "sorcery:blocks/stripped_runewood_log_side_3"}
+      }
+    }
+  }
+}

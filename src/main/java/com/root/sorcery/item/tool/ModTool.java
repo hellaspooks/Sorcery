@@ -32,48 +32,48 @@ public class ModTool
 
 
 
-    @ObjectHolder("sorcery:chondrite_pickaxe")
-    public static ToolItem chondrite_pickaxe;
+    @ObjectHolder("sorcery:wolfram_pickaxe")
+    public static ToolItem wolfram_pickaxe;
 
-    @ObjectHolder("sorcery:siderite_pickaxe")
-    public static ToolItem siderite_pickaxe;
+    @ObjectHolder("sorcery:mythril_pickaxe")
+    public static ToolItem mythril_pickaxe;
 
-    @ObjectHolder("sorcery:chondrite_axe")
-    public static ToolItem chondrite_axe;
+    @ObjectHolder("sorcery:wolfram_axe")
+    public static ToolItem wolfram_axe;
 
-    @ObjectHolder("sorcery:siderite_axe")
-    public static ToolItem siderite_axe;
+    @ObjectHolder("sorcery:mythril_axe")
+    public static ToolItem mythril_axe;
 
-    @ObjectHolder("sorcery:chondrite_shovel")
-    public static ToolItem chondrite_shovel;
+    @ObjectHolder("sorcery:wolfram_shovel")
+    public static ToolItem wolfram_shovel;
 
-    @ObjectHolder("sorcery:siderite_shovel")
-    public static ToolItem siderite_shovel;
+    @ObjectHolder("sorcery:mythril_shovel")
+    public static ToolItem mythril_shovel;
 
-    @ObjectHolder("sorcery:chondrite_hoe")
-    public static ToolItem chondrite_hoe;
+    @ObjectHolder("sorcery:wolfram_hoe")
+    public static ToolItem wolfram_hoe;
 
-    @ObjectHolder("sorcery:siderite_hoe")
-    public static ToolItem siderite_hoe;
+    @ObjectHolder("sorcery:mythril_hoe")
+    public static ToolItem mythril_hoe;
 
 
     public static void init(RegistryEvent.Register<Item> event)
     {
         // Pickaxes
-        chondrite_pickaxe = toolFactory(ToolType.PICKAXE, ModMaterial.CHONDRITE, "chondrite_pickaxe" , 1.0F, 1.5F, event);
-        siderite_pickaxe = toolFactory(ToolType.PICKAXE, ModMaterial.SIDERITE, "siderite_pickaxe", 2.0F, 2.5F, event);
+        wolfram_pickaxe = toolFactory(ToolType.PICKAXE, ModMaterial.WOLFRAM, "wolfram_pickaxe" , 1.0F, 1.5F, event);
+        mythril_pickaxe = toolFactory(ToolType.PICKAXE, ModMaterial.MYTHRIL, "mythril_pickaxe", 2.0F, 2.5F, event);
 
         // Axes
-        chondrite_axe = toolFactory(ToolType.AXE, ModMaterial.CHONDRITE, "chondrite_axe", 2.0f, 1.5f, event);
-        siderite_axe = toolFactory(ToolType.AXE, ModMaterial.SIDERITE, "siderite_axe", 2.5f, 3.0f, event);
+        wolfram_axe = toolFactory(ToolType.AXE, ModMaterial.WOLFRAM, "wolfram_axe", 2.0f, 1.5f, event);
+        mythril_axe = toolFactory(ToolType.AXE, ModMaterial.MYTHRIL, "mythril_axe", 2.5f, 3.0f, event);
 
         // Shovels
-        chondrite_shovel = toolFactory(ToolType.SHOVEL, ModMaterial.CHONDRITE, "chondrite_shovel", 1.0F, 1.0F, event);
-        siderite_shovel = toolFactory(ToolType.SHOVEL, ModMaterial.SIDERITE, "siderite_shovel", 1.5F, 2.0F, event);
+        wolfram_shovel = toolFactory(ToolType.SHOVEL, ModMaterial.WOLFRAM, "wolfram_shovel", 1.0F, 1.0F, event);
+        mythril_shovel = toolFactory(ToolType.SHOVEL, ModMaterial.MYTHRIL, "mythril_shovel", 1.5F, 2.0F, event);
 
         // Hoes
-        chondrite_hoe = toolFactory(null, ModMaterial.CHONDRITE, "chondrite_hoe", 0.0F, 1.0F, event);
-        siderite_hoe = toolFactory(null, ModMaterial.SIDERITE, "siderite_hoe", 0.0F, 2.0F, event);
+        wolfram_hoe = toolFactory(null, ModMaterial.WOLFRAM, "wolfram_hoe", 0.0F, 1.0F, event);
+        mythril_hoe = toolFactory(null, ModMaterial.MYTHRIL, "mythril_hoe", 0.0F, 2.0F, event);
     }
 
     public static ToolItem toolFactory(@Nullable ToolType toolType, ModMaterial material, String registryName, float attackDamage, float attackSpeed, RegistryEvent.Register<Item> event)

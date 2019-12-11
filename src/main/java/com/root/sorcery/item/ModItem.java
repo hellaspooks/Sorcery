@@ -21,14 +21,14 @@ public class ModItem
     @ObjectHolder("lodestone")
     public static Item lodestone;
 
-    @ObjectHolder("chondrite_chunk")
-    public static Item chondrite_chunk;
+    @ObjectHolder("wolfram_chunk")
+    public static Item wolfram_chunk;
 
-    @ObjectHolder("chondrite_ingot")
-    public static Item chondrite_ingot;
+    @ObjectHolder("wolfram_ingot")
+    public static Item wolfram_ingot;
 
-    @ObjectHolder("siderite_ingot")
-    public static Item siderite_ingot;
+    @ObjectHolder("mythril_ingot")
+    public static Item mythril_ingot;
 
     @ObjectHolder("sigil_slate")
     public static Item sigil_slate;
@@ -112,10 +112,10 @@ public class ModItem
     public static Item iron_fittings;
     @ObjectHolder("gold_fittings")
     public static Item gold_fittings;
-    @ObjectHolder("chondrite_fittings")
-    public static Item chondrite_fittings;
-    @ObjectHolder("siderite_fittings")
-    public static Item siderite_fittings;
+    @ObjectHolder("wolfram_fittings")
+    public static Item wolfram_fittings;
+    @ObjectHolder("mythril_fittings")
+    public static Item mythril_fittings;
 
 
 
@@ -124,9 +124,9 @@ public class ModItem
         // Simple Items
         // Materials
         simpleItemFactory("lodestone", event);
-        simpleItemFactory("chondrite_chunk", event);
-        simpleItemFactory("chondrite_ingot", event);
-        simpleItemFactory("siderite_ingot", event);
+        simpleItemFactory("wolfram_chunk", event);
+        simpleItemFactory("wolfram_ingot", event);
+        simpleItemFactory("mythril_ingot", event);
         simpleItemFactory("sigil_slate", event);
 
 
@@ -180,33 +180,36 @@ public class ModItem
         // Fittings
         registerItem("iron_fittings", new Item(Constants.ITEM_PROPS), event);
         registerItem("gold_fittings", new Item(Constants.ITEM_PROPS), event);
-        registerItem("chondrite_fittings", new Item(Constants.ITEM_PROPS), event);
-        registerItem("siderite_fittings", new Item(Constants.ITEM_PROPS), event);
+        registerItem("wolfram_fittings", new Item(Constants.ITEM_PROPS), event);
+        registerItem("mythril_fittings", new Item(Constants.ITEM_PROPS), event);
 
         // Register Block Items
         // Simple Blocks
-        blockItemFactory(ModBlock.CHONDRITE_BRICKS, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.POLISHED_CHONDRITE, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.POLISHED_WOLFRAM, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNEWOOD_LOG, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNEWOOD_PLANKS, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.STRIPPED_RUNEWOOD_LOG, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNEWOOD_LEAVES, Constants.ITEM_PROPS, event);
 
-        // Slabs
-        blockItemFactory(ModBlock.CHONDRITE_BRICK_SLAB, Constants.ITEM_PROPS, event);
-
-        // Stairs
-        blockItemFactory(ModBlock.CHONDRITE_BRICK_STAIRS, Constants.ITEM_PROPS, event);
-
-        // Walls
-        blockItemFactory(ModBlock.CHONDRITE_BRICK_WALL, Constants.ITEM_PROPS, event);
+        // Blocks with variations
+        blockItemFactory(ModBlock.WOLFRAM_BRICKS, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.WOLFRAM_BRICK_SLAB, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.WOLFRAM_BRICK_STAIRS, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.WOLFRAM_BRICK_WALL, Constants.ITEM_PROPS, event);
 
 
         // Blocks with tile entities
-        blockItemFactory(ModBlock.RELIQUARY, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.CHONDRITE_BLAST_FURNACE, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.ALCHEMICAL_WORKBENCH, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.ALCHEMICAL_FORGE, Constants.ITEM_PROPS, event);
 
-        blockItemFactory(ModBlock.MONOLITH_NORMAL, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RELIQUARY, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.WOLFRAM_BLAST_FURNACE, Constants.ITEM_PROPS, event);
+
+        blockItemFactory(ModBlock.MONOLITH_BASIC, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.MONOLITH_SOLAR, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.MONOLITH_LUNAR, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.MONOLITH_DARK, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.CHONDRITE_LANTERN, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.WOLFRAM_LANTERN, Constants.ITEM_PROPS, event);
 
         blockItemFactory(ModBlock.PYLON, Constants.ITEM_PROPS, event);
     }

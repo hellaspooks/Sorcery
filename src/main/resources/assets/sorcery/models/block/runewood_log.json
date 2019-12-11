@@ -1,0 +1,7 @@
+{
+	"parent": "block/cube_column",
+	"textures": {
+		"end": "sorcery:blocks/runewood_log_top",
+		"side": "sorcery:blocks/runewood_log_side"
+	}
+}

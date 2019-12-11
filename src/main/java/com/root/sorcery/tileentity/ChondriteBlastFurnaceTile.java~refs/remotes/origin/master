@@ -9,12 +9,12 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nonnull;
 
-public class ChondriteBlastFurnaceTile extends AbstractFurnaceTileEntity
+public class wolframBlastFurnaceTile extends AbstractFurnaceTileEntity
 {
 
-    public ChondriteBlastFurnaceTile()
+    public wolframBlastFurnaceTile()
     {
-        super(ModTile.CHONDRITE_BLAST_FURNACE_TILE, IRecipeType.BLASTING);
+        super(ModTile.wolfram_BLAST_FURNACE_TILE, IRecipeType.BLASTING);
     }
 
     @Override

@@ -8,11 +8,11 @@ import net.minecraft.util.LazyLoadBase;
 import java.util.function.Supplier;
 
     public enum ModMaterial implements IItemTier {
-        CHONDRITE(2, 300, 6.5F, 2.0F, 18, () -> {
-            return Ingredient.fromItems(ModItem.chondrite_ingot);
+        WOLFRAM(2, 300, 6.5F, 2.0F, 18, () -> {
+            return Ingredient.fromItems(ModItem.wolfram_ingot);
         }),
-        SIDERITE(3, 1800, 8.5F, 3.5F, 20, () -> {
-            return Ingredient.fromItems(ModItem.siderite_ingot);
+        MYTHRIL(3, 1800, 8.5F, 3.5F, 20, () -> {
+            return Ingredient.fromItems(ModItem.mythril_ingot);
         });
 
         private final int harvestLevel;

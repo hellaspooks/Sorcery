@@ -1,0 +1,67 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"base": "sorcery:blocks/pylon_base",
+		"orb": "sorcery:blocks/pylon_orb_inactive",
+		"particle": "sorcery:blocks/pylon_base"
+	},
+	"elements": [
+		{
+			"name": "Base",
+			"from": [2, 0, 2],
+			"to": [14, 3, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [9, 8, 9]},
+			"faces": {
+				"north": {"uv": [10, 14.5, 16, 16], "texture": "#base"},
+				"east": {"uv": [10, 14.5, 16, 16], "texture": "#base"},
+				"south": {"uv": [10, 14.5, 16, 16], "texture": "#base"},
+				"west": {"uv": [10, 14.5, 16, 16], "texture": "#base"},
+				"up": {"uv": [4, 10, 10, 16], "texture": "#base"},
+				"down": {"uv": [4, 10, 10, 16], "texture": "#base"}
+			}
+		},
+		{
+			"name": "Base2",
+			"from": [4, 3, 4],
+			"to": [12, 14, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 11, 12]},
+			"faces": {
+				"north": {"uv": [0, 10.5, 4, 16], "texture": "#base"},
+				"east": {"uv": [0, 10.5, 4, 16], "texture": "#base"},
+				"south": {"uv": [0, 10.5, 4, 16], "texture": "#base"},
+				"west": {"uv": [0, 10.5, 4, 16], "texture": "#base"},
+				"up": {"uv": [0, 0, 8, 8], "texture": "#base"},
+				"down": {"uv": [0, 0, 8, 8], "texture": "#base"}
+			}
+		},
+		{
+			"name": "Base3",
+			"from": [3, 14, 3],
+			"to": [13, 16, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 22, 11]},
+			"faces": {
+				"north": {"uv": [10.5, 15, 15.5, 16], "texture": "#base"},
+				"east": {"uv": [10.5, 15, 15.5, 16], "texture": "#base"},
+				"south": {"uv": [10.5, 15, 15.5, 16], "texture": "#base"},
+				"west": {"uv": [10.5, 15, 15.5, 16], "texture": "#base"},
+				"up": {"uv": [4, 5, 9, 10], "texture": "#base"},
+				"down": {"uv": [4.5, 10.5, 9.5, 15.5], "texture": "#base"}
+			}
+		},
+		{
+			"name": "Orb",
+			"from": [5, 14, 5],
+			"to": [11, 20, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [18, 22, 13]},
+			"faces": {
+				"north": {"uv": [0, 10, 6, 16], "texture": "#orb"},
+				"east": {"uv": [0, 10, 6, 16], "texture": "#orb"},
+				"south": {"uv": [0, 10, 6, 16], "texture": "#orb"},
+				"west": {"uv": [0, 10, 6, 16], "texture": "#orb"},
+				"up": {"uv": [0, 4, 6, 10], "texture": "#orb"},
+				"down": {"uv": [6, 10, 12, 16], "texture": "#orb"}
+			}
+		}
+	],
+	"display": {}
+}

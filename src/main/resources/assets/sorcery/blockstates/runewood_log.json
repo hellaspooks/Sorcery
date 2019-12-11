@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y":  { "model": "sorcery:block/runewood_log" },
+    "axis=z":   { "model": "sorcery:block/runewood_log", "x": 90 },
+    "axis=x":   { "model": "sorcery:block/runewood_log", "x": 90, "y": 90 }
+  }
+}

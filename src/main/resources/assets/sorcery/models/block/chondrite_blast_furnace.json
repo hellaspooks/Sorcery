@@ -1,8 +1,0 @@
-{
-  "parent": "block/orientable",
-  "textures": {
-    "top": "sorcery:blocks/chondrite_blast_furnace_top",
-    "front": "sorcery:blocks/chondrite_blast_furnace_front",
-    "side": "sorcery:blocks/chondrite_blast_furnace_side"
-  }
-}

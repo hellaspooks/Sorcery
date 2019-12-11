@@ -17,6 +17,7 @@ import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
 import com.root.sorcery.network.packets.SpellCapSyncPacket;
 import com.root.sorcery.particle.ModParticle;
+import com.root.sorcery.particle.RGBAParticle;
 import com.root.sorcery.particle.SimpleParticle;
 import com.root.sorcery.particle.SlowOutParticle;
 import com.root.sorcery.potion.ModEffect;
@@ -202,7 +203,7 @@ public class Sorcery
             Minecraft mc = Minecraft.getInstance();
 
             mc.particles.registerFactory(ModParticle.SIMPLE_PUFF, SimpleParticle.Factory::new);
-            mc.particles.registerFactory(ModParticle.SPARK_SLOW, SlowOutParticle.Factory::new);
+            mc.particles.registerFactory(ModParticle.RGBA_SPARK, RGBAParticle.Factory::new);
         }
 
         @SubscribeEvent
@@ -243,8 +244,8 @@ public class Sorcery
             ArrayList<String> fittingTypes = new ArrayList<>();
             fittingTypes.add("iron");
             fittingTypes.add("gold");
-            fittingTypes.add("chondrite");
-            fittingTypes.add("siderite");
+            fittingTypes.add("wolfram");
+            fittingTypes.add("mythril");
 
             ArrayList<String> rodTypes = new ArrayList<>();
             rodTypes.add("acacia");
