@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "sorcery:initiate_catalyst",
+    "sorcery:apprentice_catalyst",
+    "sorcery:magician_catalyst",
+    "sorcery:archmage_catalyst"
+  ]
+}

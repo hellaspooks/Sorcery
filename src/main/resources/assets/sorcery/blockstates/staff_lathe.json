@@ -1,0 +1,30 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "sorcery:block/staff_lathe",
+    "textures": {
+      "main": "sorcery:blocks/staff_lathe",
+      "1": "sorcery:blocks/magic_circle",
+      "particle": "sorcery:blocks/staff_lathe"
+    }
+  },
+  "variants": {
+    "facing": {
+      "south": {
+        "model": "sorcery:block/staff_lathe"
+      },
+      "west": {
+        "model": "sorcery:block/staff_lathe",
+        "y": 90
+      },
+      "north": {
+        "model": "sorcery:block/staff_lathe",
+        "y": 180
+      },
+      "east": {
+        "model": "sorcery:block/staff_lathe",
+        "y": 270
+      }
+    }
+  }
+}

@@ -212,6 +212,8 @@ public class ModItem
         blockItemFactory(ModBlock.WOLFRAM_LANTERN, Constants.ITEM_PROPS, event);
 
         blockItemFactory(ModBlock.PYLON, Constants.ITEM_PROPS, event);
+
+        blockItemFactory(ModBlock.STAFF_LATHE, Constants.ITEM_PROPS, event);
     }
 
     public static void simpleItemFactory(String registryName, RegistryEvent.Register<Item> event)

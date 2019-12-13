@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "sorcery:acacia_rod",
+    "sorcery:birch_rod",
+    "sorcery:dark_oak_rod",
+    "sorcery:jungle_rod",
+    "sorcery:oak_rod",
+    "sorcery:spruce_rod"
+  ]
+}
