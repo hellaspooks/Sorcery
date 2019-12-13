@@ -30,6 +30,7 @@ public class StaffLatheContainerScreen extends ContainerScreen<StaffLatheContain
     private int uncraftButtonX = -40;
     private int uncraftButtonY = 50;
 
+
     public StaffLatheContainerScreen(StaffLatheContainer screenContainer, PlayerInventory inv, ITextComponent titleIn)
     {
         super(screenContainer, inv, titleIn);
@@ -46,13 +47,11 @@ public class StaffLatheContainerScreen extends ContainerScreen<StaffLatheContain
     public void craft(Button b)
     {
         System.out.println("Craft button pressed");
-
     }
 
     public void uncraft(Button b)
     {
         System.out.println("Craft button pressed");
-
     }
 
     @Override

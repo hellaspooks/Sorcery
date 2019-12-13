@@ -1,7 +1,7 @@
 {
 	"textures": {
 		"main": "sorcery:blocks/staff_lathe",
-		"1": "sorcery:blocks/magic_circle",
+		"circle": "sorcery:blocks/magic_circle",
 		"particle": "sorcery:blocks/staff_lathe"
 	},
 	"elements": [
@@ -105,8 +105,8 @@
 				"east": {"uv": [0, 0, 16, 0], "texture": "#missing"},
 				"south": {"uv": [0, 0, 16, 0], "texture": "#missing"},
 				"west": {"uv": [0, 0, 16, 0], "texture": "#missing"},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#1"},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#1"}
+				"up": {"uv": [0, 0, 16, 16], "texture": "#circle"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#circle"}
 			}
 		},
 		{

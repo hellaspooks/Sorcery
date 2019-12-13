@@ -4,26 +4,46 @@
     "model": "sorcery:block/staff_lathe",
     "textures": {
       "main": "sorcery:blocks/staff_lathe",
-      "1": "sorcery:blocks/magic_circle",
+      "circle": "sorcery:blocks/magic_circle",
       "particle": "sorcery:blocks/staff_lathe"
     }
   },
   "variants": {
     "facing": {
       "south": {
-        "model": "sorcery:block/staff_lathe"
+        "model": "sorcery:block/staff_lathe",
+        "textures": {
+          "main": "sorcery:blocks/staff_lathe",
+          "circle": "sorcery:blocks/magic_circle",
+          "particle": "sorcery:blocks/staff_lathe"
+        }
       },
       "west": {
         "model": "sorcery:block/staff_lathe",
-        "y": 90
+        "y": 90,
+        "textures": {
+          "main": "sorcery:blocks/staff_lathe",
+          "circle": "sorcery:blocks/magic_circle",
+          "particle": "sorcery:blocks/staff_lathe"
+        }
       },
       "north": {
         "model": "sorcery:block/staff_lathe",
-        "y": 180
+        "y": 180,
+        "textures": {
+          "main": "sorcery:blocks/staff_lathe",
+          "circle": "sorcery:blocks/magic_circle",
+          "particle": "sorcery:blocks/staff_lathe"
+        }
       },
       "east": {
         "model": "sorcery:block/staff_lathe",
-        "y": 270
+        "y": 270,
+        "textures": {
+          "main": "sorcery:blocks/staff_lathe",
+          "circle": "sorcery:blocks/magic_circle",
+          "particle": "sorcery:blocks/staff_lathe"
+        }
       }
     }
   }

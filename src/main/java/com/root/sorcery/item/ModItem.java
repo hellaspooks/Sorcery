@@ -164,24 +164,24 @@ public class ModItem
         // Staff Components
 
         // Rods
-        registerItem("acacia_rod", new Item(Constants.ITEM_PROPS), event);
-        registerItem("birch_rod", new Item(Constants.ITEM_PROPS), event);
-        registerItem("dark_oak_rod", new Item(Constants.ITEM_PROPS), event);
-        registerItem("jungle_rod", new Item(Constants.ITEM_PROPS), event);
-        registerItem("oak_rod", new Item(Constants.ITEM_PROPS), event);
-        registerItem("spruce_rod", new Item(Constants.ITEM_PROPS), event);
+        staffComponentItemFactory("rod", "acacia", event);
+        staffComponentItemFactory("rod","birch", event);
+        staffComponentItemFactory("rod","dark_oak", event);
+        staffComponentItemFactory("rod","jungle", event);
+        staffComponentItemFactory("rod","oak", event);
+        staffComponentItemFactory("rod","spruce", event);
 
         // Catalysts
-        registerItem("initiate_catalyst", new Item(Constants.ITEM_PROPS), event);
-        registerItem("apprentice_catalyst", new Item(Constants.ITEM_PROPS), event);
-        registerItem("magician_catalyst", new Item(Constants.ITEM_PROPS), event);
-        registerItem("archmage_catalyst", new Item(Constants.ITEM_PROPS), event);
+        staffComponentItemFactory("catalyst","initiate", event);
+        staffComponentItemFactory("catalyst","apprentice", event);
+        staffComponentItemFactory("catalyst","magician", event);
+        staffComponentItemFactory("catalyst","archmage", event);
 
         // Fittings
-        registerItem("iron_fittings", new Item(Constants.ITEM_PROPS), event);
-        registerItem("gold_fittings", new Item(Constants.ITEM_PROPS), event);
-        registerItem("wolfram_fittings", new Item(Constants.ITEM_PROPS), event);
-        registerItem("mythril_fittings", new Item(Constants.ITEM_PROPS), event);
+        staffComponentItemFactory("fittings","iron", event);
+        staffComponentItemFactory("fittings","gold", event);
+        staffComponentItemFactory("fittings","wolfram", event);
+        staffComponentItemFactory("fittings","mythril", event);
 
         // Register Block Items
         // Simple Blocks
@@ -232,6 +232,13 @@ public class ModItem
     public static void blockItemFactory(Block block, Item.Properties properties, RegistryEvent.Register<Item> event)
     {
         event.getRegistry().register(new BlockItem(block, properties).setRegistryName(block.getRegistryName()));
+    }
+
+    public static void staffComponentItemFactory(String componentType, String componentName, RegistryEvent.Register event)
+    {
+        StaffComponentItem item = new StaffComponentItem(Constants.ITEM_PROPS, componentName, 100);
+        item.setRegistryName(componentName + "_" + componentType);
+        event.getRegistry().register(item);
     }
 
 }

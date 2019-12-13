@@ -43,7 +43,7 @@ public class StaffLatheBlock extends Block
     @Override
     public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos)
     {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class StaffLatheBlock extends Block
     @Override
     public boolean isSolid(BlockState state)
     {
-        return false;
+        return true;
     }
 
     @Override
@@ -82,7 +82,6 @@ public class StaffLatheBlock extends Block
         return state.rotate(mirror.toRotation(state.get(FACING)));
     }
 
-    @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> stateBuilder)
     {
         stateBuilder.add(FACING);

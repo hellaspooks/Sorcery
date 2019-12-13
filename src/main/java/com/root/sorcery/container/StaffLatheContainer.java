@@ -1,12 +1,19 @@
 package com.root.sorcery.container;
 
+import com.root.sorcery.Constants;
 import com.root.sorcery.block.ModBlock;
+import com.root.sorcery.item.ModItem;
+import com.root.sorcery.item.StaffComponentItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftResultInventory;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.CraftingResultSlot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.math.BlockPos;
@@ -26,6 +33,7 @@ public class StaffLatheContainer extends Container
     private CraftingInventory craftingInventory;
     private CraftResultInventory craftingOutput;
     private IWorldPosCallable posCallable;
+
 
     private int comp1X = 59;
     private int comp1Y = 31;
@@ -54,8 +62,6 @@ public class StaffLatheContainer extends Container
         this.craftingOutput = new CraftResultInventory();
 
 
-
-
         layoutPlayerInventorySlots(8, 84);
 
         layoutComponentSlots(this.craftingInventoryHandler);
@@ -74,6 +80,37 @@ public class StaffLatheContainer extends Container
         addSlot(new SlotItemHandler(handler, 1, comp2X, comp2Y));
         addSlot(new SlotItemHandler(handler, 2, comp3X, comp3Y));
 
+    }
+
+    public void onCraftMatrixChanged(IInventory inventoryIn)
+    {
+        ItemStack fitting = this.craftingInventory.getStackInSlot(0);
+        ItemStack catalyst = this.craftingInventory.getStackInSlot(1);
+        ItemStack rod = this.craftingInventory.getStackInSlot(2);
+
+        if (areComponentsValid(fitting, catalyst, rod))
+        {
+            int arcanaCost = 0;
+            StaffComponentItem c1 = (StaffComponentItem) fitting.getItem();
+            StaffComponentItem c2 = (StaffComponentItem) catalyst.getItem();
+            StaffComponentItem c3 = (StaffComponentItem) rod.getItem();
+            ItemStack craftedStaff = new ItemStack(ModItem.sorcerous_staff);
+            CompoundNBT nbt = craftedStaff.getOrCreateTag();
+            nbt.putString("staffType", c2.modelString);
+            nbt.putString("rod", c3.modelString);
+            nbt.putString("catalyst", c2.modelString);
+            nbt.putString("fitting", c1.modelString);
+
+            arcanaCost += c1.arcanaCost;
+            arcanaCost += c2.arcanaCost;
+            arcanaCost += c3.arcanaCost;
+
+
+            craftedStaff.setTag(nbt);
+
+            this.craftingOutput.setInventorySlotContents(0, craftedStaff);
+
+        }
     }
 
     private void layoutResultSlot()
@@ -113,5 +150,20 @@ public class StaffLatheContainer extends Container
         this.posCallable.consume((p_217068_2_, p_217068_3_) -> {
             this.clearContainer(playerIn, p_217068_2_, this.craftingInventory);
         });
+    }
+
+    private boolean areComponentsValid(ItemStack fitting, ItemStack catalyst, ItemStack rod)
+    {
+        if (ItemTags.getCollection().getOrCreate(Constants.FITTING_TAG).contains(fitting.getItem()))
+        {
+            if(ItemTags.getCollection().getOrCreate(Constants.CATALYST_TAG).contains(catalyst.getItem()))
+            {
+                if (ItemTags.getCollection().getOrCreate(Constants.ROD_TAG).contains(rod.getItem()))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 
 public class StaffLatheTile extends TileEntity implements INamedContainerProvider
 {
+
     public StaffLatheTile()
     {
         super(ModTile.STAFF_LATHE_TILE);
