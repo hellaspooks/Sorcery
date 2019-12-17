@@ -30,6 +30,12 @@ public class StaffLatheContainerScreen extends ContainerScreen<StaffLatheContain
     private int uncraftButtonX = -40;
     private int uncraftButtonY = 50;
 
+    private int progressTexStartX = 176;
+    private int progressTexStartY = 44;
+
+    private int progressWidth = 18;
+    private int progressHeight = 3;
+
 
     public StaffLatheContainerScreen(StaffLatheContainer screenContainer, PlayerInventory inv, ITextComponent titleIn)
     {
@@ -46,7 +52,10 @@ public class StaffLatheContainerScreen extends ContainerScreen<StaffLatheContain
 
     public void craft(Button b)
     {
-        System.out.println("Craft button pressed");
+        if (this.container.isCraftReady())
+        {
+            this.container.startCraft();
+        }
     }
 
     public void uncraft(Button b)
@@ -70,6 +79,15 @@ public class StaffLatheContainerScreen extends ContainerScreen<StaffLatheContain
         int relX = (this.width - this.xSize) / 2;
         int relY = (this.height - this.ySize) / 2;
         this.blit(relX, relY, 0, 0, this.xSize, this.ySize);
+        if (this.container.isCraftReady())
+        {
+            int barWidth =(int) (this.getContainer().getProgressPercent() * (double) this.progressWidth);
+            this.blit(relX + 79, relY + 66, progressTexStartX, progressTexStartY, barWidth, progressHeight);
+
+            this.minecraft.getTextureManager().bindTexture(OVERLAY);
+            this.blit(relX, relY, 0, 0, this.xSize, this.ySize);
+        }
+
 
     }
 

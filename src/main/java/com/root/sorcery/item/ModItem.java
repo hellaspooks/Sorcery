@@ -236,7 +236,7 @@ public class ModItem
 
     public static void staffComponentItemFactory(String componentType, String componentName, RegistryEvent.Register event)
     {
-        StaffComponentItem item = new StaffComponentItem(Constants.ITEM_PROPS, componentName, 100);
+        StaffComponentItem item = new StaffComponentItem(Constants.ITEM_PROPS, componentName, 50);
         item.setRegistryName(componentName + "_" + componentType);
         event.getRegistry().register(item);
     }
