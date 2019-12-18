@@ -1,6 +1,8 @@
 package com.root.sorcery.network.packets;
 
+import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.ParticleEffects;
+import com.root.sorcery.particle.RGBAParticleType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
@@ -91,6 +93,9 @@ public class ParticleEffectPacket
                             break;
                         case 3:
                             ParticleEffects.coneSpray(world, ((BasicParticleType) particle), loc, lookVec, num, speed, radius);
+                            break;
+                        case 4:
+                            ParticleEffects.sendTo(world, ModParticle.ARCANA_ORB, loc, lookVec, num, speed, radius);
                             break;
                     }
                 }

@@ -204,6 +204,7 @@ public class Sorcery
 
             mc.particles.registerFactory(ModParticle.SIMPLE_PUFF, SimpleParticle.Factory::new);
             mc.particles.registerFactory(ModParticle.RGBA_SPARK, RGBAParticle.Factory::new);
+            mc.particles.registerFactory(ModParticle.ARCANA_ORB, RGBAParticle.Factory::new);
         }
 
         @SubscribeEvent

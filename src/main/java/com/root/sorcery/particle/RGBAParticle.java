@@ -5,8 +5,6 @@ import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.SpriteTexturedParticle;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.ParticleType;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -30,6 +28,8 @@ public class RGBAParticle extends SpriteTexturedParticle
         this.particleBlue = b;
         this.particleGreen = g;
         this.particleAlpha = a;
+
+        this.canCollide = false;
     }
 
 
@@ -55,6 +55,7 @@ public class RGBAParticle extends SpriteTexturedParticle
         public Factory(IAnimatedSprite spriteSet)
         {
             this.spriteSet = spriteSet;
+
         }
 
         @Nullable
@@ -62,7 +63,7 @@ public class RGBAParticle extends SpriteTexturedParticle
         public Particle makeParticle(RGBAParticleType data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
             RGBAParticle simpleParticle = new RGBAParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, spriteSet, data.r, data.g, data.b, data.a);
-            simpleParticle.setMaxAge(20);
+            simpleParticle.setMaxAge(40);
             simpleParticle.selectSpriteWithAge(spriteSet);
             return simpleParticle;
         }

@@ -156,7 +156,7 @@ public class ModItem
         registerItem("toad_spawn_egg", new SpawnEggItem(ModEntity.TOAD, 4470310, 10592673, Constants.ITEM_PROPS), event);
 
         // Staves
-        registerItem("sorcerous_staff", new StaffItem(Constants.ITEM_PROPS), event);
+        registerItem("sorcerous_staff", new StaffItem(Constants.ITEM_PROPS_NONSTACK), event);
 
         // Utility Items
         registerItem("linking_stick", new LinkingItem(Constants.ITEM_PROPS), event);

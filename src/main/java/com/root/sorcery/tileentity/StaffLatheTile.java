@@ -9,15 +9,12 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
 import javax.annotation.Nullable;
 
-public class StaffLatheTile extends TileEntity implements INamedContainerProvider, ITickableTileEntity
+public class StaffLatheTile extends ArcanaVacuumTile implements INamedContainerProvider
 {
 
     private StaffCraftingInventory inventory;
@@ -57,6 +54,7 @@ public class StaffLatheTile extends TileEntity implements INamedContainerProvide
     {
         if (!world.isRemote())
         {
+            this.startArcanaVacuum(costIn);
             this.craftingCost = costIn;
             this.activeCraft = true;
         }
@@ -78,6 +76,7 @@ public class StaffLatheTile extends TileEntity implements INamedContainerProvide
     @Override
     public void tick()
     {
+        super.tick();
         if (!world.isRemote())
         {
             if (this.activeCraft)
@@ -90,7 +89,9 @@ public class StaffLatheTile extends TileEntity implements INamedContainerProvide
                     this.inventory.finishCraft();
                     world.notifyBlockUpdate(pos, this.getBlockState(), this.getBlockState(), 3);
                 } else {
-                    this.arcanaUsed += this.craftSpeed;
+                    int cycleProgress = Math.min(this.craftSpeed, this.arcanaStored);
+                    this.arcanaUsed += cycleProgress;
+                    this.arcanaStored -= cycleProgress;
                     world.notifyBlockUpdate(pos, this.getBlockState(), this.getBlockState(), 3);
                 }
             }

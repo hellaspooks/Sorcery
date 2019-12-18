@@ -10,7 +10,7 @@ public class StaffItem extends SpellcastingItem
 {
     public StaffItem(Properties properties)
     {
-        super(properties.maxStackSize(1));
+        super(properties);
     }
 
     public static StaffComponentItem getRod(ItemStack staff)

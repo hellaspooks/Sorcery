@@ -20,14 +20,14 @@ import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 public class Containers
 {
     @ObjectHolder("sorcery:wolfram_blastfurnace")
-    public static ContainerType<BuiltContainer> wolfram_BLAST_FURNACE;
+    public static ContainerType<BuiltContainer> WOLFRAM_BLAST_FURNACE;
 
-    @ObjectHolder("sorcery:staff_lathe")
+    @ObjectHolder("sorcery:staff_lathe_container")
     public static ContainerType<StaffLatheContainer> STAFF_LATHE_CONTAINER;
 
     public static void registerScreens()
     {
-        ScreenManager.registerFactory(wolfram_BLAST_FURNACE, WolframBlastFurnaceGui::new);
+        ScreenManager.registerFactory(WOLFRAM_BLAST_FURNACE, WolframBlastFurnaceGui::new);
         ScreenManager.registerFactory(STAFF_LATHE_CONTAINER, StaffLatheContainerScreen::new);
     }
 
@@ -39,6 +39,6 @@ public class Containers
         event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
             BlockPos pos = data.readBlockPos();
             return new StaffLatheContainer(windowId, Sorcery.proxy.getClientWorld(), pos, inv, Sorcery.proxy.getClientPlayer());
-        }).setRegistryName("staff_lathe"));
+        }).setRegistryName("sorcery:staff_lathe_container"));
     }
 }

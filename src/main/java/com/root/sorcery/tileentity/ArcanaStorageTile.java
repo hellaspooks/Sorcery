@@ -2,7 +2,6 @@ package com.root.sorcery.tileentity;
 
 import com.root.sorcery.arcana.ArcanaStorage;
 import com.root.sorcery.arcana.IArcanaStorage;
-import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.ParticleEffects;
 import com.root.sorcery.particle.RGBAParticleType;
 import net.minecraft.nbt.CompoundNBT;
@@ -294,7 +293,7 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
             // Pass Arcana to transfer target
             if (this.arcanaTransferTarget != null)
             {
-                int arcanaReceived = this.arcanaTransferTarget.recieveArcana(this.transferRate);
+                int arcanaReceived = this.arcanaTransferTarget.receiveArcana(this.transferRate);
                 this.extractArcana(arcanaReceived);
             }
         }
@@ -332,7 +331,7 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
         }
     }
 
-    public int recieveArcana(int arcana)
+    public int receiveArcana(int arcana)
     {
         return this.arcanaStorage.receiveArcana(arcana, false);
     }
