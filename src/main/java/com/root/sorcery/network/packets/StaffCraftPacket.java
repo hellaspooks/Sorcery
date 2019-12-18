@@ -24,13 +24,14 @@ public class StaffCraftPacket
         this.posNBT = nbtIn;
     }
 
-    public StaffCraftPacket(BlockPos pos, int cost)
+    public StaffCraftPacket(BlockPos pos, int cost, boolean unCraft)
     {
         CompoundNBT nbt = new CompoundNBT();
         nbt.putInt("x", pos.getX());
         nbt.putInt("y", pos.getY());
         nbt.putInt("z", pos.getZ());
         nbt.putInt("c", cost);
+        nbt.putBoolean("u", unCraft);
         this.posNBT = nbt;
     }
 
@@ -57,7 +58,12 @@ public class StaffCraftPacket
                         TileEntity tile = world.getTileEntity(pos);
                         if (tile instanceof StaffLatheTile)
                         {
-                            ((StaffLatheTile)tile).startCraft(message.posNBT.getInt("c"));
+                            if (message.posNBT.getBoolean("u"))
+                            {
+                                ((StaffLatheTile)tile).uncraft();
+                            } else {
+                                ((StaffLatheTile)tile).startCraft(message.posNBT.getInt("c"));
+                            }
                         }
 
                     } else {

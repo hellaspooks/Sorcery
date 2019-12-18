@@ -2,7 +2,6 @@ package com.root.sorcery.tileentity;
 
 import com.root.sorcery.container.StaffCraftingInventory;
 import com.root.sorcery.container.StaffLatheContainer;
-import com.root.sorcery.network.PacketHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -12,6 +11,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
@@ -59,6 +59,14 @@ public class StaffLatheTile extends TileEntity implements INamedContainerProvide
         {
             this.craftingCost = costIn;
             this.activeCraft = true;
+        }
+    }
+
+    public void uncraft()
+    {
+        if (!world.isRemote())
+        {
+            this.inventory.uncraft();
         }
     }
 
@@ -117,4 +125,21 @@ public class StaffLatheTile extends TileEntity implements INamedContainerProvide
         handleUpdateTag(pkt.getNbtCompound());
     }
 
+    @Override
+    public void read(CompoundNBT tag)
+    {
+        super.read(tag);
+        if (tag.contains("inv"))
+        {
+            this.inventory.setFromTag(tag.getCompound("inv"));
+        }
+    }
+
+    @Override
+    public CompoundNBT write(CompoundNBT nbt)
+    {
+        CompoundNBT tag = super.write(nbt);
+        tag.put("inv", this.inventory.getAsTag());
+        return tag;
+    }
 }

@@ -15,6 +15,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
+import java.util.List;
+
 
 public class StaffLatheContainer extends Container
 {
@@ -70,13 +72,16 @@ public class StaffLatheContainer extends Container
         this.tileInventory.startPendingCraft();
     }
 
+    public void uncraft()
+    {
+        this.tileInventory.sendUncraft();
+    }
+
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
-        System.out.println("transfer stack in slot");
-        System.out.println(index);
-        Slot slot = this.inventorySlots.get(index);
-        System.out.println(slot);
-        return slot != null ? slot.getStack() : ItemStack.EMPTY;
+    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index)
+    {
+        // TO-DO: Proper shift-click behavior
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -121,11 +126,9 @@ public class StaffLatheContainer extends Container
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
     }
 
-    public void onContainerClosed(PlayerEntity playerIn) {
-        super.onContainerClosed(playerIn);
-        this.posCallable.consume((p_217068_2_, p_217068_3_) -> {
-            this.clearContainer(playerIn, p_217068_2_, this.tileInventory);
-        });
+    @Override
+    public void onContainerClosed(PlayerEntity playerIn)
+    {
     }
 
     public double getProgressPercent()

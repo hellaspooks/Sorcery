@@ -60,7 +60,7 @@ public class StaffLatheContainerScreen extends ContainerScreen<StaffLatheContain
 
     public void uncraft(Button b)
     {
-        System.out.println("Craft button pressed");
+        this.container.uncraft();
     }
 
     @Override
