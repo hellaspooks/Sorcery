@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "sorcery:iron_fittings",
+    "sorcery:gold_fittings",
+    "sorcery:wolfram_fittings",
+    "sorcery:mythril_fittings"
+  ]
+}

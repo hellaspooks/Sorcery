@@ -13,9 +13,6 @@
     "uvlock": true
   },
   "variants": {
-    "": [{
-      "model": "sorcery:block/stripped_runewood_log"
-    }],
     "axis": {
       "y": {"model":  "sorcery:block/stripped_runewood_log"},
       "z": {"model":  "sorcery:block/stripped_runewood_log", "x": 90},

@@ -5,9 +5,11 @@ import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
 import com.root.sorcery.network.packets.KeyPressPacket;
 import com.root.sorcery.network.packets.ParticleEffectPacket;
 import com.root.sorcery.network.packets.SpellCapSyncPacket;
+import com.root.sorcery.network.packets.StaffCraftPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
@@ -32,6 +34,7 @@ public class PacketHandler
         HANDLER.registerMessage(disc++, SpellCapSyncPacket.class, SpellCapSyncPacket::encode, SpellCapSyncPacket::decode, SpellCapSyncPacket.Handler::handle);
         HANDLER.registerMessage(disc++, ArcanaCapSyncPacket.class, ArcanaCapSyncPacket::encode, ArcanaCapSyncPacket::decode, ArcanaCapSyncPacket.Handler::handle);
         HANDLER.registerMessage(disc++, ParticleEffectPacket.class, ParticleEffectPacket::encode, ParticleEffectPacket::decode, ParticleEffectPacket.Handler::handle);
+        HANDLER.registerMessage(disc++, StaffCraftPacket.class, StaffCraftPacket::encode, StaffCraftPacket::decode, StaffCraftPacket.Handler::handle);
     }
 
     public static void sendToServer(Object msg)
@@ -48,5 +51,10 @@ public class PacketHandler
     public static void sendToAllTracking(Entity entity, Object msg)
     {
         HANDLER.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(()->entity), msg);
+    }
+
+    public static void sendToAllTrackingChunk(Chunk chunk, Object msg)
+    {
+        HANDLER.send(PacketDistributor.TRACKING_CHUNK.with(()->chunk), msg);
     }
 }

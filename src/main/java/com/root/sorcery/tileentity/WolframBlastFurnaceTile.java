@@ -156,7 +156,7 @@ public class WolframBlastFurnaceTile extends TileBase implements INamedContainer
     @Override
     public Container createMenu(int windowId, PlayerInventory playerInventory, PlayerEntity player)
     {
-        return new ContainerBuilder(Containers.wolfram_BLAST_FURNACE, player)
+        return new ContainerBuilder(Containers.WOLFRAM_BLAST_FURNACE, player)
                 .player(player)
                 .inventory(10, 86)
                 .hotbar(10, 144)

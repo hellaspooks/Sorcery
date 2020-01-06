@@ -47,8 +47,6 @@ public class ParticleEffects
         double realSpeed = distance / (double) age;
         Vec3d vec = ray.mul(realSpeed, realSpeed, realSpeed);
         world.addParticle(particle, origin.getX(), origin.getY(), origin.getZ(), vec.getX(), vec.getY(), vec.getZ());
-
-
     }
 
     // Expanding sphere of ~roughly evenly spaced particles surrounding location

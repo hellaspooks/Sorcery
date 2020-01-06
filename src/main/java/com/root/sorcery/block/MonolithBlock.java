@@ -60,7 +60,6 @@ public class MonolithBlock extends Block
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        System.out.println("created monolith tile");
         return new MonolithTile();
     }
 

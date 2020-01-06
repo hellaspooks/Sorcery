@@ -9,6 +9,7 @@ import com.root.sorcery.entity.renderer.ToadRenderer;
 import com.root.sorcery.keybinding.KeyBindings;
 import com.root.sorcery.keybinding.KeyInputHandler;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
@@ -35,5 +36,11 @@ public class ClientProxy implements IProxy
     public World getClientWorld()
     {
         return Minecraft.getInstance().world;
+    }
+
+    @Override
+    public PlayerEntity getClientPlayer()
+    {
+        return Minecraft.getInstance().player;
     }
 }

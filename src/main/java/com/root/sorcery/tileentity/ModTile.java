@@ -22,6 +22,9 @@ public class ModTile
     @ObjectHolder("pylon")
     public static TileEntityType<PylonTile> PYLON_TILE;
 
+    @ObjectHolder("staff_lathe")
+    public static TileEntityType<PylonTile> STAFF_LATHE_TILE;
+
 
     public static void init(RegistryEvent.Register<TileEntityType<?>> event)
     {
@@ -45,6 +48,11 @@ public class ModTile
                 .create(PylonTile::new, ModBlock.PYLON)
                 .build(null)
                 .setRegistryName("pylon"));
+
+        event.getRegistry().register(TileEntityType.Builder
+                .create(StaffLatheTile::new, ModBlock.STAFF_LATHE)
+                .build(null)
+                .setRegistryName("staff_lathe"));
     }
 
 }

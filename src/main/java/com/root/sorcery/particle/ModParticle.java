@@ -25,11 +25,15 @@ public class ModParticle
     @ObjectHolder("sorcery:spark1")
     public static RGBAParticleType RGBA_SPARK;
 
+    @ObjectHolder("sorcery:arcana_orb")
+    public static RGBAParticleType ARCANA_ORB;
+
     @SubscribeEvent
     public static void registerParticles(RegistryEvent.Register<ParticleType<?>> event)
     {
         SIMPLE_PUFF = basicParticleFactory("sorcery:puff", event);
         registerParticle(new RGBAParticleType(), "sorcery:spark1", event);
+        registerParticle(new RGBAParticleType(178f/255f, 102f/255f, 1, 1), "sorcery:arcana_orb", event);
     }
 
     public static void registerParticle(ParticleType<?> particleType, String regName, RegistryEvent.Register<ParticleType<?>> event)
