@@ -29,7 +29,39 @@ public class DrawScreenEvent
 
     private static ResourceLocation selectedSpell = null;
 
+    private static ResourceLocation spellIcon = null;
+
     private static long showSelectionTicks = 40;
+
+
+    private static int backgroundWidth = 131;
+    private static int backgroundHeight = 38;
+
+    private static int barWidth = 127;
+    private static int barHeight = 5;
+
+    private static int barXOffset = 2;
+    private static int barYOffset = 2;
+
+    private static int barTexXOffset = 2;
+    private static int barTexYOffset = 38;
+
+    private static int overlayWidth = 125;
+    private static int overlayHeight = 3;
+
+    private static int overlayXOffset = 3;
+    private static int overlayYOffset = 3;
+
+    private static int overlayTexXOffset = 3;
+    private static int overlayTexYOffset = 43;
+
+    private static int spellIconXOffset = 3;
+    private static int spellIconYOffset = 9;
+
+    private static int spellIconWidth = 26;
+    private static int spellIconHeight = 26;
+
+
 
 
     @SubscribeEvent
@@ -60,8 +92,8 @@ public class DrawScreenEvent
             }
 
 
-            int posX = 5;
-            int posY = mc.mainWindow.getScaledHeight() - 10;
+            int posX = 4;
+            int posY = 4;
 
             String arcanaString = String.format("%.2f / %d", ((double)arcanaSource.getArcanaStored())/100, arcanaSource.getMaxArcanaStored()/100);
 
@@ -74,25 +106,36 @@ public class DrawScreenEvent
             GlStateManager.enableBlend();
             GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-            // Background
-            mc.ingameGUI.blit(posX, posY, 0, 0, 91,5);
+            // Blits take the form placementX, placementY, texture start x, texture start y, tex width, tex height
 
-            int barWidth =(int)((((double)arcanaSource.getArcanaStored())/((double)arcanaSource.getMaxArcanaStored())) * 91.0);
+            // Background
+            mc.ingameGUI.blit(posX, posY, 0, 0, backgroundWidth, backgroundHeight);
+
+            int barLength =(int)((((double)arcanaSource.getArcanaStored())/((double)arcanaSource.getMaxArcanaStored())) * barWidth);
 
             // Foreground
-            mc.ingameGUI.blit(posX, posY, 0, 5, barWidth, 5);
+            mc.ingameGUI.blit(posX + barXOffset, posY + barYOffset, barTexXOffset, barTexYOffset, barLength, barHeight);
 
             // Overlay
-            mc.ingameGUI.blit(posX, posY, 0, 10, 91,5);
+            mc.ingameGUI.blit(posX + overlayXOffset, posY + overlayYOffset, overlayTexXOffset, overlayTexYOffset, overlayWidth, overlayHeight);
 
-            mc.fontRenderer.drawString(arcanaString, posX + 20, posY -10, 16777215);
+            // Numbers
+            mc.fontRenderer.drawString(arcanaString, posX + 40, posY + 20, 16777215);
+
+            if (spellIcon != null)
+            {
+                // Spell Icon
+                mc.getTextureManager().bindTexture(spellIcon);
+                mc.ingameGUI.blit(posX + spellIconXOffset, posY + spellIconYOffset, 0, 0, spellIconWidth, spellIconHeight);
+            }
 
             if (showSpellSelection)
             {
                 long tDelta = mc.world.getGameTime() - showSpellSelectionStart;
                 if (tDelta < showSelectionTicks)
                 {
-                    mc.fontRenderer.drawStringWithShadow(selectedSpell.toString(), posX, posY - 20, 16777215);
+                    mc.fontRenderer.drawStringWithShadow(selectedSpell.toString(), posX + 40 , posY + 30, 16777215);
+
                 } else {
                     showSpellSelection = false;
                 }
@@ -114,6 +157,7 @@ public class DrawScreenEvent
     public static void setSelectedSpell(ResourceLocation spell)
     {
         selectedSpell = spell;
+        spellIcon = new ResourceLocation(Constants.MODID, "textures/spells/" + spell.getPath() + ".png");
         showSpellSelectionStart = Minecraft.getInstance().world.getGameTime();
     }
 }
