@@ -1,8 +1,0 @@
-{
-  "parent": "block/slab",
-  "textures": {
-    "bottom": "sorcery:blocks/wolfram_bricks",
-    "top": "sorcery:blocks/wolfram_bricks",
-    "side": "sorcery:blocks/wolfram_bricks"
-  }
-}

@@ -187,15 +187,20 @@ public class ModItem
         // Simple Blocks
         blockItemFactory(ModBlock.POLISHED_WOLFRAM, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.RUNEWOOD_LOG, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNEWOOD_PLANKS, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.STRIPPED_RUNEWOOD_LOG, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.RUNEWOOD_LEAVES, Constants.ITEM_PROPS, event);
 
         // Blocks with variations
-        blockItemFactory(ModBlock.WOLFRAM_BRICKS, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.WOLFRAM_BRICK_SLAB, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.WOLFRAM_BRICK_STAIRS, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.WOLFRAM_BRICK_WALL, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNESTONE_BRICKS, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNESTONE_BRICK_SLAB, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNESTONE_BRICK_STAIRS, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNESTONE_BRICK_WALL, Constants.ITEM_PROPS, event);
+
+        blockItemFactory(ModBlock.RUNEWOOD_PLANKS, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNEWOOD_PLANK_SLAB, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNEWOOD_PLANK_STAIRS, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNEWOOD_PLANK_WALL, Constants.ITEM_PROPS, event);
+
 
 
         // Blocks with tile entities

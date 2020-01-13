@@ -21,8 +21,8 @@ public class ModBlock
     @ObjectHolder("polished_wolfram")
     public static Block POLISHED_WOLFRAM;
 
-    @ObjectHolder("wolfram_bricks")
-    public static Block WOLFRAM_BRICKS;
+    @ObjectHolder("runestone_bricks")
+    public static Block RUNESTONE_BRICKS;
 
     @ObjectHolder("runewood_log")
     public static LogBlock RUNEWOOD_LOG;
@@ -38,16 +38,25 @@ public class ModBlock
 
 
     // Stairs
-    @ObjectHolder("wolfram_brick_stairs")
-    public static StairsBlock WOLFRAM_BRICK_STAIRS;
+    @ObjectHolder("runestone_brick_stairs")
+    public static StairsBlock RUNESTONE_BRICK_STAIRS;
+
+    @ObjectHolder("runewood_plank_stairs")
+    public static StairsBlock RUNEWOOD_PLANK_STAIRS;
 
     // Slabs
-    @ObjectHolder("wolfram_brick_slab")
-    public static SlabBlock WOLFRAM_BRICK_SLAB;
+    @ObjectHolder("runestone_brick_slab")
+    public static SlabBlock RUNESTONE_BRICK_SLAB;
+
+    @ObjectHolder("runewood_plank_slab")
+    public static SlabBlock RUNEWOOD_PLANK_SLAB;
 
     // Walls
-    @ObjectHolder("wolfram_brick_wall")
-    public static WallBlock WOLFRAM_BRICK_WALL;
+    @ObjectHolder("runestone_brick_wall")
+    public static WallBlock RUNESTONE_BRICK_WALL;
+
+    @ObjectHolder("runewood_plank_wall")
+    public static WallBlock RUNEWOOD_PLANK_WALL;
 
     // Decor
     @ObjectHolder("wolfram_lantern")
@@ -88,7 +97,6 @@ public class ModBlock
     {
         // Simple Blocks
         simpleBlockFactory(event, "polished_wolfram", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
-        simpleBlockFactory(event, "runewood_planks", Material.WOOD, 2.0F, 3.0F, SoundType.WOOD);
 
         // these two will eventually be tileblocks
         registerBlock(new AlchemicalWorkbenchBlock(), "alchemical_workbench", event);
@@ -103,10 +111,16 @@ public class ModBlock
 
 
         // Blocks with variations
-        WOLFRAM_BRICKS = simpleBlockFactory(event, "wolfram_bricks", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
-        WOLFRAM_BRICK_SLAB = slabFactory(event, WOLFRAM_BRICKS, "wolfram_brick_slab");
-        WOLFRAM_BRICK_WALL = wallFactory(event, WOLFRAM_BRICKS, "wolfram_brick_wall");
-        WOLFRAM_BRICK_STAIRS = stairsFactory(event, WOLFRAM_BRICKS, "wolfram_brick_stairs");
+        RUNESTONE_BRICKS = simpleBlockFactory(event, "runestone_bricks", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
+        RUNESTONE_BRICK_SLAB = slabFactory(event, RUNESTONE_BRICKS, "runestone_brick_slab");
+        RUNESTONE_BRICK_WALL = wallFactory(event, RUNESTONE_BRICKS, "runestone_brick_wall");
+        RUNESTONE_BRICK_STAIRS = stairsFactory(event, RUNESTONE_BRICKS, "runestone_brick_stairs");
+
+        RUNEWOOD_PLANKS = simpleBlockFactory(event, "runewood_planks", Material.WOOD, 2.0F, 3.0F, SoundType.WOOD);
+        RUNEWOOD_PLANK_SLAB = slabFactory(event, RUNEWOOD_PLANKS, "runewood_plank_slab");
+        RUNEWOOD_PLANK_WALL = wallFactory(event, RUNEWOOD_PLANKS, "runewood_plank_wall");
+        RUNEWOOD_PLANK_STAIRS = stairsFactory(event, RUNEWOOD_PLANKS, "runewood_plank_stairs");
+
 
         // Tile Blocks
         registerTileBlocks(event, "wolfram_blast_furnace", new WolframBlastFurnaceBlock());
