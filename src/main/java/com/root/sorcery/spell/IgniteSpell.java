@@ -21,7 +21,7 @@ public class IgniteSpell extends Spell
     {
         if (context.getHitPos() != null)
         {
-            BlockPos firePos = context.getHitPos().offset(context.getHitFace());
+            BlockPos firePos = context.getFacePos();
 
             if (!context.getWorld().isAirBlock(firePos))
             {

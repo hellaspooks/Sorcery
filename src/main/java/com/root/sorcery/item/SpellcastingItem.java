@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-import static com.root.sorcery.utils.Utils.getSpellFromEntity;
+import static com.root.sorcery.utils.Utils.getSpellFromProvider;
 
 public class SpellcastingItem extends Item
 {
@@ -30,7 +30,17 @@ public class SpellcastingItem extends Item
     @Override
     public int getUseDuration(ItemStack stack)
     {
-        return 100;
+        CompoundNBT nbt = stack.getTag();
+        System.out.println(nbt);
+        if (nbt.contains("spellDuration"))
+        {
+            int duration = stack.getTag().getInt("spellDuration");
+            System.out.println(duration);
+            return duration;
+        } else {
+            System.out.println("default duration");
+            return 1;
+        }
     }
 
     @Override
@@ -75,7 +85,7 @@ public class SpellcastingItem extends Item
     // Actually casting a spell
     public ActionResultType castSpell(SpellUseContext context)
     {
-        Spell spellToCast = getSpellFromEntity(context.getPlayer());
+        Spell spellToCast = getSpellFromProvider(context.getItem());
 
         // If duration spell, set active hand and pass
         if ( spellToCast.getCastType() == CastType.DURATION || spellToCast.getCastType() == CastType.CHANNELED)
@@ -92,7 +102,7 @@ public class SpellcastingItem extends Item
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving)
     {
         SpellUseContext spellContext = new SpellUseContext(worldIn, entityLiving, entityLiving.getActiveHand());
-        Spell spellToCast = getSpellFromEntity(entityLiving);
+        Spell spellToCast = getSpellFromProvider(entityLiving);
         spellToCast.cast(spellContext);
         return stack;
     }
@@ -103,6 +113,8 @@ public class SpellcastingItem extends Item
         CompoundNBT baseTag = stack.getTag();
         CompoundNBT arcanaTag = Utils.getArcanaCap(stack).serializeNBT();
         baseTag.put("arcanaCap", arcanaTag);
+        CompoundNBT spellCastingTag = Utils.getSpellCap(stack).serializeNBT();
+        baseTag.put("spellCap", spellCastingTag);
         return baseTag;
     }
 
@@ -110,6 +122,8 @@ public class SpellcastingItem extends Item
     public void readShareTag(ItemStack stack, @Nullable CompoundNBT nbt)
     {
         Utils.getArcanaCap(stack).deserializeNBT(nbt.getCompound("arcanaCap"));
+        Utils.getSpellCap(stack).deserializeNBT(nbt.getCompound("spellCap"));
+        nbt.putInt("spellDuration", 1);
         stack.setTag(nbt);
     }
 }

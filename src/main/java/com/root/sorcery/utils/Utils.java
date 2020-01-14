@@ -6,7 +6,6 @@ import com.root.sorcery.block.state.CrystalColor;
 import com.root.sorcery.spell.Spell;
 import com.root.sorcery.spellcasting.ISpellcasting;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -72,9 +71,9 @@ public class Utils {
         return capabilityProvider.getCapability(ARCANA_STORAGE, null).orElseThrow(NullPointerException::new);
     }
 
-    public static Spell getSpellFromEntity(LivingEntity entity)
+    public static Spell getSpellFromProvider(CapabilityProvider<?> provider)
     {
-        ResourceLocation spellLoc = getSpellCap(entity).getActiveSpell();
+        ResourceLocation spellLoc = getSpellCap(provider).getActiveSpell();
         return GameRegistry.findRegistry(Spell.class).getValue(spellLoc);
     }
 
