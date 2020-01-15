@@ -104,7 +104,7 @@ public class SpellUseContext
         this.world = worldIn;
         this.pos = playerIn.getPosition();
         this.arcanaSource = Utils.getArcanaCap(playerIn.getHeldItem(handIn));
-        this.rayTraceResult = Utils.blockAlongRay(playerIn.getEyePosition(1), playerIn.getLookVec(), 8, worldIn, playerIn);
+        this.rayTraceResult = Utils.blockAlongRay(playerIn.getEyePosition(1.0F), playerIn.getLook(1.0F), 8, worldIn, playerIn);
         this.player = playerIn instanceof PlayerEntity ? (PlayerEntity) playerIn : null;
         this.hand = handIn;
         this.item = playerIn.getHeldItem(handIn);

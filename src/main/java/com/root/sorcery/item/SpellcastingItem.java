@@ -30,7 +30,8 @@ public class SpellcastingItem extends Item
     @Override
     public int getUseDuration(ItemStack stack)
     {
-        return getSpellFromProvider(stack).castDuration;
+        int castDuration = getSpellFromProvider(stack).getCastDuration();
+        return castDuration;
     }
 
     @Override
@@ -76,9 +77,10 @@ public class SpellcastingItem extends Item
     public ActionResultType castSpell(SpellUseContext context)
     {
         Spell spellToCast = getSpellFromProvider(context.getItem());
+        CastType castType = spellToCast.getCastType();
 
-        // If duration spell, set active hand and pass
-        if ( spellToCast.getCastType() == CastType.DURATION || spellToCast.getCastType() == CastType.CHANNELED)
+        // If duration or channeled spell, set active hand and pass
+        if ( castType == CastType.DURATION || castType == CastType.CHANNELED)
         {
             context.getPlayer().setActiveHand(context.getHand());
             return ActionResultType.SUCCESS;
@@ -92,9 +94,22 @@ public class SpellcastingItem extends Item
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving)
     {
         SpellUseContext spellContext = new SpellUseContext(worldIn, entityLiving, entityLiving.getActiveHand());
-        Spell spellToCast = getSpellFromProvider(entityLiving);
+        Spell spellToCast = getSpellFromProvider(stack);
         spellToCast.cast(spellContext);
         return stack;
+    }
+
+    // Needed to make channeled spells work
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack)
+    {
+        return true;
     }
 
     // NBT handlers
