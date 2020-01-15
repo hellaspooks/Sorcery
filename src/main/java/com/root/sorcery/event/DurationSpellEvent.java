@@ -15,33 +15,11 @@ public class DurationSpellEvent
 {
 
     @SubscribeEvent
-    public static void durationSpell(LivingEntityUseItemEvent.Start event)
-    {
-        if (event.getItem().getItem() instanceof SpellcastingItem)
-        {
-            System.out.println("In duration spell event");
-            ISpellcasting cap = Utils.getSpellCap(event.getEntityLiving());
-            Spell spell = GameRegistry.findRegistry(Spell.class).getValue(cap.getActiveSpell());
-
-            if (spell.getCastType() == CastType.DURATION || spell.getCastType() == CastType.CHANNELED)
-            {
-                System.out.println("Setting cast duration");
-                event.setDuration(spell.getCastDuration());
-            }
-            else
-            {
-                event.setDuration(1);
-            }
-
-        }
-    }
-
-    @SubscribeEvent
     public static void channeledSpell(LivingEntityUseItemEvent.Tick event)
     {
         if (event.getItem().getItem() instanceof SpellcastingItem)
         {
-            ISpellcasting cap = Utils.getSpellCap(event.getEntityLiving());
+            ISpellcasting cap = Utils.getSpellCap(event.getEntityLiving().getHeldItemMainhand());
             Spell spell = GameRegistry.findRegistry(Spell.class).getValue(cap.getActiveSpell());
 
             if (spell.getCastType() == CastType.CHANNELED)

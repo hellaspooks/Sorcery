@@ -296,6 +296,7 @@ public class Sorcery
             if (event.getObject().getItem() instanceof SpellcastingItem)
             {
                 event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
+                event.addCapability(SpellcastingCapability.SPELLCASTING_LOC, new SpellcastingProvider());
             }
             if (event.getObject().getItem() instanceof SpellGrantingItem)
             {

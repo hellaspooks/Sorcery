@@ -40,6 +40,7 @@ public class SpellGrantingItem extends Item
 
         ISpellcasting playerCap = Utils.getSpellCap(playerIn);
 
+
         for ( ResourceLocation spell : itemCap.getKnownSpells() )
         {
             playerCap.addKnownSpell(spell);
@@ -49,6 +50,31 @@ public class SpellGrantingItem extends Item
         for ( ResourceLocation spell : itemCap.getPreparedSpells() )
         {
             playerCap.addPreparedSpell(spell);
+        }
+
+        ISpellcasting staffCap = null;
+
+        for (ItemStack stack : playerIn.inventory.mainInventory)
+        {
+            if (stack.getItem() instanceof SpellcastingItem)
+            {
+                staffCap = Utils.getSpellCap(stack);
+            }
+        }
+
+        if (staffCap != null)
+        {
+            for ( ResourceLocation spell : itemCap.getKnownSpells() )
+            {
+                staffCap.addKnownSpell(spell);
+            }
+
+            // For development, this should be handled by some other method later
+            for ( ResourceLocation spell : itemCap.getPreparedSpells() )
+            {
+                staffCap.addPreparedSpell(spell);
+            }
+
         }
 
         return new ActionResult<>(ActionResultType.SUCCESS, itemStack);

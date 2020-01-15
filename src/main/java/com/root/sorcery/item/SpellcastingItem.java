@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-import static com.root.sorcery.utils.Utils.getSpellFromEntity;
+import static com.root.sorcery.utils.Utils.getSpellFromProvider;
 
 public class SpellcastingItem extends Item
 {
@@ -30,7 +30,7 @@ public class SpellcastingItem extends Item
     @Override
     public int getUseDuration(ItemStack stack)
     {
-        return 100;
+        return getSpellFromProvider(stack).castDuration;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class SpellcastingItem extends Item
     // Actually casting a spell
     public ActionResultType castSpell(SpellUseContext context)
     {
-        Spell spellToCast = getSpellFromEntity(context.getPlayer());
+        Spell spellToCast = getSpellFromProvider(context.getItem());
 
         // If duration spell, set active hand and pass
         if ( spellToCast.getCastType() == CastType.DURATION || spellToCast.getCastType() == CastType.CHANNELED)
@@ -92,17 +92,20 @@ public class SpellcastingItem extends Item
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving)
     {
         SpellUseContext spellContext = new SpellUseContext(worldIn, entityLiving, entityLiving.getActiveHand());
-        Spell spellToCast = getSpellFromEntity(entityLiving);
+        Spell spellToCast = getSpellFromProvider(entityLiving);
         spellToCast.cast(spellContext);
         return stack;
     }
 
+    // NBT handlers
     @Override
     public CompoundNBT getShareTag(ItemStack stack)
     {
         CompoundNBT baseTag = stack.getTag();
         CompoundNBT arcanaTag = Utils.getArcanaCap(stack).serializeNBT();
+        CompoundNBT spellTag = Utils.getSpellCap(stack).serializeNBT();
         baseTag.put("arcanaCap", arcanaTag);
+        baseTag.put("spellCap", spellTag);
         return baseTag;
     }
 
@@ -110,6 +113,7 @@ public class SpellcastingItem extends Item
     public void readShareTag(ItemStack stack, @Nullable CompoundNBT nbt)
     {
         Utils.getArcanaCap(stack).deserializeNBT(nbt.getCompound("arcanaCap"));
+        Utils.getSpellCap(stack).deserializeNBT(nbt.getCompound("spellCap"));
         stack.setTag(nbt);
     }
 }
