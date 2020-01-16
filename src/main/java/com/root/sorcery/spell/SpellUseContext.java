@@ -180,4 +180,9 @@ public class SpellUseContext
         return true;
     }
 
+    public BlockPos getFacePos()
+    {
+        return this.getHitPos().offset(this.getHitFace());
+    }
+
 }
