@@ -35,7 +35,7 @@ public class ScrollEvent
 
         DrawScreenEvent.setShowSpellSelection(true);
 
-        ISpellcasting spellCap = Utils.getSpellCap(mc.player);
+        ISpellcasting spellCap = Utils.getSpellCap(heldItemStack);
 
         Double delta = event.getScrollDelta();
 

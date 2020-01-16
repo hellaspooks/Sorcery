@@ -25,22 +25,20 @@ public class Spell extends ForgeRegistryEntry<Spell>
     public ActionResultType cast(SpellUseContext context)
     {
 
-        // Try to drain Arcana
         if (!drainArcana(context, this.arcanaCost))
-            return ActionResultType.FAIL;
-
-        // If arcana was successfully drained, cast the client+server spell components, and play sounds
-        this.playSound(context);
-
-        if (context.getWorld().isRemote())
         {
-            castClient(context);
             return ActionResultType.SUCCESS;
         }
-        else
+
+        playSound(context);
+
+        if (!context.getWorld().isRemote())
         {
+            castServer(context);
             doParticleEffects(context);
-            return castServer(context);
+            return ActionResultType.SUCCESS;
+        } else {
+            return castClient(context);
         }
     }
 
@@ -51,9 +49,9 @@ public class Spell extends ForgeRegistryEntry<Spell>
     }
 
     // Client-side only stuff happens here
-    public void castClient(SpellUseContext context)
+    public ActionResultType castClient(SpellUseContext context)
     {
-
+        return ActionResultType.SUCCESS;
     }
 
     // Send packets to play particle effects
@@ -65,20 +63,28 @@ public class Spell extends ForgeRegistryEntry<Spell>
         context.getWorld().playSound(context.getPlayer(), context.getPos(), this.sound, this.soundCategory, 1.0F, context.getWorld().rand.nextFloat() * 0.4F + 0.8F);
     }
 
-
     // Drain Arcana from caster, return true if successful
     public boolean drainArcana(SpellUseContext context, int arcanaCost)
     {
-        if (context.getArcanaSource().getArcanaStored() >= arcanaCost){
-            context.getArcanaSource().extractArcana(arcanaCost, false);
-
-            return true;
-        }
-        else
+        if (!context.getWorld().isRemote())
         {
-            return false;
+            // Server side, check + drain
+            if (context.getArcanaSource().getArcanaStored() >= arcanaCost)
+            {
+                context.getArcanaSource().extractArcana(arcanaCost, false);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            // Client side, just check
+            if (context.getArcanaSource().getArcanaStored() >= arcanaCost)
+            {
+                return true;
+            } else {
+                return false;
+            }
         }
-
     }
 
     public int getCastDuration(){

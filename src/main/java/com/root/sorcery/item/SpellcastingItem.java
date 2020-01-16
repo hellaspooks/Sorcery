@@ -30,17 +30,8 @@ public class SpellcastingItem extends Item
     @Override
     public int getUseDuration(ItemStack stack)
     {
-        CompoundNBT nbt = stack.getTag();
-        System.out.println(nbt);
-        if (nbt.contains("spellDuration"))
-        {
-            int duration = stack.getTag().getInt("spellDuration");
-            System.out.println(duration);
-            return duration;
-        } else {
-            System.out.println("default duration");
-            return 1;
-        }
+        int castDuration = getSpellFromProvider(stack).getCastDuration();
+        return castDuration;
     }
 
     @Override
@@ -86,9 +77,10 @@ public class SpellcastingItem extends Item
     public ActionResultType castSpell(SpellUseContext context)
     {
         Spell spellToCast = getSpellFromProvider(context.getItem());
+        CastType castType = spellToCast.getCastType();
 
-        // If duration spell, set active hand and pass
-        if ( spellToCast.getCastType() == CastType.DURATION || spellToCast.getCastType() == CastType.CHANNELED)
+        // If duration or channeled spell, set active hand and pass
+        if ( castType == CastType.DURATION || castType == CastType.CHANNELED)
         {
             context.getPlayer().setActiveHand(context.getHand());
             return ActionResultType.SUCCESS;
@@ -102,19 +94,33 @@ public class SpellcastingItem extends Item
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving)
     {
         SpellUseContext spellContext = new SpellUseContext(worldIn, entityLiving, entityLiving.getActiveHand());
-        Spell spellToCast = getSpellFromProvider(entityLiving);
+        Spell spellToCast = getSpellFromProvider(stack);
         spellToCast.cast(spellContext);
         return stack;
     }
 
+    // Needed to make channeled spells work
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack)
+    {
+        return true;
+    }
+
+    // NBT handlers
     @Override
     public CompoundNBT getShareTag(ItemStack stack)
     {
         CompoundNBT baseTag = stack.getTag();
         CompoundNBT arcanaTag = Utils.getArcanaCap(stack).serializeNBT();
+        CompoundNBT spellTag = Utils.getSpellCap(stack).serializeNBT();
         baseTag.put("arcanaCap", arcanaTag);
-        CompoundNBT spellCastingTag = Utils.getSpellCap(stack).serializeNBT();
-        baseTag.put("spellCap", spellCastingTag);
+        baseTag.put("spellCap", spellTag);
         return baseTag;
     }
 
@@ -123,7 +129,6 @@ public class SpellcastingItem extends Item
     {
         Utils.getArcanaCap(stack).deserializeNBT(nbt.getCompound("arcanaCap"));
         Utils.getSpellCap(stack).deserializeNBT(nbt.getCompound("spellCap"));
-        nbt.putInt("spellDuration", 1);
         stack.setTag(nbt);
     }
 }

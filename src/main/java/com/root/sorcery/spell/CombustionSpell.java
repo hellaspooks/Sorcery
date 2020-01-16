@@ -40,7 +40,6 @@ public class CombustionSpell extends Spell
                 entity.attackEntityFrom(DamageSource.ON_FIRE, this.dmgPerTick);
             }
         }
-
         return ActionResultType.SUCCESS;
     }
 
