@@ -1,0 +1,15 @@
+.tab:active:first-child {
+    background-texture: url("sorcery:textures/gui/grimoire/tab_begin.png");
+}
+
+.tab:active {
+    background-texture: url("sorcery:textures/gui/grimoire/tab_middle.png");
+}
+
+.tab:first-child {
+    background-texture: url("sorcery:textures/gui/grimoire/tab_begin_inactive.png");
+}
+
+.tab {
+    background-texture: url("sorcery:textures/gui/grimoire/tab_inactive.png");
+}

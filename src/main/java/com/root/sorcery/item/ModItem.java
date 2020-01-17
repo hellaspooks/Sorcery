@@ -1,4 +1,5 @@
 package com.root.sorcery.item;
+
 import com.root.sorcery.Constants;
 import com.root.sorcery.block.ModBlock;
 import com.root.sorcery.entity.ModEntity;
@@ -164,7 +165,6 @@ public class ModItem
     public static Item mythril_fittings;
 
 
-
     public static void init(RegistryEvent.Register<Item> event)
     {
         // Simple Items
@@ -185,14 +185,14 @@ public class ModItem
 
         // Crystals
         registerItem("carnelian", new CrystalItem(Constants.ITEM_PROPS), event);
-        registerItem( "chalcedony", new CrystalItem(Constants.ITEM_PROPS), event);
+        registerItem("chalcedony", new CrystalItem(Constants.ITEM_PROPS), event);
         registerItem("sugilite", new CrystalItem(Constants.ITEM_PROPS), event);
         registerItem("jasper", new CrystalItem(Constants.ITEM_PROPS), event);
         registerItem("serpentine", new CrystalItem(Constants.ITEM_PROPS), event);
         registerItem("nuummite", new CrystalItem(Constants.ITEM_PROPS), event);
 
         // Geode
-        registerItem( "geode", new GeodeItem(Constants.ITEM_PROPS), event);
+        registerItem("geode", new GeodeItem(Constants.ITEM_PROPS), event);
 
         // Crushed Wolframite
         registerItem("crushed_wolframite", new CrushedWolframiteItem(), event);
@@ -208,6 +208,7 @@ public class ModItem
 
         // Arcanomicon
         registerItem("cryptoglyph", new SpellGrantingItem(Constants.ITEM_PROPS), event);
+        registerItem("grimoire", new GrimoireItem(Constants.ITEM_PROPS), event);
 
         //Spawn Eggs
         registerItem("toad_spawn_egg", new SpawnEggItem(ModEntity.TOAD, 4470310, 10592673, Constants.ITEM_PROPS), event);
@@ -236,23 +237,23 @@ public class ModItem
 
         // Rods
         staffComponentItemFactory("rod", "acacia", event);
-        staffComponentItemFactory("rod","birch", event);
-        staffComponentItemFactory("rod","dark_oak", event);
-        staffComponentItemFactory("rod","jungle", event);
-        staffComponentItemFactory("rod","oak", event);
-        staffComponentItemFactory("rod","spruce", event);
+        staffComponentItemFactory("rod", "birch", event);
+        staffComponentItemFactory("rod", "dark_oak", event);
+        staffComponentItemFactory("rod", "jungle", event);
+        staffComponentItemFactory("rod", "oak", event);
+        staffComponentItemFactory("rod", "spruce", event);
 
         // Catalysts
-        staffComponentItemFactory("catalyst","initiate", event);
-        staffComponentItemFactory("catalyst","apprentice", event);
-        staffComponentItemFactory("catalyst","magician", event);
-        staffComponentItemFactory("catalyst","archmage", event);
+        staffComponentItemFactory("catalyst", "initiate", event);
+        staffComponentItemFactory("catalyst", "apprentice", event);
+        staffComponentItemFactory("catalyst", "magician", event);
+        staffComponentItemFactory("catalyst", "archmage", event);
 
         // Fittings
-        staffComponentItemFactory("fittings","iron", event);
-        staffComponentItemFactory("fittings","gold", event);
-        staffComponentItemFactory("fittings","wolfram", event);
-        staffComponentItemFactory("fittings","mythril", event);
+        staffComponentItemFactory("fittings", "iron", event);
+        staffComponentItemFactory("fittings", "gold", event);
+        staffComponentItemFactory("fittings", "wolfram", event);
+        staffComponentItemFactory("fittings", "mythril", event);
 
         // Register Block Items
         // Simple Blocks
@@ -275,7 +276,6 @@ public class ModItem
         blockItemFactory(ModBlock.RUNEWOOD_PLANK_SLAB, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.RUNEWOOD_PLANK_STAIRS, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.RUNEWOOD_PLANK_FENCE, Constants.ITEM_PROPS, event);
-
 
 
         // Blocks with tile entities
