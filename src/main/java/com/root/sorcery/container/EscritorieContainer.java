@@ -22,6 +22,9 @@ public class EscritorieContainer extends Container
     private int resultSlotX = 0;
     private int resultSlotY = 0;
 
+    public int activeTab = 2;
+    public boolean spellPage = true;
+
 
     public EscritorieContainer(int id, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player)
     {

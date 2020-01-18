@@ -33,6 +33,25 @@ public class ModItem
     @ObjectHolder("sigil_slate")
     public static Item sigil_slate;
 
+    // Tomes
+    @ObjectHolder("tome_abjuration")
+    public static Item TOME_ABJURATION;
+
+    @ObjectHolder("tome_conjuration")
+    public static Item TOME_CONJURATION;
+
+    @ObjectHolder("tome_enchantment")
+    public static Item TOME_ENCHANTMENT;
+
+    @ObjectHolder("tome_evocation")
+    public static Item TOME_EVOCATION;
+
+    @ObjectHolder("tome_necromancy")
+    public static Item TOME_NECROMANCY;
+
+    @ObjectHolder("tome_transmutation")
+    public static Item TOME_TRANSMUTATION;
+
     // Sigils
     @ObjectHolder("sigil_evocation")
     public static Item sigil_evocation;
@@ -129,6 +148,13 @@ public class ModItem
         simpleItemFactory("mythril_ingot", event);
         simpleItemFactory("sigil_slate", event);
 
+        // Tomes
+        simpleItemFactory("tome_abjuration", event);
+        simpleItemFactory("tome_conjuration", event);
+        simpleItemFactory("tome_enchantment", event);
+        simpleItemFactory("tome_evocation", event);
+        simpleItemFactory("tome_necromancy", event);
+        simpleItemFactory("tome_transmutation", event);
 
         // Crystals
         registerItem("carnelian", new CrystalItem(Constants.ITEM_PROPS), event);
@@ -148,6 +174,7 @@ public class ModItem
         registerItem("sigil_enchantment", new SigilItem(Constants.ITEM_PROPS), event);
         registerItem("sigil_necromancy", new SigilItem(Constants.ITEM_PROPS), event);
         registerItem("sigil_transmutation", new SigilItem(Constants.ITEM_PROPS), event);
+
 
         // Arcanomicon
         registerItem("cryptoglyph", new SpellGrantingItem(Constants.ITEM_PROPS), event);
