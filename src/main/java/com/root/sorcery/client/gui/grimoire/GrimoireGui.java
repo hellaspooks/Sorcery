@@ -18,7 +18,7 @@ public class GrimoireGui extends BrokkGuiScreen implements IGuiTab
 {
     public static final float TAB_HEIGHT = 30;
     public static final float GUI_WIDTH  = 252;
-    public static final float GUI_HEIGHT = 219;
+    public static final float GUI_HEIGHT = 191;
 
     private static final Texture BACKGROUND = new Texture(Constants.MODID + ":textures/gui/grimoire/window.png");
 
