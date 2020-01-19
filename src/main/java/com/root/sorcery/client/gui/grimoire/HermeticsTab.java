@@ -49,6 +49,7 @@ public class HermeticsTab extends GuiAbsolutePane implements IGuiTab
         research.setScrollable(false);
         research.setScrollXPolicy(GuiScrollbarPolicy.NEVER);
         research.setScrollYPolicy(GuiScrollbarPolicy.NEVER);
+        research.setID("research-panel-outer");
         research.setSize(234, 154);
 
         addChild(research, 9, 18);
