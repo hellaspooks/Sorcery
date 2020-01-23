@@ -58,6 +58,9 @@ public class Config
     public static ForgeConfigSpec.IntValue MONOLITH_LUNAR_GENERATE;
     public static ForgeConfigSpec.IntValue MONOLITH_DARK_GENERATE;
 
+    // Raise Zombie config items
+    public static ForgeConfigSpec.IntValue RAISE_ZOMBIE_SPELL_COST;
+
     static {
 
         COMMON_BUILDER.comment("General Settings").push(CATEGORY_GENERAL);
@@ -99,6 +102,7 @@ public class Config
         FIREBOLT_SPELL_DAMAGE = spellIntParamHelper("firebolt", "Cost", 3, 0, Integer.MAX_VALUE);
         FIREBOLT_SPELL_FIRE_DURATION = spellIntParamHelper("firebolt", "Cost", 3, 0, Integer.MAX_VALUE);
 
+        RAISE_ZOMBIE_SPELL_COST = spellIntParamHelper("raiseZombie", "Cost", 200, 0, Integer.MAX_VALUE);
 
         // After every config added
         COMMON_BUILDER.pop();
