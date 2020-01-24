@@ -102,4 +102,18 @@ public class ParticleEffects
         }
 
     }
+
+    public static void smallFountain(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
+    {
+        for ( int i = 0; i < numParticles; i++)
+        {
+            double vX = world.rand.nextDouble() * radius;
+            double vZ = world.rand.nextDouble() * radius;
+            double vY = speed;
+
+            world.addParticle(particle, loc.getX(), loc.getY(), loc.getZ(), vX, vY, vZ);
+        }
+
+    }
+
 }

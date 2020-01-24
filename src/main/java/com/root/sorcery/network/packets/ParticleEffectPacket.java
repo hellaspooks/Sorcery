@@ -9,6 +9,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -96,6 +97,9 @@ public class ParticleEffectPacket
                             break;
                         case 4:
                             ParticleEffects.sendTo(world, ModParticle.ARCANA_ORB, loc, lookVec, num, speed, radius);
+                            break;
+                        case 5:
+                            ParticleEffects.smallFountain(world, ((BasicParticleType) particle), loc, lookVec, num, speed, radius);
                             break;
                     }
                 }

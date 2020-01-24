@@ -1,7 +1,6 @@
 package com.root.sorcery.container;
 
 import com.root.sorcery.Sorcery;
-import com.root.sorcery.client.gui.EscritorieContainerScreen;
 import com.root.sorcery.client.gui.StaffLatheContainerScreen;
 import com.root.sorcery.client.gui.WolframBlastFurnaceGui;
 import net.minecraft.client.gui.ScreenManager;
@@ -26,14 +25,11 @@ public class Containers
     @ObjectHolder("sorcery:staff_lathe_container")
     public static ContainerType<StaffLatheContainer> STAFF_LATHE_CONTAINER;
 
-    @ObjectHolder("sorcery:escritorie_container")
-    public static ContainerType<EscritorieContainer> ESCRITORIE_CONTAINER;
 
     public static void registerScreens()
     {
         ScreenManager.registerFactory(WOLFRAM_BLAST_FURNACE, WolframBlastFurnaceGui::new);
         ScreenManager.registerFactory(STAFF_LATHE_CONTAINER, StaffLatheContainerScreen::new);
-        ScreenManager.registerFactory(ESCRITORIE_CONTAINER, EscritorieContainerScreen::new);
     }
 
     @SubscribeEvent
@@ -46,9 +42,5 @@ public class Containers
             return new StaffLatheContainer(windowId, Sorcery.proxy.getClientWorld(), pos, inv, Sorcery.proxy.getClientPlayer());
         }).setRegistryName("sorcery:staff_lathe_container"));
 
-        event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
-            BlockPos pos = data.readBlockPos();
-            return new EscritorieContainer(windowId, Sorcery.proxy.getClientWorld(), pos, inv, Sorcery.proxy.getClientPlayer());
-        }).setRegistryName("sorcery:escritorie_container"));
     }
 }
