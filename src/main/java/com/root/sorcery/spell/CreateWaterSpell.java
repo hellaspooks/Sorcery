@@ -5,6 +5,7 @@ import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ParticleEffectPacket;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
@@ -28,7 +29,10 @@ public class CreateWaterSpell extends Spell
 
             if (!context.getWorld().isAirBlock(waterPos))
             {
-                return ActionResultType.FAIL;
+                if (!(context.getWorld().getBlockState(waterPos).getBlock() instanceof FlowingFluidBlock))
+                {
+                    return ActionResultType.FAIL;
+                }
             }
 
             BlockState blockState = Blocks.WATER.getDefaultState();
@@ -48,7 +52,8 @@ public class CreateWaterSpell extends Spell
     public void doParticleEffects(SpellUseContext context)
     {
         System.out.println("trying to do particle effects");
-        Vec3d loc = context.getHitVec().add(0.5, 1, 0.5);
+        BlockPos waterPos = context.getFacePos();
+        Vec3d loc = new Vec3d(waterPos).add(0.5, 1,0.5);
         ParticleEffectPacket pkt1 = new ParticleEffectPacket(5, ParticleTypes.SPLASH, loc, loc, 20, 2, 2);
         PacketHandler.sendToAllTracking(context.getPlayer(), pkt1);
     }
