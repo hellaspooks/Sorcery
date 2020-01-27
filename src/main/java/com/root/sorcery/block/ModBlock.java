@@ -133,6 +133,7 @@ public class ModBlock
         registerTileBlocks(event, "monolith_lunar", new MonolithBlock());
         registerTileBlocks(event, "monolith_solar", new MonolithBlock());
 
+
     }
 
     public static Block simpleBlockFactory(RegistryEvent.Register<Block> event, String registryName, Material material, Float hardness, Float resistance, SoundType sound)
