@@ -93,9 +93,6 @@ public class ModBlock
     @ObjectHolder("staff_lathe")
     public static Block STAFF_LATHE;
 
-    @ObjectHolder("escritorie")
-    public static Block ESCRITORIE;
-
     public static void init(RegistryEvent.Register<Block> event)
     {
         // Simple Blocks
@@ -130,7 +127,6 @@ public class ModBlock
         registerTileBlocks(event, "reliquary", new ReliquaryBlock());
         registerTileBlocks(event, "pylon", new PylonBlock());
         registerTileBlocks(event, "staff_lathe", new StaffLatheBlock());
-        registerTileBlocks(event, "escritorie", new EscritorieBlock());
 
         registerTileBlocks(event, "monolith_basic", new MonolithBlock());
         registerTileBlocks(event, "monolith_dark", new MonolithBlock());
