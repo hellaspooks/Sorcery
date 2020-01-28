@@ -5,6 +5,7 @@ import com.google.common.collect.Collections2;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ParticleEffectPacket;
 import com.root.sorcery.particle.ModParticle;
+import com.root.sorcery.particle.ParticleEffects;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -68,7 +69,7 @@ public class ArcanaVacuumTile extends TileEntity implements ITickableTileEntity
         for (ArcanaStorageTile tile : this.currentSources)
         {
             target -= tile.extractArcana(target);
-            ParticleEffectPacket pkt = new ParticleEffectPacket(4, ModParticle.ARCANA_ORB, tile.arcanaPulseSource, new Vec3d(this.pos), 1, 1, 0);
+            ParticleEffectPacket pkt = new ParticleEffectPacket(4, ParticleEffects.getArcanaOrb(), tile.arcanaPulseSource, new Vec3d(this.pos), 1, 1, 0);
             PacketHandler.sendToAllTrackingChunk(world.getChunkAt(this.pos), pkt);
 
             if (target <= 0)

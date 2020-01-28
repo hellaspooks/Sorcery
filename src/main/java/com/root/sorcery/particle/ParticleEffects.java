@@ -116,4 +116,14 @@ public class ParticleEffects
 
     }
 
+    public static IParticleData getArcanaOrb()
+    {
+        return new RGBAParticleData(ModParticle.ARCANA_ORB, 178f/255f, 102f/255f, 1, 1);
+    }
+
+    public static IParticleData getSpark()
+    {
+        return new RGBAParticleData(178f/255f, 102f/255f, 1, 1);
+    }
+
 }

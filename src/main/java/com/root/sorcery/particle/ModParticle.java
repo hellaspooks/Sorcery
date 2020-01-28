@@ -33,7 +33,7 @@ public class ModParticle
     {
         SIMPLE_PUFF = basicParticleFactory("sorcery:puff", event);
         registerParticle(new RGBAParticleType(), "sorcery:spark1", event);
-        registerParticle(new RGBAParticleType(178f/255f, 102f/255f, 1, 1), "sorcery:arcana_orb", event);
+        registerParticle(new RGBAParticleType(), "sorcery:arcana_orb", event);
     }
 
     public static void registerParticle(ParticleType<?> particleType, String regName, RegistryEvent.Register<ParticleType<?>> event)
