@@ -2,13 +2,12 @@ package com.root.sorcery.particle;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import java.util.Locale;
@@ -38,11 +37,11 @@ public class RGBAParticleData implements IParticleData
         this.g = g;
         this.b = b;
         this.a = a;
+        this.particleType = ModParticle.RGBA_SPARK;
     }
 
     public RGBAParticleData(ParticleType<RGBAParticleData> particleType, float r, float g, float b, float a)
     {
-
         this.r = r;
         this.g = g;
         this.b = b;
@@ -69,8 +68,9 @@ public class RGBAParticleData implements IParticleData
     @Override
     public String getParameters()
     {
-        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %.2f %s",
-                this.getType().getRegistryName(), this.r, this.g, this.b, this.a);
+        String params = String.format(Locale.ROOT, "%s %f %f %f %f", this.getType().getRegistryName(), this.r, this.g, this.b, this.a);
+        System.out.println(params);
+        return params;
     }
 
     public static final IDeserializer<RGBAParticleData> DESERIALIZER = new IDeserializer<RGBAParticleData>() {
@@ -78,7 +78,8 @@ public class RGBAParticleData implements IParticleData
         @Override
         public RGBAParticleData deserialize(@Nonnull ParticleType<RGBAParticleData> type, @Nonnull StringReader reader) throws CommandSyntaxException
         {
-            reader.expect(' ');
+            String regName = reader.readStringUntil(' ');
+            IForgeRegistryEntry regParticle = GameRegistry.findRegistry(ParticleType.class).getValue(new ResourceLocation(regName));
             float r = reader.readFloat();
             reader.expect(' ');
             float g = reader.readFloat();
@@ -86,7 +87,7 @@ public class RGBAParticleData implements IParticleData
             float b = reader.readFloat();
             reader.expect(' ');
             float a = reader.readFloat();
-            return new RGBAParticleData(r, g, b, a);
+            return new RGBAParticleData((ParticleType)regParticle, r, g, b, a);
         }
 
         @Override

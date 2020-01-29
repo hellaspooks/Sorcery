@@ -2,12 +2,14 @@ package com.root.sorcery.tileentity;
 
 import com.root.sorcery.block.PylonBlock;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.math.Vec3d;
 
 public class PylonTile extends ArcanaStorageTile implements ITickableTileEntity
 {
     public PylonTile()
     {
         super(ModTile.PYLON_TILE);
+        this.arcanaPulseOffset = new Vec3d(0.5, 1, 0.5);
     }
 
 
