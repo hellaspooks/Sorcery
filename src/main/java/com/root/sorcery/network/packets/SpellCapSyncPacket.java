@@ -32,13 +32,15 @@ public class SpellCapSyncPacket
 
     public static void encode(SpellCapSyncPacket pkt, PacketBuffer buf)
     {
-        buf.writeInt(pkt.slot);
         buf.writeCompoundTag(pkt.capNBT);
+        buf.writeInt(pkt.slot);
     }
 
     public static SpellCapSyncPacket decode(PacketBuffer buf)
     {
-        return new SpellCapSyncPacket(buf.readCompoundTag());
+        CompoundNBT tag = buf.readCompoundTag();
+        int slot = buf.readInt();
+        return new SpellCapSyncPacket(tag, slot);
     }
 
     public static class Handler
