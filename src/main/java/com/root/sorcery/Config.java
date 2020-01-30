@@ -36,6 +36,10 @@ public class Config
 
     public static ForgeConfigSpec.IntValue IGNITE_SPELL_COST;
 
+    public static ForgeConfigSpec.IntValue MAGIC_MISSILE_SPELL_COST;
+    public static ForgeConfigSpec.IntValue MAGIC_MISSILE_SPELL_DAMAGE;
+    //TODO add max distance and velocity if specified
+
     public static ForgeConfigSpec.IntValue PLANT_DEATH_SPELL_COST;
     public static ForgeConfigSpec.IntValue PLANT_DEATH_SPELL_RANGE;
 
@@ -88,6 +92,9 @@ public class Config
         COMBUSTION_SPELL_DAMAGE = spellIntParamHelper("combustion", "Damage",1, 0, Integer.MAX_VALUE);
 
         IGNITE_SPELL_COST = spellIntParamHelper("ignite", "Cost", 20, 0, Integer.MAX_VALUE);
+
+        MAGIC_MISSILE_SPELL_COST = spellIntParamHelper("magicMissile", "Cost", 3, 0, Integer.MAX_VALUE);
+        MAGIC_MISSILE_SPELL_DAMAGE = spellIntParamHelper("magicMissile", "Damage", 2, 0, Integer.MAX_VALUE);
 
         PLANT_DEATH_SPELL_COST = spellIntParamHelper("plantDeath", "Cost", 200, 0, Integer.MAX_VALUE);
         PLANT_DEATH_SPELL_RANGE = spellIntParamHelper("plantDeath", "Range", 8, 0, 64);
