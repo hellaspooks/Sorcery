@@ -1,8 +1,12 @@
 package com.root.sorcery.particle;
 
+import com.root.sorcery.Constants;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Random;
 
 /**
  * These methods are arrangements and starting velocities of particles.
@@ -12,6 +16,7 @@ import net.minecraft.world.World;
  */
 public class ParticleEffects
 {
+
 
     // Bunch of particles within random radius of location, that rise with speed riseSpeed
     public static void risePoof(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
@@ -37,14 +42,25 @@ public class ParticleEffects
             world.addParticle(particle, loc.getX(), loc.getY(), loc.getZ(), vecX, 0, vecZ);
         }
     }
+    public static void arcanaPulse(World world, IParticleData particle, Vec3d origin, Vec3d dest, int density, double speed, double radius)
+    {
+        int color1 = world.rand.nextInt(2);
+        int color2 = world.rand.nextInt(2);
+        int color3 = world.rand.nextInt(2);
+        sendTo(world.getWorld(), getArcanaOrb(color1), origin, dest, 1, 1, 0);
+        sendTo(world.getWorld(), getArcanaSpark1(color2), origin, dest, 1, 0.95, 0);
+        sendTo(world.getWorld(), getArcanaSpark3(color3), origin, dest, 1, 0.9, 0);
+        sendTo(world.getWorld(), getArcanaSpark3(color2), origin, dest, 1, 0.85, 0);
+        sendTo(world.getWorld(), getArcanaSpark1(color1), origin, dest, 1, 0.8, 0);
+    }
 
     // line of particles moving towards endpoint
     public static void sendTo(World world, IParticleData particle, Vec3d origin, Vec3d dest, int density, double speed, double radius)
     {
         Vec3d ray = dest.subtract(origin).normalize();
         double distance = dest.distanceTo(origin);
-        int age = 20;
-        double realSpeed = distance / (double) age;
+        int age = 40;
+        double realSpeed = (distance / (double) age) * speed;
         Vec3d vec = ray.mul(realSpeed, realSpeed, realSpeed);
         world.addParticle(particle, origin.getX(), origin.getY(), origin.getZ(), vec.getX(), vec.getY(), vec.getZ());
     }
@@ -116,14 +132,33 @@ public class ParticleEffects
 
     }
 
-    public static IParticleData getArcanaOrb()
+    // get particle data instances for certain common effects
+    public static IParticleData getArcanaOrb(int color)
     {
-        return new RGBAParticleData(ModParticle.ARCANA_ORB, 178f/255f, 102f/255f, 1, 1);
+        List<Integer> rgb = Constants.arcanaColors.get(color);
+        return new RGBAParticleData(ModParticle.ARCANA_ORB, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.7f);
+    }
+
+    public static IParticleData getArcanaSpark1(int color)
+    {
+        List<Integer> rgb = Constants.arcanaColors.get(color);
+        return new RGBAParticleData(ModParticle.ARCANA_SPARK_1, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
+    }
+
+    public static IParticleData getArcanaSpark3(int color)
+    {
+        List<Integer> rgb = Constants.arcanaColors.get(color);
+        return new RGBAParticleData(ModParticle.ARCANA_SPARK_3, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
     }
 
     public static IParticleData getSpark()
     {
-        return new RGBAParticleData(178f/255f, 102f/255f, 1, 1);
+        return new RGBAParticleData();
+    }
+
+    public static IParticleData getPuff()
+    {
+        return new RGBAParticleData(ModParticle.SIMPLE_PUFF, 1, 1, 1, 1);
     }
 
 }
