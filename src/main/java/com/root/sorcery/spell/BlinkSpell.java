@@ -4,6 +4,8 @@ import com.root.sorcery.Config;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ParticleEffectPacket;
 import com.root.sorcery.particle.ModParticle;
+import com.root.sorcery.particle.ParticleEffects;
+import com.root.sorcery.particle.RGBAParticleData;
 import com.root.sorcery.potion.ModEffect;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.entity.player.PlayerEntity;
@@ -83,7 +85,7 @@ public class BlinkSpell extends Spell
         Vec3d loc = context.getPlayer().getPositionVec().add(0,1, 0);
         Vec3d look = context.getPlayer().getLookVec();
 
-        ParticleEffectPacket pkt = new ParticleEffectPacket(2, ModParticle.RGBA_SPARK, loc, look, 100, 0.5, 0.2);
+        ParticleEffectPacket pkt = new ParticleEffectPacket(2, ParticleEffects.getSpark(), loc, look, 100, 0.5, 0.2);
         PacketHandler.sendToAllTracking(context.getPlayer(), pkt);
     }
 }

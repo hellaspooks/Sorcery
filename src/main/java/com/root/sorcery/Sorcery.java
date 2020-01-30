@@ -18,8 +18,6 @@ import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
 import com.root.sorcery.network.packets.SpellCapSyncPacket;
 import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.RGBAParticle;
-import com.root.sorcery.particle.SimpleParticle;
-import com.root.sorcery.particle.SlowOutParticle;
 import com.root.sorcery.potion.ModEffect;
 import com.root.sorcery.setup.ClientProxy;
 import com.root.sorcery.setup.IProxy;
@@ -202,9 +200,11 @@ public class Sorcery
         {
             Minecraft mc = Minecraft.getInstance();
 
-            mc.particles.registerFactory(ModParticle.SIMPLE_PUFF, SimpleParticle.Factory::new);
+            mc.particles.registerFactory(ModParticle.SIMPLE_PUFF, RGBAParticle.Factory::new);
             mc.particles.registerFactory(ModParticle.RGBA_SPARK, RGBAParticle.Factory::new);
             mc.particles.registerFactory(ModParticle.ARCANA_ORB, RGBAParticle.Factory::new);
+            mc.particles.registerFactory(ModParticle.ARCANA_SPARK_1, RGBAParticle.Factory::new);
+            mc.particles.registerFactory(ModParticle.ARCANA_SPARK_3, RGBAParticle.Factory::new);
         }
 
         @SubscribeEvent
