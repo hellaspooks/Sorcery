@@ -217,6 +217,8 @@ public class ModItem
         blockItemFactory(ModBlock.STRIPPED_RUNEWOOD_LOG, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.RUNEWOOD_LEAVES, Constants.ITEM_PROPS, event);
 
+        blockItemFactory(ModBlock.WOLFRAMITE_ORE, Constants.ITEM_PROPS, event);
+
         // Blocks with variations
         blockItemFactory(ModBlock.RUNESTONE_BRICKS, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.RUNESTONE_BRICK_SLAB, Constants.ITEM_PROPS, event);
@@ -226,7 +228,7 @@ public class ModItem
         blockItemFactory(ModBlock.RUNEWOOD_PLANKS, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.RUNEWOOD_PLANK_SLAB, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.RUNEWOOD_PLANK_STAIRS, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNEWOOD_PLANK_WALL, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNEWOOD_PLANK_FENCE, Constants.ITEM_PROPS, event);
 
 
 
