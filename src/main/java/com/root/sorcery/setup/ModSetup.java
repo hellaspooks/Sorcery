@@ -1,6 +1,7 @@
 package com.root.sorcery.setup;
 
 import com.root.sorcery.item.ModItem;
+import com.root.sorcery.world.OreGenerator;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
@@ -17,6 +18,8 @@ public class ModSetup {
 
 
     public void init(){
+
+        OreGenerator.overworldOreGen();
 
     }
 
