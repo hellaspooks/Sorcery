@@ -30,7 +30,7 @@ public class ModBlock
     public static LogBlock RUNEWOOD_LOG;
 
     @ObjectHolder("stripped_runewood_log")
-    public static LogBlock STRIPPED_RUNEWOOD_LOG;
+    public static StrippedRunewoodLogBlock STRIPPED_RUNEWOOD_LOG;
 
     @ObjectHolder("runewood_planks")
     public static Block RUNEWOOD_PLANKS;
@@ -98,6 +98,9 @@ public class ModBlock
     @ObjectHolder("staff_lathe")
     public static Block STAFF_LATHE;
 
+    @ObjectHolder("runewood_sapling")
+    public static Block RUNEWOOD_SAPLING;
+
     public static void init(RegistryEvent.Register<Block> event)
     {
         // Simple Blocks
@@ -110,9 +113,10 @@ public class ModBlock
         // non-simple blocks
         registerBlock(new WolframLanternBlock(), "wolfram_lantern", event);
         registerBlock(new StrippedRunewoodLogBlock(), "stripped_runewood_log", event);
-        registerBlock(new LogBlock(MaterialColor.RED, Block.Properties.create(Material.WOOD).hardnessAndResistance(3.0F, 2.0F).sound(SoundType.WOOD)), "runewood_log", event);
+        registerBlock(new RunewoodLogBlock(), "runewood_log", event);
         registerBlock(new LeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.PLANT)), "runewood_leaves", event);
         registerBlock(new AlchemicalWorkbenchBlock(), "alchemical_workbench", event);
+        registerBlock(new RunewoodSaplingBlock(), "runewood_sapling", event);
 
         // Blocks with variations
         RUNESTONE_BRICKS = simpleBlockFactory(event, "runestone_bricks", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
@@ -136,6 +140,8 @@ public class ModBlock
         registerTileBlocks(event, "monolith_dark", new MonolithBlock());
         registerTileBlocks(event, "monolith_lunar", new MonolithBlock());
         registerTileBlocks(event, "monolith_solar", new MonolithBlock());
+
+
 
 
     }

@@ -86,6 +86,10 @@ public class ModItem
     @ObjectHolder("geode")
     public static Item geode;
 
+    // Crushed Wolframite
+    @ObjectHolder("crushed_wolframite")
+    public static Item CRUSHED_WOLFRAMITE;
+
     // Arcanomicon
     @ObjectHolder("cryptoglyph")
     public static Item cryptoglyph;
@@ -167,6 +171,9 @@ public class ModItem
         // Geode
         registerItem("geode", new GeodeItem(Constants.ITEM_PROPS), event);
 
+        // Crushed Wolframite
+        registerItem("crushed_wolframite", new CrushedWolframiteItem(), event);
+
         // Sigils
         registerItem("sigil_evocation", new SigilItem(Constants.ITEM_PROPS), event);
         registerItem("sigil_conjuration", new SigilItem(Constants.ITEM_PROPS), event);
@@ -219,6 +226,8 @@ public class ModItem
         blockItemFactory(ModBlock.RUNEWOOD_LEAVES, Constants.ITEM_PROPS, event);
 
         blockItemFactory(ModBlock.WOLFRAMITE_ORE, Constants.ITEM_PROPS, event);
+
+        blockItemFactory(ModBlock.RUNEWOOD_SAPLING, Constants.ITEM_PROPS, event);
 
         // Blocks with variations
         blockItemFactory(ModBlock.RUNESTONE_BRICKS, Constants.ITEM_PROPS, event);

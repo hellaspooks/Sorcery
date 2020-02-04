@@ -20,6 +20,8 @@ public class Config
 
     public static final String CATEGORY_MONOLITHS = "monoliths";
 
+    public static final String CATEGORY_WORLDGEN = "worldgen";
+
     private static final ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
     private static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
 
@@ -66,6 +68,14 @@ public class Config
     public static ForgeConfigSpec.IntValue MONOLITH_LUNAR_GENERATE;
     public static ForgeConfigSpec.IntValue MONOLITH_DARK_GENERATE;
 
+    // Worldgen Config Items
+    public static ForgeConfigSpec.IntValue WOLFRAMITE_COUNT;
+    public static ForgeConfigSpec.IntValue WOLFRAMITE_BOTTOM_OFFSET;
+    public static ForgeConfigSpec.IntValue WOLFRAMITE_TOP_OFFSET;
+    public static ForgeConfigSpec.IntValue WOLFRAMITE_MAX_HEIGHT;
+    public static ForgeConfigSpec.IntValue WOLFRAMITE_CLUSTERS;
+
+
     static {
 
         COMMON_BUILDER.comment("General Settings").push(CATEGORY_GENERAL);
@@ -74,6 +84,8 @@ public class Config
         spellConfig();
 
         monolithConfig();
+
+        worldgenConfig();
 
         COMMON_CONFIG = COMMON_BUILDER.build();
         CLIENT_CONFIG = CLIENT_BUILDER.build();
@@ -128,6 +140,20 @@ public class Config
         MONOLITH_LUNAR_GENERATE = COMMON_BUILDER.comment("Lunar Monolith Arcana per tick").defineInRange("monoLunarGen", 50, 0, Integer.MAX_VALUE);
         MONOLITH_DARK_GENERATE = COMMON_BUILDER.comment("Dark Monolith Arcana per tick").defineInRange("monoDarkGen", 50, 0, Integer.MAX_VALUE);
 
+
+        COMMON_BUILDER.pop();
+    }
+
+    private static void worldgenConfig()
+    {
+        COMMON_BUILDER.comment("Worldgen Config").push(CATEGORY_WORLDGEN);
+
+        WOLFRAMITE_COUNT = COMMON_BUILDER.comment("Wolframite ore per cluster").defineInRange("wolframiteCount", 4, 0, 128);
+        WOLFRAMITE_CLUSTERS = COMMON_BUILDER.comment("Wolframite clusters per chunk").defineInRange("wolframiteClusters", 4, 0, 128);
+        WOLFRAMITE_BOTTOM_OFFSET = COMMON_BUILDER.comment("Wolframite bottom offset").defineInRange("wolframiteBotOffset", 4, 0, 255);
+        WOLFRAMITE_TOP_OFFSET = COMMON_BUILDER.comment("Wolframite top offset").defineInRange("wolframiteTopOffset", 0, 0, 255);
+        WOLFRAMITE_MAX_HEIGHT = COMMON_BUILDER.comment("Wolframite max spawn height").defineInRange("wolframiteMaxHeight", 0, 0, 255);
+        WOLFRAMITE_MAX_HEIGHT = COMMON_BUILDER.comment("Wolframite max spawn height").defineInRange("wolframiteMaxHeight", 32, 0, 255);
 
         COMMON_BUILDER.pop();
     }
