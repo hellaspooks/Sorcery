@@ -3,8 +3,13 @@ import com.root.sorcery.Constants;
 import com.root.sorcery.block.ModBlock;
 import com.root.sorcery.entity.ModEntity;
 import net.minecraft.block.Block;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.HoeItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemTier;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.ShovelItem;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
@@ -19,44 +24,33 @@ public class ModItem
 {
     // Materials
     @ObjectHolder("lodestone")
-    public static Item lodestone;
-
-    @ObjectHolder("wolfram_chunk")
-    public static Item wolfram_chunk;
-
+    public static Item LODESTONE;
     @ObjectHolder("wolfram_ingot")
-    public static Item wolfram_ingot;
-
+    public static Item WOLFRAM_INGOT;
     @ObjectHolder("mythril_ingot")
-    public static Item mythril_ingot;
-
+    public static Item MYTHRIL_INGOT;
     @ObjectHolder("sigil_slate")
-    public static Item sigil_slate;
+    public static Item SIGIL_SLATE;
 
     // Tomes
     @ObjectHolder("tome_abjuration")
     public static Item TOME_ABJURATION;
-
     @ObjectHolder("tome_conjuration")
     public static Item TOME_CONJURATION;
-
     @ObjectHolder("tome_enchantment")
     public static Item TOME_ENCHANTMENT;
-
     @ObjectHolder("tome_evocation")
     public static Item TOME_EVOCATION;
-
     @ObjectHolder("tome_necromancy")
     public static Item TOME_NECROMANCY;
-
     @ObjectHolder("tome_transmutation")
     public static Item TOME_TRANSMUTATION;
 
     // Sigils
     @ObjectHolder("sigil_evocation")
-    public static Item sigil_evocation;
+    public static Item SIGIL_EVOCATION;
     @ObjectHolder("sigil_conjuration")
-    public static Item sigil_conjuration;
+    public static Item SIGIL_CONJURATION;
     @ObjectHolder("sigil_abjuration")
     public static Item sigil_abjuration;
     @ObjectHolder("sigil_enchantment")
@@ -65,7 +59,6 @@ public class ModItem
     public static Item sigil_necromancy;
     @ObjectHolder("sigil_transmutation")
     public static Item sigil_transmutation;
-
 
     // Crystals
     @ObjectHolder("carnelian")
@@ -85,9 +78,17 @@ public class ModItem
     @ObjectHolder("geode")
     public static Item geode;
 
-    // Arcanomicon
+    // Crushed Wolframite
+    @ObjectHolder("crushed_wolframite")
+    public static Item CRUSHED_WOLFRAMITE;
+
+    // Cryptoglyph
     @ObjectHolder("cryptoglyph")
     public static Item cryptoglyph;
+
+    // Grimoire
+    @ObjectHolder("grimoire")
+    public static Item GRIMOIRE;
 
     // Spawn Eggs
     @ObjectHolder("toad_spawn_egg")
@@ -100,6 +101,32 @@ public class ModItem
     // Utility Items
     @ObjectHolder("linking_stick")
     public static Item linking_stick;
+
+    // Tools
+    @ObjectHolder("wolfram_pickaxe")
+    public static PickaxeItem WOLFRAM_PICKAXE;
+
+    @ObjectHolder("mythril_pickaxe")
+    public static PickaxeItem MYTHRIL_PICKAXE;
+
+    @ObjectHolder("wolfram_axe")
+    public static AxeItem WOLFRAM_AXE;
+
+    @ObjectHolder("mythril_axe")
+    public static AxeItem MYTHRIL_AXE;
+
+    @ObjectHolder("wolfram_shovel")
+    public static ShovelItem WOLFRAM_SHOVEL;
+
+    @ObjectHolder("mythril_shovel")
+    public static ShovelItem MYTHRIL_SHOVEL;
+
+    @ObjectHolder("wolfram_hoe")
+    public static HoeItem WOLFRAM_HOE;
+
+    @ObjectHolder("mythril_hoe")
+    public static HoeItem MYTHRIL_HOE;
+
 
     // Staff Components
     // Rods
@@ -143,10 +170,10 @@ public class ModItem
         // Simple Items
         // Materials
         simpleItemFactory("lodestone", event);
-        simpleItemFactory("wolfram_chunk", event);
         simpleItemFactory("wolfram_ingot", event);
         simpleItemFactory("mythril_ingot", event);
         simpleItemFactory("sigil_slate", event);
+        simpleItemFactory("grimoire", event);
 
         // Tomes
         simpleItemFactory("tome_abjuration", event);
@@ -166,6 +193,9 @@ public class ModItem
 
         // Geode
         registerItem( "geode", new GeodeItem(Constants.ITEM_PROPS), event);
+
+        // Crushed Wolframite
+        registerItem("crushed_wolframite", new CrushedWolframiteItem(), event);
 
         // Sigils
         registerItem("sigil_evocation", new SigilItem(Constants.ITEM_PROPS), event);
@@ -187,6 +217,20 @@ public class ModItem
 
         // Utility Items
         registerItem("linking_stick", new LinkingItem(Constants.ITEM_PROPS), event);
+
+        // Tools
+        // TODO: attack + speed values
+        registerItem("wolfram_pickaxe", new PickaxeItem(ItemTier.IRON, 1, 1, Constants.ITEM_PROPS_NONSTACK), event);
+        registerItem("mythril_pickaxe", new PickaxeItem(ItemTier.DIAMOND, 1, 1, Constants.ITEM_PROPS_NONSTACK), event);
+
+        registerItem("wolfram_axe", new AxeItem(ItemTier.IRON, 1, 1, Constants.ITEM_PROPS_NONSTACK), event);
+        registerItem("mythril_axe", new AxeItem(ItemTier.DIAMOND, 1, 1, Constants.ITEM_PROPS_NONSTACK), event);
+
+        registerItem("wolfram_shovel", new ShovelItem(ItemTier.IRON, 1, 1, Constants.ITEM_PROPS_NONSTACK), event);
+        registerItem("mythril_shovel", new ShovelItem(ItemTier.DIAMOND, 1, 1, Constants.ITEM_PROPS_NONSTACK), event);
+
+        registerItem("wolfram_hoe", new HoeItem(ItemTier.IRON, 1, Constants.ITEM_PROPS_NONSTACK), event);
+        registerItem("mythril_hoe", new HoeItem(ItemTier.DIAMOND, 1, Constants.ITEM_PROPS_NONSTACK), event);
 
         // Staff Components
 
@@ -217,6 +261,10 @@ public class ModItem
         blockItemFactory(ModBlock.STRIPPED_RUNEWOOD_LOG, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.RUNEWOOD_LEAVES, Constants.ITEM_PROPS, event);
 
+        blockItemFactory(ModBlock.WOLFRAMITE_ORE, Constants.ITEM_PROPS, event);
+
+        blockItemFactory(ModBlock.RUNEWOOD_SAPLING, Constants.ITEM_PROPS, event);
+
         // Blocks with variations
         blockItemFactory(ModBlock.RUNESTONE_BRICKS, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.RUNESTONE_BRICK_SLAB, Constants.ITEM_PROPS, event);
@@ -226,7 +274,7 @@ public class ModItem
         blockItemFactory(ModBlock.RUNEWOOD_PLANKS, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.RUNEWOOD_PLANK_SLAB, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.RUNEWOOD_PLANK_STAIRS, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNEWOOD_PLANK_WALL, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNEWOOD_PLANK_FENCE, Constants.ITEM_PROPS, event);
 
 
 

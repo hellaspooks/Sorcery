@@ -46,6 +46,16 @@ public class StrippedRunewoodLogBlock extends LogBlock
         return blockstate;
     }
 
+    public BlockState getRandomReplacementState(BlockState state, World world) {
+        BlockState blockstate = this.getDefaultState()
+                .with(NORTH_RUNE, world.rand.nextInt(4))
+                .with(EAST_RUNE, world.rand.nextInt(4))
+                .with(SOUTH_RUNE, world.rand.nextInt(4))
+                .with(WEST_RUNE, world.rand.nextInt(4))
+                .with(AXIS, state.get(AXIS));
+        return blockstate;
+    }
+
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(NORTH_RUNE);
         builder.add(EAST_RUNE);

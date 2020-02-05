@@ -12,7 +12,6 @@ import com.root.sorcery.item.ModItem;
 import com.root.sorcery.item.PortableArcanaItem;
 import com.root.sorcery.item.SpellGrantingItem;
 import com.root.sorcery.item.SpellcastingItem;
-import com.root.sorcery.item.tool.ModTool;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
 import com.root.sorcery.network.packets.SpellCapSyncPacket;
@@ -173,7 +172,6 @@ public class Sorcery
             ModEntity.init();
 
             ModItem.init(event);
-            ModTool.init(event);
         }
 
         @SubscribeEvent
