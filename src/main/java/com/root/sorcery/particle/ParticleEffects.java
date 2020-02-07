@@ -1,6 +1,8 @@
 package com.root.sorcery.particle;
 
 import com.root.sorcery.Constants;
+import com.root.sorcery.utils.BasisVectors;
+import com.root.sorcery.utils.Utils;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -85,20 +87,7 @@ public class ParticleEffects
 
     public static void coneSpray(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
     {
-        Vec3d arbitraryVec = new Vec3d(0, 1, 0);
-
-        // Make sure arbitrary vector is not paralell to look vector
-        if (lookVec.getY() == 1 || lookVec.getY() == -1)
-        {
-            if (lookVec.getX() == 0 && lookVec.getZ() == 0)
-            {
-                arbitraryVec = new Vec3d(1, 0, 0);
-            }
-        }
-
-        Vec3d vecP = lookVec.crossProduct(arbitraryVec).normalize();
-        Vec3d vecQ = lookVec.crossProduct(vecP).normalize();
-
+        BasisVectors vecs = new BasisVectors(lookVec);
 
         double[] rand1 = world.rand.doubles(numParticles, -1, 1).toArray();
         double[] rand2 = world.rand.doubles(numParticles, -1, 1).toArray();
@@ -109,8 +98,8 @@ public class ParticleEffects
             double rMax = Math.sqrt(Math.pow(radius, 2) - Math.pow(r1, 2));
             double r2 = rand2[i] * rMax;
             Vec3d partVec = lookVec;
-            partVec = partVec.add(vecP.mul(r1, r1, r1)).normalize();
-            partVec = partVec.add(vecQ.mul(r2, r2, r2)).normalize();
+            partVec = partVec.add(vecs.x.mul(r1, r1, r1)).normalize();
+            partVec = partVec.add(vecs.y.mul(r2, r2, r2)).normalize();
             partVec = partVec.mul(speed, speed, speed);
 
 
@@ -130,6 +119,30 @@ public class ParticleEffects
             world.addParticle(particle, loc.getX(), loc.getY(), loc.getZ(), vX, vY, vZ);
         }
 
+    }
+
+    public static void drawIn(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
+    {
+        BasisVectors vecs = new BasisVectors(lookVec);
+        Vec3d startingPoint = Utils.nBlocksAlongVector(loc, lookVec, 4);
+
+        double[] rand1 = world.rand.doubles(numParticles, -1, 1).toArray();
+        double[] rand2 = world.rand.doubles(numParticles, -1, 1).toArray();
+        double[] rand3 = world.rand.doubles(numParticles, -1, 1).toArray();
+
+        for (int i = 0; i < numParticles; i++)
+        {
+            double r1 = rand1[i] * radius;
+            double rMax = Math.sqrt(Math.pow(radius, 2) - Math.pow(r1, 2));
+            double r2 = rand2[i] * rMax;
+            double r3 = rand3[i] * 0.5;
+
+            Vec3d startPos = startingPoint.add(vecs.x.mul(r1, r1, r1));
+            startPos = startPos.add(vecs.y.mul(r2, r2, r2));
+            startPos = startPos.add(vecs.z.mul(r3, r3, r3));
+
+            sendTo(world, particle, startPos, loc, 1, 1, 1);
+        }
     }
 
     // get particle data instances for certain common effects
@@ -159,6 +172,18 @@ public class ParticleEffects
     public static IParticleData getPuff()
     {
         return new RGBAParticleData(ModParticle.SIMPLE_PUFF, 1, 1, 1, 1);
+    }
+
+    public static IParticleData getSolarSpark()
+    {
+        List<Integer> rgb = Constants.SOLAR_GOLD_MAIN;
+        return new RGBAParticleData(ModParticle.SIMPLE_SPARK, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
+    }
+
+    public static IParticleData getLunarSpark()
+    {
+        List<Integer> rgb = Constants.LUNAR_SILVER_MAIN;
+        return new RGBAParticleData(ModParticle.SIMPLE_SPARK, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
     }
 
 }

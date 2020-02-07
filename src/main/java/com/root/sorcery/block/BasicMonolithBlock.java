@@ -1,7 +1,7 @@
 package com.root.sorcery.block;
 
 import com.root.sorcery.block.state.States;
-import com.root.sorcery.tileentity.MonolithTile;
+import com.root.sorcery.tileentity.BasicMonolithTile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -16,13 +16,13 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class MonolithBlock extends Block
+public class BasicMonolithBlock extends Block
 {
     private static Float hardness   = 3.0F;
     private static Float resistance = 6.0F;
     public static final BooleanProperty ACTIVE = States.ACTIVE;
 
-    public MonolithBlock()
+    public BasicMonolithBlock()
     {
         super(Properties.create(Material.ROCK).hardnessAndResistance(hardness, resistance).sound(SoundType.STONE));
         this.setDefaultState(this.stateContainer.getBaseState().with(ACTIVE, Boolean.valueOf(false)));
@@ -60,21 +60,11 @@ public class MonolithBlock extends Block
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        return new MonolithTile();
-    }
-
-    public static void makeActive(World world, BlockState state, BlockPos pos)
-    {
-        world.setBlockState(pos, state.with(ACTIVE, Boolean.valueOf(true)));
-    }
-
-    public static void makeInActive(World world, BlockState state, BlockPos pos)
-    {
-        world.setBlockState(pos, state.with(ACTIVE, Boolean.valueOf(false)));
+        return new BasicMonolithTile();
     }
 
     public static void setActivity(World world, BlockState state, BlockPos pos, Boolean active)
     {
-        world.setBlockState(pos, state.with(ACTIVE, Boolean.valueOf(active)));
+        world.setBlockState(pos, state.with(ACTIVE, Boolean.valueOf(active)), 3);
     }
 }

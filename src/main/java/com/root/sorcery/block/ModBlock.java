@@ -135,12 +135,10 @@ public class ModBlock
         registerTileBlocks(event, "pylon", new PylonBlock());
         registerTileBlocks(event, "staff_lathe", new StaffLatheBlock());
 
-        registerTileBlocks(event, "monolith_basic", new MonolithBlock());
-        registerTileBlocks(event, "monolith_dark", new MonolithBlock());
-        registerTileBlocks(event, "monolith_lunar", new MonolithBlock());
-        registerTileBlocks(event, "monolith_solar", new MonolithBlock());
-
-
+        registerTileBlocks(event, "monolith_basic", new BasicMonolithBlock());
+        registerTileBlocks(event, "monolith_dark", new BasicMonolithBlock());
+        registerTileBlocks(event, "monolith_lunar", new LunarMonolithBlock());
+        registerTileBlocks(event, "monolith_solar", new SolarMonolithBlock());
 
 
     }

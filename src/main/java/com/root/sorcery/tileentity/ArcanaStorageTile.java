@@ -1,8 +1,11 @@
 package com.root.sorcery.tileentity;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.root.sorcery.arcana.ArcanaStorage;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.particle.ParticleEffects;
+import com.root.sorcery.utils.Utils;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.IntArrayNBT;
@@ -21,18 +24,17 @@ import net.minecraftforge.common.util.LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
 {
 
+    // base vars
+
     protected ArcanaStorage arcanaStorage = new ArcanaStorage(10000);
 
     protected int transferRate = 100;
-
-    protected boolean drainAll = false;
-
-    private static int arcanaPerWhack = 1000;
 
 
     // Arcana network vars
@@ -41,6 +43,18 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
     protected Set<ArcanaStorageTile> arcanaTransferSources = new HashSet<>();
 
     protected int[] targetPos = null;
+
+    // Arcana Vacuum Vars
+
+    private boolean vacuum = false;
+
+    private int vacuumRange = 8;
+
+    protected int vacuumAmountTarget = 0;
+
+    public int vacuumPerTick = 0;
+
+    private Set<ArcanaStorageTile> vacuumSources = new HashSet<>();
 
     // Pulse particles
 
@@ -117,6 +131,101 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
             this.arcanaTransferSources.remove(tile);
         }
         this.updateAndMarkDirty();
+    }
+
+    // Arcana Vacuum methods
+
+    public void startArcanaVacuum(int arcanaAmount)
+    {
+        this.vacuumAmountTarget = arcanaAmount;
+        this.vacuum = true;
+
+        this.updateVacuumSources();
+    }
+
+    private void updateVacuumSources()
+    {
+        Predicate<TileEntity> searchPredicate = Utils.getTESearchPredicate(ArcanaStorageTile.class, this, this.vacuumRange);
+
+        Set<ArcanaStorageTile> sources = new HashSet<>();
+
+        List<TileEntity> allTEs = world.loadedTileEntityList;
+
+        for (TileEntity tileEntity : Collections2.filter(allTEs, searchPredicate))
+        {
+            sources.add((ArcanaStorageTile)tileEntity);
+        }
+        this.vacuumSources = sources;
+    }
+
+    private void tryVacuumArcana()
+    {
+        int target = this.vacuumPerTick;
+        
+        for (ArcanaStorageTile tile : this.vacuumSources)
+        {
+            target -= tile.extractArcana(target);
+
+            if (target <= 0)
+            {
+                target = 0;
+                break;
+            }
+        }
+        this.receiveArcana(this.vacuumPerTick - target);
+    }
+    
+    private void clearVacuum()
+    {
+        this.vacuum = false;
+        this.vacuumAmountTarget = 0;
+    }
+    
+    @Override
+    public void tick()
+    {
+        if (world.isRemote)
+        {
+            if (world.getWorld().getGameTime() % 40 == 0) {
+                if (this.arcanaTransferTarget != null) {
+                    ParticleEffects.arcanaPulse(world.getWorld(), ParticleEffects.getArcanaOrb(1), this.arcanaPulseSource, this.arcanaPulseTarget, 1, 1, 0);
+                }
+                if (this.vacuum)
+                {
+                    // TODO: vacuum particle effect
+                }
+            }
+            return;
+        }
+
+        long worldTicks = world.getWorld().getGameTime();
+
+        // Every half second
+        if (worldTicks % 10 == 0)
+        {
+            if (this.vacuum)
+            {
+                if (this.arcanaStorage.getArcanaStored() >= this.vacuumAmountTarget)
+                {
+                    this.clearVacuum();
+                } else {
+                    this.tryVacuumArcana();
+                }
+            }
+            // Pass Arcana to transfer target
+            if (this.arcanaTransferTarget != null)
+            {
+                int arcanaReceived = this.arcanaTransferTarget.receiveArcana(this.transferRate);
+                this.extractArcana(arcanaReceived);
+            }
+        }
+        if (worldTicks % 40 == 0)
+        {
+            if (this.targetPos !=  null)
+            {
+                this.setArcanaTransferTargetPos(this.targetPos[0], this.targetPos[1], this.targetPos[2]);
+            }
+        }
     }
 
     // Serialize transfer data
@@ -216,6 +325,10 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
         {
             this.readTransferTag(nbt.getCompound("tData"));
         }
+        if (nbt.contains("aData"))
+        {
+            this.arcanaStorage.deserializeNBT(nbt.getCompound("aData"));
+        }
     }
 
     @Override
@@ -223,6 +336,7 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
     {
         CompoundNBT nbt = super.write(tag);
         nbt.put("tData", this.writeTransferTag());
+        nbt.put("aData", this.arcanaStorage.serializeNBT());
         return nbt;
     }
 
@@ -269,41 +383,6 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
         super.remove();
     }
 
-
-    @Override
-    public void tick()
-    {
-        if (world.isRemote)
-        {
-            if (world.getWorld().getGameTime() % 40 == 0) {
-                if (this.arcanaTransferTarget != null) {
-                    ParticleEffects.arcanaPulse(world.getWorld(), ParticleEffects.getArcanaOrb(1), this.arcanaPulseSource, this.arcanaPulseTarget, 1, 1, 0);
-                }
-            }
-            return;
-        }
-
-        long worldTicks = world.getWorld().getGameTime();
-
-        // Every half second
-        if (worldTicks % 10 == 0)
-        {
-            // Pass Arcana to transfer target
-            if (this.arcanaTransferTarget != null)
-            {
-                int arcanaReceived = this.arcanaTransferTarget.receiveArcana(this.transferRate);
-                this.extractArcana(arcanaReceived);
-            }
-        }
-        if (worldTicks % 20 == 0)
-        {
-            if (this.targetPos !=  null)
-            {
-                this.setArcanaTransferTargetPos(this.targetPos[0], this.targetPos[1], this.targetPos[2]);
-            }
-        }
-    }
-
     // Arcana Handling
 
     @Nonnull
@@ -315,18 +394,6 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
             return LazyOptional.of(() -> arcanaStorage).cast();
         }
         return super.getCapability(cap, side);
-    }
-
-    public int getArcanaForPlayer()
-    {
-        if (arcanaPerWhack <= this.arcanaStorage.getArcanaStored())
-        {
-            this.arcanaStorage.extractArcana(arcanaPerWhack, false);
-            return arcanaPerWhack;
-        } else {
-            int arcanaAmount = this.arcanaStorage.extractArcana(this.arcanaStorage.getArcanaStored(), false);
-            return arcanaAmount;
-        }
     }
 
     public int receiveArcana(int arcana)

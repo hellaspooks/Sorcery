@@ -30,6 +30,7 @@ public class Models
     @SubscribeEvent
     public static void onModelBakeEvent(ModelBakeEvent event)
     {
+        System.out.println("fixing models!");
         fixOrientableModel("reliquary", event);
 
         fixSimpleModel("monolith_basic", event);

@@ -13,8 +13,14 @@ public class ModTile
     @ObjectHolder("wolfram_blast_furnace")
     public static TileEntityType<WolframBlastFurnaceTile> WOLFRAM_BLAST_FURNACE_TILE;
 
-    @ObjectHolder("monolith")
-    public static TileEntityType<MonolithTile> MONOLITH_TILE;
+    @ObjectHolder("basic_monolith")
+    public static TileEntityType<AbstractMonolithTile> BASIC_MONOLITH_TILE;
+
+    @ObjectHolder("solar_monolith")
+    public static TileEntityType<SolarMonolithTile> SOLAR_MONOLITH_TILE;
+
+    @ObjectHolder("lunar_monolith")
+    public static TileEntityType<LunarMonolithTile> LUNAR_MONOLITH_TILE;
 
     @ObjectHolder("reliquary")
     public static TileEntityType<ReliquaryTile> RELIQUARY_TILE;
@@ -40,9 +46,19 @@ public class ModTile
                 .setRegistryName("reliquary"));
 
         event.getRegistry().register(TileEntityType.Builder
-                .create(MonolithTile::new, ModBlock.MONOLITH_BASIC)
+                .create(BasicMonolithTile::new, ModBlock.MONOLITH_BASIC)
                 .build(null)
-                .setRegistryName("monolith"));
+                .setRegistryName("basic_monolith"));
+
+        event.getRegistry().register(TileEntityType.Builder
+                .create(SolarMonolithTile::new, ModBlock.MONOLITH_SOLAR)
+                .build(null)
+                .setRegistryName("solar_monolith"));
+
+        event.getRegistry().register(TileEntityType.Builder
+                .create(LunarMonolithTile::new, ModBlock.MONOLITH_LUNAR)
+                .build(null)
+                .setRegistryName("lunar_monolith"));
 
         event.getRegistry().register(TileEntityType.Builder
                 .create(PylonTile::new, ModBlock.PYLON)
