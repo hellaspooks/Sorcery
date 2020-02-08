@@ -10,7 +10,6 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -136,12 +135,10 @@ public class ModBlock
         registerTileBlocks(event, "pylon", new PylonBlock());
         registerTileBlocks(event, "staff_lathe", new StaffLatheBlock());
 
-        registerTileBlocks(event, "monolith_basic", new MonolithBlock());
-        registerTileBlocks(event, "monolith_dark", new MonolithBlock());
-        registerTileBlocks(event, "monolith_lunar", new MonolithBlock());
-        registerTileBlocks(event, "monolith_solar", new MonolithBlock());
-
-
+        registerTileBlocks(event, "monolith_basic", new BasicMonolithBlock());
+        registerTileBlocks(event, "monolith_dark", new BasicMonolithBlock());
+        registerTileBlocks(event, "monolith_lunar", new LunarMonolithBlock());
+        registerTileBlocks(event, "monolith_solar", new SolarMonolithBlock());
 
 
     }

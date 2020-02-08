@@ -1,7 +1,6 @@
 package com.root.sorcery.item;
 
 import com.root.sorcery.tileentity.ArcanaStorageTile;
-import com.root.sorcery.tileentity.MonolithTile;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;

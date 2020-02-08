@@ -14,7 +14,7 @@ import net.minecraft.util.text.StringTextComponent;
 
 import javax.annotation.Nullable;
 
-public class StaffLatheTile extends ArcanaVacuumTile implements INamedContainerProvider
+public class StaffLatheTile extends ArcanaStorageTile implements INamedContainerProvider
 {
 
     private StaffCraftingInventory inventory;
@@ -89,9 +89,9 @@ public class StaffLatheTile extends ArcanaVacuumTile implements INamedContainerP
                     this.inventory.finishCraft();
                     world.notifyBlockUpdate(pos, this.getBlockState(), this.getBlockState(), 3);
                 } else {
-                    int cycleProgress = Math.min(this.craftSpeed, this.arcanaStored);
+                    int cycleProgress = Math.min(this.craftSpeed, this.arcanaStorage.getArcanaStored());
                     this.arcanaUsed += cycleProgress;
-                    this.arcanaStored -= cycleProgress;
+                    this.arcanaStorage.extractArcana(cycleProgress, false);
                     world.notifyBlockUpdate(pos, this.getBlockState(), this.getBlockState(), 3);
                 }
             }

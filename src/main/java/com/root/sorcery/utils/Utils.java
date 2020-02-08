@@ -132,6 +132,18 @@ public class Utils {
         return finalList;
     }
 
+    public static Vec3d getSunVector(World world)
+    {
+        double celestialRads = world.getCelestialAngleRadians(1.0F);
+        return new Vec3d(-Math.sin(celestialRads), Math.cos(celestialRads), 0);
+    }
+
+    public static Vec3d getMoonVector(World world)
+    {
+        double celestialRads = world.getCelestialAngleRadians(1.0F) + Math.PI;
+        return new Vec3d(-Math.sin(celestialRads), Math.cos(celestialRads), 0);
+    }
+
     public static Predicate<TileEntity> getTESearchPredicate(Class clazz, TileEntity tile, double range)
     {
         Predicate<TileEntity> pred = new Predicate<TileEntity>()
@@ -151,7 +163,7 @@ public class Utils {
                 {
                     return false;
                 }
-                // Only add items with dinstance
+                // Only add items with distance
                 if (!pos.withinDistance(input.getPos(), range))
                 {
                     return false;
@@ -161,7 +173,6 @@ public class Utils {
         };
         return pred;
     }
-
 
 
 }
