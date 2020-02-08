@@ -1,3 +1,26 @@
 #research-panel-outer {
-    foreground-texture: url("sorcery:textures/gui/grimoire/panel_foreground.png");
+    foreground-texture: assets("sorcery:textures/gui/grimoire/panel_foreground.png");
+}
+
+#starfield-background {
+    background-repeat: repeat;
+    background-rotation: clockwise 25% upside 25% counterclockwise 25%;
+    background-animation: assets("sorcery:textures/gui/grimoire/starfield.json");
+    background-texture: assets("sorcery:textures/gui/grimoire/starfield.png", 64px, 64px);
+}
+
+.research-node {
+    background-texture: assets("sorcery:textures/gui/grimoire/research_node.png");
+}
+
+.research-node:hover {
+    background-texture: assets("sorcery:textures/gui/grimoire/research_node_hover.png");
+}
+
+.research-node:disabled {
+    foreground-texture: assets("sorcery:textures/gui/grimoire/research_node_dark.png");
+}
+
+.research-node.darker:disabled {
+    foreground-texture: assets("sorcery:textures/gui/grimoire/research_node_w40k.png");
 }

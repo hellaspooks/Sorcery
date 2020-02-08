@@ -173,7 +173,6 @@ public class ModItem
         simpleItemFactory("wolfram_ingot", event);
         simpleItemFactory("mythril_ingot", event);
         simpleItemFactory("sigil_slate", event);
-        simpleItemFactory("grimoire", event);
 
         // Tomes
         simpleItemFactory("tome_abjuration", event);

@@ -4,6 +4,7 @@ import com.root.sorcery.spell.CastType;
 import com.root.sorcery.spell.Spell;
 import com.root.sorcery.spell.SpellUseContext;
 import com.root.sorcery.utils.Utils;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -28,6 +29,12 @@ public class SpellcastingItem extends Item
     }
 
     @Override
+    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
+    {
+        super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
+    }
+
+    @Override
     public int getUseDuration(ItemStack stack)
     {
         int castDuration = getSpellFromProvider(stack).getCastDuration();
@@ -35,7 +42,8 @@ public class SpellcastingItem extends Item
     }
 
     @Override
-    public UseAction getUseAction(ItemStack stack){
+    public UseAction getUseAction(ItemStack stack)
+    {
         return UseAction.BOW;
     }
 
