@@ -1,0 +1,6 @@
+{
+  "frameCount": 8,
+  "orientation": "vertical",
+  "duration": 1000,
+  "interpolator": "linear"
+}

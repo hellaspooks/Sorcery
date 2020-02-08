@@ -1,4 +1,4 @@
-package com.root.sorcery.client.gui.grimoire;
+package com.root.sorcery.client.gui.grimoire.tab;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;

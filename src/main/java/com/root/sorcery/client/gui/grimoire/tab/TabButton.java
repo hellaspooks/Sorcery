@@ -1,4 +1,4 @@
-package com.root.sorcery.client.gui.grimoire;
+package com.root.sorcery.client.gui.grimoire.tab;
 
 import net.voxelindustry.brokkgui.component.GuiNode;
 import net.voxelindustry.brokkgui.data.RelativeBindingHelper;

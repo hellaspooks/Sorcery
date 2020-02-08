@@ -1,14 +1,26 @@
 package com.root.sorcery.client.gui.grimoire;
 
 import com.root.sorcery.Constants;
+import com.root.sorcery.client.gui.grimoire.tab.DemonologyTab;
+import com.root.sorcery.client.gui.grimoire.tab.EtherealTab;
+import com.root.sorcery.client.gui.grimoire.tab.HermeticsTab;
+import com.root.sorcery.client.gui.grimoire.tab.IGuiTab;
+import com.root.sorcery.client.gui.grimoire.tab.LichdomTab;
+import com.root.sorcery.client.gui.grimoire.tab.SorceryTab;
+import com.root.sorcery.client.gui.grimoire.tab.SpellcraftTab;
+import com.root.sorcery.client.gui.grimoire.tab.TabButton;
 import com.root.sorcery.item.ModItem;
 import net.minecraft.item.ItemStack;
 import net.voxelindustry.brokkgui.component.GuiNode;
 import net.voxelindustry.brokkgui.data.RelativeBindingHelper;
 import net.voxelindustry.brokkgui.element.input.GuiToggleGroup;
+import net.voxelindustry.brokkgui.event.KeyEvent;
+import net.voxelindustry.brokkgui.event.KeyEvent.Press;
 import net.voxelindustry.brokkgui.gui.BrokkGuiScreen;
-import net.voxelindustry.brokkgui.paint.Texture;
 import net.voxelindustry.brokkgui.panel.GuiAbsolutePane;
+import net.voxelindustry.brokkgui.sprite.Texture;
+import org.apache.commons.lang3.ArrayUtils;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
 
@@ -26,7 +38,8 @@ public class GrimoireGui extends BrokkGuiScreen implements IGuiTab
     protected GuiAbsolutePane body;
     private   GuiAbsolutePane mainPanel;
 
-    private final IGuiTab[] tabs;
+    private final TabButton[] tabButtons;
+    private final IGuiTab[]   tabs;
 
     private IGuiTab lastTab = null;
 
@@ -42,11 +55,29 @@ public class GrimoireGui extends BrokkGuiScreen implements IGuiTab
         mainPanel.addChild(body, 0, TAB_HEIGHT);
 
         // Setup tabs last
-        tabs = new IGuiTab[]{new HermeticsTab()};
+        tabs = new IGuiTab[]{new DemonologyTab(), new EtherealTab(), new HermeticsTab(), new LichdomTab(), new SorceryTab(), new SpellcraftTab()};
+        tabButtons = new TabButton[tabs.length + 1];
         setupTabs();
 
         addStylesheet("/assets/" + Constants.MODID + "/css/tabheader.css");
         addStylesheet("/assets/" + Constants.MODID + "/css/grimoire.css");
+
+        this.getMainPanel().getEventDispatcher().addHandler(KeyEvent.PRESS, this::globalKeyHandler);
+    }
+
+    private void globalKeyHandler(Press event)
+    {
+        if (event.getKey() == GLFW.GLFW_KEY_TAB && event.isCtrlDown())
+        {
+            int currentIndex = ArrayUtils.indexOf(tabs, lastTab) + 1;
+
+            if (event.isShiftDown())
+                currentIndex = Math.floorMod(currentIndex - 1, tabs.length + 1);
+            else
+                currentIndex = Math.floorMod(currentIndex + 1, tabs.length + 1);
+
+            this.tabButtons[currentIndex].setSelected(true);
+        }
     }
 
     @Override
@@ -110,7 +141,7 @@ public class GrimoireGui extends BrokkGuiScreen implements IGuiTab
     private void setupTabs()
     {
         tabHeaders = new GuiAbsolutePane();
-        tabHeaders.setSize(176, 30);
+        tabHeaders.setSize(GUI_WIDTH, TAB_HEIGHT);
 
         GuiToggleGroup tabHeaderGroup = new GuiToggleGroup();
 
@@ -118,6 +149,7 @@ public class GrimoireGui extends BrokkGuiScreen implements IGuiTab
         mainTabButton.setToggleGroup(tabHeaderGroup);
         tabHeaderGroup.setSelectedButton(mainTabButton);
         tabHeaders.addChild(mainTabButton, 0, 4);
+        tabButtons[0] = mainTabButton;
 
         mainTabButton.setOnSelectEvent(e ->
         {
@@ -136,6 +168,7 @@ public class GrimoireGui extends BrokkGuiScreen implements IGuiTab
             TabButton tabButton = new TabButton(tabs[i].getIcon(), tabs[i].getName());
             tabButton.setToggleGroup(tabHeaderGroup);
             tabs[i].setButton(tabButton);
+            tabButtons[i + 1] = tabButton;
 
             int finalIndex = i;
             tabButton.setOnSelectEvent(e ->
