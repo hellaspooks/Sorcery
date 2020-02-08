@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.voxelindustry.brokkgui.component.GuiNode;
 import net.voxelindustry.brokkgui.data.RelativeBindingHelper;
 import net.voxelindustry.brokkgui.element.input.GuiToggleGroup;
+import net.voxelindustry.brokkgui.event.GuiMouseEvent.Wheel;
 import net.voxelindustry.brokkgui.event.KeyEvent;
 import net.voxelindustry.brokkgui.event.KeyEvent.Press;
 import net.voxelindustry.brokkgui.gui.BrokkGuiScreen;
@@ -63,6 +64,19 @@ public class GrimoireGui extends BrokkGuiScreen implements IGuiTab
         addStylesheet("/assets/" + Constants.MODID + "/css/grimoire.css");
 
         this.getMainPanel().getEventDispatcher().addHandler(KeyEvent.PRESS, this::globalKeyHandler);
+        tabHeaders.getEventDispatcher().addHandler(Wheel.WHEEL, this::tabMouseWheelHandler);
+    }
+
+    private void tabMouseWheelHandler(Wheel event)
+    {
+        int currentIndex = ArrayUtils.indexOf(tabs, lastTab) + 1;
+
+        if (event.getDwheel() < 0)
+            currentIndex = Math.floorMod(currentIndex - 1, tabs.length + 1);
+        else
+            currentIndex = Math.floorMod(currentIndex + 1, tabs.length + 1);
+
+        this.tabButtons[currentIndex].setSelected(true);
     }
 
     private void globalKeyHandler(Press event)
