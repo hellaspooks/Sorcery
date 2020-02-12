@@ -1,0 +1,21 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "sorcery:block/monolith_lapis",
+    "textures": {
+      "0": "sorcery:blocks/monolith_lapis",
+      "particle": "sorcery:blocks/monolith_lapis"
+    },
+    "uvlock": true
+  },
+  "variants": {
+    "active": {
+      "true": {
+        "textures": {"0": "sorcery:blocks/monolith_lapis_active", "particle":  "sorcery:blocks/monolith_lapis"}
+      },
+      "false": {
+        "textures": {"0": "sorcery:blocks/monolith_lapis", "particle":  "sorcery:blocks/monolith_lapis"}
+      }
+    }
+  }
+}

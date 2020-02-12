@@ -1,5 +1,6 @@
 package com.root.sorcery.block;
 
+import com.root.sorcery.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.LeavesBlock;
@@ -10,6 +11,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -66,7 +68,40 @@ public class ModBlock
     @ObjectHolder("wolfram_lantern")
     public static Block WOLFRAM_LANTERN;
 
-    // Tile Blocks
+    // Monoliths
+    @ObjectHolder("monolith_basic")
+    public static Block MONOLITH_BASIC;
+
+    @ObjectHolder("monolith_dark")
+    public static Block MONOLITH_DARK;
+
+    @ObjectHolder("monolith_lapis")
+    public static Block MONOLITH_LAPIS;
+
+    @ObjectHolder("monolith_lunar")
+    public static Block MONOLITH_LUNAR;
+
+    @ObjectHolder("monolith_solar")
+    public static Block MONOLITH_SOLAR;
+
+
+    // Runestones
+    @ObjectHolder("chiseled_runestone")
+    public static Block CHISELED_RUNESTONE;
+
+    @ObjectHolder("dark_runestone")
+    public static RunestoneBlock DARK_RUNESTONE;
+
+    @ObjectHolder("lapis_runestone")
+    public static RunestoneBlock LAPIS_RUNESTONE;
+
+    @ObjectHolder("solar_runestone")
+    public static RunestoneBlock SOLAR_RUNESTONE;
+
+    @ObjectHolder("lunar_runestone")
+    public static RunestoneBlock LUNAR_RUNESTONE;
+
+    // Misc Tile Blocks
     @ObjectHolder("alchemical_workbench")
     public static Block ALCHEMICAL_WORKBENCH;
 
@@ -78,18 +113,6 @@ public class ModBlock
 
     @ObjectHolder("wolfram_blast_furnace")
     public static Block WOLFRAM_BLAST_FURNACE;
-
-    @ObjectHolder("monolith_basic")
-    public static Block MONOLITH_BASIC;
-
-    @ObjectHolder("monolith_dark")
-    public static Block MONOLITH_DARK;
-
-    @ObjectHolder("monolith_solar")
-    public static Block MONOLITH_SOLAR;
-
-    @ObjectHolder("monolith_lunar")
-    public static Block MONOLITH_LUNAR;
 
     @ObjectHolder("pylon")
     public static Block PYLON;
@@ -128,19 +151,26 @@ public class ModBlock
         RUNEWOOD_PLANK_FENCE = fenceFactory(event, RUNEWOOD_PLANKS, "runewood_plank_fence");
         RUNEWOOD_PLANK_STAIRS = stairsFactory(event, RUNEWOOD_PLANKS, "runewood_plank_stairs");
 
+        // Monolith "blocks"
+        registerBlock(new BasicMonolithBlock(), "monolith_basic", event);
+        registerBlock(new DarkMonolithBlock(), "monolith_dark", event);
+        registerBlock(new LapisMonolithBlock(), "monolith_lapis", event);
+        registerBlock(new LunarMonolithBlock(), "monolith_lunar", event);
+        registerBlock(new SolarMonolithBlock(), "monolith_solar", event);
+
+        // Runestone blocks
+        registerBlock(new RunestoneBlock(new ResourceLocation(Constants.MODID, "monolith_basic")), "chiseled_runestone", event);
+        registerBlock(new RunestoneBlock(new ResourceLocation(Constants.MODID, "monolith_dark")), "dark_runestone", event);
+        registerBlock(new RunestoneBlock(new ResourceLocation(Constants.MODID, "monolith_lapis")), "lapis_runestone", event);
+        registerBlock(new RunestoneBlock(new ResourceLocation(Constants.MODID, "monolith_lunar")), "lunar_runestone", event);
+        registerBlock(new RunestoneBlock(new ResourceLocation(Constants.MODID, "monolith_solar")), "solar_runestone", event);
+
 
         // Tile Blocks
-        registerTileBlocks(event, "wolfram_blast_furnace", new WolframBlastFurnaceBlock());
-        registerTileBlocks(event, "reliquary", new ReliquaryBlock());
-        registerTileBlocks(event, "pylon", new PylonBlock());
-        registerTileBlocks(event, "staff_lathe", new StaffLatheBlock());
-
-        registerTileBlocks(event, "monolith_basic", new BasicMonolithBlock());
-        registerTileBlocks(event, "monolith_dark", new BasicMonolithBlock());
-        registerTileBlocks(event, "monolith_lunar", new LunarMonolithBlock());
-        registerTileBlocks(event, "monolith_solar", new SolarMonolithBlock());
-
-
+        registerBlock(new WolframBlastFurnaceBlock(), "wolfram_blast_furnace", event);
+        registerBlock(new ReliquaryBlock(), "reliquary", event);
+        registerBlock(new PylonBlock(), "pylon", event);
+        registerBlock(new StaffLatheBlock(), "staff_lathe", event);
     }
 
     public static Block simpleBlockFactory(RegistryEvent.Register<Block> event, String registryName, Material material, Float hardness, Float resistance, SoundType sound)
@@ -215,12 +245,5 @@ public class ModBlock
         event.getRegistry().register(fenceBlock);
 
         return fenceBlock;
-    }
-
-
-    public static void registerTileBlocks(RegistryEvent.Register<Block> event, String registryName, Block block)
-    {
-        block.setRegistryName(registryName);
-        event.getRegistry().register(block);
     }
 }

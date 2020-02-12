@@ -4,7 +4,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.Vec3d;
 
-public class AbstractMonolithTile extends ArcanaStorageTile implements ITickableTileEntity
+public abstract class AbstractMonolithTile extends ArcanaStorageTile implements ITickableTileEntity
 {
 
     protected int arcanaPerRegen = 2;

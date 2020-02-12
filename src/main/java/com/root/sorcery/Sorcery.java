@@ -7,6 +7,7 @@ import com.root.sorcery.block.ModBlock;
 import com.root.sorcery.client.model.StaffModelLoader;
 import com.root.sorcery.entity.ModEntity;
 import com.root.sorcery.event.DurationSpellEvent;
+import com.root.sorcery.event.EntityDeathEvent;
 import com.root.sorcery.event.StructureFormHandlerEvent;
 import com.root.sorcery.item.ModItem;
 import com.root.sorcery.item.PortableArcanaItem;
@@ -104,6 +105,7 @@ public class Sorcery
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(StructureFormHandlerEvent.class);
         MinecraftForge.EVENT_BUS.register(DurationSpellEvent.class);
+        MinecraftForge.EVENT_BUS.register(EntityDeathEvent.class);
 
     }
 

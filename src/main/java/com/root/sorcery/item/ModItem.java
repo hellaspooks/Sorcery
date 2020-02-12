@@ -289,6 +289,14 @@ public class ModItem
         blockItemFactory(ModBlock.MONOLITH_SOLAR, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.MONOLITH_LUNAR, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.MONOLITH_DARK, Constants.ITEM_PROPS, event);
+
+        blockItemFactory(ModBlock.CHISELED_RUNESTONE, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.DARK_RUNESTONE, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.LAPIS_RUNESTONE, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.LUNAR_RUNESTONE, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.SOLAR_RUNESTONE, Constants.ITEM_PROPS, event);
+
+
         blockItemFactory(ModBlock.WOLFRAM_LANTERN, Constants.ITEM_PROPS, event);
 
         blockItemFactory(ModBlock.PYLON, Constants.ITEM_PROPS, event);

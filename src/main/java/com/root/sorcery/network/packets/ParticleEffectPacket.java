@@ -110,6 +110,9 @@ public class ParticleEffectPacket
                         case 5:
                             ParticleEffects.smallFountain(world, particle, loc, lookVec, num, speed, radius);
                             break;
+                        case 6:
+                            ParticleEffects.drawIn(world, particle, loc, lookVec, num, speed, radius);
+                            break;
                     }
                 }
 

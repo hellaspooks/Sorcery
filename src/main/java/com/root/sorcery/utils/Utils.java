@@ -5,7 +5,10 @@ import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.block.state.CrystalColor;
 import com.root.sorcery.spell.Spell;
 import com.root.sorcery.spellcasting.ISpellcasting;
+import com.root.sorcery.tileentity.ArcanaStorageTile;
+import com.root.sorcery.tileentity.DarkMonolithTile;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -160,6 +163,31 @@ public class Utils {
                 }
                 // Don't add self
                 if (input == tile)
+                {
+                    return false;
+                }
+                // Only add items with distance
+                if (!pos.withinDistance(input.getPos(), range))
+                {
+                    return false;
+                }
+                return true;
+            }
+        };
+        return pred;
+    }
+
+    public static Predicate<TileEntity> getDarkMonolithSearchPredicate(Class clazz, LivingEntity entity, double range)
+    {
+        Predicate<TileEntity> pred = new Predicate<TileEntity>()
+        {
+            BlockPos pos = entity.getPosition();
+
+            @Override
+            public boolean apply(@Nullable TileEntity input)
+            {
+                // Only add selected class
+                if (!clazz.isInstance(input))
                 {
                     return false;
                 }

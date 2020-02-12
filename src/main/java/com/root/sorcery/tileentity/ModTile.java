@@ -22,6 +22,12 @@ public class ModTile
     @ObjectHolder("lunar_monolith")
     public static TileEntityType<LunarMonolithTile> LUNAR_MONOLITH_TILE;
 
+    @ObjectHolder("dark_monolith")
+    public static TileEntityType<DarkMonolithTile> DARK_MONOLITH_TILE;
+
+    @ObjectHolder("lapis_monolith")
+    public static TileEntityType<LapisMonolithTile> LAPIS_MONOLITH_TILE;
+
     @ObjectHolder("reliquary")
     public static TileEntityType<ReliquaryTile> RELIQUARY_TILE;
 
@@ -51,6 +57,11 @@ public class ModTile
                 .setRegistryName("basic_monolith"));
 
         event.getRegistry().register(TileEntityType.Builder
+                .create(DarkMonolithTile::new, ModBlock.MONOLITH_DARK)
+                .build(null)
+                .setRegistryName("dark_monolith"));
+
+        event.getRegistry().register(TileEntityType.Builder
                 .create(SolarMonolithTile::new, ModBlock.MONOLITH_SOLAR)
                 .build(null)
                 .setRegistryName("solar_monolith"));
@@ -59,6 +70,11 @@ public class ModTile
                 .create(LunarMonolithTile::new, ModBlock.MONOLITH_LUNAR)
                 .build(null)
                 .setRegistryName("lunar_monolith"));
+
+        event.getRegistry().register(TileEntityType.Builder
+                .create(LapisMonolithTile::new, ModBlock.MONOLITH_LAPIS)
+                .build(null)
+                .setRegistryName("lapis_monolith"));
 
         event.getRegistry().register(TileEntityType.Builder
                 .create(PylonTile::new, ModBlock.PYLON)
