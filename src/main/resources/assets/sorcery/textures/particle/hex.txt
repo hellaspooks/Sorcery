@@ -1,0 +1,118 @@
+Hex Values
+-------------------------------
+example:  For any given color scheme, there is 3 colors: the main color, the highlight, and the lowlight.  
+The main color should be the MAIN color. the highlight and lowlight are there to jazz things up.
+
+Color 1: xxxxxx (this color is the highlight shade!)
+
+Color 2: xxxxxx (this color is the main shade! Should be represented the MOST in a particle effect)
+
+Color 3: xxxxxx (this color is the lowlight shade!)
+
+-------------------------------
+
+Evocation Red 1: d00323
+
+Evocation Red 2: 990024
+
+Evocation Red 3: 5b0230
+
+-------------------------------
+
+Transmutation Green 1: 91ef3b
+
+Transmutation Green 2: 35bb5d
+
+Transmutation Green 3: 175f42
+
+-------------------------------
+
+Conjuration Purple 1: d87cf2
+
+Conjuration Purple 2: 874acb
+
+Conjuration Purple 3: 4f348d
+
+-------------------------------
+
+Necromancy Black 1: 494e5d
+
+Necromancy Black 2: 262931
+
+Necromancy Black 3: 16181f
+
+-------------------------------
+
+Abjuration Yellow 1: fde15f
+
+Abjuration Yellow 2: eaab2e
+
+Abjuration Yellow 3: cb6a17
+
+-------------------------------
+
+Enchantment Blue 1: 109bdb
+
+Enchantment Blue 2: 1859b7
+
+Enchantment Blue 3: 1859b7
+
+-------------------------------
+
+Arcana Purple 1: c31ba7
+
+Arcana Purple 2: 9718ae
+
+Arcana Purple 3: 660d9d
+
+-------------------------------
+
+Solar Gold 1: fffa9b
+
+Solar Gold 2: ffc61c
+
+Solar Gold 3: e4830e
+
+-------------------------------
+
+Lunar Silver 1: d3f7f3
+
+Lunar Silver 2: b1dee4
+
+Lunar Silver 3: 88b8d3
+
+-------------------------------
+
+Lapis Blue 1: 3eb1e4
+
+Lapis Blue 2: 3c6ed8
+
+Lapis Blue 3: 3949c3
+
+-------------------------------
+
+Blood Red 1: 8f010b
+
+Blood Red 2: 76012c
+
+Blood Red 3: 5f013d
+
+-------------------------------
+
+-------------------------------
+
+-------------------------------
+
+-------------------------------
+
+-------------------------------
+
+-------------------------------
+
+-------------------------------
+
+-------------------------------
+
+-------------------------------
+
+-------------------------------

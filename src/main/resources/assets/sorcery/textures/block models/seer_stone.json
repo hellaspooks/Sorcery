@@ -1,0 +1,52 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "blocks/seer_stone_base",
+		"4": "blocks/seer_stone_active",
+		"particle": "blocks/seer_stone_base"
+	},
+	"elements": [
+		{
+			"name": "Base3",
+			"from": [3, 0, 3],
+			"to": [13, 2, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 8, 11]},
+			"faces": {
+				"north": {"uv": [0, 10, 10, 12], "texture": "#1"},
+				"east": {"uv": [0, 10, 10, 12], "texture": "#1"},
+				"south": {"uv": [0, 10, 10, 12], "texture": "#1"},
+				"west": {"uv": [0, 10, 10, 12], "texture": "#1"},
+				"up": {"uv": [0, 0, 10, 10], "texture": "#1"},
+				"down": {"uv": [0, 0, 10, 10], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Base4",
+			"from": [5, 2, 5],
+			"to": [11, 4, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 10, 11]},
+			"faces": {
+				"north": {"uv": [10, 6, 16, 8], "texture": "#1"},
+				"east": {"uv": [10, 6, 16, 8], "texture": "#1"},
+				"south": {"uv": [10, 6, 16, 8], "texture": "#1"},
+				"west": {"uv": [10, 6, 16, 8], "texture": "#1"},
+				"up": {"uv": [10, 0, 16, 6], "texture": "#1"},
+				"down": {"uv": [4.5, 10.5, 9.5, 15.5], "texture": "#missing"}
+			}
+		},
+		{
+			"name": "Orb",
+			"from": [5, 4, 5],
+			"to": [11, 10, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [18, 12, 13]},
+			"faces": {
+				"north": {"uv": [0, 10, 6, 16], "texture": "#4"},
+				"east": {"uv": [0, 10, 6, 16], "texture": "#4"},
+				"south": {"uv": [0, 10, 6, 16], "texture": "#4"},
+				"west": {"uv": [0, 10, 6, 16], "texture": "#4"},
+				"up": {"uv": [0, 4, 6, 10], "texture": "#4"},
+				"down": {"uv": [6, 10, 12, 16], "texture": "#4"}
+			}
+		}
+	]
+}
