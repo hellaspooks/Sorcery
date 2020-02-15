@@ -12,14 +12,11 @@ import com.root.sorcery.item.ModItem;
 import com.root.sorcery.item.PortableArcanaItem;
 import com.root.sorcery.item.SpellGrantingItem;
 import com.root.sorcery.item.SpellcastingItem;
-import com.root.sorcery.item.tool.ModTool;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
 import com.root.sorcery.network.packets.SpellCapSyncPacket;
 import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.RGBAParticle;
-import com.root.sorcery.particle.SimpleParticle;
-import com.root.sorcery.particle.SlowOutParticle;
 import com.root.sorcery.potion.ModEffect;
 import com.root.sorcery.setup.ClientProxy;
 import com.root.sorcery.setup.IProxy;
@@ -175,7 +172,6 @@ public class Sorcery
             ModEntity.init();
 
             ModItem.init(event);
-            ModTool.init(event);
         }
 
         @SubscribeEvent
@@ -202,9 +198,11 @@ public class Sorcery
         {
             Minecraft mc = Minecraft.getInstance();
 
-            mc.particles.registerFactory(ModParticle.SIMPLE_PUFF, SimpleParticle.Factory::new);
+            mc.particles.registerFactory(ModParticle.SIMPLE_PUFF, RGBAParticle.Factory::new);
             mc.particles.registerFactory(ModParticle.RGBA_SPARK, RGBAParticle.Factory::new);
             mc.particles.registerFactory(ModParticle.ARCANA_ORB, RGBAParticle.Factory::new);
+            mc.particles.registerFactory(ModParticle.ARCANA_SPARK_1, RGBAParticle.Factory::new);
+            mc.particles.registerFactory(ModParticle.ARCANA_SPARK_3, RGBAParticle.Factory::new);
         }
 
         @SubscribeEvent

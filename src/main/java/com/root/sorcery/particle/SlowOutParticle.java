@@ -4,22 +4,20 @@ import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.SpriteTexturedParticle;
-import net.minecraft.particles.BasicParticleType;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-public class SlowOutParticle extends SpriteTexturedParticle
+public class SlowOutParticle extends RGBAParticle
 {
     IAnimatedSprite spriteSet;
     int hangTicks;
 
-    public SlowOutParticle(World world, double x, double y, double z, double vX, double vY, double vZ, IAnimatedSprite spriteSetIn, int hangTicksIn)
+    public SlowOutParticle(World world, double x, double y, double z, double vX, double vY, double vZ, IAnimatedSprite spriteSetIn, int hangTicksIn, float r, float g, float b, float a)
     {
-        super(world, x, y, z, vX, vY, vZ);
+        super(world, x, y, z, vX, vY, vZ, spriteSetIn, r, g, b, a);
         // Override motion randomization
         this.motionX = vX;
         this.motionY = vY;
@@ -62,7 +60,7 @@ public class SlowOutParticle extends SpriteTexturedParticle
 
 
     @OnlyIn(Dist.CLIENT)
-    public static class Factory implements IParticleFactory<BasicParticleType>
+    public static class Factory implements IParticleFactory<RGBAParticleData>
     {
         private final IAnimatedSprite spriteSet;
 
@@ -73,9 +71,9 @@ public class SlowOutParticle extends SpriteTexturedParticle
 
         @Nullable
         @Override
-        public Particle makeParticle(BasicParticleType typeIn, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
+        public Particle makeParticle(RGBAParticleData data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
-            SlowOutParticle simpleParticle = new SlowOutParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, spriteSet, 10);
+            SlowOutParticle simpleParticle = new SlowOutParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, spriteSet, 10, data.r, data.g, data.b, data.a);
             simpleParticle.setMaxAge(40);
             simpleParticle.selectSpriteWithAge(spriteSet);
             return simpleParticle;

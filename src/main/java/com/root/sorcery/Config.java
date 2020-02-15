@@ -20,6 +20,8 @@ public class Config
 
     public static final String CATEGORY_MONOLITHS = "monoliths";
 
+    public static final String CATEGORY_WORLDGEN = "worldgen";
+
     private static final ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
     private static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
 
@@ -51,6 +53,10 @@ public class Config
     public static ForgeConfigSpec.IntValue FIREBOLT_SPELL_DAMAGE;
     public static ForgeConfigSpec.IntValue FIREBOLT_SPELL_FIRE_DURATION;
 
+    public static ForgeConfigSpec.IntValue CREATE_WATER_SPELL_COST;
+
+    public static ForgeConfigSpec.IntValue ON_OFF_SPELL_COST;
+
 
     // Monolith config items
     public static ForgeConfigSpec.IntValue MONOLITH_NORMAL_GENERATE;
@@ -60,6 +66,13 @@ public class Config
 
     // Raise Zombie config items
     public static ForgeConfigSpec.IntValue RAISE_ZOMBIE_SPELL_COST;
+    // Worldgen Config Items
+    public static ForgeConfigSpec.IntValue WOLFRAMITE_COUNT;
+    public static ForgeConfigSpec.IntValue WOLFRAMITE_BOTTOM_OFFSET;
+    public static ForgeConfigSpec.IntValue WOLFRAMITE_TOP_OFFSET;
+    public static ForgeConfigSpec.IntValue WOLFRAMITE_MAX_HEIGHT;
+    public static ForgeConfigSpec.IntValue WOLFRAMITE_CLUSTERS;
+
 
     static {
 
@@ -69,6 +82,8 @@ public class Config
         spellConfig();
 
         monolithConfig();
+
+        worldgenConfig();
 
         COMMON_CONFIG = COMMON_BUILDER.build();
         CLIENT_CONFIG = CLIENT_BUILDER.build();
@@ -103,6 +118,9 @@ public class Config
         FIREBOLT_SPELL_FIRE_DURATION = spellIntParamHelper("firebolt", "Cost", 3, 0, Integer.MAX_VALUE);
 
         RAISE_ZOMBIE_SPELL_COST = spellIntParamHelper("raiseZombie", "Cost", 200, 0, Integer.MAX_VALUE);
+        CREATE_WATER_SPELL_COST = spellIntParamHelper("createWater", "Cost", 100, 0, Integer.MAX_VALUE);
+
+        ON_OFF_SPELL_COST = spellIntParamHelper("onOff", "Cost", 100, 0, Integer.MAX_VALUE);
 
         // After every config added
         COMMON_BUILDER.pop();
@@ -117,6 +135,20 @@ public class Config
         MONOLITH_LUNAR_GENERATE = COMMON_BUILDER.comment("Lunar Monolith Arcana per tick").defineInRange("monoLunarGen", 50, 0, Integer.MAX_VALUE);
         MONOLITH_DARK_GENERATE = COMMON_BUILDER.comment("Dark Monolith Arcana per tick").defineInRange("monoDarkGen", 50, 0, Integer.MAX_VALUE);
 
+
+        COMMON_BUILDER.pop();
+    }
+
+    private static void worldgenConfig()
+    {
+        COMMON_BUILDER.comment("Worldgen Config").push(CATEGORY_WORLDGEN);
+
+        WOLFRAMITE_COUNT = COMMON_BUILDER.comment("Wolframite ore per cluster").defineInRange("wolframiteCount", 4, 0, 128);
+        WOLFRAMITE_CLUSTERS = COMMON_BUILDER.comment("Wolframite clusters per chunk").defineInRange("wolframiteClusters", 4, 0, 128);
+        WOLFRAMITE_BOTTOM_OFFSET = COMMON_BUILDER.comment("Wolframite bottom offset").defineInRange("wolframiteBotOffset", 4, 0, 255);
+        WOLFRAMITE_TOP_OFFSET = COMMON_BUILDER.comment("Wolframite top offset").defineInRange("wolframiteTopOffset", 0, 0, 255);
+        WOLFRAMITE_MAX_HEIGHT = COMMON_BUILDER.comment("Wolframite max spawn height").defineInRange("wolframiteMaxHeight", 0, 0, 255);
+        WOLFRAMITE_MAX_HEIGHT = COMMON_BUILDER.comment("Wolframite max spawn height").defineInRange("wolframiteMaxHeight", 32, 0, 255);
 
         COMMON_BUILDER.pop();
     }

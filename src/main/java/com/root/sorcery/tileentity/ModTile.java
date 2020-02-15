@@ -23,7 +23,7 @@ public class ModTile
     public static TileEntityType<PylonTile> PYLON_TILE;
 
     @ObjectHolder("staff_lathe")
-    public static TileEntityType<PylonTile> STAFF_LATHE_TILE;
+    public static TileEntityType<StaffLatheTile> STAFF_LATHE_TILE;
 
 
     public static void init(RegistryEvent.Register<TileEntityType<?>> event)
@@ -53,6 +53,7 @@ public class ModTile
                 .create(StaffLatheTile::new, ModBlock.STAFF_LATHE)
                 .build(null)
                 .setRegistryName("staff_lathe"));
+
     }
 
 }

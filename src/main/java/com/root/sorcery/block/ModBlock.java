@@ -1,14 +1,15 @@
 package com.root.sorcery.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.FenceBlock;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.LogBlock;
+import net.minecraft.block.OreBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -28,13 +29,16 @@ public class ModBlock
     public static LogBlock RUNEWOOD_LOG;
 
     @ObjectHolder("stripped_runewood_log")
-    public static LogBlock STRIPPED_RUNEWOOD_LOG;
+    public static StrippedRunewoodLogBlock STRIPPED_RUNEWOOD_LOG;
 
     @ObjectHolder("runewood_planks")
     public static Block RUNEWOOD_PLANKS;
 
     @ObjectHolder("runewood_leaves")
     public static LeavesBlock RUNEWOOD_LEAVES;
+
+    @ObjectHolder("wolframite_ore")
+    public static OreBlock WOLFRAMITE_ORE;
 
 
     // Stairs
@@ -55,8 +59,8 @@ public class ModBlock
     @ObjectHolder("runestone_brick_wall")
     public static WallBlock RUNESTONE_BRICK_WALL;
 
-    @ObjectHolder("runewood_plank_wall")
-    public static WallBlock RUNEWOOD_PLANK_WALL;
+    @ObjectHolder("runewood_plank_fence")
+    public static FenceBlock RUNEWOOD_PLANK_FENCE;
 
     // Decor
     @ObjectHolder("wolfram_lantern")
@@ -93,22 +97,25 @@ public class ModBlock
     @ObjectHolder("staff_lathe")
     public static Block STAFF_LATHE;
 
+    @ObjectHolder("runewood_sapling")
+    public static Block RUNEWOOD_SAPLING;
+
     public static void init(RegistryEvent.Register<Block> event)
     {
         // Simple Blocks
         simpleBlockFactory(event, "polished_wolfram", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
-
-        // these two will eventually be tileblocks
-        registerBlock(new AlchemicalWorkbenchBlock(), "alchemical_workbench", event);
-
         simpleBlockFactory(event, "alchemical_forge", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
 
+        // Ore Blocks
+        oreBlockFactory(event, "wolframite_ore", Material.ROCK, 3.0F, 3.0F, SoundType.STONE);
+
+        // non-simple blocks
         registerBlock(new WolframLanternBlock(), "wolfram_lantern", event);
         registerBlock(new StrippedRunewoodLogBlock(), "stripped_runewood_log", event);
-        registerBlock(new LogBlock(MaterialColor.RED, Block.Properties.create(Material.WOOD).hardnessAndResistance(3.0F, 2.0F).sound(SoundType.WOOD)), "runewood_log", event);
-
+        registerBlock(new RunewoodLogBlock(), "runewood_log", event);
         registerBlock(new LeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.PLANT)), "runewood_leaves", event);
-
+        registerBlock(new AlchemicalWorkbenchBlock(), "alchemical_workbench", event);
+        registerBlock(new RunewoodSaplingBlock(), "runewood_sapling", event);
 
         // Blocks with variations
         RUNESTONE_BRICKS = simpleBlockFactory(event, "runestone_bricks", Material.ROCK, 3.0F, 5.0F, SoundType.STONE);
@@ -118,7 +125,7 @@ public class ModBlock
 
         RUNEWOOD_PLANKS = simpleBlockFactory(event, "runewood_planks", Material.WOOD, 2.0F, 3.0F, SoundType.WOOD);
         RUNEWOOD_PLANK_SLAB = slabFactory(event, RUNEWOOD_PLANKS, "runewood_plank_slab");
-        RUNEWOOD_PLANK_WALL = wallFactory(event, RUNEWOOD_PLANKS, "runewood_plank_wall");
+        RUNEWOOD_PLANK_FENCE = fenceFactory(event, RUNEWOOD_PLANKS, "runewood_plank_fence");
         RUNEWOOD_PLANK_STAIRS = stairsFactory(event, RUNEWOOD_PLANKS, "runewood_plank_stairs");
 
 
@@ -132,6 +139,9 @@ public class ModBlock
         registerTileBlocks(event, "monolith_dark", new MonolithBlock());
         registerTileBlocks(event, "monolith_lunar", new MonolithBlock());
         registerTileBlocks(event, "monolith_solar", new MonolithBlock());
+
+
+
 
     }
 
@@ -147,6 +157,20 @@ public class ModBlock
 
         return block;
     }
+
+    public static OreBlock oreBlockFactory(RegistryEvent.Register<Block> event, String registryName, Material material, Float hardness, Float resistance, SoundType sound)
+    {
+        OreBlock block = new OreBlock(Block.Properties
+                .create(material)
+                .hardnessAndResistance(hardness, resistance)
+                .sound(sound));
+
+        block.setRegistryName(registryName);
+        event.getRegistry().register(block);
+
+        return block;
+    }
+
 
     public static void registerBlock(Block block, String registryName, RegistryEvent.Register<Block> event)
     {
@@ -184,6 +208,17 @@ public class ModBlock
 
         return stairsBlock;
     }
+
+    public static FenceBlock fenceFactory(RegistryEvent.Register<Block> event, Block block, String registryName)
+    {
+        FenceBlock fenceBlock = new FenceBlock(Block.Properties.from(block));
+
+        fenceBlock.setRegistryName(registryName);
+        event.getRegistry().register(fenceBlock);
+
+        return fenceBlock;
+    }
+
 
     public static void registerTileBlocks(RegistryEvent.Register<Block> event, String registryName, Block block)
     {

@@ -1,12 +1,11 @@
 package com.root.sorcery.network.packets;
 
-import com.root.sorcery.particle.ModParticle;
+import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.root.sorcery.particle.ParticleEffects;
-import com.root.sorcery.particle.RGBAParticleType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.util.ResourceLocation;
@@ -34,7 +33,9 @@ public class ParticleEffectPacket
         CompoundNBT nbt = new CompoundNBT();
 
         nbt.putInt("eT", effectType);
+
         nbt.putString("p", particle.getType().getRegistryName().toString());
+        nbt.putString("pP", particle.getParameters());
 
         nbt.putDouble("lX", loc.x);
         nbt.putDouble("lY", loc.y);
@@ -51,6 +52,7 @@ public class ParticleEffectPacket
 
         this.pktNBT = nbt;
     }
+
 
     public static void encode(ParticleEffectPacket pkt, PacketBuffer buf)
     {
@@ -70,7 +72,15 @@ public class ParticleEffectPacket
                 if (ctx.get().getDirection().getReceptionSide().isClient()) {
                     CompoundNBT nbt = message.pktNBT;
                     World world = Minecraft.getInstance().world;
-                    IForgeRegistryEntry particle = GameRegistry.findRegistry(ParticleType.class).getValue(new ResourceLocation(nbt.getString("p")));
+                    IForgeRegistryEntry regParticle = GameRegistry.findRegistry(ParticleType.class).getValue(new ResourceLocation(nbt.getString("p")));
+                    ParticleType particleType = (ParticleType) regParticle;
+                    IParticleData particle = null;
+                    try {
+                        particle = particleType.getDeserializer().deserialize(particleType, new StringReader(nbt.getString("pP")));
+                    } catch (CommandSyntaxException e) {
+                        e.printStackTrace();
+                    }
+
 
                     Vec3d loc = new Vec3d(nbt.getDouble("lX"), nbt.getDouble("lY"), nbt.getDouble("lZ"));
                     Vec3d lookVec = new Vec3d(nbt.getDouble("vX"), nbt.getDouble("vY"), nbt.getDouble("vZ"));
@@ -83,19 +93,22 @@ public class ParticleEffectPacket
                     switch (message.pktNBT.getInt("eT"))
                     {
                         case 0:
-                            ParticleEffects.risePoof(world, ((BasicParticleType) particle), loc, lookVec, num, speed, radius);
+                            ParticleEffects.risePoof(world, particle, loc, lookVec, num, speed, radius);
                             break;
                         case 1:
-                            ParticleEffects.ringHorizontal(world, ((BasicParticleType) particle), loc, lookVec, num, speed, radius);
+                            ParticleEffects.ringHorizontal(world, particle, loc, lookVec, num, speed, radius);
                             break;
                         case 2:
-                            ParticleEffects.expandingSphere(world, ((BasicParticleType) particle), loc, lookVec, num, speed, radius);
+                            ParticleEffects.expandingSphere(world, particle, loc, lookVec, num, speed, radius);
                             break;
                         case 3:
-                            ParticleEffects.coneSpray(world, ((BasicParticleType) particle), loc, lookVec, num, speed, radius);
+                            ParticleEffects.coneSpray(world, particle, loc, lookVec, num, speed, radius);
                             break;
                         case 4:
-                            ParticleEffects.sendTo(world, ModParticle.ARCANA_ORB, loc, lookVec, num, speed, radius);
+                            ParticleEffects.sendTo(world, particle, loc, lookVec, num, speed, radius);
+                            break;
+                        case 5:
+                            ParticleEffects.smallFountain(world, particle, loc, lookVec, num, speed, radius);
                             break;
                     }
                 }

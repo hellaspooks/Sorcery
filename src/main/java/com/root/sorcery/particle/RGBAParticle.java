@@ -48,7 +48,7 @@ public class RGBAParticle extends SpriteTexturedParticle
 
 
     @OnlyIn(Dist.CLIENT)
-    public static class Factory implements IParticleFactory<RGBAParticleType>
+    public static class Factory implements IParticleFactory<RGBAParticleData>
     {
         private final IAnimatedSprite spriteSet;
 
@@ -60,7 +60,7 @@ public class RGBAParticle extends SpriteTexturedParticle
 
         @Nullable
         @Override
-        public Particle makeParticle(RGBAParticleType data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
+        public Particle makeParticle(RGBAParticleData data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
             RGBAParticle simpleParticle = new RGBAParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, spriteSet, data.r, data.g, data.b, data.a);
             simpleParticle.setMaxAge(40);

@@ -25,6 +25,7 @@ public class Containers
     @ObjectHolder("sorcery:staff_lathe_container")
     public static ContainerType<StaffLatheContainer> STAFF_LATHE_CONTAINER;
 
+
     public static void registerScreens()
     {
         ScreenManager.registerFactory(WOLFRAM_BLAST_FURNACE, WolframBlastFurnaceGui::new);
@@ -40,5 +41,6 @@ public class Containers
             BlockPos pos = data.readBlockPos();
             return new StaffLatheContainer(windowId, Sorcery.proxy.getClientWorld(), pos, inv, Sorcery.proxy.getClientPlayer());
         }).setRegistryName("sorcery:staff_lathe_container"));
+
     }
 }

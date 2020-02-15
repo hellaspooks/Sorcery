@@ -9,10 +9,10 @@ import java.util.function.Supplier;
 
     public enum ModMaterial implements IItemTier {
         WOLFRAM(2, 300, 6.5F, 2.0F, 18, () -> {
-            return Ingredient.fromItems(ModItem.wolfram_ingot);
+            return Ingredient.fromItems(ModItem.WOLFRAM_INGOT);
         }),
         MYTHRIL(3, 1800, 8.5F, 3.5F, 20, () -> {
-            return Ingredient.fromItems(ModItem.mythril_ingot);
+            return Ingredient.fromItems(ModItem.MYTHRIL_INGOT);
         });
 
         private final int harvestLevel;

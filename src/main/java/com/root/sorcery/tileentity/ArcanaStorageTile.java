@@ -3,7 +3,6 @@ package com.root.sorcery.tileentity;
 import com.root.sorcery.arcana.ArcanaStorage;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.particle.ParticleEffects;
-import com.root.sorcery.particle.RGBAParticleType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.IntArrayNBT;
@@ -276,10 +275,9 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
     {
         if (world.isRemote)
         {
-            if (world.getWorld().getGameTime() % 10 == 0) {
+            if (world.getWorld().getGameTime() % 40 == 0) {
                 if (this.arcanaTransferTarget != null) {
-                    RGBAParticleType data = new RGBAParticleType(178f/255f, 102f/255f, 1, 1);
-                    ParticleEffects.sendTo(world.getWorld(), data, this.arcanaPulseSource, this.arcanaPulseTarget, 1, 1, 0);
+                    ParticleEffects.arcanaPulse(world.getWorld(), ParticleEffects.getArcanaOrb(1), this.arcanaPulseSource, this.arcanaPulseTarget, 1, 1, 0);
                 }
             }
             return;
