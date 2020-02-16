@@ -22,6 +22,11 @@ import net.minecraftforge.registries.ObjectHolder;
 @ObjectHolder("sorcery")
 public class ModItem
 {
+    @ObjectHolder("arcane_dynamo")
+    public static Item arcane_dynamo;
+    @ObjectHolder("mundane_mechanism")
+    public static Item mundane_mechanism;
+
     // Materials
     @ObjectHolder("lodestone")
     public static Item LODESTONE;
@@ -61,18 +66,22 @@ public class ModItem
     public static Item sigil_transmutation;
 
     // Crystals
-    @ObjectHolder("carnelian")
-    public static Item carnelian;
-    @ObjectHolder("chalcedony")
-    public static Item chalcedony;
-    @ObjectHolder("sugilite")
-    public static Item sugilite;
-    @ObjectHolder("jasper")
-    public static Item jasper;
-    @ObjectHolder("serpentine")
-    public static Item serpentine;
-    @ObjectHolder("nuummite")
-    public static Item nuummite;
+    @ObjectHolder("crystal_arcane")
+    public static Item crystal_arcane;
+    @ObjectHolder("crystal_inert")
+    public static Item crystal_inert;
+    @ObjectHolder("crystal_carnelian")
+    public static Item crystal_carnelian;
+    @ObjectHolder("crystal_chalcedony")
+    public static Item crystal_chalcedony;
+    @ObjectHolder("crystal_sugilite")
+    public static Item crystal_sugilite;
+    @ObjectHolder("crystal_jasper")
+    public static Item crystal_jasper;
+    @ObjectHolder("crystal_serpentine")
+    public static Item crystal_serpentine;
+    @ObjectHolder("crystal_nuummite")
+    public static Item crystal_nuummite;
 
     // Geode
     @ObjectHolder("geode")
@@ -169,11 +178,13 @@ public class ModItem
     {
         // Simple Items
         // Materials
+        simpleItemFactory("mundane_mechanism", event);
         simpleItemFactory("lodestone", event);
         simpleItemFactory("wolfram_ingot", event);
         simpleItemFactory("mythril_ingot", event);
         simpleItemFactory("sigil_slate", event);
         simpleItemFactory("grimoire", event);
+        simpleItemFactory("arcane_dynamo", event);
 
         // Tomes
         simpleItemFactory("tome_abjuration", event);
@@ -184,15 +195,17 @@ public class ModItem
         simpleItemFactory("tome_transmutation", event);
 
         // Crystals
-        registerItem("carnelian", new CrystalItem(Constants.ITEM_PROPS), event);
-        registerItem( "chalcedony", new CrystalItem(Constants.ITEM_PROPS), event);
-        registerItem("sugilite", new CrystalItem(Constants.ITEM_PROPS), event);
-        registerItem("jasper", new CrystalItem(Constants.ITEM_PROPS), event);
-        registerItem("serpentine", new CrystalItem(Constants.ITEM_PROPS), event);
-        registerItem("nuummite", new CrystalItem(Constants.ITEM_PROPS), event);
+        registerItem("crystal_arcane", new CrystalItem(Constants.ITEM_PROPS), event);
+        registerItem("crystal_inert", new CrystalItem(Constants.ITEM_PROPS), event);
+        registerItem("crystal_carnelian", new CrystalItem(Constants.ITEM_PROPS), event);
+        registerItem("crystal_chalcedony", new CrystalItem(Constants.ITEM_PROPS), event);
+        registerItem("crystal_sugilite", new CrystalItem(Constants.ITEM_PROPS), event);
+        registerItem("crystal_jasper", new CrystalItem(Constants.ITEM_PROPS), event);
+        registerItem("crystal_serpentine", new CrystalItem(Constants.ITEM_PROPS), event);
+        registerItem("crystal_nuummite", new CrystalItem(Constants.ITEM_PROPS), event);
 
         // Geode
-        registerItem( "geode", new GeodeItem(Constants.ITEM_PROPS), event);
+        registerItem("geode", new GeodeItem(Constants.ITEM_PROPS), event);
 
         // Crushed Wolframite
         registerItem("crushed_wolframite", new CrushedWolframiteItem(), event);

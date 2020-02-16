@@ -9,13 +9,13 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 
-import static com.root.sorcery.item.ModItem.carnelian;
-import static com.root.sorcery.item.ModItem.chalcedony;
+import static com.root.sorcery.item.ModItem.crystal_carnelian;
+import static com.root.sorcery.item.ModItem.crystal_chalcedony;
 import static com.root.sorcery.item.ModItem.geode;
-import static com.root.sorcery.item.ModItem.jasper;
-import static com.root.sorcery.item.ModItem.nuummite;
-import static com.root.sorcery.item.ModItem.serpentine;
-import static com.root.sorcery.item.ModItem.sugilite;
+import static com.root.sorcery.item.ModItem.crystal_jasper;
+import static com.root.sorcery.item.ModItem.crystal_nuummite;
+import static com.root.sorcery.item.ModItem.crystal_serpentine;
+import static com.root.sorcery.item.ModItem.crystal_sugilite;
 
 public class GeodeItem extends Item
 {
@@ -59,17 +59,17 @@ public class GeodeItem extends Item
         switch (randomNumb)
         {
             case 1:
-                return carnelian;
+                return crystal_carnelian;
             case 2:
-                return chalcedony;
+                return crystal_chalcedony;
             case 3:
-                return sugilite;
+                return crystal_sugilite;
             case 4:
-                return jasper;
+                return crystal_jasper;
             case 5:
-                return serpentine;
+                return crystal_serpentine;
             case 6:
-                return nuummite;
+                return crystal_nuummite;
             default:
                 return null;
         }
