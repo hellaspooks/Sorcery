@@ -1,7 +1,7 @@
 package com.root.sorcery.block;
 
 import com.root.sorcery.block.state.States;
-import com.root.sorcery.tileentity.BasicMonolithTile;
+import com.root.sorcery.tileentity.ChiseledMonolithTile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -16,13 +16,14 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class BasicMonolithBlock extends Block
+public class MonolithBlock extends Block
 {
     private static Float hardness   = 3.0F;
     private static Float resistance = 6.0F;
     public static final BooleanProperty ACTIVE = States.ACTIVE;
+    public static final int LIT_LIGHT_LEVEL = 7;
 
-    public BasicMonolithBlock()
+    public MonolithBlock()
     {
         super(Properties.create(Material.ROCK).hardnessAndResistance(hardness, resistance).sound(SoundType.STONE));
         this.setDefaultState(this.stateContainer.getBaseState().with(ACTIVE, Boolean.valueOf(false)));
@@ -36,6 +37,12 @@ public class BasicMonolithBlock extends Block
     public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos)
     {
         return false;
+    }
+
+    @Override
+    public int getLightValue(BlockState state)
+    {
+        return state.get(ACTIVE) ? LIT_LIGHT_LEVEL : 0;
     }
 
     @Override
@@ -60,7 +67,7 @@ public class BasicMonolithBlock extends Block
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        return new BasicMonolithTile();
+        return new ChiseledMonolithTile();
     }
 
     public static void setActivity(World world, BlockState state, BlockPos pos, Boolean active)

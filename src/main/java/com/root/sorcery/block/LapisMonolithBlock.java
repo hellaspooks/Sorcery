@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class LapisMonolithBlock extends BasicMonolithBlock
+public class LapisMonolithBlock extends MonolithBlock
 {
     public LapisMonolithBlock()
     {

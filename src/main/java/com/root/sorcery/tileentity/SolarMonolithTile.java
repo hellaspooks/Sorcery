@@ -1,7 +1,8 @@
 package com.root.sorcery.tileentity;
 
-import com.root.sorcery.block.BasicMonolithBlock;
+import com.root.sorcery.block.MonolithBlock;
 import com.root.sorcery.particle.ParticleEffects;
+import com.root.sorcery.particle.Particles;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.Vec3d;
@@ -25,7 +26,7 @@ public class SolarMonolithTile extends AbstractMonolithTile implements ITickable
             // Arcana generation
             if (worldTicks % ticksPerRegen == 0 && this.active)
             {
-                this.arcanaStorage.receiveArcana(arcanaPerRegen, false);
+                this.receiveArcana(arcanaPerRegen);
             }
             // Activity setting
             if (worldTicks % 20 == 0)
@@ -41,16 +42,16 @@ public class SolarMonolithTile extends AbstractMonolithTile implements ITickable
                 } else {
                     this.active = false;
                 }
-                BasicMonolithBlock.setActivity(this.world, this.getBlockState(), this.pos, this.active);
+                MonolithBlock.setActivity(this.world, this.getBlockState(), this.pos, this.active);
             }
         } else {
             // Particles
-            if (worldTicks % 10 == 0)
+            if (worldTicks % 5 == 0)
             {
-                if (this.getBlockState().get(BasicMonolithBlock.ACTIVE))
+                if (this.getBlockState().get(MonolithBlock.ACTIVE))
                 {
                     Vec3d sunVec = Utils.getSunVector(this.world);
-                    ParticleEffects.drawIn(world, ParticleEffects.getSolarSpark(), this.arcanaPulseSource, sunVec, 20, 1, 1);
+                    ParticleEffects.drawIn(world, Particles.getSolarSpark(), this.arcanaPulseSource, sunVec, 10, 1, 1, 40);
                 }
             }
         }

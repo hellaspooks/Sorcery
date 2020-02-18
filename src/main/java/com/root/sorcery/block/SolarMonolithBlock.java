@@ -7,7 +7,7 @@ import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
 
-public class SolarMonolithBlock extends BasicMonolithBlock
+public class SolarMonolithBlock extends MonolithBlock
 {
     public SolarMonolithBlock()
     {

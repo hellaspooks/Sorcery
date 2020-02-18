@@ -13,8 +13,8 @@ public class ModTile
     @ObjectHolder("wolfram_blast_furnace")
     public static TileEntityType<WolframBlastFurnaceTile> WOLFRAM_BLAST_FURNACE_TILE;
 
-    @ObjectHolder("basic_monolith")
-    public static TileEntityType<AbstractMonolithTile> BASIC_MONOLITH_TILE;
+    @ObjectHolder("chiseled_monolith")
+    public static TileEntityType<AbstractMonolithTile> CHISELED_MONOLITH_TILE;
 
     @ObjectHolder("solar_monolith")
     public static TileEntityType<SolarMonolithTile> SOLAR_MONOLITH_TILE;
@@ -52,9 +52,9 @@ public class ModTile
                 .setRegistryName("reliquary"));
 
         event.getRegistry().register(TileEntityType.Builder
-                .create(BasicMonolithTile::new, ModBlock.MONOLITH_BASIC)
+                .create(ChiseledMonolithTile::new, ModBlock.MONOLITH_CHISELED)
                 .build(null)
-                .setRegistryName("basic_monolith"));
+                .setRegistryName("chiseled_monolith"));
 
         event.getRegistry().register(TileEntityType.Builder
                 .create(DarkMonolithTile::new, ModBlock.MONOLITH_DARK)

@@ -99,8 +99,8 @@ public class ModItem
     public static Item sorcerous_staff;
 
     // Utility Items
-    @ObjectHolder("linking_stick")
-    public static Item linking_stick;
+    @ObjectHolder("crystal_resonator")
+    public static Item CRYSTAL_RESONATOR;
 
     // Tools
     @ObjectHolder("wolfram_pickaxe")
@@ -216,7 +216,7 @@ public class ModItem
         registerItem("sorcerous_staff", new StaffItem(Constants.ITEM_PROPS_NONSTACK), event);
 
         // Utility Items
-        registerItem("linking_stick", new LinkingItem(Constants.ITEM_PROPS), event);
+        registerItem("crystal_resonator", new CrystalResonatorItem(Constants.ITEM_PROPS), event);
 
         // Tools
         // TODO: attack + speed values
@@ -285,7 +285,7 @@ public class ModItem
         blockItemFactory(ModBlock.RELIQUARY, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.WOLFRAM_BLAST_FURNACE, Constants.ITEM_PROPS, event);
 
-        blockItemFactory(ModBlock.MONOLITH_BASIC, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.MONOLITH_CHISELED, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.MONOLITH_SOLAR, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.MONOLITH_LUNAR, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.MONOLITH_DARK, Constants.ITEM_PROPS, event);

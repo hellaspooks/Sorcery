@@ -1,10 +1,10 @@
 package com.root.sorcery.tileentity;
 
-import com.root.sorcery.block.BasicMonolithBlock;
+import com.root.sorcery.block.MonolithBlock;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.Vec3d;
 
-public class BasicMonolithTile extends AbstractMonolithTile implements ITickableTileEntity
+public class ChiseledMonolithTile extends AbstractMonolithTile implements ITickableTileEntity
 {
 
     protected int arcanaPerRegen = 2;
@@ -13,9 +13,9 @@ public class BasicMonolithTile extends AbstractMonolithTile implements ITickable
     protected boolean active = true;
 
 
-    public BasicMonolithTile()
+    public ChiseledMonolithTile()
     {
-        super(ModTile.BASIC_MONOLITH_TILE, 1000);
+        super(ModTile.CHISELED_MONOLITH_TILE, 1000);
         this.arcanaPulseOffset = new Vec3d(0.5, 2, 0.5);
     }
 
@@ -31,7 +31,7 @@ public class BasicMonolithTile extends AbstractMonolithTile implements ITickable
 
         if (worldTicks % 20 == 0)
         {
-            BasicMonolithBlock.setActivity(this.world, this.getBlockState(), this.pos, this.active);
+            MonolithBlock.setActivity(this.world, this.getBlockState(), this.pos, this.active);
         }
         super.tick();
     }

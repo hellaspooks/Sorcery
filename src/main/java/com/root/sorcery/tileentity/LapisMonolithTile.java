@@ -1,7 +1,6 @@
 package com.root.sorcery.tileentity;
 
-import com.root.sorcery.block.BasicMonolithBlock;
-import net.minecraft.entity.LivingEntity;
+import com.root.sorcery.block.MonolithBlock;
 
 
 public class LapisMonolithTile extends AbstractMonolithTile
@@ -12,7 +11,7 @@ public class LapisMonolithTile extends AbstractMonolithTile
     public LapisMonolithTile()
     {
         super(ModTile.LAPIS_MONOLITH_TILE, 1000);
-        this.extractArcana(1000);
+        this.arcanaStorage.extractArcana(1000, false);
     }
 
     public void acceptLapis()
@@ -40,9 +39,9 @@ public class LapisMonolithTile extends AbstractMonolithTile
             {
                 if (this.arcanaStorage.getArcanaStored() < 10)
                 {
-                    BasicMonolithBlock.setActivity(world, this.getBlockState(), this.pos, false);
+                    MonolithBlock.setActivity(world, this.getBlockState(), this.pos, false);
                 } else {
-                    BasicMonolithBlock.setActivity(world, this.getBlockState(), this.pos, true);
+                    MonolithBlock.setActivity(world, this.getBlockState(), this.pos, true);
 
                 }
             }

@@ -1,8 +1,11 @@
 package com.root.sorcery.item;
 
+import com.google.gson.internal.$Gson$Preconditions;
 import com.root.sorcery.spell.CastType;
+import com.root.sorcery.spell.ModSpell;
 import com.root.sorcery.spell.Spell;
 import com.root.sorcery.spell.SpellUseContext;
+import com.root.sorcery.tileentity.ArcanaStorageTile;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -59,6 +62,11 @@ public class SpellcastingItem extends Item
     public ActionResultType onItemUse(ItemUseContext context)
     {
         SpellUseContext spellContext = new SpellUseContext(context);
+        // if targeting arcana source, instead draw in arcana
+        if (context.getWorld().getTileEntity(context.getPos()) instanceof ArcanaStorageTile)
+        {
+            return castSpellOverride(spellContext, ModSpell.ARCANA_DRAIN_SPELL);
+        }
         return castSpell(spellContext);
     }
 
@@ -88,6 +96,21 @@ public class SpellcastingItem extends Item
         // Otherwise, cast the spell
         return spellToCast.cast(context);
     }
+
+    public ActionResultType castSpellOverride(SpellUseContext context, Spell spell)
+    {
+        CastType castType = spell.getCastType();
+
+        // If duration or channeled spell, set active hand and pass
+        if ( castType == CastType.DURATION || castType == CastType.CHANNELED)
+        {
+            context.getPlayer().setActiveHand(context.getHand());
+            return ActionResultType.SUCCESS;
+        }
+        // Otherwise, cast the spell
+        return spell.cast(context);
+    }
+
 
     // Duration spells finish here
     @Override

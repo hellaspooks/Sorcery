@@ -37,7 +37,6 @@ public class PylonBlock extends Block
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        System.out.println("created phylactery tile");
         return new PylonTile();
     }
 

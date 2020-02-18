@@ -23,7 +23,7 @@ public class RunestoneBlock extends Block
 
     public RunestoneBlock(ResourceLocation formationBlock)
     {
-        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0f, 3.0f).sound(SoundType.STONE));
+        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0f, 3.0f).sound(SoundType.STONE).lightValue(7));
         this.formationBlock = formationBlock;
     }
 

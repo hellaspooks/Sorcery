@@ -18,6 +18,7 @@ public class RGBAParticleData implements IParticleData
     public final float g;
     public final float b;
     public final float a;
+    public final int t;
     public ParticleType<RGBAParticleData> particleType;
 
     public RGBAParticleData()
@@ -26,6 +27,7 @@ public class RGBAParticleData implements IParticleData
         this.g = 1;
         this.b = 1;
         this.a = 1;
+        this.t = 40;
         this.particleType = ModParticle.RGBA_SPARK;
 
     }
@@ -37,6 +39,18 @@ public class RGBAParticleData implements IParticleData
         this.g = g;
         this.b = b;
         this.a = a;
+        this.t = 40;
+        this.particleType = ModParticle.RGBA_SPARK;
+    }
+
+    public RGBAParticleData(float r, float g, float b, float a, int t)
+    {
+
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.a = a;
+        this.t = t;
         this.particleType = ModParticle.RGBA_SPARK;
     }
 
@@ -46,6 +60,17 @@ public class RGBAParticleData implements IParticleData
         this.g = g;
         this.b = b;
         this.a = a;
+        this.t = 40;
+        this.particleType = particleType;
+    }
+
+    public RGBAParticleData(ParticleType<RGBAParticleData> particleType, float r, float g, float b, float a, int t)
+    {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.a = a;
+        this.t = t;
         this.particleType = particleType;
     }
 
@@ -62,13 +87,14 @@ public class RGBAParticleData implements IParticleData
         buf.writeFloat(g);
         buf.writeFloat(b);
         buf.writeFloat(a);
+        buf.writeInt(t);
 
     }
 
     @Override
     public String getParameters()
     {
-        String params = String.format(Locale.ROOT, "%s %f %f %f %f", this.getType().getRegistryName(), this.r, this.g, this.b, this.a);
+        String params = String.format(Locale.ROOT, "%s %f %f %f %f %d", this.getType().getRegistryName(), this.r, this.g, this.b, this.a, this.t);
         System.out.println(params);
         return params;
     }
@@ -87,12 +113,15 @@ public class RGBAParticleData implements IParticleData
             float b = reader.readFloat();
             reader.expect(' ');
             float a = reader.readFloat();
-            return new RGBAParticleData((ParticleType)regParticle, r, g, b, a);
+            reader.expect(' ');
+            int t = reader.readInt();
+
+            return new RGBAParticleData((ParticleType)regParticle, r, g, b, a, t);
         }
 
         @Override
         public RGBAParticleData read(@Nonnull ParticleType<RGBAParticleData> type, PacketBuffer buf) {
-            return new RGBAParticleData(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat());
+            return new RGBAParticleData(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt());
         }
     };
 }

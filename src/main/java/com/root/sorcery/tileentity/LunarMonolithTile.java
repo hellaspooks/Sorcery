@@ -1,7 +1,8 @@
 package com.root.sorcery.tileentity;
 
-import com.root.sorcery.block.BasicMonolithBlock;
+import com.root.sorcery.block.MonolithBlock;
 import com.root.sorcery.particle.ParticleEffects;
+import com.root.sorcery.particle.Particles;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.Vec3d;
@@ -12,7 +13,7 @@ import java.util.Map;
 public class LunarMonolithTile extends ArcanaStorageTile implements ITickableTileEntity
 {
 
-    protected int arcanaPerRegen = 2;
+    protected int arcanaPerRegen;
     protected int ticksPerRegen = 2;
 
     protected boolean active = false;
@@ -46,7 +47,7 @@ public class LunarMonolithTile extends ArcanaStorageTile implements ITickableTil
             // Arcana generation
             if (worldTicks % ticksPerRegen == 0 && this.active)
             {
-                this.arcanaStorage.receiveArcana((int)((double)this.arcanaPerRegen * this.cycleMultiplier), false);
+                this.receiveArcana((int)((double)this.arcanaPerRegen * this.cycleMultiplier));
             }
 
             // Activity setting
@@ -61,16 +62,16 @@ public class LunarMonolithTile extends ArcanaStorageTile implements ITickableTil
                    int moonPhase = this.world.dimension.getMoonPhase(worldTicks);
                    this.cycleMultiplier = this.phaseMap.get(moonPhase);
                 }
-                BasicMonolithBlock.setActivity(this.world, this.getBlockState(), this.pos, this.active);
+                MonolithBlock.setActivity(this.world, this.getBlockState(), this.pos, this.active);
             }
         } else {
             // Particles
-            if (worldTicks % 10 == 0)
+            if (worldTicks % 5 == 0)
             {
-                if (this.getBlockState().get(BasicMonolithBlock.ACTIVE))
+                if (this.getBlockState().get(MonolithBlock.ACTIVE))
                 {
                     Vec3d moonVec = Utils.getMoonVector(this.world);
-                    ParticleEffects.drawIn(world, ParticleEffects.getLunarSpark(), this.arcanaPulseSource, moonVec, 20, 1, 1);
+                    ParticleEffects.drawIn(world, Particles.getLunarSpark(), this.arcanaPulseSource, moonVec, 10, 1, 1, 40);
                 }
             }
 

@@ -1,27 +1,24 @@
 package com.root.sorcery.particle;
 
-import com.root.sorcery.Constants;
 import com.root.sorcery.utils.BasisVectors;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import java.util.List;
-import java.util.Random;
-
 /**
  * These methods are arrangements and starting velocities of particles.
  * The Particle passed in to each determines what happens after the initial positioning and velocity.
  * IE: passing a SimpleParticle to ringHorizontal will get a ring that expand with constant speed, but passing a SlowOut
  * particle will result in a ring which's expansion slows over time.
+ *
  */
 public class ParticleEffects
 {
 
 
     // Bunch of particles within random radius of location, that rise with speed riseSpeed
-    public static void risePoof(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
+    public static void risePoof(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius, int age)
     {
         double[] xShifts = world.getRandom().doubles(numParticles, -radius, radius).toArray();
         double[] yShifts =  world.getRandom().doubles(numParticles, -radius, radius).toArray();
@@ -34,7 +31,7 @@ public class ParticleEffects
     }
 
     // Horizontal ring of evenly space particles around location
-    public static void ringHorizontal(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
+    public static void ringHorizontal(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius, int age)
     {
         for (int i = 0; i < numParticles; i++)
         {
@@ -44,31 +41,32 @@ public class ParticleEffects
             world.addParticle(particle, loc.getX(), loc.getY(), loc.getZ(), vecX, 0, vecZ);
         }
     }
-    public static void arcanaPulse(World world, IParticleData particle, Vec3d origin, Vec3d dest, int density, double speed, double radius)
+
+    // pulse effect sent by arcana storage tiles
+    public static void arcanaPulse(World world, IParticleData particle, Vec3d origin, Vec3d dest, int density, double speed, double radius, int age)
     {
         int color1 = world.rand.nextInt(2);
         int color2 = world.rand.nextInt(2);
         int color3 = world.rand.nextInt(2);
-        sendTo(world.getWorld(), getArcanaOrb(color1), origin, dest, 1, 1, 0);
-        sendTo(world.getWorld(), getArcanaSpark1(color2), origin, dest, 1, 0.95, 0);
-        sendTo(world.getWorld(), getArcanaSpark3(color3), origin, dest, 1, 0.9, 0);
-        sendTo(world.getWorld(), getArcanaSpark3(color2), origin, dest, 1, 0.85, 0);
-        sendTo(world.getWorld(), getArcanaSpark1(color1), origin, dest, 1, 0.8, 0);
+        sendTo(world.getWorld(), Particles.getArcanaOrb(color1), origin, dest, 1, 1, 0, age);
+        sendTo(world.getWorld(), Particles.getArcanaSpark1(color2), origin, dest, 1, 0.95, 0, age);
+        sendTo(world.getWorld(), Particles.getArcanaSpark3(color3), origin, dest, 1, 0.9, 0, age);
+        sendTo(world.getWorld(), Particles.getArcanaSpark3(color2), origin, dest, 1, 0.85, 0, age);
+        sendTo(world.getWorld(), Particles.getArcanaSpark1(color1), origin, dest, 1, 0.8, 0, age);
     }
 
     // line of particles moving towards endpoint
-    public static void sendTo(World world, IParticleData particle, Vec3d origin, Vec3d dest, int density, double speed, double radius)
+    public static void sendTo(World world, IParticleData particle, Vec3d origin, Vec3d dest, int density, double speed, double radius, int age)
     {
         Vec3d ray = dest.subtract(origin).normalize();
         double distance = dest.distanceTo(origin);
-        int age = 40;
-        double realSpeed = (distance / (double) age) * speed;
+        double realSpeed = (distance / (double) (age - 10)) * speed;
         Vec3d vec = ray.mul(realSpeed, realSpeed, realSpeed);
         world.addParticle(particle, origin.getX(), origin.getY(), origin.getZ(), vec.getX(), vec.getY(), vec.getZ());
     }
 
     // Expanding sphere of ~roughly evenly spaced particles surrounding location
-    public static void expandingSphere(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
+    public static void expandingSphere(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius, int age)
     {
         double rand = world.getRandom().nextDouble() * numParticles;
         double offset = 2.0/numParticles;
@@ -85,7 +83,8 @@ public class ParticleEffects
         }
     }
 
-    public static void coneSpray(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
+    // spray of particles in a cone
+    public static void coneSpray(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius, int age)
     {
         BasisVectors vecs = new BasisVectors(lookVec);
 
@@ -108,7 +107,8 @@ public class ParticleEffects
 
     }
 
-    public static void smallFountain(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
+    // little fountain or particles
+    public static void smallFountain(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius, int age)
     {
         for ( int i = 0; i < numParticles; i++)
         {
@@ -121,7 +121,8 @@ public class ParticleEffects
 
     }
 
-    public static void drawIn(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
+    // particles drawn in to source from dest
+    public static void drawIn(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius, int age)
     {
         BasisVectors vecs = new BasisVectors(lookVec);
         Vec3d startingPoint = Utils.nBlocksAlongVector(loc, lookVec, 4);
@@ -141,55 +142,7 @@ public class ParticleEffects
             startPos = startPos.add(vecs.y.mul(r2, r2, r2));
             startPos = startPos.add(vecs.z.mul(r3, r3, r3));
 
-            sendTo(world, particle, startPos, loc, 1, 1, 1);
+            sendTo(world, particle, startPos, loc, 1, 1, 1, age);
         }
     }
-
-    // get particle data instances for certain common effects
-    public static IParticleData getArcanaOrb(int color)
-    {
-        List<Integer> rgb = Constants.arcanaColors.get(color);
-        return new RGBAParticleData(ModParticle.ARCANA_ORB, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.7f);
-    }
-
-    public static IParticleData getArcanaSpark1(int color)
-    {
-        List<Integer> rgb = Constants.arcanaColors.get(color);
-        return new RGBAParticleData(ModParticle.ARCANA_SPARK_1, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
-    }
-
-    public static IParticleData getArcanaSpark3(int color)
-    {
-        List<Integer> rgb = Constants.arcanaColors.get(color);
-        return new RGBAParticleData(ModParticle.ARCANA_SPARK_3, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
-    }
-
-    public static IParticleData getSpark()
-    {
-        return new RGBAParticleData();
-    }
-
-    public static IParticleData getPuff()
-    {
-        return new RGBAParticleData(ModParticle.SIMPLE_PUFF, 1, 1, 1, 1);
-    }
-
-    public static IParticleData getSolarSpark()
-    {
-        List<Integer> rgb = Constants.SOLAR_GOLD_MAIN;
-        return new RGBAParticleData(ModParticle.SIMPLE_SPARK, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
-    }
-
-    public static IParticleData getLunarSpark()
-    {
-        List<Integer> rgb = Constants.LUNAR_SILVER_MAIN;
-        return new RGBAParticleData(ModParticle.SIMPLE_SPARK, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
-    }
-
-    public static IParticleData getBloodSpark()
-    {
-        List<Integer> rgb = Constants.BLOOD_RED_MAIN;
-        return new RGBAParticleData(ModParticle.SIMPLE_SPARK, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
-    }
-
 }

@@ -13,10 +13,10 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 
-public class LinkingItem extends Item
+public class CrystalResonatorItem extends Item
 {
 
-    public LinkingItem(Properties properties)
+    public CrystalResonatorItem(Properties properties)
     {
         super(properties);
     }

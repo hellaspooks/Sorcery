@@ -5,6 +5,7 @@ import com.google.common.collect.Collections2;
 import com.root.sorcery.arcana.ArcanaStorage;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.particle.ParticleEffects;
+import com.root.sorcery.particle.Particles;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -188,7 +189,7 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
         {
             if (world.getWorld().getGameTime() % 40 == 0) {
                 if (this.arcanaTransferTarget != null) {
-                    ParticleEffects.arcanaPulse(world.getWorld(), ParticleEffects.getArcanaOrb(1), this.arcanaPulseSource, this.arcanaPulseTarget, 1, 1, 0);
+                    ParticleEffects.arcanaPulse(world.getWorld(), Particles.getArcanaOrb(1), this.arcanaPulseSource, this.arcanaPulseTarget, 1, 1, 0, 40);
                 }
                 if (this.vacuum)
                 {
@@ -293,6 +294,10 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
         {
             this.readTransferTag(tag.getCompound("tData"));
         }
+        if (tag.contains("aData"))
+        {
+            this.arcanaStorage.deserializeNBT(tag.getCompound("aData"));
+        }
     }
 
     // get tag to send client
@@ -300,6 +305,7 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
     public CompoundNBT getUpdateTag() {
         CompoundNBT nbt = this.write(new CompoundNBT());
         nbt.put("tData", this.writeTransferTag());
+        nbt.put("aData", this.arcanaStorage.serializeNBT());
         return nbt;
     }
 
@@ -343,8 +349,11 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
     // Update and Save
     public void updateAndMarkDirty()
     {
-        world.notifyBlockUpdate(pos, this.getBlockState(), this.getBlockState(), 3);
-        markDirty();
+        if (!this.world.isRemote())
+        {
+            this.markDirty();
+            this.world.notifyBlockUpdate(this.getPos(), this.getBlockState(), this.getBlockState(), 3);
+        }
     }
 
 
@@ -398,7 +407,10 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
 
     public int receiveArcana(int arcana)
     {
-        return this.arcanaStorage.receiveArcana(arcana, false);
+
+        int spareArcana = this.arcanaStorage.receiveArcana(arcana, false);
+        this.updateAndMarkDirty();
+        return spareArcana;
     }
 
     public int getStoredArcana()
@@ -408,6 +420,13 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
 
     public int extractArcana(int arcana)
     {
-        return this.arcanaStorage.extractArcana(arcana, false);
+        int arcanaExtracted = this.arcanaStorage.extractArcana(arcana, false);
+        this.updateAndMarkDirty();
+        return arcanaExtracted;
+    }
+
+    public int getMaxArcana()
+    {
+        return this.arcanaStorage.getMaxArcanaStored();
     }
 }

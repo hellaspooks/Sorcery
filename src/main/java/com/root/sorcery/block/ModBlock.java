@@ -69,8 +69,8 @@ public class ModBlock
     public static Block WOLFRAM_LANTERN;
 
     // Monoliths
-    @ObjectHolder("monolith_basic")
-    public static Block MONOLITH_BASIC;
+    @ObjectHolder("monolith_chiseled")
+    public static Block MONOLITH_CHISELED;
 
     @ObjectHolder("monolith_dark")
     public static Block MONOLITH_DARK;
@@ -152,14 +152,14 @@ public class ModBlock
         RUNEWOOD_PLANK_STAIRS = stairsFactory(event, RUNEWOOD_PLANKS, "runewood_plank_stairs");
 
         // Monolith "blocks"
-        registerBlock(new BasicMonolithBlock(), "monolith_basic", event);
+        registerBlock(new MonolithBlock(), "monolith_chiseled", event);
         registerBlock(new DarkMonolithBlock(), "monolith_dark", event);
         registerBlock(new LapisMonolithBlock(), "monolith_lapis", event);
         registerBlock(new LunarMonolithBlock(), "monolith_lunar", event);
         registerBlock(new SolarMonolithBlock(), "monolith_solar", event);
 
         // Runestone blocks
-        registerBlock(new RunestoneBlock(new ResourceLocation(Constants.MODID, "monolith_basic")), "chiseled_runestone", event);
+        registerBlock(new RunestoneBlock(new ResourceLocation(Constants.MODID, "monolith_chiseled")), "chiseled_runestone", event);
         registerBlock(new RunestoneBlock(new ResourceLocation(Constants.MODID, "monolith_dark")), "dark_runestone", event);
         registerBlock(new RunestoneBlock(new ResourceLocation(Constants.MODID, "monolith_lapis")), "lapis_runestone", event);
         registerBlock(new RunestoneBlock(new ResourceLocation(Constants.MODID, "monolith_lunar")), "lunar_runestone", event);

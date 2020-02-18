@@ -28,7 +28,7 @@ public class ParticleEffectPacket
         this.pktNBT = nbt;
     }
 
-    public ParticleEffectPacket(int effectType, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
+    public ParticleEffectPacket(int effectType, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius, int age)
     {
         CompoundNBT nbt = new CompoundNBT();
 
@@ -49,6 +49,7 @@ public class ParticleEffectPacket
 
         nbt.putDouble("v", speed);
         nbt.putDouble("r", radius);
+        nbt.putInt("t", age);
 
         this.pktNBT = nbt;
     }
@@ -89,29 +90,30 @@ public class ParticleEffectPacket
 
                     double speed = nbt.getDouble("v");
                     double radius = nbt.getDouble("r");
+                    int age = nbt.getInt("t");
 
                     switch (message.pktNBT.getInt("eT"))
                     {
                         case 0:
-                            ParticleEffects.risePoof(world, particle, loc, lookVec, num, speed, radius);
+                            ParticleEffects.risePoof(world, particle, loc, lookVec, num, speed, radius, age);
                             break;
                         case 1:
-                            ParticleEffects.ringHorizontal(world, particle, loc, lookVec, num, speed, radius);
+                            ParticleEffects.ringHorizontal(world, particle, loc, lookVec, num, speed, radius, age);
                             break;
                         case 2:
-                            ParticleEffects.expandingSphere(world, particle, loc, lookVec, num, speed, radius);
+                            ParticleEffects.expandingSphere(world, particle, loc, lookVec, num, speed, radius, age);
                             break;
                         case 3:
-                            ParticleEffects.coneSpray(world, particle, loc, lookVec, num, speed, radius);
+                            ParticleEffects.coneSpray(world, particle, loc, lookVec, num, speed, radius, age);
                             break;
                         case 4:
-                            ParticleEffects.sendTo(world, particle, loc, lookVec, num, speed, radius);
+                            ParticleEffects.sendTo(world, particle, loc, lookVec, num, speed, radius, age);
                             break;
                         case 5:
-                            ParticleEffects.smallFountain(world, particle, loc, lookVec, num, speed, radius);
+                            ParticleEffects.smallFountain(world, particle, loc, lookVec, num, speed, radius, age);
                             break;
                         case 6:
-                            ParticleEffects.drawIn(world, particle, loc, lookVec, num, speed, radius);
+                            ParticleEffects.drawIn(world, particle, loc, lookVec, num, speed, radius, age);
                             break;
                     }
                 }
