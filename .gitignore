@@ -143,3 +143,6 @@ fabric.properties
 
 *.aseprite
 *.ase
+
+# Mac OS DS_store files
+.DS_store
