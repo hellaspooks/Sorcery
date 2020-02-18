@@ -6,10 +6,13 @@
   "block.sorcery.wolfram_brick_wall": "Wolfram Brick Wall",
   "block.sorcery.wolfram_blast_furnace": "Wolfram Blast Furnace",
   "block.sorcery.wolfram_lantern": "Wolfram Lantern",
+
   "item.sorcery.wolfram_chunk": "Wolfram Chunk",
   "item.sorcery.lodestone": "Lodestone",
+
   "item.sorcery.wolfram_ingot": "Wolfram Ingot",
   "item.sorcery.mythril_ingot": "Mythril Ingot",
+
   "item.sorcery.wolfram_pickaxe": "Wolfram Pickaxe",
   "item.sorcery.wolfram_axe": "Wolfram Axe",
   "item.sorcery.wolfram_shovel": "Wolfram Shovel",
@@ -18,20 +21,37 @@
   "item.sorcery.mythril_axe": "Mythril Axe",
   "item.sorcery.mythril_shovel": "Mythril Shovel",
   "item.sorcery.mythril_hoe": "Mythril Hoe",
+  
   "item.sorcery.geode": "Geode",
+  "item.sorcery.arcane_dynamo": "Arcane Dynamo",
+  "item.sorcery.mundane_mechanism": "Mundane Mechanism",
+
   "item.sorcery.sigil_slate": "Sigil Slate",
-  "item.sorcery.sigil_evocation": " Evocation Sigil",
+  "item.sorcery.sigil_evocation": "Evocation Sigil",
   "item.sorcery.sigil_enchantment": "Enchantment Sigil",
   "item.sorcery.sigil_conjuration": "Conjuration Sigil",
   "item.sorcery.sigil_abjuration": "Abjuration Sigil",
   "item.sorcery.sigil_necromancy": "Necromancy Sigil",
   "item.sorcery.sigil_transmutation": "Transmutation Sigil",
+
+  "item.sorcery.tome_abjuration": "Tome of Abjuration",
+  "item.sorcery.tome_evocation": "Tome of Evocation",
+  "item.sorcery.tome_enchantement": "Tome of Enchantment",
+  "item.sorcery.tome_transmutation": "Tome of Transmutation",
+  "item.sorcery.tome_conjuration": "Tome of Conjuration",
+  "item.sorcery.tome_necromancy": "Tome of Necromancy",
+
   "item.sorcery.cryptoglyph": "Cryptoglyph",
-  "item.sorcery.carnelian": "Carnelian Crystal",
-  "item.sorcery.chalcedony": "Chalcedony Crystal",
-  "item.sorcery.jasper": "Jasper Crystal",
-  "item.sorcery.serpentine": "Serpentine Crystal",
-  "item.sorcery.nuummite": "Nuummite Crystal",
-  "item.sorcery.sugilite": "Sugilite Crystal",
+  "item.sorcery.grimoire": "Grimoire of Power",
+
+  "item.sorcery.crystal_arcane": "Arcane Crystal",
+  "item.sorcery.crystal_inert": "Inert Crystal",
+  "item.sorcery.crystal_carnelian": "Carnelian Crystal",
+  "item.sorcery.crystal_chalcedony": "Chalcedony Crystal",
+  "item.sorcery.crystal_jasper": "Jasper Crystal",
+  "item.sorcery.crystal_serpentine": "Serpentine Crystal",
+  "item.sorcery.crystal_nuummite": "Nuummite Crystal",
+  "item.sorcery.crystal_sugilite": "Sugilite Crystal",
+
   "itemGroup.Sorcery": "Sorcery"
 }

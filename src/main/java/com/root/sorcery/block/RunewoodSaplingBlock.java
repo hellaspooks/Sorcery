@@ -10,6 +10,10 @@ public class RunewoodSaplingBlock extends SaplingBlock
 {
     public RunewoodSaplingBlock()
     {
-        super(new RunewoodTree(), Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0, 0).sound(SoundType.PLANT));
+        // added plant sound
+        super(new RunewoodTree(), Block.Properties
+            .create(Material.PLANTS)
+            .hardnessAndResistance(1.0F, 1.0F)
+            .sound(SoundType.PLANT));
     }
 }
