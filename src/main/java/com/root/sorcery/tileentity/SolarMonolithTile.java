@@ -13,18 +13,19 @@ public class SolarMonolithTile extends AbstractMonolithTile implements ITickable
 
     public SolarMonolithTile(){
         super(ModTile.SOLAR_MONOLITH_TILE, 1000);
+        this.arcanaStorage.extractArcana(1000, false);
         this.arcanaPerRegen = 4;
     }
 
     @Override
     public void tick()
     {
-        long worldTicks = world.getWorld().getGameTime();
+        long worldTicks = this.getOffsetWorldTicks();
 
         if (!this.world.isRemote())
         {
             // Arcana generation
-            if (worldTicks % ticksPerRegen == 0 && this.active)
+            if (worldTicks % ticksPerRegen == 0 && this.active && !this.interference)
             {
                 this.receiveArcana(arcanaPerRegen);
             }

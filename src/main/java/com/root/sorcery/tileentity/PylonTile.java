@@ -16,7 +16,7 @@ public class PylonTile extends ArcanaStorageTile implements ITickableTileEntity
     @Override
     public void tick()
     {
-        long worldTicks = world.getWorld().getGameTime();
+        long worldTicks = this.getOffsetWorldTicks();
         if (worldTicks % 20 == 0)
         {
             boolean active = false;

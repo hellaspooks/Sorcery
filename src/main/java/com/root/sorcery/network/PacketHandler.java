@@ -48,9 +48,14 @@ public class PacketHandler
         HANDLER.send(PacketDistributor.PLAYER.with(()->player), msg);
     }
 
-    public static void sendToAllTracking(Entity entity, Object msg)
+    public static void sendToAllTrackingPlayer(Entity entity, Object msg)
     {
         HANDLER.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(()->entity), msg);
+    }
+
+    public static void sendToAllTrackingEntity(Entity entity, Object msg)
+    {
+        HANDLER.send(PacketDistributor.TRACKING_ENTITY.with(()->entity), msg);
     }
 
     public static void sendToAllTrackingChunk(Chunk chunk, Object msg)

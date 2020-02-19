@@ -5,12 +5,8 @@ import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.block.state.CrystalColor;
 import com.root.sorcery.spell.Spell;
 import com.root.sorcery.spellcasting.ISpellcasting;
-import com.root.sorcery.tileentity.ArcanaStorageTile;
-import com.root.sorcery.tileentity.DarkMonolithTile;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -31,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static net.minecraft.block.Block.spawnAsEntity;
 
 public class Utils {
 
@@ -45,24 +40,6 @@ public class Utils {
     public static final EnumMap<CrystalColor, String> CRYSTAL_COLOR_MAP = getCrystalColorMap();
 
     public static final Map<String, CrystalColor> COLOR_CRYSTAL_MAP = getColorCrystalMap();
-
-    public static void dropItemInWorld(BlockPos source, ItemStack stack, World world) {
-        if (stack == null || stack.isEmpty())
-            return;
-
-        spawnAsEntity(world, source, stack);
-    }
-
-    public static int getIndexOfMainHand(PlayerEntity player) {
-        ItemStack mainHandItem = player.getHeldItemMainhand();
-        int index = -1;
-
-        for (int i = 0; i < 9; i++) {
-            if (mainHandItem == player.inventory.getStackInSlot(i))
-                index = i;
-        }
-        return index;
-    }
 
     public static ISpellcasting getSpellCap(CapabilityProvider<?> capProvider)
     {
@@ -200,6 +177,13 @@ public class Utils {
             }
         };
         return pred;
+    }
+
+    public static AxisAlignedBB getRangeAABB(BlockPos pos, int horiz, int posVert, int negVert)
+    {
+        BlockPos pos1 = pos.add(-horiz, -negVert, -horiz);
+        BlockPos pos2 = pos.add(horiz, posVert, horiz);
+        return new AxisAlignedBB(pos1, pos2);
     }
 
 

@@ -40,7 +40,7 @@ public class RepelSpell extends Spell
 
                 // Poof effects
                 ParticleEffectPacket pkt = new ParticleEffectPacket(0, Particles.getPuff(), entity.getPositionVec(), entity.getLookVec(), 5, 0, 0.2, 20);
-                PacketHandler.sendToAllTracking(repelFrom, pkt);
+                PacketHandler.sendToAllTrackingPlayer(repelFrom, pkt);
             }
         }
 

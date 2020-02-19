@@ -21,11 +21,14 @@ public class DarkMonolithTile extends AbstractMonolithTile
 
     public void processDeath(LivingEntity entity)
     {
-        System.out.println("Death detected!");
+        if (this.interference)
+        {
+            return;
+        }
         int arcanaToAdd = (int)(entity.getMaxHealth() * (float)arcanaPerHP);
         this.receiveArcana(arcanaToAdd);
-        ParticleEffectPacket pkt =  new ParticleEffectPacket(6, Particles.getBloodSpark(), new Vec3d(this.pos), entity.getPositionVec(), 20, 1, 1, 40);
-        PacketHandler.sendToAllTracking(entity, pkt);
+        ParticleEffectPacket pkt =  new ParticleEffectPacket(7, Particles.getBloodSpark(), new Vec3d(this.pos), entity.getPositionVec(), 20, 1, 1, 40);
+        PacketHandler.sendToAllTrackingEntity(entity, pkt);
     }
 
     @Override
@@ -33,7 +36,7 @@ public class DarkMonolithTile extends AbstractMonolithTile
     {
         if (!world.isRemote())
         {
-            if (world.getGameTime() % 20 == 0)
+            if (this.getOffsetWorldTicks() % 20 == 0)
             {
                 if (this.arcanaStorage.getArcanaStored() < 10)
                 {

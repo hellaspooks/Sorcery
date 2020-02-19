@@ -115,6 +115,11 @@ public class ParticleEffectPacket
                         case 6:
                             ParticleEffects.drawIn(world, particle, loc, lookVec, num, speed, radius, age);
                             break;
+                        case 7:
+                            System.out.println("drawing in from");
+                            ParticleEffects.drawInFrom(world, particle, loc, lookVec, num, speed, radius, age);
+                            break;
+
                     }
                 }
 

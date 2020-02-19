@@ -49,6 +49,6 @@ public class PotionSpell extends Spell
 
         ParticleEffectPacket pkt = new ParticleEffectPacket(2, Particles.getPuff(), loc, look, 100, 0.5, 0.2, 20);
 
-        PacketHandler.sendToAllTracking(context.getPlayer(), pkt);
+        PacketHandler.sendToAllTrackingPlayer(context.getPlayer(), pkt);
     }
 }

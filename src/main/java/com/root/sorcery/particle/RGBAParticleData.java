@@ -95,7 +95,6 @@ public class RGBAParticleData implements IParticleData
     public String getParameters()
     {
         String params = String.format(Locale.ROOT, "%s %f %f %f %f %d", this.getType().getRegistryName(), this.r, this.g, this.b, this.a, this.t);
-        System.out.println(params);
         return params;
     }
 

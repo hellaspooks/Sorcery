@@ -53,4 +53,11 @@ public class Particles
         List<Integer> rgb = Constants.BLOOD_RED_MAIN;
         return new RGBAParticleData(ModParticle.SIMPLE_SPARK, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
     }
+
+    public static IParticleData getLapisSpark()
+    {
+        List<Integer> rgb = Constants.LAPIS_BLUE_MAIN;
+        return new RGBAParticleData(ModParticle.SIMPLE_SPARK, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
+    }
+
 }

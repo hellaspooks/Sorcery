@@ -52,7 +52,7 @@ public class CombustionSpell extends Spell
         ParticleEffectPacket pkt1 = new ParticleEffectPacket(3, ParticleTypes.FLAME, loc, look, 40, 0.5, 0.2, 20);
         ParticleEffectPacket pkt2 = new ParticleEffectPacket(3, ParticleTypes.SMOKE, loc, look, 10, 0.3, 0.2, 20);
 
-        PacketHandler.sendToAllTracking(context.getPlayer(), pkt1);
-        PacketHandler.sendToAllTracking(context.getPlayer(), pkt2);
+        PacketHandler.sendToAllTrackingPlayer(context.getPlayer(), pkt1);
+        PacketHandler.sendToAllTrackingPlayer(context.getPlayer(), pkt2);
     }
 }

@@ -10,7 +10,7 @@ import net.minecraft.util.math.Vec3d;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LunarMonolithTile extends ArcanaStorageTile implements ITickableTileEntity
+public class LunarMonolithTile extends AbstractMonolithTile implements ITickableTileEntity
 {
 
     protected int arcanaPerRegen;
@@ -24,8 +24,8 @@ public class LunarMonolithTile extends ArcanaStorageTile implements ITickableTil
 
 
     public LunarMonolithTile(){
-        super(ModTile.LUNAR_MONOLITH_TILE);
-        this.arcanaStorage.setMaxArcanaStored(1000);
+        super(ModTile.LUNAR_MONOLITH_TILE, 1000);
+        this.arcanaStorage.extractArcana(1000, false);
         this.arcanaPerRegen = 10;
         this.phaseMap.put(0, 3d);
         this.phaseMap.put(1, 2d);
@@ -40,12 +40,12 @@ public class LunarMonolithTile extends ArcanaStorageTile implements ITickableTil
     @Override
     public void tick()
     {
-        long worldTicks = world.getWorld().getGameTime();
+        long worldTicks = this.getOffsetWorldTicks();
 
         if (!this.world.isRemote())
         {
             // Arcana generation
-            if (worldTicks % ticksPerRegen == 0 && this.active)
+            if (worldTicks % ticksPerRegen == 0 && this.active && !this.interference)
             {
                 this.receiveArcana((int)((double)this.arcanaPerRegen * this.cycleMultiplier));
             }

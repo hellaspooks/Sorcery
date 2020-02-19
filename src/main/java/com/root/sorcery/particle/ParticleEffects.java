@@ -124,7 +124,7 @@ public class ParticleEffects
     // particles drawn in to source from dest
     public static void drawIn(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius, int age)
     {
-        BasisVectors vecs = new BasisVectors(lookVec);
+        BasisVectors basis = new BasisVectors(lookVec);
         Vec3d startingPoint = Utils.nBlocksAlongVector(loc, lookVec, 4);
 
         double[] rand1 = world.rand.doubles(numParticles, -1, 1).toArray();
@@ -138,11 +138,24 @@ public class ParticleEffects
             double r2 = rand2[i] * rMax;
             double r3 = rand3[i] * 0.5;
 
-            Vec3d startPos = startingPoint.add(vecs.x.mul(r1, r1, r1));
-            startPos = startPos.add(vecs.y.mul(r2, r2, r2));
-            startPos = startPos.add(vecs.z.mul(r3, r3, r3));
+            Vec3d startPos = basis.addXYZ(startingPoint, r1, r2, r3);
 
             sendTo(world, particle, startPos, loc, 1, 1, 1, age);
         }
     }
+
+    public static void drawInFrom(World world, IParticleData particle, Vec3d loc, Vec3d loc2, int numParticles, double speed, double radius, int age)
+    {
+        double[] rand1 = world.rand.doubles(numParticles, -1, 1).toArray();
+        double[] rand2 = world.rand.doubles(numParticles, -1, 1).toArray();
+        double[] rand3 = world.rand.doubles(numParticles, -1, 1).toArray();
+
+        for (int i = 0; i < numParticles; i++)
+        {
+            Vec3d startPos = loc2.add(rand1[i] * radius, rand2[i] * radius, rand3[i] * radius);
+            sendTo(world, particle, startPos, loc, 1, 1, 1, age);
+        }
+    }
+
+
 }

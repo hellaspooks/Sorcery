@@ -44,6 +44,6 @@ public class TestSpell extends Spell
 
         ParticleEffectPacket pkt = new ParticleEffectPacket(0, Particles.getPuff(), loc, look, 20, 0.1, 0.2, 20);
 
-        PacketHandler.sendToAllTracking(context.getPlayer(), pkt);
+        PacketHandler.sendToAllTrackingPlayer(context.getPlayer(), pkt);
     }
 }

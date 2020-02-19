@@ -84,6 +84,6 @@ public class BlinkSpell extends Spell
         Vec3d look = context.getPlayer().getLookVec();
 
         ParticleEffectPacket pkt = new ParticleEffectPacket(2, Particles.getSpark(), loc, look, 100, 0.5, 0.2, 20);
-        PacketHandler.sendToAllTracking(context.getPlayer(), pkt);
+        PacketHandler.sendToAllTrackingPlayer(context.getPlayer(), pkt);
     }
 }

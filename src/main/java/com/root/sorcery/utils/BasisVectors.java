@@ -27,4 +27,25 @@ public class BasisVectors
         this.x = zIn.crossProduct(arbitraryVec).normalize();
         this.y = zIn.crossProduct(this.x).normalize();
     }
+
+    public Vec3d addX(Vec3d vecIn, double xIn)
+    {
+        return vecIn.add(x.mul(xIn, xIn, xIn));
+    }
+
+    public Vec3d addY(Vec3d vecIn, double yIn)
+    {
+        return vecIn.add(y.mul(yIn, yIn, yIn));
+    }
+
+    public Vec3d addZ(Vec3d vecIn, double zIn)
+    {
+        return vecIn.add(z.mul(zIn, zIn, zIn));
+    }
+
+    public Vec3d addXYZ(Vec3d vecIn, double xIn, double yIn, double zIn)
+    {
+        return vecIn.add(x.mul(xIn, xIn, xIn)).add(y.mul(yIn, yIn, yIn)).add(z.mul(zIn, zIn, zIn));
+    }
+
 }

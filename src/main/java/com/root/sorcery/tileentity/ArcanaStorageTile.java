@@ -65,6 +65,9 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
 
     protected Vec3d arcanaPulseOffset = new Vec3d(0.5, 1, 0.5);
 
+    // to offset processing
+    protected int worldTickOffset = 0;
+
 
     public ArcanaStorageTile(TileEntityType<?> tileEntityTypeIn)
     {
@@ -187,7 +190,7 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
     {
         if (world.isRemote)
         {
-            if (world.getWorld().getGameTime() % 40 == 0) {
+            if (this.getOffsetWorldTicks() % 40 == 0) {
                 if (this.arcanaTransferTarget != null) {
                     ParticleEffects.arcanaPulse(world.getWorld(), Particles.getArcanaOrb(1), this.arcanaPulseSource, this.arcanaPulseTarget, 1, 1, 0, 40);
                 }
@@ -375,6 +378,7 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
     public void onLoad()
     {
         this.setArcanaPulseSource();
+        this.worldTickOffset = this.world.rand.nextInt(20);
         super.onLoad();
     }
 
@@ -428,5 +432,12 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
     public int getMaxArcana()
     {
         return this.arcanaStorage.getMaxArcanaStored();
+    }
+
+    // to stagger processing
+    public long getOffsetWorldTicks()
+    {
+        return this.world.getGameTime() + this.worldTickOffset;
+
     }
 }
