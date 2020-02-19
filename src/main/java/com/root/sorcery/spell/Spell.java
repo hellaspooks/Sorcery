@@ -47,7 +47,9 @@ public class Spell extends ForgeRegistryEntry<Spell>
         }
     }
 
-    // check to see if cast will be allowed
+    /**
+    * check to see if cast will be allowed
+    */
     public boolean allowCast(SpellUseContext context)
     {
         return true;
@@ -74,14 +76,18 @@ public class Spell extends ForgeRegistryEntry<Spell>
     // Send packets to play particle effects
     public void doParticleEffects(SpellUseContext context){}
 
-    // Play sound effects, override if you want different behavior
+    /**
+    * Play sound effects, override if you want different behavior
+    */
     public void playSound(SpellUseContext context)
     {
         context.getWorld().playSound(context.getPlayer(), context.getPos(), this.sound, this.soundCategory, 1.0F, context.getWorld().rand.nextFloat() * 0.4F + 0.8F);
     }
 
 
-    // Drain Arcana from caster, return true if successful
+    /**  
+    * Drain Arcana from caster, return true if successful
+    */
     public boolean drainArcana(SpellUseContext context, int arcanaCost)
     {
         if (!context.getWorld().isRemote())
@@ -114,5 +120,13 @@ public class Spell extends ForgeRegistryEntry<Spell>
         return this.castType;
     }
 
-
+    /**
+     * Checks if player is sneaking, if so returns true.
+     * @param context
+     * @return boolean
+     */
+    public boolean doAltCast(SpellUseContext context)
+    {
+        return (context.getPlayer().isSneaking());
+    }
 }

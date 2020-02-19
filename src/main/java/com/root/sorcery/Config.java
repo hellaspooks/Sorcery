@@ -57,6 +57,8 @@ public class Config
 
     public static ForgeConfigSpec.IntValue ON_OFF_SPELL_COST;
 
+    public static ForgeConfigSpec.IntValue HEALING_WORD_COST;
+    public static ForgeConfigSpec.IntValue HEALING_WORD_DAMAGE;
 
     // Monolith config items
     public static ForgeConfigSpec.IntValue MONOLITH_NORMAL_GENERATE;
@@ -119,6 +121,8 @@ public class Config
 
         ON_OFF_SPELL_COST = spellIntParamHelper("onOff", "Cost", 100, 0, Integer.MAX_VALUE);
 
+        HEALING_WORD_COST = spellIntParamHelper("Healing Word", "Cost", 20, 0, Integer.MAX_VALUE);
+        HEALING_WORD_DAMAGE = spellIntParamHelper("Healing Word", "Damage", 3, 0, Integer.MAX_VALUE);
 
         // After every config added
         COMMON_BUILDER.pop();

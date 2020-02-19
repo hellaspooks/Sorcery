@@ -18,13 +18,14 @@ public class SpellcastingDefault implements ISpellcasting
     public SpellcastingDefault()
     {
 
-        ResourceLocation testSpell = ModSpell.TEST_SPELL.getRegistryName();
+        // ResourceLocation testSpell = ModSpell.TEST_SPELL.getRegistryName();
+        ResourceLocation healSpell = ModSpell.HEALING_WORD_SPELL.getRegistryName();
 
-        this.activeSpell = testSpell;
+        this.activeSpell = healSpell;
 
-        this.preparedSpells.add(testSpell);
+        this.preparedSpells.add(healSpell);
 
-        this.knownSpells.add(testSpell);
+        this.knownSpells.add(healSpell);
     }
 
     public void cycleActiveSpell(int delta)

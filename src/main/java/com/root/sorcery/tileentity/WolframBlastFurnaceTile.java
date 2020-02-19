@@ -39,6 +39,7 @@ public class WolframBlastFurnaceTile extends TileBase implements INamedContainer
     private Optional<BlastingRecipe> cachedRecipe = Optional.empty();
     private boolean                  isInventoryDirty;
 
+    
     public WolframBlastFurnaceTile()
     {
         super(ModTile.WOLFRAM_BLAST_FURNACE_TILE);
