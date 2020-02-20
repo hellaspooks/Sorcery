@@ -161,4 +161,7 @@ public class ParticleEffects
         return new RGBAParticleData(ModParticle.SIMPLE_PUFF, 1, 1, 1, 1);
     }
 
+    public static IParticleData getSnowflake() {
+        return new RGBAParticleData(ModParticle.SNOWFLAKE, 1, 1, 1, 1);
+    }
 }

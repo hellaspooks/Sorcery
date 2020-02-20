@@ -3,6 +3,7 @@ package com.root.sorcery.spell;
 import com.root.sorcery.Config;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ParticleEffectPacket;
+import com.root.sorcery.particle.ParticleEffects;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
@@ -23,30 +24,33 @@ public class FrostbiteSpell extends Spell {
 
     public FrostbiteSpell() {
         super(Config.FROSTBITE_SPELL_COST.get());
+        this.castDuration = 100;
+        this.castType = CastType.CHANNELED;
+
     }
 
     @Override
     public ActionResultType castServer(SpellUseContext context) {
 
         // ripped from CombustionSpell
-        List<Entity> entList = Utils.entitiesInCone(context.getWorld(), context.getPos(), context.getPlayer(), context.getPlayer().getEyePosition(1), context.getPlayer().getLook(1), Config.FROSTBITE_SPELL_RANGE.get(), 1);
+        List<Entity> entList = Utils.entitiesInCone(context.getWorld(), context.getPos(), context.getPlayer(), context.getPlayer().getEyePosition(1), context.getPlayer().getLook(1), Config.FROSTBITE_SPELL_RANGE.get(), .5);
         Effect slowEffect = Effects.SLOWNESS.getEffect();
-
+        
         Integer count = 0;
         for ( Entity entity : entList)
         {
-            if (entity instanceof CreatureEntity)
+            if (entity instanceof LivingEntity)
             {
                 ((LivingEntity)entity).addPotionEffect(new EffectInstance(slowEffect, Config.FROSTBITE_SPELL_DURATION.get()));
                 // generic damage doesn't draw mob aggro, what other damage type to use?
                 entity.attackEntityFrom(DamageSource.GENERIC, Config.FROSTBITE_SPELL_DAMAGE.get());
                 // debug message
-                context.getPlayer().sendMessage(new StringTextComponent(((LivingEntity)entity).getActivePotionEffects().toString()));
+                // context.getPlayer().sendMessage(new StringTextComponent(((LivingEntity)entity).getActivePotionEffects().toString()));
                 count++;
             }
         }
         // debug message
-        context.getPlayer().sendMessage(new StringTextComponent("Affected " + count.toString() + " Targets."));
+        // context.getPlayer().sendMessage(new StringTextComponent("Affected " + count.toString() + " Targets."));
         return ActionResultType.SUCCESS;
     }
 
@@ -57,8 +61,8 @@ public class FrostbiteSpell extends Spell {
         Vec3d loc = Utils.nBlocksAlongVector(context.getPlayer().getEyePosition(0), context.getPlayer().getLook(0), 1f).add(0, -.1, 0);
         Vec3d look = context.getPlayer().getLookVec();
 
-        ParticleEffectPacket pkt2 = new ParticleEffectPacket(3, ParticleTypes.SMOKE, loc, look, 100, .03, 1);
+        ParticleEffectPacket pkt1 = new ParticleEffectPacket(3, ParticleEffects.getSnowflake(), loc, look, 40, 0.5, 0.2);
 
-        PacketHandler.sendToAllTracking(context.getPlayer(), pkt2);
+        PacketHandler.sendToAllTracking(context.getPlayer(), pkt1);
     }
 }

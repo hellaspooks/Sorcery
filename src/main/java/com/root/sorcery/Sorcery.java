@@ -203,6 +203,7 @@ public class Sorcery
             mc.particles.registerFactory(ModParticle.ARCANA_ORB, RGBAParticle.Factory::new);
             mc.particles.registerFactory(ModParticle.ARCANA_SPARK_1, RGBAParticle.Factory::new);
             mc.particles.registerFactory(ModParticle.ARCANA_SPARK_3, RGBAParticle.Factory::new);
+            mc.particles.registerFactory(ModParticle.SNOWFLAKE, RGBAParticle.Factory::new);
         }
 
         @SubscribeEvent
