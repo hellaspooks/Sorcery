@@ -32,6 +32,8 @@ public class ModSpell
 
     public static final CreateWaterSpell CREATE_WATER_SPELL = new CreateWaterSpell();
 
+    public static final FrostbiteSpell FROSTBITE_SPELL = new FrostbiteSpell();
+
 
     public static void init(Register<Spell> event)
     {
@@ -47,6 +49,8 @@ public class ModSpell
         registerSpell("arcana_drain_spell", ARCANA_DRAIN_SPELL, event);
         registerSpell("firebolt_spell", FIREBOLT_SPELL, event);
         registerSpell("create_water_spell", CREATE_WATER_SPELL, event);
+        
+        registerSpell("frostbite_spell", FROSTBITE_SPELL, event);
     }
 
     public static void registerSpell(String registryName, Spell spell, Register<Spell> event)

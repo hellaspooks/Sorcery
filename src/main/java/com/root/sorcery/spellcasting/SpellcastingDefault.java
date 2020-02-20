@@ -18,7 +18,7 @@ public class SpellcastingDefault implements ISpellcasting
     public SpellcastingDefault()
     {
 
-        ResourceLocation testSpell = ModSpell.TEST_SPELL.getRegistryName();
+        ResourceLocation testSpell = ModSpell.FROSTBITE_SPELL.getRegistryName();
 
         this.activeSpell = testSpell;
 
