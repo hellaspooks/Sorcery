@@ -20,7 +20,7 @@ public abstract class AbstractMonolithTile extends ArcanaStorageTile implements 
 
     protected boolean active = false;
 
-    protected int interferenceRange = 8;
+    protected int interferenceRange = 5;
 
     protected boolean interference = false;
 
@@ -65,6 +65,11 @@ public abstract class AbstractMonolithTile extends ArcanaStorageTile implements 
         } else {
             this.interference = false;
         }
+    }
+
+    public int getInterferenceRange()
+    {
+        return this.interferenceRange;
     }
 
 }

@@ -43,6 +43,10 @@ public class SolarMonolithTile extends AbstractMonolithTile implements ITickable
                 } else {
                     this.active = false;
                 }
+                if (this.interference)
+                {
+                    this.active = false;
+                }
                 MonolithBlock.setActivity(this.world, this.getBlockState(), this.pos, this.active);
             }
         } else {

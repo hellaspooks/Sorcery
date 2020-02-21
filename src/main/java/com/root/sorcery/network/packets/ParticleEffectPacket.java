@@ -116,8 +116,10 @@ public class ParticleEffectPacket
                             ParticleEffects.drawIn(world, particle, loc, lookVec, num, speed, radius, age);
                             break;
                         case 7:
-                            System.out.println("drawing in from");
                             ParticleEffects.drawInFrom(world, particle, loc, lookVec, num, speed, radius, age);
+                            break;
+                        case 8:
+                            ParticleEffects.staticHorizontalRing(world, particle, loc, lookVec, num, speed, radius, age);
                             break;
 
                     }

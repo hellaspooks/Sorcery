@@ -157,5 +157,22 @@ public class ParticleEffects
         }
     }
 
+    public static void staticHorizontalRing(World world, IParticleData particle, Vec3d loc, Vec3d loc2, int numParticles, double speed, double radius, int age)
+    {
+        double circumference = radius * 2 * Math.PI;
+        int n = (int)circumference * numParticles;
+
+        double step = Math.PI * 2 / n;
+
+        for (int i = 0; i < n; i++)
+        {
+            double angle = step * i;
+            double x = radius * Math.cos(angle);
+            double z = radius * Math.sin(angle);
+
+            world.addParticle(particle, loc.x + x, loc.y, loc.z + z, 0, 0, 0);
+        }
+    }
+
 
 }
