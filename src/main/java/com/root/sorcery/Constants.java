@@ -28,4 +28,12 @@ public class Constants
         }
     };
 
+    public static ArrayList<List> icyBlueColors = new ArrayList<List>() {
+        {
+            add(Arrays.asList(200, 215, 216));
+            add(Arrays.asList(192, 203, 204));
+            add(Arrays.asList(192, 199, 202));
+        }
+    };
+
 }

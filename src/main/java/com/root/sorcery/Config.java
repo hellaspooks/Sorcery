@@ -61,6 +61,9 @@ public class Config
     public static ForgeConfigSpec.IntValue FROSTBITE_SPELL_DAMAGE;
     public static ForgeConfigSpec.IntValue FROSTBITE_SPELL_RANGE;
     public static ForgeConfigSpec.IntValue FROSTBITE_SPELL_DURATION;
+    public static ForgeConfigSpec.IntValue FROSTBITE_SPELL_RAMP;
+    public static ForgeConfigSpec.IntValue FROSTBITE_SPELL_MAX_RAMP;
+    public static ForgeConfigSpec.IntValue FROSTBITE_SPELL_CONE_RADIUS;
 
 
     // Monolith config items
@@ -128,6 +131,9 @@ public class Config
         FROSTBITE_SPELL_DAMAGE = spellIntParamHelper("Frostbite", "Damage", 1, 0, Integer.MAX_VALUE);
         FROSTBITE_SPELL_RANGE = spellIntParamHelper("Frostbite", "Range", 8, 0, Integer.MAX_VALUE);
         FROSTBITE_SPELL_DURATION = spellIntParamHelper("Frostbite", "Duration", 100, 0, Integer.MAX_VALUE);
+        FROSTBITE_SPELL_RAMP = spellIntParamHelper("Frostbite", "Ramp Speed", 2, 0, Integer.MAX_VALUE);
+        FROSTBITE_SPELL_MAX_RAMP = spellIntParamHelper("Frostbite", "Max Ramp", 100, 0, Integer.MAX_VALUE);
+        FROSTBITE_SPELL_CONE_RADIUS = spellIntParamHelper("Frostbite", "Radius", 2, 0, Integer.MAX_VALUE);
 
         // After every config added
         COMMON_BUILDER.pop();
