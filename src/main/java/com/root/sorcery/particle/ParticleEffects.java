@@ -1,25 +1,24 @@
 package com.root.sorcery.particle;
 
-import com.root.sorcery.Constants;
+import com.root.sorcery.utils.BasisVectors;
+import com.root.sorcery.utils.Utils;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import java.util.List;
-import java.util.Random;
 
 /**
  * These methods are arrangements and starting velocities of particles.
  * The Particle passed in to each determines what happens after the initial positioning and velocity.
  * IE: passing a SimpleParticle to ringHorizontal will get a ring that expand with constant speed, but passing a SlowOut
  * particle will result in a ring which's expansion slows over time.
+ *
  */
 public class ParticleEffects
 {
 
 
     // Bunch of particles within random radius of location, that rise with speed riseSpeed
-    public static void risePoof(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
+    public static void risePoof(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius, int age)
     {
         double[] xShifts = world.getRandom().doubles(numParticles, -radius, radius).toArray();
         double[] yShifts =  world.getRandom().doubles(numParticles, -radius, radius).toArray();
@@ -32,7 +31,7 @@ public class ParticleEffects
     }
 
     // Horizontal ring of evenly space particles around location
-    public static void ringHorizontal(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
+    public static void ringHorizontal(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius, int age)
     {
         for (int i = 0; i < numParticles; i++)
         {
@@ -42,31 +41,32 @@ public class ParticleEffects
             world.addParticle(particle, loc.getX(), loc.getY(), loc.getZ(), vecX, 0, vecZ);
         }
     }
-    public static void arcanaPulse(World world, IParticleData particle, Vec3d origin, Vec3d dest, int density, double speed, double radius)
+
+    // pulse effect sent by arcana storage tiles
+    public static void arcanaPulse(World world, IParticleData particle, Vec3d origin, Vec3d dest, int density, double speed, double radius, int age)
     {
         int color1 = world.rand.nextInt(2);
         int color2 = world.rand.nextInt(2);
         int color3 = world.rand.nextInt(2);
-        sendTo(world.getWorld(), getArcanaOrb(color1), origin, dest, 1, 1, 0);
-        sendTo(world.getWorld(), getArcanaSpark1(color2), origin, dest, 1, 0.95, 0);
-        sendTo(world.getWorld(), getArcanaSpark3(color3), origin, dest, 1, 0.9, 0);
-        sendTo(world.getWorld(), getArcanaSpark3(color2), origin, dest, 1, 0.85, 0);
-        sendTo(world.getWorld(), getArcanaSpark1(color1), origin, dest, 1, 0.8, 0);
+        sendTo(world.getWorld(), Particles.getArcanaOrb(color1), origin, dest, 1, 1, 0, age);
+        sendTo(world.getWorld(), Particles.getArcanaSpark1(color2), origin, dest, 1, 0.95, 0, age);
+        sendTo(world.getWorld(), Particles.getArcanaSpark3(color3), origin, dest, 1, 0.9, 0, age);
+        sendTo(world.getWorld(), Particles.getArcanaSpark3(color2), origin, dest, 1, 0.85, 0, age);
+        sendTo(world.getWorld(), Particles.getArcanaSpark1(color1), origin, dest, 1, 0.8, 0, age);
     }
 
     // line of particles moving towards endpoint
-    public static void sendTo(World world, IParticleData particle, Vec3d origin, Vec3d dest, int density, double speed, double radius)
+    public static void sendTo(World world, IParticleData particle, Vec3d origin, Vec3d dest, int density, double speed, double radius, int age)
     {
         Vec3d ray = dest.subtract(origin).normalize();
         double distance = dest.distanceTo(origin);
-        int age = 40;
-        double realSpeed = (distance / (double) age) * speed;
+        double realSpeed = (distance / (double) (age - 10)) * speed;
         Vec3d vec = ray.mul(realSpeed, realSpeed, realSpeed);
         world.addParticle(particle, origin.getX(), origin.getY(), origin.getZ(), vec.getX(), vec.getY(), vec.getZ());
     }
 
     // Expanding sphere of ~roughly evenly spaced particles surrounding location
-    public static void expandingSphere(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
+    public static void expandingSphere(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius, int age)
     {
         double rand = world.getRandom().nextDouble() * numParticles;
         double offset = 2.0/numParticles;
@@ -83,22 +83,10 @@ public class ParticleEffects
         }
     }
 
-    public static void coneSpray(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
+    // spray of particles in a cone
+    public static void coneSpray(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius, int age)
     {
-        Vec3d arbitraryVec = new Vec3d(0, 1, 0);
-
-        // Make sure arbitrary vector is not paralell to look vector
-        if (lookVec.getY() == 1 || lookVec.getY() == -1)
-        {
-            if (lookVec.getX() == 0 && lookVec.getZ() == 0)
-            {
-                arbitraryVec = new Vec3d(1, 0, 0);
-            }
-        }
-
-        Vec3d vecP = lookVec.crossProduct(arbitraryVec).normalize();
-        Vec3d vecQ = lookVec.crossProduct(vecP).normalize();
-
+        BasisVectors vecs = new BasisVectors(lookVec);
 
         double[] rand1 = world.rand.doubles(numParticles, -1, 1).toArray();
         double[] rand2 = world.rand.doubles(numParticles, -1, 1).toArray();
@@ -109,8 +97,8 @@ public class ParticleEffects
             double rMax = Math.sqrt(Math.pow(radius, 2) - Math.pow(r1, 2));
             double r2 = rand2[i] * rMax;
             Vec3d partVec = lookVec;
-            partVec = partVec.add(vecP.mul(r1, r1, r1)).normalize();
-            partVec = partVec.add(vecQ.mul(r2, r2, r2)).normalize();
+            partVec = partVec.add(vecs.x.mul(r1, r1, r1)).normalize();
+            partVec = partVec.add(vecs.y.mul(r2, r2, r2)).normalize();
             partVec = partVec.mul(speed, speed, speed);
 
 
@@ -119,7 +107,8 @@ public class ParticleEffects
 
     }
 
-    public static void smallFountain(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius)
+    // little fountain or particles
+    public static void smallFountain(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius, int age)
     {
         for ( int i = 0; i < numParticles; i++)
         {
@@ -132,33 +121,58 @@ public class ParticleEffects
 
     }
 
-    // get particle data instances for certain common effects
-    public static IParticleData getArcanaOrb(int color)
+    // particles drawn in to source from dest
+    public static void drawIn(World world, IParticleData particle, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius, int age)
     {
-        List<Integer> rgb = Constants.arcanaColors.get(color);
-        return new RGBAParticleData(ModParticle.ARCANA_ORB, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.7f);
+        BasisVectors basis = new BasisVectors(lookVec);
+        Vec3d startingPoint = Utils.nBlocksAlongVector(loc, lookVec, 4);
+
+        double[] rand1 = world.rand.doubles(numParticles, -1, 1).toArray();
+        double[] rand2 = world.rand.doubles(numParticles, -1, 1).toArray();
+        double[] rand3 = world.rand.doubles(numParticles, -1, 1).toArray();
+
+        for (int i = 0; i < numParticles; i++)
+        {
+            double r1 = rand1[i] * radius;
+            double rMax = Math.sqrt(Math.pow(radius, 2) - Math.pow(r1, 2));
+            double r2 = rand2[i] * rMax;
+            double r3 = rand3[i] * 0.5;
+
+            Vec3d startPos = basis.addXYZ(startingPoint, r1, r2, r3);
+
+            sendTo(world, particle, startPos, loc, 1, 1, 1, age);
+        }
     }
 
-    public static IParticleData getArcanaSpark1(int color)
+    public static void drawInFrom(World world, IParticleData particle, Vec3d loc, Vec3d loc2, int numParticles, double speed, double radius, int age)
     {
-        List<Integer> rgb = Constants.arcanaColors.get(color);
-        return new RGBAParticleData(ModParticle.ARCANA_SPARK_1, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
+        double[] rand1 = world.rand.doubles(numParticles, -1, 1).toArray();
+        double[] rand2 = world.rand.doubles(numParticles, -1, 1).toArray();
+        double[] rand3 = world.rand.doubles(numParticles, -1, 1).toArray();
+
+        for (int i = 0; i < numParticles; i++)
+        {
+            Vec3d startPos = loc2.add(rand1[i] * radius, rand2[i] * radius, rand3[i] * radius);
+            sendTo(world, particle, startPos, loc, 1, 1, 1, age);
+        }
     }
 
-    public static IParticleData getArcanaSpark3(int color)
+    public static void staticHorizontalRing(World world, IParticleData particle, Vec3d loc, Vec3d loc2, int numParticles, double speed, double radius, int age)
     {
-        List<Integer> rgb = Constants.arcanaColors.get(color);
-        return new RGBAParticleData(ModParticle.ARCANA_SPARK_3, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
+        double circumference = radius * 2 * Math.PI;
+        int n = (int)circumference * numParticles;
+
+        double step = Math.PI * 2 / n;
+
+        for (int i = 0; i < n; i++)
+        {
+            double angle = step * i;
+            double x = radius * Math.cos(angle);
+            double z = radius * Math.sin(angle);
+
+            world.addParticle(particle, loc.x + x, loc.y, loc.z + z, 0, 0, 0);
+        }
     }
 
-    public static IParticleData getSpark()
-    {
-        return new RGBAParticleData();
-    }
-
-    public static IParticleData getPuff()
-    {
-        return new RGBAParticleData(ModParticle.SIMPLE_PUFF, 1, 1, 1, 1);
-    }
 
 }

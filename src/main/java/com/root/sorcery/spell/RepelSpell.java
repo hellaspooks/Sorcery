@@ -3,8 +3,7 @@ package com.root.sorcery.spell;
 import com.root.sorcery.Config;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.network.packets.ParticleEffectPacket;
-import com.root.sorcery.particle.ModParticle;
-import com.root.sorcery.particle.ParticleEffects;
+import com.root.sorcery.particle.Particles;
 import com.root.sorcery.utils.Utils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -40,8 +39,8 @@ public class RepelSpell extends Spell
                 entity.addVelocity(repelVec.x * velocity, repelVec.y * velocity, repelVec.z * velocity);
 
                 // Poof effects
-                ParticleEffectPacket pkt = new ParticleEffectPacket(0, ParticleEffects.getPuff(), entity.getPositionVec(), entity.getLookVec(), 5, 0, 0.2);
-                PacketHandler.sendToAllTracking(repelFrom, pkt);
+                ParticleEffectPacket pkt = new ParticleEffectPacket(0, Particles.getPuff(), entity.getPositionVec(), entity.getLookVec(), 5, 0, 0.2, 20);
+                PacketHandler.sendToAllTrackingPlayer(repelFrom, pkt);
             }
         }
 

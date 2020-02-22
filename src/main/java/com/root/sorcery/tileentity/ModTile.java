@@ -13,8 +13,20 @@ public class ModTile
     @ObjectHolder("wolfram_blast_furnace")
     public static TileEntityType<WolframBlastFurnaceTile> WOLFRAM_BLAST_FURNACE_TILE;
 
-    @ObjectHolder("monolith")
-    public static TileEntityType<MonolithTile> MONOLITH_TILE;
+    @ObjectHolder("chiseled_monolith")
+    public static TileEntityType<AbstractMonolithTile> CHISELED_MONOLITH_TILE;
+
+    @ObjectHolder("solar_monolith")
+    public static TileEntityType<SolarMonolithTile> SOLAR_MONOLITH_TILE;
+
+    @ObjectHolder("lunar_monolith")
+    public static TileEntityType<LunarMonolithTile> LUNAR_MONOLITH_TILE;
+
+    @ObjectHolder("dark_monolith")
+    public static TileEntityType<DarkMonolithTile> DARK_MONOLITH_TILE;
+
+    @ObjectHolder("lapis_monolith")
+    public static TileEntityType<LapisMonolithTile> LAPIS_MONOLITH_TILE;
 
     @ObjectHolder("reliquary")
     public static TileEntityType<ReliquaryTile> RELIQUARY_TILE;
@@ -40,9 +52,29 @@ public class ModTile
                 .setRegistryName("reliquary"));
 
         event.getRegistry().register(TileEntityType.Builder
-                .create(MonolithTile::new, ModBlock.MONOLITH_BASIC)
+                .create(ChiseledMonolithTile::new, ModBlock.MONOLITH_CHISELED)
                 .build(null)
-                .setRegistryName("monolith"));
+                .setRegistryName("chiseled_monolith"));
+
+        event.getRegistry().register(TileEntityType.Builder
+                .create(DarkMonolithTile::new, ModBlock.MONOLITH_DARK)
+                .build(null)
+                .setRegistryName("dark_monolith"));
+
+        event.getRegistry().register(TileEntityType.Builder
+                .create(SolarMonolithTile::new, ModBlock.MONOLITH_SOLAR)
+                .build(null)
+                .setRegistryName("solar_monolith"));
+
+        event.getRegistry().register(TileEntityType.Builder
+                .create(LunarMonolithTile::new, ModBlock.MONOLITH_LUNAR)
+                .build(null)
+                .setRegistryName("lunar_monolith"));
+
+        event.getRegistry().register(TileEntityType.Builder
+                .create(LapisMonolithTile::new, ModBlock.MONOLITH_LAPIS)
+                .build(null)
+                .setRegistryName("lapis_monolith"));
 
         event.getRegistry().register(TileEntityType.Builder
                 .create(PylonTile::new, ModBlock.PYLON)

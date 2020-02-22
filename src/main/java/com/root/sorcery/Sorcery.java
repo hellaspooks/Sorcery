@@ -7,6 +7,7 @@ import com.root.sorcery.block.ModBlock;
 import com.root.sorcery.client.model.StaffModelLoader;
 import com.root.sorcery.entity.ModEntity;
 import com.root.sorcery.event.DurationSpellEvent;
+import com.root.sorcery.event.EntityDeathEvent;
 import com.root.sorcery.event.StructureFormHandlerEvent;
 import com.root.sorcery.item.ModItem;
 import com.root.sorcery.item.PortableArcanaItem;
@@ -28,7 +29,7 @@ import com.root.sorcery.spellcasting.ISpellcasting;
 import com.root.sorcery.spellcasting.SpellcastingCapability;
 import com.root.sorcery.spellcasting.SpellcastingProvider;
 import com.root.sorcery.tileentity.ModTile;
-import com.root.sorcery.tileentity.MonolithTile;
+import com.root.sorcery.tileentity.AbstractMonolithTile;
 import com.root.sorcery.tileentity.ReliquaryTile;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -104,6 +105,7 @@ public class Sorcery
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(StructureFormHandlerEvent.class);
         MinecraftForge.EVENT_BUS.register(DurationSpellEvent.class);
+        MinecraftForge.EVENT_BUS.register(EntityDeathEvent.class);
 
     }
 
@@ -203,6 +205,7 @@ public class Sorcery
             mc.particles.registerFactory(ModParticle.ARCANA_ORB, RGBAParticle.Factory::new);
             mc.particles.registerFactory(ModParticle.ARCANA_SPARK_1, RGBAParticle.Factory::new);
             mc.particles.registerFactory(ModParticle.ARCANA_SPARK_3, RGBAParticle.Factory::new);
+            mc.particles.registerFactory(ModParticle.SIMPLE_SPARK, RGBAParticle.Factory::new);
         }
 
         @SubscribeEvent
@@ -312,7 +315,7 @@ public class Sorcery
             if (event.getObject().getTileEntity() instanceof ReliquaryTile)
             {
                 event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
-            } else if (event.getObject().getTileEntity() instanceof MonolithTile)
+            } else if (event.getObject().getTileEntity() instanceof AbstractMonolithTile)
             {
                 event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
             }

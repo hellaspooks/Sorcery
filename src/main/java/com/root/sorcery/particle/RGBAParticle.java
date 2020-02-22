@@ -63,7 +63,7 @@ public class RGBAParticle extends SpriteTexturedParticle
         public Particle makeParticle(RGBAParticleData data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
             RGBAParticle simpleParticle = new RGBAParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, spriteSet, data.r, data.g, data.b, data.a);
-            simpleParticle.setMaxAge(40);
+            simpleParticle.setMaxAge(data.t);
             simpleParticle.selectSpriteWithAge(spriteSet);
             return simpleParticle;
         }

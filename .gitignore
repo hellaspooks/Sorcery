@@ -144,6 +144,5 @@ fabric.properties
 *.aseprite
 *.ase
 
-# VSCode
-*.sfdx
-*.vscode
+# Mac OS DS_store files
+.DS_store

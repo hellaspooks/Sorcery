@@ -1,23 +1,28 @@
 package com.root.sorcery.item;
 
+import com.root.sorcery.network.PacketHandler;
+import com.root.sorcery.network.packets.ParticleEffectPacket;
+import com.root.sorcery.tileentity.AbstractMonolithTile;
 import com.root.sorcery.tileentity.ArcanaStorageTile;
-import com.root.sorcery.tileentity.MonolithTile;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
 
-public class LinkingItem extends Item
+public class CrystalResonatorItem extends Item
 {
 
-    public LinkingItem(Properties properties)
+    public CrystalResonatorItem(Properties properties)
     {
         super(properties);
     }
@@ -41,40 +46,35 @@ public class LinkingItem extends Item
         {
             World world = context.getWorld();
             CompoundNBT nbt = context.getItem().getOrCreateTag();
-            System.out.println("full nbt");
-            System.out.println(nbt);
-
             BlockPos pos = new BlockPos(context.getPos());
-
-            System.out.println("Hit pos:");
-            System.out.println(pos);
-
-
             TileEntity tile =  world.getTileEntity(pos);
-            System.out.println("hit tile");
-            System.out.println(tile);
 
             if (tile instanceof ArcanaStorageTile)
             {
                 if (context.getPlayer().isSneaking())
                 {
-                    System.out.println("setting link pos");
+                    context.getPlayer().sendStatusMessage(new StringTextComponent("Link position set!"), true);
                     setLinkPos(context.getItem(), pos);
                 } else {
+
+                    // do interference particle effect for monoliths
+                    if (tile instanceof AbstractMonolithTile)
+                    {
+                        int range = ((AbstractMonolithTile) tile).getInterferenceRange();
+                        Vec3d tilePos = new Vec3d(pos);
+
+                        ParticleEffectPacket pkt = new ParticleEffectPacket(8, ParticleTypes.ENCHANT, tilePos.add(0.5, 0.5, 0.5), tilePos, 10, 0, range, 20);
+                        PacketHandler.sendToAllTrackingPlayer(context.getPlayer(), pkt);
+                    }
 
                     if (nbt.contains("linkPos"))
                     {
                         CompoundNBT posTag = (CompoundNBT) nbt.get("linkPos");
                         BlockPos linkPos = new BlockPos(posTag.getInt("x"), posTag.getInt("y"), posTag.getInt("z"));
 
-
-                        System.out.println("link pos");
-                        System.out.println(linkPos);
-
                         TileEntity linkTile = world.getTileEntity(linkPos);
 
-                        System.out.println("link tile");
-                        System.out.println(linkTile);
+                        context.getPlayer().sendStatusMessage(new StringTextComponent("Arcana target linked!"), true);
 
                         if (linkTile != null && linkTile instanceof ArcanaStorageTile)
                         {

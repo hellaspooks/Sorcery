@@ -2,19 +2,30 @@ package com.root.sorcery.client.event;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.root.sorcery.Constants;
+import com.root.sorcery.arcana.ArcanaStorage;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.item.PortableArcanaItem;
 import com.root.sorcery.item.SpellcastingItem;
+import com.root.sorcery.tileentity.AbstractMonolithTile;
+import com.root.sorcery.tileentity.ArcanaStorageTile;
 import com.root.sorcery.utils.Utils;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.system.CallbackI;
 
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Constants.MODID)
@@ -79,6 +90,28 @@ public class DrawScreenEvent
 
         try
         {
+            if (mc.player.isSneaking())
+            {
+                Vec3d playerPos = mc.player.getEyePosition(1.0f);
+                Vec3d endVec = playerPos.add(mc.player.getLook(1.0f).mul(16, 16, 16));
+                BlockRayTraceResult rtr =  mc.world.rayTraceBlocks(new RayTraceContext(playerPos, endVec, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, mc.player.getEntity()));
+                BlockPos pos = rtr.getPos();
+                TileEntity tile = mc.world.getTileEntity(pos);
+                if (tile instanceof ArcanaStorageTile)
+                {
+                    int arcanaMax = ((ArcanaStorageTile)tile).getMaxArcana();
+                    int currentArcana = ((ArcanaStorageTile)tile).getStoredArcana();
+                    String monoString = String.format("%.2f/%.2f", ((float)currentArcana) / 100, ((float)arcanaMax) / 100);
+
+                    GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+                    GlStateManager.enableAlphaTest();
+                    GlStateManager.enableBlend();
+                    GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+                    mc.fontRenderer.drawString(monoString, 44, 34, 16777215);
+                }
+            }
+
             if (heldItem == null || !(heldItem instanceof SpellcastingItem || heldItem instanceof PortableArcanaItem))
             {
                 return;
