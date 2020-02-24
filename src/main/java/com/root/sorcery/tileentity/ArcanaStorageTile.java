@@ -4,6 +4,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.root.sorcery.arcana.ArcanaStorage;
 import com.root.sorcery.arcana.IArcanaStorage;
+import com.root.sorcery.particle.ParticleEffectContext;
 import com.root.sorcery.particle.ParticleEffects;
 import com.root.sorcery.particle.Particles;
 import com.root.sorcery.utils.Utils;
@@ -192,7 +193,7 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
         {
             if (this.getOffsetWorldTicks() % 40 == 0) {
                 if (this.arcanaTransferTarget != null) {
-                    ParticleEffects.arcanaPulse(world.getWorld(), Particles.getArcanaOrb(1), this.arcanaPulseSource, this.arcanaPulseTarget, 1, 1, 0, 40);
+                    ParticleEffects.arcanaPulse(new ParticleEffectContext(world.getWorld(), Particles.arcanaOrbs(), this.arcanaPulseSource, this.arcanaPulseTarget, 1, 1, 0, 40));
                 }
                 if (this.vacuum)
                 {

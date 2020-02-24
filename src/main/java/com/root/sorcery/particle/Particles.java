@@ -2,29 +2,15 @@ package com.root.sorcery.particle;
 
 import com.root.sorcery.Constants;
 import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ParticleType;
 
 import java.util.List;
 
+/**
+ * Helper methods to get certain common particles.
+ */
 public class Particles
 {
-    // get particle data instances for certain common effects
-    public static IParticleData getArcanaOrb(int color)
-    {
-        List<Integer> rgb = Constants.arcanaColors.get(color);
-        return new RGBAParticleData(ModParticle.ARCANA_ORB, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.7f);
-    }
-
-    public static IParticleData getArcanaSpark1(int color)
-    {
-        List<Integer> rgb = Constants.arcanaColors.get(color);
-        return new RGBAParticleData(ModParticle.ARCANA_SPARK_1, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
-    }
-
-    public static IParticleData getArcanaSpark3(int color)
-    {
-        List<Integer> rgb = Constants.arcanaColors.get(color);
-        return new RGBAParticleData(ModParticle.ARCANA_SPARK_3, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
-    }
 
     public static IParticleData getSpark()
     {
@@ -36,28 +22,68 @@ public class Particles
         return new RGBAParticleData(ModParticle.SIMPLE_PUFF, 1, 1, 1, 1);
     }
 
-    public static IParticleData getSolarSpark()
+    public static IParticleData getColoredParticle(List<Integer> rgb, ParticleType type, float alpha)
     {
-        List<Integer> rgb = Constants.SOLAR_GOLD_MAIN;
-        return new RGBAParticleData(ModParticle.SIMPLE_SPARK, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
+        return new RGBAParticleData(type, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, alpha);
     }
 
-    public static IParticleData getLunarSpark()
+    public static ParticleCollection arcanaOrbs()
     {
-        List<Integer> rgb = Constants.LUNAR_SILVER_MAIN;
-        return new RGBAParticleData(ModParticle.SIMPLE_SPARK, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
+        ParticleCollection collection = new ParticleCollection();
+        collection.add(50, getColoredParticle(Constants.ARCANA_PURPLE_MAIN, ModParticle.ARCANA_ORB, 1.0f));
+        collection.add(25, getColoredParticle(Constants.ARCANA_PURPLE_LOWLIGHT, ModParticle.ARCANA_ORB, 1.0f));
+        collection.add(25, getColoredParticle(Constants.ARCANA_PURPLE_HIGHLIGHT, ModParticle.ARCANA_ORB, 1.0f));
+
+        return collection;
     }
 
-    public static IParticleData getBloodSpark()
+    public static ParticleCollection arcanaOrbSparks()
     {
-        List<Integer> rgb = Constants.BLOOD_RED_MAIN;
-        return new RGBAParticleData(ModParticle.SIMPLE_SPARK, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
+        ParticleCollection collection = new ParticleCollection();
+        collection.add(50, getColoredParticle(Constants.ARCANA_PURPLE_MAIN, ModParticle.ARCANA_SPARK_1, 0.7f));
+        collection.add(25, getColoredParticle(Constants.ARCANA_PURPLE_LOWLIGHT, ModParticle.ARCANA_SPARK_1, 0.7f));
+        collection.add(25, getColoredParticle(Constants.ARCANA_PURPLE_HIGHLIGHT, ModParticle.ARCANA_SPARK_1, 0.7f));
+        collection.add(50, getColoredParticle(Constants.ARCANA_PURPLE_MAIN, ModParticle.ARCANA_SPARK_3, 0.7f));
+        collection.add(25, getColoredParticle(Constants.ARCANA_PURPLE_LOWLIGHT, ModParticle.ARCANA_SPARK_3, 0.7f));
+        collection.add(25, getColoredParticle(Constants.ARCANA_PURPLE_HIGHLIGHT, ModParticle.ARCANA_SPARK_3, 0.7f));
+        return collection;
     }
 
-    public static IParticleData getLapisSpark()
+    public static ParticleCollection getParticleSet(int set)
     {
-        List<Integer> rgb = Constants.LAPIS_BLUE_MAIN;
-        return new RGBAParticleData(ModParticle.SIMPLE_SPARK, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, 0.5f);
+        ParticleCollection collection = new ParticleCollection();
+        switch (set)
+        {
+            case 0:
+                collection.add(50, getColoredParticle(Constants.ARCANA_PURPLE_MAIN, ModParticle.SIMPLE_SPARK, 1.0f));
+                collection.add(25, getColoredParticle(Constants.ARCANA_PURPLE_LOWLIGHT, ModParticle.SIMPLE_SPARK, 1.0f));
+                collection.add(25, getColoredParticle(Constants.ARCANA_PURPLE_HIGHLIGHT, ModParticle.SIMPLE_SPARK, 1.0f));
+                return collection;
+            case 1:
+                collection.add(50, getColoredParticle(Constants.SOLAR_GOLD_MAIN, ModParticle.SIMPLE_SPARK, 1.0f));
+                collection.add(25, getColoredParticle(Constants.SOLAR_GOLD_LOWLIGHT, ModParticle.SIMPLE_SPARK, 1.0f));
+                collection.add(25, getColoredParticle(Constants.SOLAR_GOLD_HIGHLIGHT, ModParticle.SIMPLE_SPARK, 1.0f));
+                return collection;
+            case 2:
+                collection.add(50, getColoredParticle(Constants.LUNAR_SILVER_MAIN, ModParticle.SIMPLE_SPARK, 1.0f));
+                collection.add(25, getColoredParticle(Constants.LUNAR_SILVER_LOWLIGHT, ModParticle.SIMPLE_SPARK, 1.0f));
+                collection.add(25, getColoredParticle(Constants.LUNAR_SILVER_HIGHLIGHT, ModParticle.SIMPLE_SPARK, 1.0f));
+                return collection;
+            case 3:
+                collection.add(50, getColoredParticle(Constants.LAPIS_BLUE_MAIN, ModParticle.SIMPLE_SPARK, 1.0f));
+                collection.add(25, getColoredParticle(Constants.LAPIS_BLUE_LOWLIGHT, ModParticle.SIMPLE_SPARK, 1.0f));
+                collection.add(25, getColoredParticle(Constants.LAPIS_BLUE_HIGHLIGHT, ModParticle.SIMPLE_SPARK, 1.0f));
+                return collection;
+            case 4:
+                collection.add(50, getColoredParticle(Constants.BLOOD_RED_MAIN, ModParticle.SIMPLE_SPARK, 1.0f));
+                collection.add(25, getColoredParticle(Constants.BLOOD_RED_LOWLIGHT, ModParticle.SIMPLE_SPARK, 1.0f));
+                collection.add(25, getColoredParticle(Constants.BLOOD_RED_HIGHLIGHT, ModParticle.SIMPLE_SPARK, 1.0f));
+                return collection;
+            default:
+                collection.add(100, getSpark());
+                return collection;
+        }
+
     }
 
 }

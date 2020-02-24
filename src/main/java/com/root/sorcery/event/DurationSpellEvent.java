@@ -22,6 +22,7 @@ public class DurationSpellEvent
 
             if (spell.getCastType() == CastType.CHANNELED) {
                 SpellUseContext context = new SpellUseContext(entity.getEntityWorld(), entity, entity.getActiveHand());
+                context.setCastingTicks(spell.castDuration - event.getDuration());
                 spell.cast(context);
             }
         }
