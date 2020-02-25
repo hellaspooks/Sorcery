@@ -114,5 +114,15 @@ public class Spell extends ForgeRegistryEntry<Spell>
         return this.castType;
     }
 
+    protected double getCastPercent(SpellUseContext context)
+    {
+        if (this.castType == CastType.INSTANT)
+        {
+            return 1;
+        } else {
+            return (double)context.getCastingTicks() / (double)this.castDuration;
+        }
+    }
+
 
 }

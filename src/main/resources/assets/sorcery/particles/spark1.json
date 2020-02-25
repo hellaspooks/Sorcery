@@ -1,12 +1,12 @@
 {
   "textures": [
-    "sorcery:spark1_0",
-    "sorcery:spark1_1",
-    "sorcery:spark1_2",
-    "sorcery:spark1_3",
-    "sorcery:spark1_4",
-    "sorcery:spark1_5",
-    "sorcery:spark1_6",
-    "sorcery:spark1_7"
+    "sorcery:spark_1/spark1_0",
+    "sorcery:spark_1/spark1_1",
+    "sorcery:spark_1/spark1_2",
+    "sorcery:spark_1/spark1_3",
+    "sorcery:spark_1/spark1_4",
+    "sorcery:spark_1/spark1_5",
+    "sorcery:spark_1/spark1_6",
+    "sorcery:spark_1/spark1_7"
   ]
 }

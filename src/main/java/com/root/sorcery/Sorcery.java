@@ -18,6 +18,7 @@ import com.root.sorcery.network.packets.ArcanaCapSyncPacket;
 import com.root.sorcery.network.packets.SpellCapSyncPacket;
 import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.RGBAParticle;
+import com.root.sorcery.particle.RGBLitParticle;
 import com.root.sorcery.potion.ModEffect;
 import com.root.sorcery.setup.ClientProxy;
 import com.root.sorcery.setup.IProxy;
@@ -206,6 +207,7 @@ public class Sorcery
             mc.particles.registerFactory(ModParticle.ARCANA_SPARK_1, RGBAParticle.Factory::new);
             mc.particles.registerFactory(ModParticle.ARCANA_SPARK_3, RGBAParticle.Factory::new);
             mc.particles.registerFactory(ModParticle.SIMPLE_SPARK, RGBAParticle.Factory::new);
+            mc.particles.registerFactory(ModParticle.LIT_SPARK, RGBLitParticle.Factory::new);
         }
 
         @SubscribeEvent

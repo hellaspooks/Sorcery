@@ -23,12 +23,12 @@ public class ParticleEffects
         double[] zShifts =  ctx.world.getRandom().doubles(ctx.numParticles, -ctx.radius, ctx.radius).toArray();
         for (int i = 0; i < ctx.numParticles; i++)
         {
-            Vec3d pos = ctx.loc.add(xShifts[i], yShifts[i], zShifts[i]);
+            Vec3d pos = ctx.vec1.add(xShifts[i], yShifts[i], zShifts[i]);
             ctx.world.addParticle(ctx.getParticle(), pos.getX(), pos.getY(), pos.getZ(), 0, ctx.speed, 0);
         }
     }
 
-    // Horizontal ring of evenly space particles around location
+    // Expanding hortizontal ring of particles, all starting from a single point
     public static void ringHorizontal(ParticleEffectContext ctx)
     {
         for (int i = 0; i < ctx.numParticles; i++)
@@ -36,28 +36,28 @@ public class ParticleEffects
             double angleRadians = ((2 * Math.PI) / ctx.numParticles) * i;
             double vecX = Math.cos(angleRadians) * ctx.speed;
             double vecZ = Math.sin(angleRadians) * ctx.speed;
-            ctx.world.addParticle(ctx.getParticle(), ctx.loc.getX(), ctx.loc.getY(), ctx.loc.getZ(), vecX, 0, vecZ);
+            ctx.world.addParticle(ctx.getParticle(), ctx.vec1.getX(), ctx.vec1.getY(), ctx.vec1.getZ(), vecX, 0, vecZ);
         }
     }
 
     // pulse effect sent by arcana storage tiles
     public static void arcanaPulse(ParticleEffectContext ctx)
     {
-        sendTo(new ParticleEffectContext(ctx.world.getWorld(), Particles.arcanaOrbs(), ctx.loc, ctx.look, 1, 1, 0, ctx.age));
-        sendTo(new ParticleEffectContext(ctx.world.getWorld(), Particles.arcanaOrbSparks(), ctx.loc, ctx.look, 1, 0.95, 0, ctx.age));
-        sendTo(new ParticleEffectContext(ctx.world.getWorld(), Particles.arcanaOrbSparks(), ctx.loc, ctx.look, 1, 0.9, 0, ctx.age));
-        sendTo(new ParticleEffectContext(ctx.world.getWorld(), Particles.arcanaOrbSparks(), ctx.loc, ctx.look, 1, 0.85, 0, ctx.age));
-        sendTo(new ParticleEffectContext(ctx.world.getWorld(), Particles.arcanaOrbSparks(), ctx.loc, ctx.look, 1, 0.8, 0, ctx.age));
+        sendTo(new ParticleEffectContext(ctx.world.getWorld(), Particles.getArcanaOrbs(), ctx.vec1, ctx.vec2, 1, 1, 0, ctx.age));
+        sendTo(new ParticleEffectContext(ctx.world.getWorld(), Particles.getArcanaOrbSparks(), ctx.vec1, ctx.vec2, 1, 0.95, 0, ctx.age));
+        sendTo(new ParticleEffectContext(ctx.world.getWorld(), Particles.getArcanaOrbSparks(), ctx.vec1, ctx.vec2, 1, 0.9, 0, ctx.age));
+        sendTo(new ParticleEffectContext(ctx.world.getWorld(), Particles.getArcanaOrbSparks(), ctx.vec1, ctx.vec2, 1, 0.85, 0, ctx.age));
+        sendTo(new ParticleEffectContext(ctx.world.getWorld(), Particles.getArcanaOrbSparks(), ctx.vec1, ctx.vec2, 1, 0.8, 0, ctx.age));
     }
 
     // line of particles moving towards endpoint
     public static void sendTo(ParticleEffectContext ctx)
     {
-        Vec3d ray = ctx.look.subtract(ctx.loc).normalize();
-        double distance = ctx.look.distanceTo(ctx.loc);
+        Vec3d ray = ctx.vec2.subtract(ctx.vec1).normalize();
+        double distance = ctx.vec2.distanceTo(ctx.vec1);
         double realSpeed = (distance / (double) (ctx.age - 10)) * ctx.speed;
         Vec3d vec = ray.mul(realSpeed, realSpeed, realSpeed);
-        ctx.world.addParticle(ctx.getParticle(), ctx.loc.getX(), ctx.loc.getY(), ctx.loc.getZ(), vec.getX(), vec.getY(), vec.getZ());
+        ctx.world.addParticle(ctx.getParticle(), ctx.vec1.getX(), ctx.vec1.getY(), ctx.vec1.getZ(), vec.getX(), vec.getY(), vec.getZ());
     }
 
     // Expanding sphere of ~roughly evenly spaced particles surrounding location
@@ -74,14 +74,14 @@ public class ParticleEffects
             double x = Math.cos(phi) * r;
             double z = Math.sin(phi) * r;
             Vec3d pathVec = new Vec3d(x, y, z).normalize();
-            ctx.world.addParticle(ctx.getParticle(), ctx.loc.getX(), ctx.loc.getY(), ctx.loc.getZ(), pathVec.getX() * ctx.speed,pathVec.getY() * ctx.speed, pathVec.getZ() * ctx.speed);
+            ctx.world.addParticle(ctx.getParticle(), ctx.vec1.getX(), ctx.vec1.getY(), ctx.vec1.getZ(), pathVec.getX() * ctx.speed,pathVec.getY() * ctx.speed, pathVec.getZ() * ctx.speed);
         }
     }
 
     // spray of particles in a cone
     public static void coneSpray(ParticleEffectContext ctx)
     {
-        BasisVectors vecs = new BasisVectors(ctx.look);
+        BasisVectors vecs = new BasisVectors(ctx.vec2);
 
         double[] rand1 = ctx.world.rand.doubles(ctx.numParticles, -1, 1).toArray();
         double[] rand2 = ctx.world.rand.doubles(ctx.numParticles, -1, 1).toArray();
@@ -91,13 +91,13 @@ public class ParticleEffects
             double r1 = rand1[i] * ctx.radius;
             double rMax = Math.sqrt(Math.pow(ctx.radius, 2) - Math.pow(r1, 2));
             double r2 = rand2[i] * rMax;
-            Vec3d partVec = ctx.look;
+            Vec3d partVec = ctx.vec2;
             partVec = partVec.add(vecs.x.mul(r1, r1, r1)).normalize();
             partVec = partVec.add(vecs.y.mul(r2, r2, r2)).normalize();
             partVec = partVec.mul(ctx.speed, ctx.speed, ctx.speed);
 
 
-            ctx.world.addParticle(ctx.getParticle(), ctx.loc.getX(), ctx.loc.getY(), ctx.loc.getZ(), partVec.getX(), partVec.getY(), partVec.getZ());
+            ctx.world.addParticle(ctx.getParticle(), ctx.vec1.getX(), ctx.vec1.getY(), ctx.vec1.getZ(), partVec.getX(), partVec.getY(), partVec.getZ());
         }
 
     }
@@ -111,15 +111,16 @@ public class ParticleEffects
             double vZ = ctx.world.rand.nextDouble() * ctx.radius;
             double vY = ctx.speed;
 
-            ctx.world.addParticle(ctx.getParticle(), ctx.loc.getX(), ctx.loc.getY(), ctx.loc.getZ(), vX, vY, vZ);
+            ctx.world.addParticle(ctx.getParticle(), ctx.vec1.getX(), ctx.vec1.getY(), ctx.vec1.getZ(), vX, vY, vZ);
         }
 
     }
 
+    // particles drawin in to source from a point a given distance along a direction vector
     public static void drawIn(ParticleEffectContext ctx)
     {
-        BasisVectors basis = new BasisVectors(ctx.look);
-        Vec3d startingPoint = Utils.nBlocksAlongVector(ctx.loc, ctx.look, 4);
+        BasisVectors basis = new BasisVectors(ctx.vec2);
+        Vec3d startingPoint = Utils.nBlocksAlongVector(ctx.vec1, ctx.vec2, 4);
 
         double[] rand1 = ctx.world.rand.doubles(ctx.numParticles, -1, 1).toArray();
         double[] rand2 = ctx.world.rand.doubles(ctx.numParticles, -1, 1).toArray();
@@ -134,7 +135,7 @@ public class ParticleEffects
 
             Vec3d startPos = basis.addXYZ(startingPoint, r1, r2, r3);
 
-            sendTo(new ParticleEffectContext(ctx.world, ctx.getParticle(), startPos, ctx.loc, 1, 1, 1, ctx.age));
+            sendTo(new ParticleEffectContext(ctx.world, ctx.getParticle(), startPos, ctx.vec1, 1, 1, 1, ctx.age));
         }
     }
 
@@ -147,11 +148,12 @@ public class ParticleEffects
 
         for (int i = 0; i < ctx.numParticles; i++)
         {
-            Vec3d startPos = ctx.look.add(rand1[i] * ctx.radius, rand2[i] * ctx.radius, rand3[i] * ctx.radius);
-            sendTo(new ParticleEffectContext(ctx.world, ctx.getParticle(), startPos, ctx.loc, 1, 1, 1, ctx.age));
+            Vec3d startPos = ctx.vec2.add(rand1[i] * ctx.radius, rand2[i] * ctx.radius, rand3[i] * ctx.radius);
+            sendTo(new ParticleEffectContext(ctx.world, ctx.getParticle(), startPos, ctx.vec1, 1, 1, 1, ctx.age));
         }
     }
 
+    // horizontal, ring of static particles radius distance away from a given location
     public static void staticHorizontalRing(ParticleEffectContext ctx)
     {
         double circumference = ctx.radius * 2 * Math.PI;
@@ -165,7 +167,7 @@ public class ParticleEffects
             double x = ctx.radius * Math.cos(angle);
             double z = ctx.radius * Math.sin(angle);
 
-            ctx.world.addParticle(ctx.getParticle(), ctx.loc.x + x, ctx.loc.y, ctx.loc.z + z, 0, 0, 0);
+            ctx.world.addParticle(ctx.getParticle(), ctx.vec1.x + x, ctx.vec1.y, ctx.vec1.z + z, 0, 0, 0);
         }
     }
 

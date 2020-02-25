@@ -27,4 +27,36 @@ public class DurationSpellEvent
             }
         }
     }
+
+    @SubscribeEvent
+    public static void channeledSpellStop(LivingEntityUseItemEvent.Stop event)
+    {
+        if (event.getItem().getItem() instanceof SpellcastingItem)
+        {
+            LivingEntity entity = event.getEntityLiving();
+            Spell spell = Utils.getSpellFromProvider(event.getItem());
+
+            if (spell.getCastType() == CastType.CHANNELED) {
+                SpellUseContext context = new SpellUseContext(entity.getEntityWorld(), entity, entity.getActiveHand());
+                context.setCastingTicks(spell.castDuration - event.getDuration());
+                spell.cast(context);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void channeledSpellFinish(LivingEntityUseItemEvent.Finish event)
+    {
+        if (event.getItem().getItem() instanceof SpellcastingItem)
+        {
+            LivingEntity entity = event.getEntityLiving();
+            Spell spell = Utils.getSpellFromProvider(event.getItem());
+
+            if (spell.getCastType() == CastType.CHANNELED) {
+                SpellUseContext context = new SpellUseContext(entity.getEntityWorld(), entity, entity.getActiveHand());
+                context.setCastingTicks(spell.castDuration - event.getDuration());
+                spell.cast(context);
+            }
+        }
+    }
 }

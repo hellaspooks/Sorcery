@@ -57,7 +57,7 @@ public class SolarMonolithTile extends AbstractMonolithTile implements ITickable
                 if (this.getBlockState().get(MonolithBlock.ACTIVE))
                 {
                     Vec3d sunVec = Utils.getSunVector(this.world);
-                    ParticleEffects.drawIn(new ParticleEffectContext(world, Particles.getParticleSet(1), this.arcanaPulseSource, sunVec, 10, 1, 1, 40));
+                    ParticleEffects.drawIn(new ParticleEffectContext(world, Particles.getSolarSparks(), this.arcanaPulseSource, sunVec, 10, 1, 1, 40));
                 }
             }
         }

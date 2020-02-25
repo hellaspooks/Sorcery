@@ -8,8 +8,8 @@ public class ParticleEffectContext
 {
     public World world;
     public ParticleCollection particleCollection;
-    public Vec3d loc;
-    public Vec3d look;
+    public Vec3d vec1;
+    public Vec3d vec2;
     public int numParticles;
     public double speed;
     public double radius;
@@ -20,8 +20,8 @@ public class ParticleEffectContext
     {
         this.world = world;
         this.particleCollection = particleCollection;
-        this.loc = vec1;
-        this.look = vec2;
+        this.vec1 = vec1;
+        this.vec2 = vec2;
         this.numParticles = numParticles;
         this.speed = speed;
         this.radius = radius;
@@ -33,8 +33,8 @@ public class ParticleEffectContext
         this.world = world;
         this.particleCollection = new ParticleCollection();
         this.particleCollection.add(100, particle);
-        this.loc = vec1;
-        this.look = vec2;
+        this.vec1 = vec1;
+        this.vec2 = vec2;
         this.numParticles = numParticles;
         this.speed = speed;
         this.radius = radius;

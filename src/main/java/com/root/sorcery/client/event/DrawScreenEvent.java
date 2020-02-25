@@ -159,7 +159,7 @@ public class DrawScreenEvent
             {
                 // Spell Icon
                 mc.getTextureManager().bindTexture(spellIcon);
-                mc.ingameGUI.blit(posX + spellIconXOffset, posY + spellIconYOffset, 0, 0, spellIconWidth, spellIconHeight);
+                mc.ingameGUI.blit(posX + spellIconXOffset, posY + spellIconYOffset, 0, 0, spellIconWidth, spellIconHeight, 26, 26);
             }
 
             if (showSpellSelection)

@@ -212,4 +212,9 @@ public class SpellUseContext
         this.castingTicks = ticks;
     }
 
+    public int getCastingTicks()
+    {
+        return this.castingTicks;
+    }
+
 }

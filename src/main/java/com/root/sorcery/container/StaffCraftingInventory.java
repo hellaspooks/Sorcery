@@ -1,6 +1,7 @@
 package com.root.sorcery.container;
 
 import com.root.sorcery.Constants;
+import com.root.sorcery.Sorcery;
 import com.root.sorcery.item.ModItem;
 import com.root.sorcery.item.StaffComponentItem;
 import com.root.sorcery.item.StaffItem;
@@ -55,7 +56,7 @@ public class StaffCraftingInventory extends Inventory
 
     private void onCraftInterrupt()
     {
-        System.out.println("craft interrupted");
+        Sorcery.getLogger().debug("staff craft interrupted");
     }
 
     public void finishCraft()

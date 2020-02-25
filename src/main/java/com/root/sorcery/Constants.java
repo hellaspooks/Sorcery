@@ -67,13 +67,4 @@ public class Constants
     public static final List BLOOD_RED_MAIN = Arrays.asList(118, 1, 44);
     public static final List BLOOD_RED_LOWLIGHT = Arrays.asList(95, 1, 61);
 
-
-    public static ArrayList<List> arcanaColors = new ArrayList<List>() {
-        {
-            add(ARCANA_PURPLE_HIGHLIGHT);
-            add(ARCANA_PURPLE_MAIN);
-            add(ARCANA_PURPLE_LOWLIGHT);
-        }
-    };
-
 }

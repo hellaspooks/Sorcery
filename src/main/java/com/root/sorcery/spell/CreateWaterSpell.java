@@ -51,7 +51,6 @@ public class CreateWaterSpell extends Spell
     @Override
     public void doParticleEffects(SpellUseContext context)
     {
-        System.out.println("trying to do particle effects");
         BlockPos waterPos = context.getFacePos();
         Vec3d loc = new Vec3d(waterPos).add(0.5, 1,0.5);
         ParticleEffectPacket pkt1 = new ParticleEffectPacket(5, ParticleTypes.SPLASH, loc, loc, 20, 2, 2, 20);

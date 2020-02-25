@@ -1,5 +1,6 @@
 package com.root.sorcery.client.model;
 
+import com.root.sorcery.Sorcery;
 import com.root.sorcery.client.LichMod;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IUnbakedModel;
@@ -30,7 +31,7 @@ public class Models
     @SubscribeEvent
     public static void onModelBakeEvent(ModelBakeEvent event)
     {
-        System.out.println("fixing models!");
+        Sorcery.getLogger().debug("fixing models!");
         fixOrientableModel("reliquary", event);
 
         fixSimpleModel("monolith_basic", event);

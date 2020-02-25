@@ -1,14 +1,14 @@
 {
   "textures": [
-    "sorcery:spark3_0",
-    "sorcery:spark3_1",
-    "sorcery:spark3_2",
-    "sorcery:spark3_3",
-    "sorcery:spark3_4",
-    "sorcery:spark3_5",
-    "sorcery:spark3_6",
-    "sorcery:spark3_7",
-    "sorcery:spark3_8",
-    "sorcery:spark3_9"
+    "sorcery:spark_3/spark3_0",
+    "sorcery:spark_3/spark3_1",
+    "sorcery:spark_3/spark3_2",
+    "sorcery:spark_3/spark3_3",
+    "sorcery:spark_3/spark3_4",
+    "sorcery:spark_3/spark3_5",
+    "sorcery:spark_3/spark3_6",
+    "sorcery:spark_3/spark3_7",
+    "sorcery:spark_3/spark3_8",
+    "sorcery:spark_3/spark3_9"
   ]
 }

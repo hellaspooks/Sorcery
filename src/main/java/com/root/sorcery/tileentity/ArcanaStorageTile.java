@@ -2,6 +2,7 @@ package com.root.sorcery.tileentity;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+import com.root.sorcery.Sorcery;
 import com.root.sorcery.arcana.ArcanaStorage;
 import com.root.sorcery.arcana.IArcanaStorage;
 import com.root.sorcery.particle.ParticleEffectContext;
@@ -95,7 +96,7 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
             }
         } catch (NullPointerException e)
         {
-            System.out.println("target not yet loaded");
+            Sorcery.getLogger().debug("arcana target not yet loaded");
         }
     }
 
@@ -124,7 +125,7 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
             }
         } catch (NullPointerException e)
         {
-            System.out.println("source not yet loaded");
+            Sorcery.getLogger().debug("arcana source not yet loaded");
         }
     }
 
@@ -193,7 +194,7 @@ public class ArcanaStorageTile extends TileEntity implements ITickableTileEntity
         {
             if (this.getOffsetWorldTicks() % 40 == 0) {
                 if (this.arcanaTransferTarget != null) {
-                    ParticleEffects.arcanaPulse(new ParticleEffectContext(world.getWorld(), Particles.arcanaOrbs(), this.arcanaPulseSource, this.arcanaPulseTarget, 1, 1, 0, 40));
+                    ParticleEffects.arcanaPulse(new ParticleEffectContext(world.getWorld(), Particles.getArcanaOrbs(), this.arcanaPulseSource, this.arcanaPulseTarget, 1, 1, 0, 40));
                 }
                 if (this.vacuum)
                 {

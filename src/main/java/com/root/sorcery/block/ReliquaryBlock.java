@@ -136,7 +136,6 @@ public class ReliquaryBlock extends Block
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        System.out.println("creating tile entity");
         return new ReliquaryTile();
     }
 

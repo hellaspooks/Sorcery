@@ -1,5 +1,6 @@
 package com.root.sorcery.network.packets;
 
+import com.root.sorcery.Sorcery;
 import com.root.sorcery.network.PacketHandler;
 import com.root.sorcery.spellcasting.ISpellcasting;
 import com.root.sorcery.spellcasting.SpellcastingCapability;
@@ -65,7 +66,7 @@ public class KeyPressPacket
                         PacketHandler.sendToPlayer(player, new SpellCapSyncPacket((CompoundNBT) SpellcastingCapability.SPELLCASTING.writeNBT(playerCap, null)));
                         break;
                     default:
-                        System.out.println("hit default");
+                        Sorcery.getLogger().debug("hit default in keypress packet");
                         break;
                 }
 

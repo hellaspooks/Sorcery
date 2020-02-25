@@ -34,7 +34,9 @@ public class Config
     public static ForgeConfigSpec.IntValue BLINK_SPELL_DISTANCE;
 
     public static ForgeConfigSpec.IntValue COMBUSTION_SPELL_COST;
+    public static ForgeConfigSpec.IntValue COMBUSTION_SPELL_CAST_DURATION;
     public static ForgeConfigSpec.IntValue COMBUSTION_SPELL_DAMAGE;
+    public static ForgeConfigSpec.IntValue COMBUSTION_SPELL_FIRE_DURATION;
 
     public static ForgeConfigSpec.IntValue IGNITE_SPELL_COST;
 
@@ -97,7 +99,12 @@ public class Config
         BLINK_SPELL_DISTANCE = spellIntParamHelper("blink", "Distance", 4, 2, 64);
 
         COMBUSTION_SPELL_COST = spellIntParamHelper("combustion", "Cost",10, 0, Integer.MAX_VALUE);
+        COMMON_BUILDER.comment("the damage done per tick");
         COMBUSTION_SPELL_DAMAGE = spellIntParamHelper("combustion", "Damage",1, 0, Integer.MAX_VALUE);
+        COMMON_BUILDER.comment("number of ticks this can be held for");
+        COMBUSTION_SPELL_CAST_DURATION = spellIntParamHelper("combustion", "CastDuration",100, 0, Integer.MAX_VALUE);
+        COMMON_BUILDER.comment("fire duration in seconds");
+        COMBUSTION_SPELL_FIRE_DURATION = spellIntParamHelper("combustion", "FireDuration",10, 0, Integer.MAX_VALUE);
 
         IGNITE_SPELL_COST = spellIntParamHelper("ignite", "Cost", 20, 0, Integer.MAX_VALUE);
 
