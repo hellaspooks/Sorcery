@@ -1,7 +1,6 @@
 package com.root.sorcery.event;
 
 import com.root.sorcery.item.SpellcastingItem;
-import com.root.sorcery.spell.CastType;
 import com.root.sorcery.spell.Spell;
 import com.root.sorcery.spell.SpellUseContext;
 import com.root.sorcery.utils.Utils;
@@ -20,11 +19,9 @@ public class DurationSpellEvent
             LivingEntity entity = event.getEntityLiving();
             Spell spell = Utils.getSpellFromProvider(event.getItem());
 
-            if (spell.getCastType() == CastType.CHANNELED) {
-                SpellUseContext context = new SpellUseContext(entity.getEntityWorld(), entity, entity.getActiveHand());
-                context.setCastingTicks(spell.castDuration - event.getDuration());
-                spell.cast(context);
-            }
+            SpellUseContext context = new SpellUseContext(entity.getEntityWorld(), entity, entity.getActiveHand());
+            context.setCastingTicks(spell.castDuration - event.getDuration());
+            spell.castPerTick(context);
         }
     }
 
@@ -36,11 +33,9 @@ public class DurationSpellEvent
             LivingEntity entity = event.getEntityLiving();
             Spell spell = Utils.getSpellFromProvider(event.getItem());
 
-            if (spell.getCastType() == CastType.CHANNELED) {
-                SpellUseContext context = new SpellUseContext(entity.getEntityWorld(), entity, entity.getActiveHand());
-                context.setCastingTicks(spell.castDuration - event.getDuration());
-                spell.cast(context);
-            }
+            SpellUseContext context = new SpellUseContext(entity.getEntityWorld(), entity, entity.getActiveHand());
+            context.setCastingTicks(spell.castDuration - event.getDuration());
+            spell.castFinal(context);
         }
     }
 
@@ -52,11 +47,9 @@ public class DurationSpellEvent
             LivingEntity entity = event.getEntityLiving();
             Spell spell = Utils.getSpellFromProvider(event.getItem());
 
-            if (spell.getCastType() == CastType.CHANNELED) {
-                SpellUseContext context = new SpellUseContext(entity.getEntityWorld(), entity, entity.getActiveHand());
-                context.setCastingTicks(spell.castDuration - event.getDuration());
-                spell.cast(context);
-            }
+            SpellUseContext context = new SpellUseContext(entity.getEntityWorld(), entity, entity.getActiveHand());
+            context.setCastingTicks(spell.castDuration - event.getDuration());
+            spell.castFinal(context);
         }
     }
 }

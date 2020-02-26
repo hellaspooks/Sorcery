@@ -1,6 +1,5 @@
 package com.root.sorcery.item;
 
-import com.google.gson.internal.$Gson$Preconditions;
 import com.root.sorcery.spell.CastType;
 import com.root.sorcery.spell.ModSpell;
 import com.root.sorcery.spell.Spell;
@@ -94,7 +93,7 @@ public class SpellcastingItem extends Item
             return ActionResultType.SUCCESS;
         }
         // Otherwise, cast the spell
-        return spellToCast.cast(context);
+        return spellToCast.castFinal(context);
     }
 
     public ActionResultType castSpellOverride(SpellUseContext context, Spell spell)
@@ -108,7 +107,7 @@ public class SpellcastingItem extends Item
             return ActionResultType.SUCCESS;
         }
         // Otherwise, cast the spell
-        return spell.cast(context);
+        return spell.castFinal(context);
     }
 
 
@@ -118,7 +117,7 @@ public class SpellcastingItem extends Item
     {
         SpellUseContext spellContext = new SpellUseContext(worldIn, entityLiving, entityLiving.getActiveHand());
         Spell spellToCast = getSpellFromProvider(stack);
-        spellToCast.cast(spellContext);
+        spellToCast.castFinal(spellContext);
         return stack;
     }
 

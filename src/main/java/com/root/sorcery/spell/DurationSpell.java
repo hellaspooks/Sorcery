@@ -17,7 +17,7 @@ public class DurationSpell extends Spell
 
     // This is triggered when the action finishes, not before
     @Override
-    public ActionResultType castServer(SpellUseContext context){
+    public ActionResultType doCastFinal(SpellUseContext context){
 
         context.getPlayer().sendMessage(new StringTextComponent("Duration Spell Cast!"));
 

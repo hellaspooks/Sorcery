@@ -19,8 +19,10 @@ public class FireboltSpell extends Spell
     }
 
 
-    public ActionResultType castServer(SpellUseContext context)
+    public ActionResultType doCastFinal(SpellUseContext context)
     {
+        this.doParticleEffects(context);
+        this.playSound(context);
         World world = context.getWorld();
         FireboltEntity entity = new FireboltEntity(ModEntity.FIREBOLT, world);
         entity.setDamageAndDuration(Config.FIREBOLT_SPELL_DAMAGE.get(), Config.FIREBOLT_SPELL_FIRE_DURATION.get());

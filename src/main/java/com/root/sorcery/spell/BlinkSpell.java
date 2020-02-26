@@ -27,8 +27,10 @@ public class BlinkSpell extends Spell
 
 
     @Override
-    public ActionResultType castServer(SpellUseContext context)
+    public ActionResultType doCastFinal(SpellUseContext context)
     {
+        this.doParticleEffects(context);
+        this.playSound(context);
 
         PlayerEntity player = context.getPlayer();
 

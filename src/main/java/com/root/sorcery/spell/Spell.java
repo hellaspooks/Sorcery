@@ -14,15 +14,19 @@ public class Spell extends ForgeRegistryEntry<Spell>
     public SoundEvent sound = SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP;
     public SoundCategory soundCategory = SoundCategory.BLOCKS;
     public CastType castType = CastType.INSTANT;
+    public int castFrequency = 1;
 
     public Spell(int arcanaCost)
     {
         this.arcanaCost = arcanaCost;
     }
 
-    // Main casting method, mostly dispatch to castServer and castClient methods
-    // In general this shouldn't need to be overwritten
-    public ActionResultType cast(SpellUseContext context)
+    /**
+     * Called when a spell "finishes"
+     * @param context
+     * @return
+     */
+    public ActionResultType castFinal(SpellUseContext context)
     {
 
         if (!allowCast(context))
@@ -35,15 +39,44 @@ public class Spell extends ForgeRegistryEntry<Spell>
             return ActionResultType.FAIL;
         }
 
-        playSound(context);
+        if (!context.getWorld().isRemote())
+        {
+            doCastFinal(context);
+            return ActionResultType.SUCCESS;
+        } else {
+            return ActionResultType.SUCCESS;
+        }
+    }
+
+    /**
+     * Called every tick a spell is being cast.
+     * Spell's castFrequency defines how many ticks between procs.
+     * @param context
+     * @return
+     */
+    public ActionResultType castPerTick(SpellUseContext context)
+    {
+        if (!(context.getWorld().getGameTime() % this.castFrequency == 0))
+        {
+            return ActionResultType.PASS;
+        }
+
+        if (!allowCast(context))
+        {
+            return ActionResultType.FAIL;
+        }
+
+        if (!drainArcana(context, this.getArcanaCost(context)))
+        {
+            return ActionResultType.FAIL;
+        }
 
         if (!context.getWorld().isRemote())
         {
-            castServer(context);
-            doParticleEffects(context);
+            doCastPerTick(context);
             return ActionResultType.SUCCESS;
         } else {
-            return castClient(context);
+            return ActionResultType.SUCCESS;
         }
     }
 
@@ -59,20 +92,22 @@ public class Spell extends ForgeRegistryEntry<Spell>
         return this.arcanaCost;
     }
 
-    // Server-side only stuff happens here
-    public ActionResultType castServer(SpellUseContext context)
+    // perform the final cast of the spell
+    public ActionResultType doCastFinal(SpellUseContext context)
     {
         return ActionResultType.SUCCESS;
     }
 
-    // Client-side only stuff happens here
-    public ActionResultType castClient(SpellUseContext context)
+    // perform the per-tick action of the spell
+    public ActionResultType doCastPerTick(SpellUseContext context)
     {
         return ActionResultType.SUCCESS;
     }
 
     // Send packets to play particle effects
-    public void doParticleEffects(SpellUseContext context){}
+    public void doParticleEffects(SpellUseContext context)
+    {
+    }
 
     // Play sound effects, override if you want different behavior
     public void playSound(SpellUseContext context)

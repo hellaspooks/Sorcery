@@ -23,7 +23,7 @@ public class PlantDeathSpell extends Spell
     }
 
     @Override
-    public ActionResultType castServer(SpellUseContext context)
+    public ActionResultType doCastFinal(SpellUseContext context)
     {
 
         // IdentityHashSet of plant blocks.
