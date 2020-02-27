@@ -25,9 +25,9 @@ public class RepelSpell extends Spell
     }
 
     // Server-side only stuff happens here
+    @Override
     public ActionResultType doCastFinal(SpellUseContext context)
     {
-        this.doParticleEffects(context);
         this.playSound(context);
         LivingEntity repelFrom = context.getPlayer();
         List<Entity> entities = Utils.entitiesInRange(context.getWorld(), context.getPos(), range, repelFrom);

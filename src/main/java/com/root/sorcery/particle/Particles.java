@@ -27,6 +27,11 @@ public class Particles
         return new RGBAParticleData(ModParticle.SIMPLE_PUFF, 1, 1, 1, 1);
     }
 
+    public static IParticleData getSkullSmoke()
+    {
+        return new RGBAParticleData(ModParticle.SKULL_SMOKE, 1, 1, 1, 0.7f);
+    }
+
     public static IParticleData getColoredParticle(List<Integer> rgb, ParticleType type, float alpha)
     {
         return new RGBAParticleData(type, ((float)rgb.get(0))/255f, ((float)rgb.get(1))/255f, ((float)rgb.get(2))/255f, alpha);

@@ -7,8 +7,10 @@ import com.root.sorcery.utils.Utils;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 
+@Mod.EventBusSubscriber
 public class EntityDeathEvent
 {
 

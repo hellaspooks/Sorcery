@@ -19,6 +19,7 @@ public class FireboltSpell extends Spell
     }
 
 
+    @Override
     public ActionResultType doCastFinal(SpellUseContext context)
     {
         this.doParticleEffects(context);

@@ -29,12 +29,7 @@ public class Spell extends ForgeRegistryEntry<Spell>
     public ActionResultType castFinal(SpellUseContext context)
     {
 
-        if (!allowCast(context))
-        {
-            return ActionResultType.FAIL;
-        }
-
-        if (!drainArcana(context, this.getArcanaCost(context)))
+        if (!preCast(context))
         {
             return ActionResultType.FAIL;
         }
@@ -61,12 +56,7 @@ public class Spell extends ForgeRegistryEntry<Spell>
             return ActionResultType.PASS;
         }
 
-        if (!allowCast(context))
-        {
-            return ActionResultType.FAIL;
-        }
-
-        if (!drainArcana(context, this.getArcanaCost(context)))
+        if (!preCast(context))
         {
             return ActionResultType.FAIL;
         }
@@ -78,6 +68,26 @@ public class Spell extends ForgeRegistryEntry<Spell>
         } else {
             return ActionResultType.SUCCESS;
         }
+    }
+
+    /**
+     * Checks to see if the spell can be cast.
+     * @param context
+     * @return
+     */
+    public boolean preCast(SpellUseContext context)
+    {
+        if (!allowCast(context))
+        {
+            return false;
+        }
+
+        if (!drainArcana(context, this.getArcanaCost(context)))
+        {
+            return false;
+        }
+
+        return true;
     }
 
     // check to see if cast will be allowed
@@ -114,7 +124,6 @@ public class Spell extends ForgeRegistryEntry<Spell>
     {
         context.getWorld().playSound(context.getPlayer(), context.getPos(), this.sound, this.soundCategory, 1.0F, context.getWorld().rand.nextFloat() * 0.4F + 0.8F);
     }
-
 
     // Drain Arcana from caster, return true if successful
     public boolean drainArcana(SpellUseContext context, int arcanaCost)
