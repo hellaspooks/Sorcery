@@ -1,6 +1,7 @@
 package com.root.sorcery.tileentity;
 
 import com.root.sorcery.block.MonolithBlock;
+import com.root.sorcery.particle.ParticleEffectContext;
 import com.root.sorcery.particle.ParticleEffects;
 import com.root.sorcery.particle.Particles;
 import com.root.sorcery.utils.Utils;
@@ -56,7 +57,7 @@ public class SolarMonolithTile extends AbstractMonolithTile implements ITickable
                 if (this.getBlockState().get(MonolithBlock.ACTIVE))
                 {
                     Vec3d sunVec = Utils.getSunVector(this.world);
-                    ParticleEffects.drawIn(world, Particles.getSolarSpark(), this.arcanaPulseSource, sunVec, 10, 1, 1, 40);
+                    ParticleEffects.drawIn(new ParticleEffectContext(world, Particles.getSolarSparks(), this.arcanaPulseSource, sunVec, 10, 1, 1, 40));
                 }
             }
         }

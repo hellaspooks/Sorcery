@@ -21,9 +21,11 @@ public class TestSpell extends Spell
     }
 
     @Override
-    public ActionResultType castServer(SpellUseContext context)
+    public ActionResultType doCastFinal(SpellUseContext context)
     {
 
+        this.doParticleEffects(context);
+        this.playSound(context);
         if ( context.getPlayer() != null){
             context.getPlayer().sendMessage(new StringTextComponent(this.debugMessage));
             return ActionResultType.SUCCESS;

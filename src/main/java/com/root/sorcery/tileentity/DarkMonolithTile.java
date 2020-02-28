@@ -27,7 +27,7 @@ public class DarkMonolithTile extends AbstractMonolithTile
         }
         int arcanaToAdd = (int)(entity.getMaxHealth() * (float)arcanaPerHP);
         this.receiveArcana(arcanaToAdd);
-        ParticleEffectPacket pkt =  new ParticleEffectPacket(7, Particles.getBloodSpark(), new Vec3d(this.pos), entity.getPositionVec(), 20, 1, 1, 40);
+        ParticleEffectPacket pkt =  new ParticleEffectPacket(7, 4, new Vec3d(this.pos), entity.getPositionVec(), 20, 1, 1, 40);
         PacketHandler.sendToAllTrackingEntity(entity, pkt);
     }
 

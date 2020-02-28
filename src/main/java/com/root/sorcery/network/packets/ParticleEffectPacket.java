@@ -2,7 +2,10 @@ package com.root.sorcery.network.packets;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.root.sorcery.particle.ParticleCollection;
+import com.root.sorcery.particle.ParticleEffectContext;
 import com.root.sorcery.particle.ParticleEffects;
+import com.root.sorcery.particle.Particles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
@@ -34,8 +37,36 @@ public class ParticleEffectPacket
 
         nbt.putInt("eT", effectType);
 
+        nbt.putBoolean("pC", false);
+
         nbt.putString("p", particle.getType().getRegistryName().toString());
         nbt.putString("pP", particle.getParameters());
+
+        nbt.putDouble("lX", loc.x);
+        nbt.putDouble("lY", loc.y);
+        nbt.putDouble("lZ", loc.z);
+
+        nbt.putDouble("vX", lookVec.x);
+        nbt.putDouble("vY", lookVec.y);
+        nbt.putDouble("vZ", lookVec.z);
+
+        nbt.putInt("n", numParticles);
+
+        nbt.putDouble("v", speed);
+        nbt.putDouble("r", radius);
+        nbt.putInt("t", age);
+
+        this.pktNBT = nbt;
+    }
+
+    public ParticleEffectPacket(int effectType, int particleSet, Vec3d loc, Vec3d lookVec, int numParticles, double speed, double radius, int age)
+    {
+        CompoundNBT nbt = new CompoundNBT();
+
+        nbt.putInt("eT", effectType);
+
+        nbt.putBoolean("pC", true);
+        nbt.putInt("pN", particleSet);
 
         nbt.putDouble("lX", loc.x);
         nbt.putDouble("lY", loc.y);
@@ -73,13 +104,22 @@ public class ParticleEffectPacket
                 if (ctx.get().getDirection().getReceptionSide().isClient()) {
                     CompoundNBT nbt = message.pktNBT;
                     World world = Minecraft.getInstance().world;
-                    IForgeRegistryEntry regParticle = GameRegistry.findRegistry(ParticleType.class).getValue(new ResourceLocation(nbt.getString("p")));
-                    ParticleType particleType = (ParticleType) regParticle;
-                    IParticleData particle = null;
-                    try {
-                        particle = particleType.getDeserializer().deserialize(particleType, new StringReader(nbt.getString("pP")));
-                    } catch (CommandSyntaxException e) {
-                        e.printStackTrace();
+                    ParticleCollection collection = new ParticleCollection();
+
+                    if (!nbt.getBoolean("pC"))
+                    {
+                        IForgeRegistryEntry regParticle = GameRegistry.findRegistry(ParticleType.class).getValue(new ResourceLocation(nbt.getString("p")));
+                        ParticleType particleType = (ParticleType) regParticle;
+                        IParticleData particle = null;
+                        try {
+                            particle = particleType.getDeserializer().deserialize(particleType, new StringReader(nbt.getString("pP")));
+                        } catch (CommandSyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        collection.add(100, particle);
+
+                    } else {
+                        collection = Particles.getParticleSet(nbt.getInt("pN"));
                     }
 
 
@@ -92,34 +132,36 @@ public class ParticleEffectPacket
                     double radius = nbt.getDouble("r");
                     int age = nbt.getInt("t");
 
+                    ParticleEffectContext context = new ParticleEffectContext(world, collection, loc, lookVec, num, speed, radius, age);
+
                     switch (message.pktNBT.getInt("eT"))
                     {
                         case 0:
-                            ParticleEffects.risePoof(world, particle, loc, lookVec, num, speed, radius, age);
+                            ParticleEffects.risePoof(context);
                             break;
                         case 1:
-                            ParticleEffects.ringHorizontal(world, particle, loc, lookVec, num, speed, radius, age);
+                            ParticleEffects.ringHorizontal(context);
                             break;
                         case 2:
-                            ParticleEffects.expandingSphere(world, particle, loc, lookVec, num, speed, radius, age);
+                            ParticleEffects.expandingSphere(context);
                             break;
                         case 3:
-                            ParticleEffects.coneSpray(world, particle, loc, lookVec, num, speed, radius, age);
+                            ParticleEffects.coneSpray(context);
                             break;
                         case 4:
-                            ParticleEffects.sendTo(world, particle, loc, lookVec, num, speed, radius, age);
+                            ParticleEffects.sendTo(context);
                             break;
                         case 5:
-                            ParticleEffects.smallFountain(world, particle, loc, lookVec, num, speed, radius, age);
+                            ParticleEffects.smallFountain(context);
                             break;
                         case 6:
-                            ParticleEffects.drawIn(world, particle, loc, lookVec, num, speed, radius, age);
+                            ParticleEffects.drawIn(context);
                             break;
                         case 7:
-                            ParticleEffects.drawInFrom(world, particle, loc, lookVec, num, speed, radius, age);
+                            ParticleEffects.drawInFrom(context);
                             break;
                         case 8:
-                            ParticleEffects.staticHorizontalRing(world, particle, loc, lookVec, num, speed, radius, age);
+                            ParticleEffects.staticHorizontalRing(context);
                             break;
 
                     }

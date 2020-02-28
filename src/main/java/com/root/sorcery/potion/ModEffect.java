@@ -18,7 +18,7 @@ public class ModEffect
     public static Effect CORROSION;
 
     @ObjectHolder("necrosis")
-    public static Effect NECROsis;
+    public static Effect NECROSIS;
 
     public static void init(RegistryEvent.Register<Effect> event)
     {

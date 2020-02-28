@@ -7,6 +7,7 @@ import com.root.sorcery.spell.Spell;
 import com.root.sorcery.spellcasting.ISpellcasting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -122,6 +123,15 @@ public class Utils {
     {
         double celestialRads = world.getCelestialAngleRadians(1.0F) + Math.PI;
         return new Vec3d(-Math.sin(celestialRads), Math.cos(celestialRads), 0);
+    }
+
+    public static Vec3d getStaffVector(PlayerEntity player)
+    {
+        BasisVectors basis = new BasisVectors(player.getLook(1));
+
+        Vec3d vec = basis.addXYZ(player.getEyePosition(1), 0.25, 0, 0.1);
+
+        return vec;
     }
 
     public static Predicate<TileEntity> getTESearchPredicate(Class clazz, TileEntity tile, double range)

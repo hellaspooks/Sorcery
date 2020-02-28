@@ -24,7 +24,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "sorcery:chalcedony"
+          "name": "sorcery:crystal_chalcedony"
         }
       ]
     },
@@ -42,7 +42,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "sorcery:nuummite"
+          "name": "sorcery:crystal_nuummite"
         }
       ]
     },
@@ -60,7 +60,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "sorcery:carnelian"
+          "name": "sorcery:crystal_carnelian"
         }
       ]
     },
@@ -78,7 +78,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "sorcery:serpentine"
+          "name": "sorcery:crystal_serpentine"
         }
       ]
     },
@@ -96,7 +96,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "sorcery:jasper"
+          "name": "sorcery:crystal_jasper"
         }
       ]
     },
@@ -114,7 +114,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "sorcery:sugilite"
+          "name": "sorcery:crystal_sugilite"
         }
       ]
     }

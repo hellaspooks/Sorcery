@@ -17,27 +17,35 @@ import java.util.List;
 public class CombustionSpell extends Spell
 {
     private int dmgPerTick;
+    private int fireDuration;
 
     public CombustionSpell()
     {
         super(Config.COMBUSTION_SPELL_COST.get());
-        this.castDuration = 100;
+        this.castDuration = Config.COMBUSTION_SPELL_CAST_DURATION.get();
         this.dmgPerTick = Config.COMBUSTION_SPELL_DAMAGE.get();
+        this.fireDuration = Config.COMBUSTION_SPELL_FIRE_DURATION.get();
         this.castType = CastType.CHANNELED;
         this.sound = SoundEvents.ITEM_FIRECHARGE_USE;
+        this.castFrequency = 2;
     }
 
     @Override
-    public ActionResultType castServer(SpellUseContext context)
+    public ActionResultType doCastPerTick(SpellUseContext context)
     {
+        this.doParticleEffects(context);
+        this.playSound(context);
         List<Entity> entList = Utils.entitiesInCone(context.getWorld(), context.getPos(), context.getPlayer(), context.getPlayer().getEyePosition(1), context.getPlayer().getLook(1), 8, 0.2);
+
+        Double castPercent = this.getCastPercent(context);
+
 
         for ( Entity entity : entList)
         {
             if (entity instanceof CreatureEntity)
             {
-                entity.setFire(3);
-                entity.attackEntityFrom(DamageSource.ON_FIRE, this.dmgPerTick);
+                entity.setFire((int)((double)this.fireDuration / castPercent));
+                entity.attackEntityFrom(DamageSource.ON_FIRE, (int)((double) this.dmgPerTick/ castPercent));
             }
         }
         return ActionResultType.SUCCESS;

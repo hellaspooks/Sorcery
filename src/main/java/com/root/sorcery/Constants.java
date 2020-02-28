@@ -22,6 +22,7 @@ public class Constants
     public static final ResourceLocation ROD_TAG = new ResourceLocation(MODID, "rods");
 
     public static final ResourceLocation MONOLITH_FORMABLE_TAG = new ResourceLocation(MODID, "monolith_formable");
+    public static final ResourceLocation PLANT_DEATHABLE_TAG = new ResourceLocation(MODID, "plant_deathable");
 
     public static final List EVOCATION_RED_HIGHLIGHT = Arrays.asList(208, 3, 35);
     public static final List EVOCATION_RED_MAIN = Arrays.asList(153, 0, 36);
@@ -66,14 +67,5 @@ public class Constants
     public static final List BLOOD_RED_HIGHLIGHT = Arrays.asList(143, 1, 11);
     public static final List BLOOD_RED_MAIN = Arrays.asList(118, 1, 44);
     public static final List BLOOD_RED_LOWLIGHT = Arrays.asList(95, 1, 61);
-
-
-    public static ArrayList<List> arcanaColors = new ArrayList<List>() {
-        {
-            add(ARCANA_PURPLE_HIGHLIGHT);
-            add(ARCANA_PURPLE_MAIN);
-            add(ARCANA_PURPLE_LOWLIGHT);
-        }
-    };
 
 }

@@ -17,7 +17,7 @@ public class IgniteSpell extends Spell
     }
 
     @Override
-    public ActionResultType castServer(SpellUseContext context)
+    public ActionResultType doCastFinal(SpellUseContext context)
     {
         if (context.getHitPos() != null)
         {
@@ -27,6 +27,8 @@ public class IgniteSpell extends Spell
             {
                 return ActionResultType.FAIL;
             }
+            this.doParticleEffects(context);
+            this.playSound(context);
 
             BlockState blockState = ((FireBlock) Blocks.FIRE).getStateForPlacement(context.getWorld(), firePos);
             context.getWorld().setBlockState(firePos, blockState, 11);

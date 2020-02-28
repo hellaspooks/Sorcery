@@ -5,12 +5,12 @@ import net.minecraft.util.IStringSerializable;
 public enum CrystalColor implements IStringSerializable
 {
     NONE("none", "none"),
-    BLACK("black", "nuummite"),
-    BLUE("blue", "chalcedony"),
-    GREEN("green", "serpentine"),
-    PURPLE("purple", "sugilite"),
-    RED("red", "carnelian"),
-    YELLOW("yellow", "jasper");
+    BLACK("black", "crystal_nuummite"),
+    BLUE("blue", "crystal_chalcedony"),
+    GREEN("green", "crystal_serpentine"),
+    PURPLE("purple", "crystal_sugilite"),
+    RED("red", "crystal_carnelian"),
+    YELLOW("yellow", "crystal_jasper");
 
     private final String name;
 

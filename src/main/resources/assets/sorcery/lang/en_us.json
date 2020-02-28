@@ -1,11 +1,29 @@
 {
   "block.sorcery.polished_wolfram": "Polished Wolfram",
-  "block.sorcery.wolfram_bricks": "Wolfram Bricks",
-  "block.sorcery.wolfram_brick_stairs": "Wolfram Brick Stairs",
-  "block.sorcery.wolfram_brick_slab": "Wolfram Brick Slab",
-  "block.sorcery.wolfram_brick_wall": "Wolfram Brick Wall",
+  "block.sorcery.runestone_bricks": "Runestone Bricks",
+  "block.sorcery.runestone_brick_stairs": "Runestone Brick Stairs",
+  "block.sorcery.runestone_brick_slab": "Runestone Brick Slab",
+  "block.sorcery.runestone_brick_wall": "Runestone Brick Wall",
   "block.sorcery.wolfram_blast_furnace": "Wolfram Blast Furnace",
   "block.sorcery.wolfram_lantern": "Wolfram Lantern",
+
+
+  "block.sorcery.runewood_log": "Runewood Log",
+  "block.sorcery.stripped_runewood_log": "Stripped Runewood Log",
+  "block.sorcery.runewood_planks": "Runewood Planks",
+  "block.sorcery.runewood_leaves": "Runewood Leaves",
+
+  "block.sorcery.chiseled_runestone": "Chiseled Runestone",
+  "block.sorcery.solar_runestone": "Solar Runestone",
+  "block.sorcery.lunar_runestone": "Lunar Runestone",
+  "block.sorcery.lapis_runestone": "Lapis Runestone",
+  "block.sorcery.dark_runestone": "Dark Runestone",
+
+  "block.sorcery.monolith_chiseled": "Chiseled Monolith",
+  "block.sorcery.monolith_solar": "Solar Monolith",
+  "block.sorcery.monolith_lunar": "Lunar Monolith",
+  "block.sorcery.monolith_dark": "Dark Monolith",
+  "block.sorcery.monolith_lapis": "Lapis Monolith",
 
   "item.sorcery.wolfram_chunk": "Wolfram Chunk",
   "item.sorcery.lodestone": "Lodestone",
@@ -21,7 +39,7 @@
   "item.sorcery.mythril_axe": "Mythril Axe",
   "item.sorcery.mythril_shovel": "Mythril Shovel",
   "item.sorcery.mythril_hoe": "Mythril Hoe",
-  
+
   "item.sorcery.geode": "Geode",
   "item.sorcery.arcane_dynamo": "Arcane Dynamo",
   "item.sorcery.mundane_mechanism": "Mundane Mechanism",
@@ -52,6 +70,11 @@
   "item.sorcery.crystal_serpentine": "Serpentine Crystal",
   "item.sorcery.crystal_nuummite": "Nuummite Crystal",
   "item.sorcery.crystal_sugilite": "Sugilite Crystal",
+
+  "item.sorcery.sorcerous_staff": "Sorcerous Staff",
+  "item.sorcery.crystal_resonator": "Crystal Resonator",
+
+  "effect.sorcery.dimensional_fraying": "Dimensional Fraying",
 
   "itemGroup.Sorcery": "Sorcery"
 }

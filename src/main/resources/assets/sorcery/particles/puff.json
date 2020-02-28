@@ -1,13 +1,13 @@
 {
   "textures": [
-    "sorcery:puff_0",
-    "sorcery:puff_1",
-    "sorcery:puff_2",
-    "sorcery:puff_3",
-    "sorcery:puff_4",
-    "sorcery:puff_5",
-    "sorcery:puff_6",
-    "sorcery:puff_7",
-    "sorcery:puff_8"
+    "sorcery:puff/puff_0",
+    "sorcery:puff/puff_1",
+    "sorcery:puff/puff_2",
+    "sorcery:puff/puff_3",
+    "sorcery:puff/puff_4",
+    "sorcery:puff/puff_5",
+    "sorcery:puff/puff_6",
+    "sorcery:puff/puff_7",
+    "sorcery:puff/puff_8"
   ]
 }

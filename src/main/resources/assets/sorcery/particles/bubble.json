@@ -1,17 +1,17 @@
 {
   "textures": [
-    "sorcery:bubble_0",
-    "sorcery:bubble_1",
-    "sorcery:bubble_2",
-    "sorcery:bubble_3",
-    "sorcery:bubble_4",
-    "sorcery:bubble_5",
-    "sorcery:bubble_6",
-    "sorcery:bubble_7",
-    "sorcery:bubble_8",
-    "sorcery:bubble_9",
-    "sorcery:bubble_10",
-    "sorcery:bubble_11",
-    "sorcery:bubble_12"
+    "sorcery:bubble/bubble_0",
+    "sorcery:bubble/bubble_1",
+    "sorcery:bubble/bubble_2",
+    "sorcery:bubble/bubble_3",
+    "sorcery:bubble/bubble_4",
+    "sorcery:bubble/bubble_5",
+    "sorcery:bubble/bubble_6",
+    "sorcery:bubble/bubble_7",
+    "sorcery:bubble/bubble_8",
+    "sorcery:bubble/bubble_9",
+    "sorcery:bubble/bubble_10",
+    "sorcery:bubble/bubble_11",
+    "sorcery:bubble/bubble_12"
   ]
 }

@@ -32,6 +32,7 @@ public class SpellUseContext
     private final ItemStack item;
     private final LivingEntity targetEntity;
     private final boolean usedOnBlock;
+    private int castingTicks;
 
 
     /**
@@ -56,6 +57,7 @@ public class SpellUseContext
         this.item = heldItem;
         this.targetEntity = targetEntityIn;
         this.usedOnBlock = false;
+        this.castingTicks = 1;
 
     }
 
@@ -71,6 +73,7 @@ public class SpellUseContext
         this.item = itemUseContext.getItem();
         this.targetEntity = null;
         this.usedOnBlock = true;
+        this.castingTicks = 1;
 
     }
 
@@ -86,6 +89,7 @@ public class SpellUseContext
         this.item = player.getHeldItem(handIn);
         this.targetEntity = null;
         this.usedOnBlock = false;
+        this.castingTicks = 1;
 
     }
 
@@ -101,6 +105,7 @@ public class SpellUseContext
         this.item = itemStackIn;
         this.targetEntity = targetEntityIn;
         this.usedOnBlock = false;
+        this.castingTicks = 1;
     }
 
     // Convenience constructor from onRightClick
@@ -115,6 +120,7 @@ public class SpellUseContext
         this.item = playerIn.getHeldItem(handIn);
         this.targetEntity = null;
         this.usedOnBlock = false;
+        this.castingTicks = 1;
     }
 
     public PlayerEntity getPlayer()
@@ -199,6 +205,16 @@ public class SpellUseContext
     public BlockRayTraceResult getRayTraceResult()
     {
         return this.rayTraceResult;
+    }
+
+    public void setCastingTicks(int ticks)
+    {
+        this.castingTicks = ticks;
+    }
+
+    public int getCastingTicks()
+    {
+        return this.castingTicks;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.root.sorcery.network.packets;
 
+import com.root.sorcery.Sorcery;
 import com.root.sorcery.tileentity.StaffLatheTile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
@@ -66,8 +67,6 @@ public class StaffCraftPacket
                             }
                         }
 
-                    } else {
-                        System.out.println("in remote ?");
                     }
                 }
             });

@@ -1,6 +1,7 @@
 package com.root.sorcery.tileentity;
 
 import com.root.sorcery.block.MonolithBlock;
+import com.root.sorcery.particle.ParticleEffectContext;
 import com.root.sorcery.particle.ParticleEffects;
 import com.root.sorcery.particle.Particles;
 import com.root.sorcery.utils.Utils;
@@ -74,7 +75,7 @@ public class LunarMonolithTile extends AbstractMonolithTile implements ITickable
                 if (this.getBlockState().get(MonolithBlock.ACTIVE))
                 {
                     Vec3d moonVec = Utils.getMoonVector(this.world);
-                    ParticleEffects.drawIn(world, Particles.getLunarSpark(), this.arcanaPulseSource, moonVec, 10, 1, 1, 40);
+                    ParticleEffects.drawIn(new ParticleEffectContext(world, Particles.getLunarSparks(), this.arcanaPulseSource, moonVec, 10, 1, 1, 40));
                 }
             }
 

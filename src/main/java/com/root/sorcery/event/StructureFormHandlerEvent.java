@@ -5,9 +5,11 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import static net.minecraft.block.LecternBlock.FACING;
 
+@Mod.EventBusSubscriber
 public class StructureFormHandlerEvent
 {
     @SubscribeEvent

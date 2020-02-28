@@ -14,37 +14,80 @@ public class Spell extends ForgeRegistryEntry<Spell>
     public SoundEvent sound = SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP;
     public SoundCategory soundCategory = SoundCategory.BLOCKS;
     public CastType castType = CastType.INSTANT;
+    public int castFrequency = 1;
 
     public Spell(int arcanaCost)
     {
         this.arcanaCost = arcanaCost;
     }
 
-    // Main casting method, mostly dispatch to castServer and castClient methods
-    // In general this shouldn't need to be overwritten
-    public ActionResultType cast(SpellUseContext context)
+    /**
+     * Called when a spell "finishes"
+     * @param context
+     * @return
+     */
+    public ActionResultType castFinal(SpellUseContext context)
     {
 
-        if (!allowCast(context))
+        if (!preCast(context))
         {
             return ActionResultType.FAIL;
+        }
+
+        if (!context.getWorld().isRemote())
+        {
+            doCastFinal(context);
+            return ActionResultType.SUCCESS;
+        } else {
+            return ActionResultType.SUCCESS;
+        }
+    }
+
+    /**
+     * Called every tick a spell is being cast.
+     * Spell's castFrequency defines how many ticks between procs.
+     * @param context
+     * @return
+     */
+    public ActionResultType castPerTick(SpellUseContext context)
+    {
+        if (!(context.getWorld().getGameTime() % this.castFrequency == 0))
+        {
+            return ActionResultType.PASS;
+        }
+
+        if (!preCast(context))
+        {
+            return ActionResultType.FAIL;
+        }
+
+        if (!context.getWorld().isRemote())
+        {
+            doCastPerTick(context);
+            return ActionResultType.SUCCESS;
+        } else {
+            return ActionResultType.SUCCESS;
+        }
+    }
+
+    /**
+     * Checks to see if the spell can be cast.
+     * @param context
+     * @return
+     */
+    public boolean preCast(SpellUseContext context)
+    {
+        if (!allowCast(context))
+        {
+            return false;
         }
 
         if (!drainArcana(context, this.getArcanaCost(context)))
         {
-            return ActionResultType.FAIL;
+            return false;
         }
 
-        playSound(context);
-
-        if (!context.getWorld().isRemote())
-        {
-            castServer(context);
-            doParticleEffects(context);
-            return ActionResultType.SUCCESS;
-        } else {
-            return castClient(context);
-        }
+        return true;
     }
 
     // check to see if cast will be allowed
@@ -59,27 +102,28 @@ public class Spell extends ForgeRegistryEntry<Spell>
         return this.arcanaCost;
     }
 
-    // Server-side only stuff happens here
-    public ActionResultType castServer(SpellUseContext context)
+    // perform the final cast of the spell
+    public ActionResultType doCastFinal(SpellUseContext context)
     {
         return ActionResultType.SUCCESS;
     }
 
-    // Client-side only stuff happens here
-    public ActionResultType castClient(SpellUseContext context)
+    // perform the per-tick action of the spell
+    public ActionResultType doCastPerTick(SpellUseContext context)
     {
         return ActionResultType.SUCCESS;
     }
 
     // Send packets to play particle effects
-    public void doParticleEffects(SpellUseContext context){}
+    public void doParticleEffects(SpellUseContext context)
+    {
+    }
 
     // Play sound effects, override if you want different behavior
     public void playSound(SpellUseContext context)
     {
         context.getWorld().playSound(context.getPlayer(), context.getPos(), this.sound, this.soundCategory, 1.0F, context.getWorld().rand.nextFloat() * 0.4F + 0.8F);
     }
-
 
     // Drain Arcana from caster, return true if successful
     public boolean drainArcana(SpellUseContext context, int arcanaCost)
@@ -112,6 +156,16 @@ public class Spell extends ForgeRegistryEntry<Spell>
     public CastType getCastType()
     {
         return this.castType;
+    }
+
+    protected double getCastPercent(SpellUseContext context)
+    {
+        if (this.castType == CastType.INSTANT)
+        {
+            return 1;
+        } else {
+            return (double)context.getCastingTicks() / (double)this.castDuration;
+        }
     }
 
 
