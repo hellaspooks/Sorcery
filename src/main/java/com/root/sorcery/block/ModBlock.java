@@ -123,6 +123,12 @@ public class ModBlock
     @ObjectHolder("runewood_sapling")
     public static Block RUNEWOOD_SAPLING;
 
+    @ObjectHolder("conjured_block")
+    public static ConjuredBlock CONJURED_BLOCK;
+
+    @ObjectHolder("conjured_light")
+    public static ConjuredBlock CONJURED_LIGHT;
+
     public static void init(RegistryEvent.Register<Block> event)
     {
         // Simple Blocks
@@ -171,6 +177,9 @@ public class ModBlock
         registerBlock(new ReliquaryBlock(), "reliquary", event);
         registerBlock(new PylonBlock(), "pylon", event);
         registerBlock(new StaffLatheBlock(), "staff_lathe", event);
+
+        registerBlock(new ConjuredBlock(), "conjured_block", event);
+        registerBlock(new ConjuredLight(), "conjured_light", event);
     }
 
     public static Block simpleBlockFactory(RegistryEvent.Register<Block> event, String registryName, Material material, Float hardness, Float resistance, SoundType sound)

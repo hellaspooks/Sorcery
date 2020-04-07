@@ -37,6 +37,12 @@ public class ModTile
     @ObjectHolder("staff_lathe")
     public static TileEntityType<StaffLatheTile> STAFF_LATHE_TILE;
 
+    @ObjectHolder("conjured_block")
+    public static TileEntityType<ConjuredBlockTile> CONJURED_BLOCK_TILE;
+
+    @ObjectHolder("conjured_light")
+    public static TileEntityType<ConjuredBlockTile> CONJURED_LIGHT_TILE;
+
 
     public static void init(RegistryEvent.Register<TileEntityType<?>> event)
     {
@@ -86,6 +92,15 @@ public class ModTile
                 .build(null)
                 .setRegistryName("staff_lathe"));
 
+        event.getRegistry().register(TileEntityType.Builder
+                .create(ConjuredBlockTile::new, ModBlock.CONJURED_BLOCK)
+                .build(null)
+                .setRegistryName("conjured_block"));
+
+        event.getRegistry().register(TileEntityType.Builder
+                .create(ConjuredLightTile::new, ModBlock.CONJURED_LIGHT)
+                .build(null)
+                .setRegistryName("conjured_light"));
     }
 
 }
