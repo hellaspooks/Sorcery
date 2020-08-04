@@ -2,7 +2,6 @@ package com.root.sorcery.container;
 
 import com.root.sorcery.Sorcery;
 import com.root.sorcery.client.gui.StaffLatheContainerScreen;
-import com.root.sorcery.client.gui.WolframBlastFurnaceGui;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.util.math.BlockPos;

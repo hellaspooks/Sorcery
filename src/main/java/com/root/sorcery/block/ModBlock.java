@@ -167,8 +167,6 @@ public class ModBlock
 
 
         // Tile Blocks
-        registerBlock(new WolframBlastFurnaceBlock(), "wolfram_blast_furnace", event);
-        registerBlock(new ReliquaryBlock(), "reliquary", event);
         registerBlock(new PylonBlock(), "pylon", event);
         registerBlock(new StaffLatheBlock(), "staff_lathe", event);
     }

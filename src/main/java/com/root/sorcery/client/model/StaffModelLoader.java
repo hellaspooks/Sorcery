@@ -1,6 +1,8 @@
 package com.root.sorcery.client.model;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
 import com.root.sorcery.Constants;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -19,8 +21,12 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ICustomModelLoader;
+import net.minecraftforge.client.extensions.IForgeBakedModel;
+import net.minecraftforge.client.extensions.IForgeUnbakedModel;
+import net.minecraftforge.client.model.IModelLoader;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.geometry.IModelGeometry;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -31,7 +37,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
 
-public class StaffModelLoader implements ICustomModelLoader
+public class StaffModelLoader implements IModelLoader
 {
 
     public StaffModelLoader()
@@ -45,18 +51,12 @@ public class StaffModelLoader implements ICustomModelLoader
     }
 
     @Override
-    public boolean accepts(ResourceLocation modelLocation)
+    public IModelGeometry read(JsonDeserializationContext deserializationContext, JsonObject modelContents)
     {
-        return modelLocation.toString().equals("sorcery:models/item/sorcerous_staff");
+        return null;
     }
 
-    @Override
-    public IUnbakedModel loadModel(ResourceLocation modelLocation) throws Exception
-    {
-        return new StaffModel();
-    }
-
-    public class StaffModel implements IUnbakedModel
+    public class StaffModel implements IForgeUnbakedModel
     {
 
         private IUnbakedModel initiateModel;
@@ -76,10 +76,10 @@ public class StaffModelLoader implements ICustomModelLoader
 
         public StaffModel()
         {
-            this.initiateModel = ModelLoaderRegistry.getModelOrLogError(initiateModelRL, "model missing");
-            this.apprenticeModel = ModelLoaderRegistry.getModelOrLogError(apprenticeModelRL, "model missing");
-            this.magicianModel = ModelLoaderRegistry.getModelOrLogError(magicianModelRL, "model missing");
-            this.archmageModel = ModelLoaderRegistry.getModelOrLogError(archmageModelRL, "model missing");
+            this.initiateModel = ModelLoader.getModelOrLogError(initiateModelRL, "model missing");
+            this.apprenticeModel = ModelLoader.getModelOrLogError(apprenticeModelRL, "model missing");
+            this.magicianModel = ModelLoader.getModelOrLogError(magicianModelRL, "model missing");
+            this.archmageModel = ModelLoader.getModelOrLogError(archmageModelRL, "model missing");
         }
 
         @Override
@@ -96,11 +96,11 @@ public class StaffModelLoader implements ICustomModelLoader
         }
 
         @Override
-        public IBakedModel bake(ModelBakery bakery, Function<ResourceLocation, TextureAtlasSprite> spriteGetter, ISprite sprite, VertexFormat format)
+        public IForgeBakedModel bake(ModelBakery bakery, Function<ResourceLocation, TextureAtlasSprite> spriteGetter, ISprite sprite, VertexFormat format)
         {
             IUnbakedModel retexBase = this.retexture(null, null, null, null);
 
-            IBakedModel bakedBase = retexBase.bake(bakery, spriteGetter, sprite, format);
+            IForgeBakedModel bakedBase = retexBase.bake(bakery, spriteGetter, sprite, format);
             return new BakedStaffModel(this, bakedBase, bakery, spriteGetter, sprite, format);
         }
 
@@ -151,7 +151,7 @@ public class StaffModelLoader implements ICustomModelLoader
         }
     }
 
-    public class BakedStaffModel implements IBakedModel
+    public class BakedStaffModel implements IForgeBakedModel
     {
         private HashMap<String, IBakedModel> cache = new HashMap<>();
         private ModelBakery bakery;

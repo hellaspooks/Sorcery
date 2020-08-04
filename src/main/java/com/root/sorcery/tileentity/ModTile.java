@@ -10,8 +10,6 @@ import net.minecraftforge.registries.ObjectHolder;
 @ObjectHolder("sorcery")
 public class ModTile
 {
-    @ObjectHolder("wolfram_blast_furnace")
-    public static TileEntityType<WolframBlastFurnaceTile> WOLFRAM_BLAST_FURNACE_TILE;
 
     @ObjectHolder("chiseled_monolith")
     public static TileEntityType<AbstractMonolithTile> CHISELED_MONOLITH_TILE;
@@ -28,9 +26,6 @@ public class ModTile
     @ObjectHolder("lapis_monolith")
     public static TileEntityType<LapisMonolithTile> LAPIS_MONOLITH_TILE;
 
-    @ObjectHolder("reliquary")
-    public static TileEntityType<ReliquaryTile> RELIQUARY_TILE;
-
     @ObjectHolder("pylon")
     public static TileEntityType<PylonTile> PYLON_TILE;
 
@@ -40,16 +35,6 @@ public class ModTile
 
     public static void init(RegistryEvent.Register<TileEntityType<?>> event)
     {
-
-        event.getRegistry().register(TileEntityType.Builder
-                .create(WolframBlastFurnaceTile::new, ModBlock.WOLFRAM_BLAST_FURNACE)
-                .build(null)
-                .setRegistryName("wolfram_blast_furnace"));
-
-        event.getRegistry().register(TileEntityType.Builder
-                .create(ReliquaryTile::new, ModBlock.RELIQUARY)
-                .build(null)
-                .setRegistryName("reliquary"));
 
         event.getRegistry().register(TileEntityType.Builder
                 .create(ChiseledMonolithTile::new, ModBlock.MONOLITH_CHISELED)

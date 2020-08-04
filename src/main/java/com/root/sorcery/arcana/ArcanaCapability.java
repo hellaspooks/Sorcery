@@ -25,7 +25,7 @@ public class ArcanaCapability
                     @Override
                     public INBT writeNBT(Capability<IArcanaStorage> capability, IArcanaStorage instance, Direction side)
                     {
-                        return new IntNBT(instance.getArcanaStored());
+                        return IntNBT.valueOf(instance.getArcanaStored());
                     }
 
                     @Override
