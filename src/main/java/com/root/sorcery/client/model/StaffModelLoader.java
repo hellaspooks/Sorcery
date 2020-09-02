@@ -6,12 +6,7 @@ import com.google.gson.JsonObject;
 import com.root.sorcery.Constants;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.IUnbakedModel;
-import net.minecraft.client.renderer.model.ItemOverrideList;
-import net.minecraft.client.renderer.model.ModelBakery;
-import net.minecraft.client.renderer.texture.ISprite;
+import net.minecraft.client.renderer.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.LivingEntity;
@@ -26,6 +21,8 @@ import net.minecraftforge.client.extensions.IForgeUnbakedModel;
 import net.minecraftforge.client.model.IModelLoader;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.SimpleModelTransform;
+import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
 
 import javax.annotation.Nullable;
@@ -76,10 +73,10 @@ public class StaffModelLoader implements IModelLoader
 
         public StaffModel()
         {
-            this.initiateModel = ModelLoader.getModelOrLogError(initiateModelRL, "model missing");
-            this.apprenticeModel = ModelLoader.getModelOrLogError(apprenticeModelRL, "model missing");
-            this.magicianModel = ModelLoader.getModelOrLogError(magicianModelRL, "model missing");
-            this.archmageModel = ModelLoader.getModelOrLogError(archmageModelRL, "model missing");
+            this.initiateModel = ModelLoader.instance().getModelOrLogError(initiateModelRL, "model missing");
+            this.apprenticeModel = ModelLoader.instance().getModelOrLogError(apprenticeModelRL, "model missing");
+            this.magicianModel = ModelLoader.instance().getModelOrLogError(magicianModelRL, "model missing");
+            this.archmageModel = ModelLoader.instance().getModelOrLogError(archmageModelRL, "model missing");
         }
 
         @Override
@@ -100,8 +97,8 @@ public class StaffModelLoader implements IModelLoader
         {
             IUnbakedModel retexBase = this.retexture(null, null, null, null);
 
-            IForgeBakedModel bakedBase = retexBase.bake(bakery, spriteGetter, sprite, format);
-            return new BakedStaffModel(this, bakedBase, bakery, spriteGetter, sprite, format);
+            IForgeBakedModel bakedBase = retexBase.bakeModel(bakery, spriteGetter, sprite, format);
+            return new BakedStaffModel(this, bakedBase, bakery, spriteGetter, format);
         }
 
 
@@ -156,74 +153,36 @@ public class StaffModelLoader implements IModelLoader
         private HashMap<String, IBakedModel> cache = new HashMap<>();
         private ModelBakery bakery;
         private Function<ResourceLocation, TextureAtlasSprite> spriteGetter;
-        private ISprite sprite;
         private VertexFormat format;
-        private IBakedModel def;
+        private IForgeBakedModel def;
         private ItemOverrideList overrides;
         private StaffModel parent;
+        private EmptyModelData modelData;
 
-        public BakedStaffModel(StaffModel parent, IBakedModel def, ModelBakery bakery, Function<ResourceLocation, TextureAtlasSprite> spriteGetter, ISprite sprite, VertexFormat format)
+        public BakedStaffModel(StaffModel parent, IForgeBakedModel def, ModelBakery bakery, Function<ResourceLocation, TextureAtlasSprite> spriteGetter, VertexFormat format)
         {
             this.parent = parent;
             this.def = def;
             this.bakery = bakery;
             this.spriteGetter = spriteGetter;
-            this.sprite = sprite;
             this.format = format;
+            this.modelData = EmptyModelData.INSTANCE;
             this.overrides = new StaffModelOverrideList(bakery);
         }
-
-        @SuppressWarnings("deprecation")
-        @Override
-        public List<BakedQuad> getQuads(BlockState state, Direction side, Random rand)
-        {
-            return def.getQuads(state, side, rand);
-        }
-
-        @Override
-        public boolean isAmbientOcclusion()
-        {
-            return def.isAmbientOcclusion();
-        }
-
-        @Override
-        public boolean isGui3d()
-        {
-            return def.isGui3d();
-        }
-
-        @Override
-        public boolean isBuiltInRenderer()
-        {
-            return def.isBuiltInRenderer();
-        }
-
-        @SuppressWarnings("deprecation")
-        @Override
-        public TextureAtlasSprite getParticleTexture()
-        {
-            return def.getParticleTexture();
-        }
-
-        @Override
-        public ItemOverrideList getOverrides() {
-            return overrides;
-        }
     }
-
 
 
     public class StaffModelOverrideList extends ItemOverrideList
     {
 
         private ModelBakery bakery;
-        private Function<ResourceLocation, TextureAtlasSprite> textureGetter;
+        private Function<Material, TextureAtlasSprite> textureGetter;
 
         public StaffModelOverrideList(ModelBakery bakery)
         {
             super();
             this.bakery = bakery;
-            this.textureGetter = location -> Minecraft.getInstance().getTextureMap().getAtlasSprite(location.toString());
+            this.textureGetter = (mat) -> mat.getSprite();
         }
 
         @Override
@@ -252,7 +211,7 @@ public class StaffModelLoader implements IModelLoader
 
                 IUnbakedModel newModel = staffModel.retexture(staffType, rodRL, catalystRL, fittingRL);
 
-                bakedStaffModel.cache.put(cacheKey, newModel.bake(this.bakery, this.textureGetter, bakedStaffModel.sprite, bakedStaffModel.format));
+                bakedStaffModel.cache.put(cacheKey, newModel.bakeModel(this.bakery, this.textureGetter, SimpleModelTransform.IDENTITY, new ResourceLocation(Constants.MODID, "item/sorcerous_staff")));
             }
             return bakedStaffModel.cache.get(cacheKey);
         }

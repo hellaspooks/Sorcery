@@ -1,6 +1,7 @@
 package com.root.sorcery.setup;
 
 import com.root.sorcery.container.Containers;
+import com.root.sorcery.entity.ModEntity;
 import com.root.sorcery.entity.projectile.FireboltEntity;
 import com.root.sorcery.entity.projectile.SpellProjectileEntity;
 import com.root.sorcery.entity.ToadEntity;
@@ -21,15 +22,14 @@ public class ClientProxy implements IProxy
     @Override
     public void init()
     {
-        OBJLoader.INSTANCE.addDomain("sorcery");
         Containers.registerScreens();
 
         MinecraftForge.EVENT_BUS.register(new KeyInputHandler());
         KeyBindings.init();
 
-        RenderingRegistry.registerEntityRenderingHandler(ToadEntity.class, ToadRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(SpellProjectileEntity.class, SpellProjectileRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(FireboltEntity.class, SpellProjectileRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntity.TOAD, ToadRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntity.SPELL_PROJECTILE, SpellProjectileRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntity.FIREBOLT, SpellProjectileRenderer::new);
     }
 
     @Override

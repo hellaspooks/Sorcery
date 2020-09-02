@@ -22,7 +22,7 @@ public class ToadRenderer extends MobRenderer<ToadEntity, ToadModel>
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(ToadEntity entity)
+    public ResourceLocation getEntityTexture(ToadEntity entity)
     {
         switch (entity.getToadTypeInt())
         {

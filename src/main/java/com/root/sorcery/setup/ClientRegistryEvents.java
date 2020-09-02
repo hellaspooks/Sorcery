@@ -6,9 +6,8 @@ import com.root.sorcery.particle.ModParticle;
 import com.root.sorcery.particle.RGBAParticle;
 import com.root.sorcery.particle.RGBLitParticle;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.IUnbakedModel;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.*;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,9 +15,9 @@ import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.client.model.BasicState;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.SimpleModelTransform;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -45,21 +44,20 @@ public class ClientRegistryEvents
     }
 
     @SubscribeEvent
-    public static void onModelRegistryEvent(ModelRegistryEvent event)
+    public void onModelRegistryEvent(ModelRegistryEvent event)
     {
         // Registers Custom Model Loader
-        ModelLoaderRegistry.registerLoader(new StaffModelLoader());
+        ModelLoaderRegistry.registerLoader(new ResourceLocation(Constants.MODID, "sorcerous_staff"), new StaffModelLoader());
     }
 
     @SubscribeEvent
-    public static void onModelBakeEvent(ModelBakeEvent event)
+    public void onModelBakeEvent(ModelBakeEvent event)
     {
         try {
             // Loads model from registered model loader
-            IUnbakedModel model = ModelLoaderRegistry.getModel(new ResourceLocation(Constants.MODID, "item/sorcerous_staff"));
+            IUnbakedModel model = ModelLoader.instance().getModelOrMissing(new ResourceLocation(Constants.MODID, "item/sorcerous_staff"));
 
-            IBakedModel bakedModel = model.bake(event.getModelLoader(), ModelLoader.defaultTextureGetter(),
-                    new BasicState(model.getDefaultState(), false), DefaultVertexFormats.ITEM);
+            IBakedModel bakedModel = model.bakeModel(event.getModelLoader(), ModelLoader.defaultTextureGetter(), SimpleModelTransform.IDENTITY, new ResourceLocation(Constants.MODID, "item/sorcerous_staff"));
 
             event.getModelRegistry().put(new ModelResourceLocation("sorcery:sorcerous_staff", "inventory"), bakedModel);
 
