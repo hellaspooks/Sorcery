@@ -13,7 +13,6 @@ import com.root.sorcery.spellcasting.ISpellcasting;
 import com.root.sorcery.spellcasting.SpellcastingCapability;
 import com.root.sorcery.spellcasting.SpellcastingProvider;
 import com.root.sorcery.tileentity.AbstractMonolithTile;
-import com.root.sorcery.tileentity.ReliquaryTile;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -61,10 +60,7 @@ public class CommonEventHandlers
     @SubscribeEvent
     public static void attachCapabilitiesTileEntities(AttachCapabilitiesEvent<TileEntity> event)
     {
-        if (event.getObject().getTileEntity() instanceof ReliquaryTile)
-        {
-            event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
-        } else if (event.getObject().getTileEntity() instanceof AbstractMonolithTile)
+        if (event.getObject().getTileEntity() instanceof AbstractMonolithTile)
         {
             event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
         }

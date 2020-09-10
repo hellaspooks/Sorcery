@@ -108,12 +108,6 @@ public class ModBlock
     @ObjectHolder("alchemical_forge")
     public static Block ALCHEMICAL_FORGE;
 
-    @ObjectHolder("reliquary")
-    public static Block RELIQUARY;
-
-    @ObjectHolder("wolfram_blast_furnace")
-    public static Block WOLFRAM_BLAST_FURNACE;
-
     @ObjectHolder("pylon")
     public static Block PYLON;
 
@@ -167,8 +161,6 @@ public class ModBlock
 
 
         // Tile Blocks
-        registerBlock(new WolframBlastFurnaceBlock(), "wolfram_blast_furnace", event);
-        registerBlock(new ReliquaryBlock(), "reliquary", event);
         registerBlock(new PylonBlock(), "pylon", event);
         registerBlock(new StaffLatheBlock(), "staff_lathe", event);
     }

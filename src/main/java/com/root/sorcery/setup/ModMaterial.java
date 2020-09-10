@@ -3,7 +3,7 @@ package com.root.sorcery.setup;
 import com.root.sorcery.item.ModItem;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraft.util.LazyValue;
 
 import java.util.function.Supplier;
 
@@ -20,7 +20,7 @@ import java.util.function.Supplier;
         private final float efficiency;
         private final float attackDamage;
         private final int enchantability;
-        private final LazyLoadBase<Ingredient> repairMaterial;
+        private final LazyValue<Ingredient> repairMaterial;
 
         private ModMaterial(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn, int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
             this.harvestLevel = harvestLevelIn;
@@ -28,7 +28,7 @@ import java.util.function.Supplier;
             this.efficiency = efficiencyIn;
             this.attackDamage = attackDamageIn;
             this.enchantability = enchantabilityIn;
-            this.repairMaterial = new LazyLoadBase(repairMaterialIn);
+            this.repairMaterial = new LazyValue<>(repairMaterialIn);
         }
 
         public int getMaxUses() {

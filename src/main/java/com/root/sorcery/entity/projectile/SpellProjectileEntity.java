@@ -2,8 +2,11 @@ package com.root.sorcery.entity.projectile;
 
 import com.root.sorcery.Constants;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.projectile.DamagingProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.IPacket;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
@@ -17,7 +20,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class SpellProjectileEntity extends DamagingProjectileEntity
+public class SpellProjectileEntity extends DamagingProjectileEntity implements IRendersAsItem
 {
     public ResourceLocation projectileTexture;
     public int ticksInAir;
@@ -44,7 +47,7 @@ public class SpellProjectileEntity extends DamagingProjectileEntity
     // called once per tick
     public void doPerMotionTick()
     {
-        this.world.addParticle(this.getParticle(), this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
+        this.world.addParticle(this.getParticle(), this.getPosX(), this.getPosY() + 0.5D, this.getPosZ(), 0.0D, 0.0D, 0.0D);
     }
 
 
@@ -79,7 +82,7 @@ public class SpellProjectileEntity extends DamagingProjectileEntity
             }
 
             ++this.ticksInAir;
-            RayTraceResult raytraceresult = ProjectileHelper.func_221266_a(this, true, this.ticksInAir >= 10, this.shootingEntity, RayTraceContext.BlockMode.COLLIDER);
+            RayTraceResult raytraceresult = ProjectileHelper.rayTrace(this, true, this.ticksInAir >= 10, this.shootingEntity, RayTraceContext.BlockMode.COLLIDER);
             if (raytraceresult.getType() != RayTraceResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
                 this.onImpact(raytraceresult);
             }
@@ -87,9 +90,10 @@ public class SpellProjectileEntity extends DamagingProjectileEntity
             Vec3d vec3d = this.getMotion();
 
 
-            this.posX += vec3d.x;
-            this.posY += vec3d.y;
-            this.posZ += vec3d.z;
+            double d0 = this.getPosX() + vec3d.x;
+            double d1 = this.getPosY() + vec3d.y;
+            double d2 = this.getPosZ() + vec3d.z;
+            this.setPosition(d0, d1, d2);
             ProjectileHelper.rotateTowardsMovement(this, 0.2F);
 
             float f = this.getMotionFactor();
@@ -107,7 +111,7 @@ public class SpellProjectileEntity extends DamagingProjectileEntity
 
             this.doPerMotionTick();
 
-            this.setPosition(this.posX, this.posY, this.posZ);
+            this.setPosition(this.getPosX(), this.getPosY(), this.getPosZ());
         } else {
             this.remove();
         }
@@ -131,5 +135,11 @@ public class SpellProjectileEntity extends DamagingProjectileEntity
     public ResourceLocation getEntityTexture()
     {
        return this.projectileTexture;
+    }
+
+    @Override
+    public ItemStack getItem()
+    {
+        return new ItemStack(Items.FIRE_CHARGE);
     }
 }
