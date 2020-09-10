@@ -67,7 +67,7 @@ public class SpellUseContext
         this.world = itemUseContext.getWorld();
         this.pos = itemUseContext.getPlayer().getPosition();
         this.arcanaSource = Utils.getArcanaCap(itemUseContext.getItem());
-        this.rayTraceResult = new BlockRayTraceResult(itemUseContext.getHitVec(), itemUseContext.getFace(), itemUseContext.getPos(), itemUseContext.func_221533_k());
+        this.rayTraceResult = new BlockRayTraceResult(itemUseContext.getHitVec(), itemUseContext.getFace(), itemUseContext.getPos(), itemUseContext.isInside());
         this.player = itemUseContext.getPlayer();
         this.hand = itemUseContext.getHand();
         this.item = itemUseContext.getItem();

@@ -138,7 +138,7 @@ public class SpellcastingItem extends Item
     @Override
     public CompoundNBT getShareTag(ItemStack stack)
     {
-        CompoundNBT baseTag = stack.getTag();
+        CompoundNBT baseTag = stack.getOrCreateTag();
         CompoundNBT arcanaTag = Utils.getArcanaCap(stack).serializeNBT();
         CompoundNBT spellTag = Utils.getSpellCap(stack).serializeNBT();
         baseTag.put("arcanaCap", arcanaTag);

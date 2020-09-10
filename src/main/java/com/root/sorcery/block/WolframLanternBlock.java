@@ -21,7 +21,7 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
@@ -55,13 +55,13 @@ public class WolframLanternBlock extends Block
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
         if (!worldIn.isRemote)
         {
             if (handIn == Hand.OFF_HAND)
             {
-                return false;
+                return ActionResultType.FAIL;
             }
 
             // pop out old crystal
@@ -84,9 +84,9 @@ public class WolframLanternBlock extends Block
             {
                 worldIn.setBlockState(pos, state.with(COLOR, color), 11);
             }
-            return true;
+            return ActionResultType.SUCCESS;
         }
-        return false;
+        return ActionResultType.FAIL;
     }
 
     @Nullable
@@ -111,17 +111,10 @@ public class WolframLanternBlock extends Block
         builder.add(COLOR);
     }
 
-    /**
-     * Gets the render layer this block will render on. SOLID for solid blocks, CUTOUT or CUTOUT_MIPPED for on-off
-     * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
-     */
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }
 
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         Direction direction = func_220277_j(state).getOpposite();
-        return Block.func_220055_a(worldIn, pos.offset(direction), direction.getOpposite());
+        return Block.hasEnoughSolidSide(worldIn, pos.offset(direction), direction.getOpposite());
     }
 
     protected static Direction func_220277_j(BlockState p_220277_0_) {

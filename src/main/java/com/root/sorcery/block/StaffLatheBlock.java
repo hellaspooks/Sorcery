@@ -50,12 +50,6 @@ public class StaffLatheBlock extends Block
     }
 
     @Override
-    public boolean isSolid(BlockState state)
-    {
-        return true;
-    }
-
-    @Override
     public BlockRenderType getRenderType(BlockState state)
     {
         return BlockRenderType.MODEL;

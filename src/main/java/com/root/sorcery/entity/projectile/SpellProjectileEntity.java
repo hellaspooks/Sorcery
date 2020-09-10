@@ -2,8 +2,11 @@ package com.root.sorcery.entity.projectile;
 
 import com.root.sorcery.Constants;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.projectile.DamagingProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.IPacket;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
@@ -17,7 +20,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class SpellProjectileEntity extends DamagingProjectileEntity
+public class SpellProjectileEntity extends DamagingProjectileEntity implements IRendersAsItem
 {
     public ResourceLocation projectileTexture;
     public int ticksInAir;
@@ -132,5 +135,11 @@ public class SpellProjectileEntity extends DamagingProjectileEntity
     public ResourceLocation getEntityTexture()
     {
        return this.projectileTexture;
+    }
+
+    @Override
+    public ItemStack getItem()
+    {
+        return new ItemStack(Items.FIRE_CHARGE);
     }
 }

@@ -60,10 +60,7 @@ public class CommonEventHandlers
     @SubscribeEvent
     public static void attachCapabilitiesTileEntities(AttachCapabilitiesEvent<TileEntity> event)
     {
-        if (event.getObject().getTileEntity() instanceof ReliquaryTile)
-        {
-            event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
-        } else if (event.getObject().getTileEntity() instanceof AbstractMonolithTile)
+        if (event.getObject().getTileEntity() instanceof AbstractMonolithTile)
         {
             event.addCapability(ArcanaCapability.ARCANA_LOC, new ArcanaProvider());
         }
