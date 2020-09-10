@@ -222,9 +222,6 @@ public class ModItem
         // Arcanomicon
         registerItem("cryptoglyph", new SpellGrantingItem(Constants.ITEM_PROPS), event);
 
-        //Spawn Eggs
-        registerItem("toad_spawn_egg", new SpawnEggItem(ModEntity.TOAD, 4470310, 10592673, Constants.ITEM_PROPS), event);
-
         // Staves
         registerItem("sorcerous_staff", new StaffItem(Constants.ITEM_PROPS_NONSTACK), event);
 
@@ -294,9 +291,6 @@ public class ModItem
         // Blocks with tile entities
         blockItemFactory(ModBlock.ALCHEMICAL_WORKBENCH, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.ALCHEMICAL_FORGE, Constants.ITEM_PROPS, event);
-
-        blockItemFactory(ModBlock.RELIQUARY, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.WOLFRAM_BLAST_FURNACE, Constants.ITEM_PROPS, event);
 
         blockItemFactory(ModBlock.MONOLITH_CHISELED, Constants.ITEM_PROPS, event);
         blockItemFactory(ModBlock.MONOLITH_SOLAR, Constants.ITEM_PROPS, event);

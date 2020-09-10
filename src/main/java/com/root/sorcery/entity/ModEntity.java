@@ -12,8 +12,6 @@ import net.minecraftforge.registries.ObjectHolder;
 public class ModEntity
 {
 
-    @ObjectHolder("toad")
-    public static EntityType<ToadEntity> TOAD;
 
     @ObjectHolder("spell_projectile")
     public static EntityType<SpellProjectileEntity> SPELL_PROJECTILE;
@@ -25,13 +23,6 @@ public class ModEntity
 
     public static void init()
     {
-        // Mob Entities
-        TOAD = (EntityType<ToadEntity>) EntityType.Builder.create(ToadEntity::new, EntityClassification.CREATURE)
-            .size(1,1)
-            .setShouldReceiveVelocityUpdates(false)
-            .build("toad")
-            .setRegistryName(Constants.MODID, "toad");
-
         // Other Entities
         SPELL_PROJECTILE = (EntityType<SpellProjectileEntity>) EntityType.Builder.create(SpellProjectileEntity::new, EntityClassification.MISC)
                 .size(1,1)
@@ -51,7 +42,6 @@ public class ModEntity
 
     public static void register(RegistryEvent.Register<EntityType<?>> event)
     {
-        event.getRegistry().register(TOAD);
         event.getRegistry().register(SPELL_PROJECTILE);
         event.getRegistry().register(FIREBOLT);
 

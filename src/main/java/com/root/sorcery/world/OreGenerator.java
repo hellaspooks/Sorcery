@@ -24,7 +24,7 @@ public class OreGenerator
 
     public static void oreHelper(Biome biome, Block oreBlock, int count, int clusters, int botOffset, int topOffset, int maxHeight)
     {
-        biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, oreBlock.getDefaultState(), clusters), Placement.COUNT_RANGE, new CountRangeConfig(count, botOffset, topOffset, maxHeight)));
+        biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, oreBlock.getDefaultState(), clusters)));
 
     }
 }

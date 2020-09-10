@@ -27,7 +27,7 @@ public class SpellcastingStorage implements Capability.IStorage<ISpellcasting>
 
         for (ResourceLocation spell : instance.getPreparedSpells())
         {
-            preparedSpells.add(new StringNBT(spell.toString()));
+            preparedSpells.add(StringNBT.valueOf(spell.toString()));
         }
 
         tag.put("prepared_spells", preparedSpells);
@@ -37,7 +37,7 @@ public class SpellcastingStorage implements Capability.IStorage<ISpellcasting>
 
         for (ResourceLocation spell : instance.getKnownSpells())
         {
-            knownSpells.add(new StringNBT(spell.toString()));
+            knownSpells.add(StringNBT.valueOf(spell.toString()));
         }
 
         tag.put("known_spells", knownSpells);

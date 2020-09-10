@@ -1,12 +1,7 @@
 # Sorcery
-A magic mod  for Minecraft 1.14, using Forge.
+A magic mod  for Minecraft 1.16, using Forge.
 
 ## To Do:
-* Spell Items
-    * Crafting method
-* Staffs:
-    * Adding spells to staffs
-* Power:
-    * Power storage
-    * Power Distribution
-    * Formalize power transfer rules
+* Update to 1.16
+* Fix item and block models
+* Data Generators
