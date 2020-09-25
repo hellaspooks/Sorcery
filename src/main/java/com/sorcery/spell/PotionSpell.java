@@ -1,0 +1,56 @@
+package com.sorcery.spell;
+
+import com.sorcery.network.PacketHandler;
+import com.sorcery.network.packets.ParticleEffectPacket;
+import com.sorcery.particle.Particles;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.math.vector.Vector3d;
+
+public class PotionSpell extends Spell
+{
+    // Potion effect to apply
+    private Effect effect;
+    // Duration in ticks, 1 second = 20 ticks
+    private int duration;
+
+
+    public PotionSpell(Effect effectIn, int costIn, int durationIn)
+    {
+        super(costIn);
+        this.effect = effectIn;
+        this.duration = durationIn;
+    }
+
+    @Override
+    public ActionResultType doCastFinal(SpellUseContext context)
+    {
+        this.doParticleEffects(context);
+        this.playSound(context);
+
+        if (context.wasEntityTargeted())
+        {
+            EffectInstance potionEffect = new EffectInstance(effect, duration);
+            context.getTargetEntity().addPotionEffect(potionEffect);
+            return ActionResultType.SUCCESS;
+        }
+        else
+        {
+            EffectInstance potionEffect = new EffectInstance(effect, duration);
+            context.getPlayer().addPotionEffect(potionEffect);
+            return ActionResultType.SUCCESS;
+        }
+    }
+
+    @Override
+    public void doParticleEffects(SpellUseContext context)
+    {
+        Vector3d loc = context.getPlayer().getPositionVec().add(0,1, 0);
+        Vector3d look = context.getPlayer().getLook(1);
+
+        ParticleEffectPacket pkt = new ParticleEffectPacket(2, Particles.getPuff(), loc, look, 100, 0.5, 0.2, 20);
+
+        PacketHandler.sendToAllTrackingPlayer(context.getPlayer(), pkt);
+    }
+}
