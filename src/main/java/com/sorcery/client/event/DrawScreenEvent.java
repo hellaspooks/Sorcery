@@ -1,5 +1,6 @@
 package com.sorcery.client.event;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.sorcery.Constants;
 import com.sorcery.arcana.IArcanaStorage;
@@ -81,6 +82,7 @@ public class DrawScreenEvent
         Minecraft mc = Minecraft.getInstance();
         ItemStack heldItemStack = mc.player.getHeldItemMainhand();
         Item heldItem = heldItemStack.getItem();
+        MatrixStack matrixStack = event.getMatrixStack();
 
 
         try
@@ -103,7 +105,7 @@ public class DrawScreenEvent
                     GlStateManager.enableBlend();
                     GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-                    mc.fontRenderer.drawString(monoString, 44, 34, 16777215);
+                    mc.fontRenderer.drawString(matrixStack, monoString, 44, 34, 16777215);
                 }
             }
 
@@ -137,24 +139,24 @@ public class DrawScreenEvent
             // Blits take the form placementX, placementY, texture start x, texture start y, tex width, tex height
 
             // Background
-            mc.ingameGUI.blit(posX, posY, 0, 0, backgroundWidth, backgroundHeight);
+            mc.ingameGUI.blit(matrixStack, posX, posY, 0, 0, backgroundWidth, backgroundHeight);
 
             int barLength =(int)((((double)arcanaSource.getArcanaStored())/((double)arcanaSource.getMaxArcanaStored())) * barWidth);
 
             // Foreground
-            mc.ingameGUI.blit(posX + barXOffset, posY + barYOffset, barTexXOffset, barTexYOffset, barLength, barHeight);
+            mc.ingameGUI.blit(matrixStack, posX + barXOffset, posY + barYOffset, barTexXOffset, barTexYOffset, barLength, barHeight);
 
             // Overlay
-            mc.ingameGUI.blit(posX + overlayXOffset, posY + overlayYOffset, overlayTexXOffset, overlayTexYOffset, overlayWidth, overlayHeight);
+            mc.ingameGUI.blit(matrixStack, posX + overlayXOffset, posY + overlayYOffset, overlayTexXOffset, overlayTexYOffset, overlayWidth, overlayHeight);
 
             // Numbers
-            mc.fontRenderer.drawString(arcanaString, posX + 40, posY + 20, 16777215);
+            mc.fontRenderer.drawString(matrixStack, arcanaString, posX + 40, posY + 20, 16777215);
 
             if (spellIcon != null)
             {
                 // Spell Icon
                 mc.getTextureManager().bindTexture(spellIcon);
-                mc.ingameGUI.blit(posX + spellIconXOffset, posY + spellIconYOffset, 0, 0, spellIconWidth, spellIconHeight, 26, 26);
+                mc.ingameGUI.blit(matrixStack, posX + spellIconXOffset, posY + spellIconYOffset, 0, 0, spellIconWidth, spellIconHeight, 26, 26);
             }
 
             if (showSpellSelection)
@@ -162,7 +164,7 @@ public class DrawScreenEvent
                 long tDelta = mc.world.getGameTime() - showSpellSelectionStart;
                 if (tDelta < showSelectionTicks)
                 {
-                    mc.fontRenderer.drawStringWithShadow(selectedSpell.toString(), posX + 40 , posY + 30, 16777215);
+                    mc.fontRenderer.drawStringWithShadow(matrixStack, selectedSpell.toString(), posX + 40 , posY + 30, 16777215);
 
                 } else {
                     showSpellSelection = false;

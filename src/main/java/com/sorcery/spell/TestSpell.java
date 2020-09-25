@@ -27,7 +27,7 @@ public class TestSpell extends Spell
         this.doParticleEffects(context);
         this.playSound(context);
         if ( context.getPlayer() != null){
-            context.getPlayer().sendMessage(new StringTextComponent(this.debugMessage));
+            context.getPlayer().sendMessage(new StringTextComponent(this.debugMessage), context.getPlayer().getUniqueID());
             return ActionResultType.SUCCESS;
         }
         else

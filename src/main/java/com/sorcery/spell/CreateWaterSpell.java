@@ -3,6 +3,7 @@ package com.sorcery.spell;
 import com.sorcery.Config;
 import com.sorcery.network.PacketHandler;
 import com.sorcery.network.packets.ParticleEffectPacket;
+import com.sorcery.utils.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowingFluidBlock;
@@ -54,7 +55,7 @@ public class CreateWaterSpell extends Spell
     public void doParticleEffects(SpellUseContext context)
     {
         BlockPos waterPos = context.getFacePos();
-        Vector3d loc = new Vector3d(waterPos).add(0.5, 1,0.5);
+        Vector3d loc = Utils.getVectorFromPos(waterPos).add(0.5, 1,0.5);
         ParticleEffectPacket pkt1 = new ParticleEffectPacket(5, ParticleTypes.SPLASH, loc, loc, 20, 2, 2, 20);
         PacketHandler.sendToAllTrackingPlayer(context.getPlayer(), pkt1);
     }

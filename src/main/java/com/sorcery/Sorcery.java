@@ -58,7 +58,6 @@ public class Sorcery
 
     public void setup(final FMLCommonSetupEvent event)
     {
-        setup.init();
         proxy.init();
 
         ArcanaCapability.register();

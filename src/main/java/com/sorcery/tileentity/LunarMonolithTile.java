@@ -60,7 +60,7 @@ public class LunarMonolithTile extends AbstractMonolithTile implements ITickable
                 } else {
                     this.active = true;
 
-                    int moonPhase = this.world.func_230315_m_().func_236035_c_(worldTicks);
+                    int moonPhase = this.world.getDimensionType().getMoonPhase(worldTicks);
                     this.cycleMultiplier = this.phaseMap.get(moonPhase);
                 }
                 if (this.interference)

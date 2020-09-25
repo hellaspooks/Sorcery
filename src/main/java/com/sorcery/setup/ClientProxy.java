@@ -1,6 +1,5 @@
 package com.sorcery.setup;
 
-import com.sorcery.container.Containers;
 import com.sorcery.entity.ModEntity;
 import com.sorcery.keybinding.KeyBindings;
 import com.sorcery.keybinding.KeyInputHandler;
@@ -18,8 +17,6 @@ public class ClientProxy implements IProxy
     @Override
     public void init()
     {
-        Containers.registerScreens();
-
         MinecraftForge.EVENT_BUS.register(new KeyInputHandler());
         KeyBindings.init();
 

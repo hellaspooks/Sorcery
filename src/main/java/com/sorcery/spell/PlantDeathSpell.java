@@ -5,6 +5,7 @@ import com.sorcery.Constants;
 import com.sorcery.network.PacketHandler;
 import com.sorcery.network.packets.ParticleEffectPacket;
 import com.sorcery.particle.Particles;
+import com.sorcery.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,7 +32,7 @@ public class PlantDeathSpell extends Spell
     @Override
     public ActionResultType doCastFinal(SpellUseContext context)
     {
-        ITag<Block> tag = BlockTags.getCollection().getOrCreate(Constants.PLANT_DEATHABLE_TAG);
+        ITag<Block> tag = BlockTags.getCollection().getTagByID(Constants.PLANT_DEATHABLE_TAG);
 
         // Extra Data
         World world = context.getWorld();
@@ -66,7 +67,7 @@ public class PlantDeathSpell extends Spell
 
     public static void doDeathPoof(BlockPos pos, PlayerEntity player)
     {
-        Vector3d loc = new Vector3d(pos).add(0.5, 1.1, 0.5);
+        Vector3d loc = Utils.getVectorFromPos(pos).add(0.5, 1.1, 0.5);
         ParticleEffectPacket pkt = new ParticleEffectPacket(0, Particles.getSkullSmoke(), loc, loc, 2, 0.1, 0.4, 20);
         PacketHandler.sendToAllTrackingPlayer(player, pkt);
     }

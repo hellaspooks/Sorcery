@@ -19,7 +19,7 @@ public class DurationSpell extends Spell
     @Override
     public ActionResultType doCastFinal(SpellUseContext context){
 
-        context.getPlayer().sendMessage(new StringTextComponent("Duration Spell Cast!"));
+        context.getPlayer().sendMessage(new StringTextComponent("Duration Spell Cast!"), context.getPlayer().getUniqueID());
 
         return ActionResultType.SUCCESS;
     }

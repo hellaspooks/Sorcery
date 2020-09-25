@@ -4,6 +4,7 @@ import com.sorcery.Config;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FireBlock;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -30,7 +31,7 @@ public class IgniteSpell extends Spell
             this.doParticleEffects(context);
             this.playSound(context);
 
-            BlockState blockState = ((FireBlock) Blocks.FIRE).getStateForPlacement(context.getWorld(), firePos);
+            BlockState blockState = ((FireBlock) Blocks.FIRE).getDefaultState();
             context.getWorld().setBlockState(firePos, blockState, 11);
             return ActionResultType.SUCCESS;
         }

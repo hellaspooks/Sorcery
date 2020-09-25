@@ -33,7 +33,7 @@ public class SolarMonolithTile extends AbstractMonolithTile implements ITickable
             // Activity setting
             if (worldTicks % 20 == 0)
             {
-                if (this.world.dimension.hasSkyLight())
+                if (this.world.getDimensionType().hasSkyLight())
                 {
                     if (this.world.getLightFor(LightType.SKY, this.pos) >= 14 && this.world.isDaytime())
                     {

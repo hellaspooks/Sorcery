@@ -196,4 +196,8 @@ public class Utils {
         return new AxisAlignedBB(pos1, pos2);
     }
 
+    public static Vector3d getVectorFromPos(BlockPos pos){
+        return new Vector3d(pos.getX(), pos.getY(), pos.getZ());
+    }
+
 }
