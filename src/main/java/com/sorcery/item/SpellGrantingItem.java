@@ -38,41 +38,16 @@ public class SpellGrantingItem extends Item
             addAllSpells(itemCap);
         }
 
-        ISpellcasting playerCap = Utils.getSpellCap(playerIn);
+        ItemStack spellbook  = Utils.getPlayerSpellbook(playerIn);
 
-
-        for ( ResourceLocation spell : itemCap.getKnownSpells() )
+        if (spellbook.getItem() instanceof SpellbookItem)
         {
-            playerCap.addKnownSpell(spell);
-        }
-
-        // For development, this should be handled by some other method later
-        for ( ResourceLocation spell : itemCap.getPreparedSpells() )
-        {
-            playerCap.addPreparedSpell(spell);
-        }
-
-        ISpellcasting staffCap = null;
-
-        for (ItemStack stack : playerIn.inventory.mainInventory)
-        {
-            if (stack.getItem() instanceof SpellcastingItem)
-            {
-                staffCap = Utils.getSpellCap(stack);
-            }
-        }
-
-        if (staffCap != null)
-        {
-            for ( ResourceLocation spell : itemCap.getKnownSpells() )
-            {
-                staffCap.addKnownSpell(spell);
-            }
-
+            ISpellcasting spellbookCap = Utils.getSpellCap(spellbook);
             // For development, this should be handled by some other method later
             for ( ResourceLocation spell : itemCap.getPreparedSpells() )
             {
-                staffCap.addPreparedSpell(spell);
+                spellbookCap.addPreparedSpell(spell);
+
             }
 
         }
@@ -87,7 +62,6 @@ public class SpellGrantingItem extends Item
 
         for (ResourceLocation spell : allSpells)
         {
-            itemCap.addKnownSpell(spell);
             itemCap.addPreparedSpell(spell);
         }
     }

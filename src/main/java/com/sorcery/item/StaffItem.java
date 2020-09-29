@@ -1,6 +1,10 @@
 package com.sorcery.item;
 
 
+import com.sorcery.spell.Spell;
+import com.sorcery.spell.SpellUseContext;
+import com.sorcery.utils.Utils;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 
@@ -71,5 +75,15 @@ public class StaffItem extends SpellcastingItem
         return flag;
     }
 
+    public Spell getActiveSpell(SpellUseContext context)
+    {
+        PlayerEntity playerEntity = context.getPlayer();
+        ItemStack stack = Utils.getPlayerSpellbook(context.getPlayer());
+        if (stack != null)
+        {
+            return Utils.getSpellFromProvider(stack);
+        }
+        return Utils.getSpellFromProvider(context.getItem());
+    }
 
 }

@@ -35,7 +35,14 @@ public class ScrollEvent
 
         DrawScreenEvent.setShowSpellSelection(true);
 
+        ItemStack spellBook = Utils.getPlayerSpellbook(mc.player);
         ISpellcasting spellCap = Utils.getSpellCap(heldItemStack);
+
+        if (spellBook != null)
+        {
+            System.out.println("Spell book found! in scroll event");
+            spellCap = Utils.getSpellCap(spellBook);
+        }
 
         Double delta = event.getScrollDelta();
 

@@ -81,7 +81,7 @@ public class SpellcastingItem extends Item
     // Actually casting a spell
     public ActionResultType castSpell(SpellUseContext context)
     {
-        Spell spellToCast = Utils.getSpellFromProvider(context.getItem());
+        Spell spellToCast = getActiveSpell(context);
         CastType castType = spellToCast.getCastType();
 
         // If duration or channeled spell, set active hand and pass
@@ -106,6 +106,12 @@ public class SpellcastingItem extends Item
         }
         // Otherwise, cast the spell
         return spell.castFinal(context);
+    }
+
+    //Adding this to to override as necessary for final staff version
+    public Spell getActiveSpell(SpellUseContext context)
+    {
+        return Utils.getSpellFromProvider(context.getItem());
     }
 
 

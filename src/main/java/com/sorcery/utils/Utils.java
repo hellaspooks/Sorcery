@@ -3,11 +3,14 @@ package com.sorcery.utils;
 import com.google.common.base.Predicate;
 import com.sorcery.arcana.IArcanaStorage;
 import com.sorcery.block.state.CrystalColor;
+import com.sorcery.item.SpellbookItem;
 import com.sorcery.spell.Spell;
 import com.sorcery.spellcasting.ISpellcasting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -198,6 +201,23 @@ public class Utils {
 
     public static Vector3d getVectorFromPos(BlockPos pos){
         return new Vector3d(pos.getX(), pos.getY(), pos.getZ());
+    }
+
+    @Nullable
+    public static ItemStack getPlayerSpellbook(PlayerEntity playerEntity)
+    {
+        ItemStack spellbook = null;
+
+        for (ItemStack stack : playerEntity.inventory.mainInventory)
+        {
+            if (stack.getItem() instanceof SpellbookItem)
+            {
+                System.out.println("Found spellbook in getPlayerSpellbook");
+                spellbook = stack;
+            }
+        }
+        System.out.println("returning spellbook");
+        return spellbook;
     }
 
 }
