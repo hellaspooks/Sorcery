@@ -1,11 +1,13 @@
 package com.sorcery.network.packets;
 
 import com.sorcery.Sorcery;
+import com.sorcery.item.SpellbookItem;
 import com.sorcery.network.PacketHandler;
 import com.sorcery.spellcasting.ISpellcasting;
 import com.sorcery.spellcasting.SpellcastingCapability;
 import com.sorcery.utils.Utils;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -39,34 +41,32 @@ public class KeyPressPacket
         {
             ctx.get().enqueueWork(() -> {
                 ServerPlayerEntity player = ctx.get().getSender();
-                ISpellcasting playerCap = Utils.getSpellCap(player);
-                ISpellcasting itemCap = Utils.getSpellCap(player.getHeldItemMainhand());
-                switch (message.key)
+                ItemStack spellbook = Utils.getPlayerSpellbook(player);
+                if (spellbook.getItem() instanceof SpellbookItem)
                 {
-                    // Cycle Spell Key
-                    case 1:
+                    ISpellcasting itemCap = Utils.getSpellCap(spellbook);
+                    switch (message.key)
+                    {
+                        // Cycle Spell Key
+                        case 1:
 
-                        playerCap.cycleActiveSpell(1);
-                        itemCap.cycleActiveSpell(1);
+                            itemCap.cycleActiveSpell(1);
 
-                        //player.sendMessage(new StringTextComponent(String.format("Active Spell is now: %s", playerCap.getActiveSpell().toString())));
+                            // Sync player capability to client
+                            PacketHandler.sendToPlayer(player, new SpellCapSyncPacket((CompoundNBT) SpellcastingCapability.SPELLCASTING.writeNBT(itemCap, null)));
+                            break;
+                        case 2:
 
-                        // Sync player capability to client
-                        PacketHandler.sendToPlayer(player, new SpellCapSyncPacket((CompoundNBT) SpellcastingCapability.SPELLCASTING.writeNBT(playerCap, null)));
-                        break;
-                    case 2:
+                            itemCap.cycleActiveSpell(-1);
 
-                        playerCap.cycleActiveSpell(-1);
-                        itemCap.cycleActiveSpell(-1);
+                            // Sync player capability to client
+                            PacketHandler.sendToPlayer(player, new SpellCapSyncPacket((CompoundNBT) SpellcastingCapability.SPELLCASTING.writeNBT(itemCap, null)));
+                            break;
+                        default:
+                            Sorcery.getLogger().debug("hit default in keypress packet");
+                            break;
+                    }
 
-                        //player.sendMessage(new StringTextComponent(String.format("Active Spell is now: %s", playerCap.getActiveSpell().toString())));
-
-                        // Sync player capability to client
-                        PacketHandler.sendToPlayer(player, new SpellCapSyncPacket((CompoundNBT) SpellcastingCapability.SPELLCASTING.writeNBT(playerCap, null)));
-                        break;
-                    default:
-                        Sorcery.getLogger().debug("hit default in keypress packet");
-                        break;
                 }
 
             });

@@ -1,12 +1,16 @@
 package com.sorcery.network.packets;
 
+import com.sorcery.item.SpellbookItem;
 import com.sorcery.spellcasting.ISpellcasting;
 import com.sorcery.spellcasting.SpellcastingCapability;
 import com.sorcery.utils.Utils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
+import org.lwjgl.system.CallbackI;
 
 import java.util.function.Supplier;
 
@@ -14,33 +18,22 @@ public class SpellCapSyncPacket
 {
     private CompoundNBT capNBT;
 
-    private int slot;
-
     public SpellCapSyncPacket(){}
 
     public SpellCapSyncPacket(CompoundNBT nbtIn)
     {
         this.capNBT = nbtIn;
-        this.slot = -1;
-    }
-
-    public SpellCapSyncPacket(CompoundNBT nbtIn, int slot)
-    {
-        this.capNBT = nbtIn;
-        this.slot = slot;
     }
 
     public static void encode(SpellCapSyncPacket pkt, PacketBuffer buf)
     {
         buf.writeCompoundTag(pkt.capNBT);
-        buf.writeInt(pkt.slot);
     }
 
     public static SpellCapSyncPacket decode(PacketBuffer buf)
     {
         CompoundNBT tag = buf.readCompoundTag();
-        int slot = buf.readInt();
-        return new SpellCapSyncPacket(tag, slot);
+        return new SpellCapSyncPacket(tag);
     }
 
     public static class Handler
@@ -50,20 +43,39 @@ public class SpellCapSyncPacket
             ctx.get().enqueueWork(() -> {
                 if (ctx.get().getDirection().getReceptionSide().isClient()) {
 
-                    ISpellcasting playerCap = Minecraft.getInstance().player.getCapability(SpellcastingCapability.SPELLCASTING).orElseThrow(NullPointerException::new);
-                    SpellcastingCapability.SPELLCASTING.readNBT(playerCap, null, message.capNBT);
-
-                    if (message.slot > -1)
+                    PlayerEntity playerEntity = Minecraft.getInstance().player;
+                    ItemStack spellbook = Utils.getPlayerSpellbook(playerEntity);
+                    System.out.println("In spell cap sync client");
+                    if (spellbook == null)
                     {
-                        ISpellcasting spellCap = Utils.getSpellCap(Minecraft.getInstance().player.inventory.getStackInSlot(message.slot));
-                        SpellcastingCapability.SPELLCASTING.readNBT(spellCap, null, message.capNBT);
+                        return;
+                    }
+                    if (spellbook.getItem() instanceof SpellbookItem)
+                    {
+                        System.out.println("In spell cap sync client, got spellbook");
+                        ISpellcasting itemCap = Utils.getSpellCap(spellbook);
+                        itemCap = Utils.getSpellCap(spellbook);
+                        SpellcastingCapability.SPELLCASTING.readNBT(itemCap, null, message.capNBT);
                     }
                 } else {
-                    ISpellcasting playerCap = ctx.get().getSender().getCapability(SpellcastingCapability.SPELLCASTING).orElseThrow(NullPointerException::new);
-                    SpellcastingCapability.SPELLCASTING.readNBT(playerCap, null, message.capNBT);
-                    if (message.slot > -1) {
-                        ISpellcasting spellCap = Utils.getSpellCap(ctx.get().getSender().inventory.getStackInSlot(message.slot));
-                        SpellcastingCapability.SPELLCASTING.readNBT(spellCap, null, message.capNBT);
+                    PlayerEntity playerEntity = ctx.get().getSender();
+                    ItemStack spellbook = Utils.getPlayerSpellbook(playerEntity);
+                    if (spellbook == null)
+                    {
+                        return;
+                    }
+                    System.out.println("In spell cap sync server");
+                    if (spellbook.getItem() instanceof SpellbookItem)
+                    {
+                        System.out.println("In spell cap sync client, got spellbook");
+                        Utils.getSpellCap(spellbook);
+                        ISpellcasting itemCap;
+                        itemCap = Utils.getSpellCap(spellbook);
+                        System.out.println("existing nbt:");
+                        System.out.println(itemCap);
+                        System.out.println("sent nbt:");
+                        System.out.println(message.capNBT);
+                        SpellcastingCapability.SPELLCASTING.readNBT(itemCap, null, message.capNBT);
                     }
                 }
 

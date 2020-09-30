@@ -123,36 +123,9 @@ public class SpellcastingDefault implements ISpellcasting
     }
 
     @Override
-    public ArrayList<ResourceLocation> getKnownSpells()
+    public void clearPreparedSpells()
     {
-        return knownSpells;
-    }
-
-    @Override
-    public void setKnownSpells(ArrayList<ResourceLocation> allSpells)
-    {
-        knownSpells = allSpells;
-    }
-
-    @Override
-    public void addKnownSpell(ResourceLocation spell)
-    {
-        if (!knownSpells.contains(spell))
-            knownSpells.add(spell);
-
-    }
-
-    @Override
-    public void removeKnownSpell(ResourceLocation spell)
-    {
-        knownSpells.remove(spell);
-
-    }
-
-    @Override
-    public boolean hasKnownSpell(ResourceLocation spell)
-    {
-        return knownSpells.contains(spell);
+        preparedSpells.clear();
     }
 
     public void deserializeNBT(CompoundNBT nbt)

@@ -35,11 +35,6 @@ public class SpellcastingStorage implements Capability.IStorage<ISpellcasting>
         // Known Spells
         ListNBT knownSpells = new ListNBT();
 
-        for (ResourceLocation spell : instance.getKnownSpells())
-        {
-            knownSpells.add(StringNBT.valueOf(spell.toString()));
-        }
-
         tag.put("known_spells", knownSpells);
 
         return tag;
@@ -66,18 +61,5 @@ public class SpellcastingStorage implements Capability.IStorage<ISpellcasting>
 
         instance.setPreparedSpells(preparedSpells);
 
-        // Known Spells
-        ArrayList<ResourceLocation> knownSpells = new ArrayList<>();
-
-        ListNBT knownSpellList = (ListNBT) ((CompoundNBT) nbt).get("known_spells");
-
-        int size1 = knownSpellList.size();
-
-        for ( int i = 0; i < size1; i++)
-        {
-            knownSpells.add(new ResourceLocation(knownSpellList.getString(i)));
-        }
-
-        instance.setKnownSpells(knownSpells);
     }
 }

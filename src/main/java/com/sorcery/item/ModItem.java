@@ -1,6 +1,7 @@
 package com.sorcery.item;
 import com.sorcery.Constants;
 import com.sorcery.block.ModBlock;
+import com.sorcery.spell.ModSpell;
 import net.minecraft.block.Block;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItem;
@@ -9,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemTier;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ShovelItem;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -170,6 +172,16 @@ public class ModItem
     @ObjectHolder("mythril_fittings")
     public static Item mythril_fittings;
 
+    //Scrolls
+    @ObjectHolder("create_water_spell_scroll")
+    public static SpellScrollItem create_water_spell_scroll;
+
+    @ObjectHolder("remove_arcana_spell_scroll")
+    public static SpellScrollItem remove_arcana_spell_scroll;
+
+    //Spellbook
+    @ObjectHolder("spell_book")
+    public static SpellbookItem spell_book;
 
 
     public static void init(RegistryEvent.Register<Item> event)
@@ -217,11 +229,13 @@ public class ModItem
         registerItem("sigil_transmutation", new SigilItem(Constants.ITEM_PROPS), event);
 
 
-        // Arcanomicon
-        registerItem("cryptoglyph", new SpellGrantingItem(Constants.ITEM_PROPS), event);
-
-        // Staves
+        // Spellcasting Items
         registerItem("sorcerous_staff", new StaffItem(Constants.ITEM_PROPS_NONSTACK), event);
+        registerItem("spell_book", new SpellbookItem(Constants.ITEM_PROPS_NONSTACK), event);
+
+        // Spell Scrolls
+        spellScrollFactory("create_water", event);
+        spellScrollFactory("remove_arcana", event);
 
         // Utility Items
         registerItem("crystal_resonator", new CrystalResonatorItem(Constants.ITEM_PROPS), event);
@@ -329,6 +343,12 @@ public class ModItem
         StaffComponentItem item = new StaffComponentItem(Constants.ITEM_PROPS, componentName, 50);
         item.setRegistryName(componentName + "_" + componentType);
         event.getRegistry().register(item);
+    }
+
+    public static void spellScrollFactory(String spellName, RegistryEvent.Register event)
+    {
+        ResourceLocation spellLoc = new ResourceLocation(Constants.MODID, spellName + "_spell");
+        registerItem(spellName + "_spell_scroll", new SpellScrollItem(Constants.ITEM_PROPS_SCROLLS, spellLoc), event);
     }
 
 }
