@@ -172,9 +172,12 @@ public class ModItem
     @ObjectHolder("mythril_fittings")
     public static Item mythril_fittings;
 
-    //Scroll
-    @ObjectHolder("spell_scroll")
-    public static SpellScrollItem spell_scroll;
+    //Scrolls
+    @ObjectHolder("create_water_spell_scroll")
+    public static SpellScrollItem create_water_spell_scroll;
+
+    @ObjectHolder("remove_arcana_spell_scroll")
+    public static SpellScrollItem remove_arcana_spell_scroll;
 
     //Spellbook
     @ObjectHolder("spell_book")
@@ -226,16 +229,13 @@ public class ModItem
         registerItem("sigil_transmutation", new SigilItem(Constants.ITEM_PROPS), event);
 
 
-        // Arcanomicon
-        registerItem("cryptoglyph", new SpellGrantingItem(Constants.ITEM_PROPS), event);
-
         // Spellcasting Items
         registerItem("sorcerous_staff", new StaffItem(Constants.ITEM_PROPS_NONSTACK), event);
         registerItem("spell_book", new SpellbookItem(Constants.ITEM_PROPS_NONSTACK), event);
 
         // Spell Scrolls
-        spellScrollFactory("create_water_spell", event);
-        spellScrollFactory("remove_arcana_spell", event);
+        spellScrollFactory("create_water", event);
+        spellScrollFactory("remove_arcana", event);
 
         // Utility Items
         registerItem("crystal_resonator", new CrystalResonatorItem(Constants.ITEM_PROPS), event);
@@ -347,8 +347,8 @@ public class ModItem
 
     public static void spellScrollFactory(String spellName, RegistryEvent.Register event)
     {
-        ResourceLocation spellLoc = new ResourceLocation(Constants.MODID, spellName);
-        registerItem(spellName + "_scroll", new SpellScrollItem(Constants.ITEM_PROPS_NONSTACK, spellLoc), event);
+        ResourceLocation spellLoc = new ResourceLocation(Constants.MODID, spellName + "_spell");
+        registerItem(spellName + "_spell_scroll", new SpellScrollItem(Constants.ITEM_PROPS_SCROLLS, spellLoc), event);
     }
 
 }

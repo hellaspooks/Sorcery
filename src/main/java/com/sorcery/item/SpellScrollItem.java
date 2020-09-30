@@ -10,7 +10,7 @@ public class SpellScrollItem extends Item
 
     public SpellScrollItem(Properties properties, ResourceLocation spellLocIn)
     {
-        super(Constants.ITEM_PROPS_NONSTACK);
+        super(properties);
         this.spellLoc = spellLocIn;
 
     }
