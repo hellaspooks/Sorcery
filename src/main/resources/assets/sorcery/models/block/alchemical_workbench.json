@@ -1,11 +1,11 @@
 {
 	"parent": "block/block",
 	"textures": {
-		"0": "sorcery:blocks/alchemical_workbench_bottom",
-		"1": "sorcery:blocks/alchemical_workbench_side",
-		"2": "sorcery:blocks/alchemical_workbench_top",
-		"3": "sorcery:blocks/alchemical_workbench_holo",
-		"particle": "sorcery:blocks/alchemical_workbench_bottom"
+		"0": "sorcery:block/alchemical_workbench_bottom",
+		"1": "sorcery:block/alchemical_workbench_side",
+		"2": "sorcery:block/alchemical_workbench_top",
+		"3": "sorcery:block/alchemical_workbench_holo",
+		"particle": "sorcery:block/alchemical_workbench_bottom"
 	},
 	"elements": [
 		{

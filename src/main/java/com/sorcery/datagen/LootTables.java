@@ -11,6 +11,6 @@ public class LootTables extends BaseLootTableProvider {
 
     @Override
     protected void addTables() {
-        lootTables.put(ModBlock.RUNESTONE_BRICKS, createStandardTable("runestone_bricks", ModBlock.RUNESTONE_BRICKS));
+        lootTables.put(ModBlock.RUNESTONE_BRICKS.get(), createStandardTable("runestone_bricks", ModBlock.RUNESTONE_BRICKS.get()));
     }
 }

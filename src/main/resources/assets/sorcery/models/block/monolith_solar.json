@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "sorcery:blocks/monolith_solar"
+		"0": "sorcery:block/monolith_solar"
 	},
 	"elements": [
 		{

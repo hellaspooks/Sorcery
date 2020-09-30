@@ -1,7 +1,7 @@
 {
   "parent": "sorcery:block/wolfram_lantern",
   "textures": {
-    "all": "sorcery:blocks/wolfram_lantern",
-    "particles": "sorcery:blocks/wolfram_lantern"
+    "all": "sorcery:block/wolfram_lantern",
+    "particles": "sorcery:block/wolfram_lantern"
   }
 }

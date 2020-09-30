@@ -1,6 +1,7 @@
 package com.sorcery;
 
 import com.sorcery.arcana.ArcanaCapability;
+import com.sorcery.block.ModBlock;
 import com.sorcery.network.PacketHandler;
 import com.sorcery.setup.ClientProxy;
 import com.sorcery.setup.IProxy;
@@ -36,6 +37,9 @@ public class Sorcery
     public Sorcery()
     {
         loadConfig();
+
+        // Registration
+        ModBlock.init();
 
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);

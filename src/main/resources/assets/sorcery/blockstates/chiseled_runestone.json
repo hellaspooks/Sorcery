@@ -1,5 +1,7 @@
 {
-    "variants": {
-        "": { "model": "sorcery:block/chiseled_runestone" }
+  "variants": {
+    "": {
+      "model": "sorcery:block/chiseled_runestone"
     }
+  }
 }

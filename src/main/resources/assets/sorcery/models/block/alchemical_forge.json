@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "sorcery:blocks/alchemical_forge",
-		"2": "sorcery:blocks/alkahest_still",
-		"particle": "sorcery:blocks/alchemical_forge"
+		"0": "sorcery:block/alchemical_forge",
+		"2": "sorcery:block/alkahest_still",
+		"particle": "sorcery:block/alchemical_forge"
 	},
 	"elements": [
 		{

@@ -2,6 +2,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "sorcery:items/crystal_carnelian"
+    "layer0": "sorcery:item/crystal_carnelian"
   }
 }

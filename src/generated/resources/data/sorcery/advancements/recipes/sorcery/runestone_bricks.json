@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "sorcery:runestone_bricks"
+    ]
+  },
+  "criteria": {
+    "sorcery:chiseled_runestone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "sorcery:chiseled_runestone"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "sorcery:runestone_bricks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "sorcery:chiseled_runestone",
+      "has_the_recipe"
+    ]
+  ]
+}

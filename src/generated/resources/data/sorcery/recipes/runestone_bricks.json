@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sorcery",
+  "pattern": [
+    "xx",
+    "xx"
+  ],
+  "key": {
+    "x": {
+      "item": "sorcery:chiseled_runestone"
+    }
+  },
+  "result": {
+    "item": "sorcery:runestone_bricks"
+  }
+}

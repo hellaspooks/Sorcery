@@ -2,6 +2,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "sorcery:items/archmage_catalyst"
+    "layer0": "sorcery:item/archmage_catalyst"
   }
 }

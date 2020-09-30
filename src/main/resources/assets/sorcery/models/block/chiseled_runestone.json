@@ -1,6 +1,6 @@
 {
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "sorcery:blocks/chiseled_runestone"
-    }
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "sorcery:block/chiseled_runestone"
+  }
 }

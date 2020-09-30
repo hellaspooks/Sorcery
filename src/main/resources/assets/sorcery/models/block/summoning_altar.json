@@ -1,11 +1,11 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"3": "sorcery:blocks/summoning_altar",
-		"4": "sorcery:blocks/carcerus_side",
-		"5": "sorcery:blocks/carcerus_top",
-		"6": "sorcery:blocks/meteor_fire2",
-		"particle": "sorcery:blocks/summoning_altar"
+		"3": "sorcery:block/summoning_altar",
+		"4": "sorcery:block/carcerus_side",
+		"5": "sorcery:block/carcerus_top",
+		"6": "sorcery:block/meteor_fire2",
+		"particle": "sorcery:block/summoning_altar"
 	},
 	"elements": [
 		{

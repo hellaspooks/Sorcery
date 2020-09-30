@@ -37,12 +37,6 @@ public class CommonRegistryEvents
         ModSpell.init(event);
     }
 
-    @SubscribeEvent
-    public static void onBlocksRegistry(final RegistryEvent.Register<Block> event)
-    {
-        ModBlock.init(event);
-    }
-
 
     @SubscribeEvent
     public static void onEntityTypeRegistry(final RegistryEvent.Register<EntityType<?>> event)

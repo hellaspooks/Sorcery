@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "sorcery:items/wolfram_shovel"
+    "layer0": "sorcery:item/wolfram_shovel"
   }
 }

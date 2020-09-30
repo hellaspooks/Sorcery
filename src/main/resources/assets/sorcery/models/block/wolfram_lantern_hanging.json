@@ -1,8 +1,8 @@
 {
     "parent": "block/block",
     "textures": {
-        "particle": "sorcery:blocks/wolfram_lantern",
-        "all": "sorcery:blocks/wolfram_lantern"
+        "particle": "sorcery:block/wolfram_lantern",
+        "all": "sorcery:block/wolfram_lantern"
     },
     "elements": [
         {   "from": [ 5, 1, 5 ],

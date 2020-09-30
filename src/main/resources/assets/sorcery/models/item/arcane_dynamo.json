@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-      "layer0": "sorcery:items/arcane_dynamo"
+      "layer0": "sorcery:item/arcane_dynamo"
     }
   }

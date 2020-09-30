@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 public class ModSetup
 {
 
-    public static ItemGroup SORCERY = new ItemGroup("Sorcery"){
+    public static ItemGroup SORCERY = new ItemGroup("sorcery"){
         @Override
         public ItemStack createIcon()
         {
@@ -15,7 +15,7 @@ public class ModSetup
         }
     };
 
-    public static ItemGroup SORCERY_SPELLS = new ItemGroup("Sorcery Spells")
+    public static ItemGroup SORCERY_SPELLS = new ItemGroup("sorcery_spells")
     {
         @Override
         public ItemStack createIcon()

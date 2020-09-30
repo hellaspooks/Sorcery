@@ -2,6 +2,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "sorcery:items/iron_fittings"
+    "layer0": "sorcery:item/iron_fittings"
   }
 }

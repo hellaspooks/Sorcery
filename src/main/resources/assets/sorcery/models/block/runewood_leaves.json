@@ -1,6 +1,6 @@
 {
 	"parent": "block/cube_all",
 	"textures":{
-		"all": "sorcery:blocks/runewood_leaves"
+		"all": "sorcery:block/runewood_leaves"
 		}
 }

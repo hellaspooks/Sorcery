@@ -1,5 +1,7 @@
 {
-    "variants": {
-        "": { "model": "sorcery:block/lunar_runestone" }
+  "variants": {
+    "": {
+      "model": "sorcery:block/lunar_runestone"
     }
+  }
 }

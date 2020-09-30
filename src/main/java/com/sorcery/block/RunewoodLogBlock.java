@@ -34,7 +34,7 @@ public class RunewoodLogBlock extends RotatedPillarBlock
             if (itemStack.getItem() instanceof AxeItem)
             {
                 BlockState sourceState = world.getBlockState(pos);
-                world.setBlockState(pos, ModBlock.STRIPPED_RUNEWOOD_LOG.getRandomReplacementState(sourceState, world), 3);
+                world.setBlockState(pos, ((StrippedRunewoodLogBlock) ModBlock.STRIPPED_RUNEWOOD_LOG.get()).getRandomReplacementState(sourceState, world), 3);
                 itemStack.damageItem(1, player, (p_220040_1_) -> p_220040_1_.sendBreakAnimation(hand));
                 return ActionResultType.SUCCESS;
             }

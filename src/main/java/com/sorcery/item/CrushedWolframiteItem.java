@@ -23,7 +23,7 @@ public class CrushedWolframiteItem extends Item
             Block block = context.getWorld().getBlockState(context.getPos()).getBlock();
             if (block.isIn(BlockTags.SAPLINGS))
             {
-                context.getWorld().setBlockState(context.getPos(), ModBlock.RUNEWOOD_SAPLING.getDefaultState(), 3);
+                context.getWorld().setBlockState(context.getPos(), ModBlock.RUNEWOOD_SAPLING.get().getDefaultState(), 3);
                 context.getItem().shrink(1);
                 return ActionResultType.SUCCESS;
             }

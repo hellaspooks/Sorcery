@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"1": "sorcery:blocks/reliquary"
+		"1": "sorcery:block/reliquary"
 	},
 	"elements": [
 		{

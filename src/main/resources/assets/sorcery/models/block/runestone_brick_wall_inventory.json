@@ -1,6 +1,6 @@
 {
   "parent": "block/wall_inventory",
   "textures": {
-    "wall": "sorcery:blocks/runestone_bricks"
+    "wall": "sorcery:block/runestone_bricks"
   }
 }

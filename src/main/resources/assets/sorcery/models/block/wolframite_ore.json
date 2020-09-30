@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "sorcery:blocks/wolframite_ore"
+        "all": "sorcery:block/wolframite_ore"
     }
 }

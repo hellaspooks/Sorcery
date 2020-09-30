@@ -1,6 +1,6 @@
 {
   "parent": "block/cross",
   "textures": {
-    "cross": "sorcery:blocks/runewood_sapling"
+    "cross": "sorcery:block/runewood_sapling"
   }
 }

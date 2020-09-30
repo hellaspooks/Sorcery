@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"base": "sorcery:blocks/pylon_base",
-		"orb": "sorcery:blocks/pylon_orb_active",
-		"particle": "sorcery:blocks/pylon_base"
+		"base": "sorcery:block/pylon_base",
+		"orb": "sorcery:block/pylon_orb_active",
+		"particle": "sorcery:block/pylon_base"
 	},
 	"elements": [
 		{

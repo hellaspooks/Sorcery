@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-      "layer0": "sorcery:items/mundane_mechanism"
+      "layer0": "sorcery:item/mundane_mechanism"
     }
   }

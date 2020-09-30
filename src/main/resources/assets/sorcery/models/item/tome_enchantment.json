@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "sorcery:items/tome_enchantment"
+    "layer0": "sorcery:item/tome_enchantment"
   }
 }

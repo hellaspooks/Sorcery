@@ -1,7 +1,7 @@
 {
 	"textures": {
-		"main": "sorcery:blocks/staff_lathe",
-		"circle": "sorcery:blocks/magic_circle"
+		"main": "sorcery:block/staff_lathe",
+		"circle": "sorcery:block/magic_circle"
 	},
 	"elements": [
 		{

@@ -1,5 +1,7 @@
 {
-    "variants": {
-        "": { "model": "sorcery:block/dark_runestone" }
+  "variants": {
+    "": {
+      "model": "sorcery:block/dark_runestone"
     }
+  }
 }

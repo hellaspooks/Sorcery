@@ -1,11 +1,11 @@
 {
 	"parent": "block/block",
 	"textures": {
-		"end": "sorcery:blocks/stripped_runewood_log_top",
-		"north": "sorcery:blocks/stripped_runewood_log_side",
-		"south": "sorcery:blocks/stripped_runewood_log_side",
-		"east": "sorcery:blocks/stripped_runewood_log_side",
-		"west": "sorcery:blocks/stripped_runewood_log_side"
+		"end": "sorcery:block/stripped_runewood_log_top",
+		"north": "sorcery:block/stripped_runewood_log_side",
+		"south": "sorcery:block/stripped_runewood_log_side",
+		"east": "sorcery:block/stripped_runewood_log_side",
+		"west": "sorcery:block/stripped_runewood_log_side"
 	},
 	"elements": [
 		{

@@ -76,5 +76,6 @@
 
   "effect.sorcery.dimensional_fraying": "Dimensional Fraying",
 
-  "itemGroup.Sorcery": "Sorcery"
+  "itemGroup.sorcery": "Sorcery",
+  "itemGroup.sorcery_spells": "Sorcery Spells"
 }

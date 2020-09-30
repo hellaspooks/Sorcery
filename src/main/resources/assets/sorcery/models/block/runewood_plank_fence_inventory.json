@@ -1,6 +1,6 @@
 {
   "parent": "block/wall_inventory",
   "textures": {
-    "wall": "sorcery:blocks/runewood_planks"
+    "wall": "sorcery:block/runewood_planks"
   }
 }

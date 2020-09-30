@@ -18,12 +18,12 @@ public class Recipes extends RecipeProvider
 
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shapedRecipe(ModBlock.RUNESTONE_BRICKS)
+        ShapedRecipeBuilder.shapedRecipe(ModBlock.RUNESTONE_BRICKS.get())
                 .patternLine("xx")
                 .patternLine("xx")
-                .key('x', ModBlock.CHISELED_RUNESTONE)
+                .key('x', ModBlock.CHISELED_RUNESTONE.get())
                 .setGroup("sorcery")
-                .addCriterion("sorcery:chiseled_runestone", InventoryChangeTrigger.Instance.forItems(ModBlock.CHISELED_RUNESTONE))
+                .addCriterion("sorcery:chiseled_runestone", InventoryChangeTrigger.Instance.forItems(ModBlock.CHISELED_RUNESTONE.get()))
                 .build(consumer);
     }
 }

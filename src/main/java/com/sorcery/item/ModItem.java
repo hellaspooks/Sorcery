@@ -278,45 +278,43 @@ public class ModItem
 
         // Register Block Items
         // Simple Blocks
-        blockItemFactory(ModBlock.POLISHED_WOLFRAM, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNEWOOD_LOG, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.STRIPPED_RUNEWOOD_LOG, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNEWOOD_LEAVES, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.POLISHED_WOLFRAM.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNEWOOD_LOG.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.STRIPPED_RUNEWOOD_LOG.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNEWOOD_LEAVES.get(), Constants.ITEM_PROPS, event);
 
-        blockItemFactory(ModBlock.RUNEWOOD_SAPLING, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNEWOOD_SAPLING.get(), Constants.ITEM_PROPS, event);
 
         // Blocks with variations
-        blockItemFactory(ModBlock.RUNESTONE_BRICKS, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNESTONE_BRICK_SLAB, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNESTONE_BRICK_STAIRS, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNESTONE_BRICK_WALL, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNESTONE_BRICKS.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNESTONE_BRICK_SLAB.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNESTONE_BRICK_STAIRS.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNESTONE_BRICK_WALL.get(), Constants.ITEM_PROPS, event);
 
-        blockItemFactory(ModBlock.RUNEWOOD_PLANKS, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNEWOOD_PLANK_SLAB, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNEWOOD_PLANK_STAIRS, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNEWOOD_PLANK_FENCE, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNEWOOD_PLANKS.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNEWOOD_PLANK_SLAB.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNEWOOD_PLANK_STAIRS.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.RUNEWOOD_PLANK_FENCE.get(), Constants.ITEM_PROPS, event);
 
 
 
         // Blocks with tile entities
-        blockItemFactory(ModBlock.ALCHEMICAL_WORKBENCH, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.ALCHEMICAL_FORGE, Constants.ITEM_PROPS, event);
 
-        blockItemFactory(ModBlock.MONOLITH_CHISELED, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.MONOLITH_SOLAR, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.MONOLITH_LUNAR, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.MONOLITH_DARK, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.MONOLITH_CHISELED.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.MONOLITH_SOLAR.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.MONOLITH_LUNAR.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.MONOLITH_DARK.get(), Constants.ITEM_PROPS, event);
 
-        blockItemFactory(ModBlock.CHISELED_RUNESTONE, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.DARK_RUNESTONE, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.LAPIS_RUNESTONE, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.LUNAR_RUNESTONE, Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.SOLAR_RUNESTONE, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.CHISELED_RUNESTONE.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.DARK_RUNESTONE.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.LAPIS_RUNESTONE.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.LUNAR_RUNESTONE.get(), Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.SOLAR_RUNESTONE.get(), Constants.ITEM_PROPS, event);
 
 
-        blockItemFactory(ModBlock.WOLFRAM_LANTERN, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.WOLFRAM_LANTERN.get(), Constants.ITEM_PROPS, event);
 
-        blockItemFactory(ModBlock.PYLON, Constants.ITEM_PROPS, event);
+        blockItemFactory(ModBlock.PYLON.get(), Constants.ITEM_PROPS, event);
 
     }
 

@@ -1,6 +1,6 @@
 {
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "sorcery:blocks/solar_runestone"
-    }
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "sorcery:block/solar_runestone"
+  }
 }

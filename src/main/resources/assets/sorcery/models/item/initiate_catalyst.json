@@ -2,6 +2,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "sorcery:items/initiate_catalyst"
+    "layer0": "sorcery:item/initiate_catalyst"
   }
 }

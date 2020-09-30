@@ -2,6 +2,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "sorcery:items/spruce_rod"
+    "layer0": "sorcery:item/spruce_rod"
   }
 }
