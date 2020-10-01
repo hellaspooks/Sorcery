@@ -75,10 +75,17 @@ public class StaffItem extends SpellcastingItem
         return flag;
     }
 
+    @Override
+    public int getUseDuration(ItemStack stack)
+    {
+        return 10;
+    }
+
+    @Override
     public Spell getActiveSpell(SpellUseContext context)
     {
         PlayerEntity playerEntity = context.getPlayer();
-        ItemStack stack = Utils.getPlayerSpellbook(context.getPlayer());
+        ItemStack stack = Utils.getPlayerSpellbook(playerEntity);
         if (stack != null)
         {
             return Utils.getSpellFromProvider(stack);

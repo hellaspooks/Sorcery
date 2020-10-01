@@ -62,7 +62,7 @@ public class SpellcastingItem extends Item
         // if targeting arcana source, instead draw in arcana
         if (context.getWorld().getTileEntity(context.getPos()) instanceof ArcanaStorageTile)
         {
-            return castSpellOverride(spellContext, ModSpell.ARCANA_DRAIN_SPELL);
+            return castSpellOverride(spellContext, ModSpell.ARCANA_DRAIN_SPELL.get());
         }
         return castSpell(spellContext);
     }
@@ -82,6 +82,7 @@ public class SpellcastingItem extends Item
     public ActionResultType castSpell(SpellUseContext context)
     {
         Spell spellToCast = getActiveSpell(context);
+        System.out.println(spellToCast);
         CastType castType = spellToCast.getCastType();
 
         // If duration or channeled spell, set active hand and pass
@@ -120,7 +121,7 @@ public class SpellcastingItem extends Item
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving)
     {
         SpellUseContext spellContext = new SpellUseContext(worldIn, entityLiving, entityLiving.getActiveHand());
-        Spell spellToCast = Utils.getSpellFromProvider(stack);
+        Spell spellToCast = getActiveSpell(spellContext);
         spellToCast.castFinal(spellContext);
         return stack;
     }

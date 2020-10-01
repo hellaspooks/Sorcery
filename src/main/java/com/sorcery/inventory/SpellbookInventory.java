@@ -73,7 +73,8 @@ public class SpellbookInventory extends Inventory
             }
         }
         System.out.println("final spellcasting:");
-        ItemStackHelper.saveAllItems(compound, list, false);
+        System.out.println(spellCasting.serializeNBT());
+        ItemStackHelper.saveAllItems(compound, list, true);
         PacketHandler.sendToPlayer((ServerPlayerEntity) playerInventory.player, new SpellCapSyncPacket((CompoundNBT) SpellcastingCapability.SPELLCASTING.writeNBT(spellCasting, null)));
     }
 }

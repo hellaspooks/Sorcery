@@ -9,13 +9,13 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 
-import static com.sorcery.item.ModItem.crystal_carnelian;
-import static com.sorcery.item.ModItem.crystal_chalcedony;
-import static com.sorcery.item.ModItem.geode;
-import static com.sorcery.item.ModItem.crystal_jasper;
-import static com.sorcery.item.ModItem.crystal_nuummite;
-import static com.sorcery.item.ModItem.crystal_serpentine;
-import static com.sorcery.item.ModItem.crystal_sugilite;
+import static com.sorcery.item.ModItem.CRYSTAL_CARNELIAN;
+import static com.sorcery.item.ModItem.CRYSTAL_CHALCEDONY;
+import static com.sorcery.item.ModItem.GEODE;
+import static com.sorcery.item.ModItem.CRYSTAL_JASPER;
+import static com.sorcery.item.ModItem.CRYSTAL_NUUMMITE;
+import static com.sorcery.item.ModItem.CRYSTAL_SERPENTINE;
+import static com.sorcery.item.ModItem.CRYSTAL_SUGILITE;
 
 public class GeodeItem extends Item
 {
@@ -29,7 +29,7 @@ public class GeodeItem extends Item
 
     public static boolean isGeode(Item item)
     {
-        if (geode.getItem() == item)
+        if (GEODE.get().getItem() == item)
             return true;
         return false;
     }
@@ -59,17 +59,17 @@ public class GeodeItem extends Item
         switch (randomNumb)
         {
             case 1:
-                return crystal_carnelian;
+                return CRYSTAL_CARNELIAN.get();
             case 2:
-                return crystal_chalcedony;
+                return CRYSTAL_CHALCEDONY.get();
             case 3:
-                return crystal_sugilite;
+                return CRYSTAL_SUGILITE.get();
             case 4:
-                return crystal_jasper;
+                return CRYSTAL_JASPER.get();
             case 5:
-                return crystal_serpentine;
+                return CRYSTAL_SERPENTINE.get();
             case 6:
-                return crystal_nuummite;
+                return CRYSTAL_NUUMMITE.get();
             default:
                 return null;
         }

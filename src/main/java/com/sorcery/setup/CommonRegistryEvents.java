@@ -32,13 +32,6 @@ public class CommonRegistryEvents
     }
 
     @SubscribeEvent
-    public static void registerSpells(RegistryEvent.Register<Spell> event)
-    {
-        ModSpell.init(event);
-    }
-
-
-    @SubscribeEvent
     public static void onEntityTypeRegistry(final RegistryEvent.Register<EntityType<?>> event)
     {
         ModEntity.register(event);
@@ -47,11 +40,8 @@ public class CommonRegistryEvents
     @SubscribeEvent
     public static void onItemsRegistry(final RegistryEvent.Register<Item> event)
     {
-
         // Have to init this here for spawn eggs
         ModEntity.init();
-
-        ModItem.init(event);
     }
 
     @SubscribeEvent

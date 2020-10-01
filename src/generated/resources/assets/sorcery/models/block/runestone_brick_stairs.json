@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "side": "sorcery:block/runestone_bricks",
+    "bottom": "sorcery:block/runestone_bricks",
+    "top": "sorcery:block/runestone_bricks"
+  }
+}

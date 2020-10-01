@@ -55,6 +55,10 @@ public class SpellCapSyncPacket
                         System.out.println("In spell cap sync client, got spellbook");
                         ISpellcasting itemCap = Utils.getSpellCap(spellbook);
                         itemCap = Utils.getSpellCap(spellbook);
+                        System.out.println("existing nbt:");
+                        System.out.println(itemCap.serializeNBT());
+                        System.out.println("sent nbt:");
+                        System.out.println(message.capNBT);
                         SpellcastingCapability.SPELLCASTING.readNBT(itemCap, null, message.capNBT);
                     }
                 } else {
@@ -72,7 +76,7 @@ public class SpellCapSyncPacket
                         ISpellcasting itemCap;
                         itemCap = Utils.getSpellCap(spellbook);
                         System.out.println("existing nbt:");
-                        System.out.println(itemCap);
+                        System.out.println(itemCap.serializeNBT());
                         System.out.println("sent nbt:");
                         System.out.println(message.capNBT);
                         SpellcastingCapability.SPELLCASTING.readNBT(itemCap, null, message.capNBT);

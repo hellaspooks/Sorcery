@@ -2,11 +2,13 @@ package com.sorcery;
 
 import com.sorcery.arcana.ArcanaCapability;
 import com.sorcery.block.ModBlock;
+import com.sorcery.item.ModItem;
 import com.sorcery.network.PacketHandler;
 import com.sorcery.setup.ClientProxy;
 import com.sorcery.setup.IProxy;
 import com.sorcery.setup.ModSetup;
 import com.sorcery.setup.ServerProxy;
+import com.sorcery.spell.ModSpell;
 import com.sorcery.spellcasting.SpellcastingCapability;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -40,6 +42,8 @@ public class Sorcery
 
         // Registration
         ModBlock.init();
+        ModItem.init();
+        ModSpell.init();
 
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);

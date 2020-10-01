@@ -1,11 +1,15 @@
 package com.sorcery.event;
 
+import com.sorcery.Sorcery;
 import com.sorcery.item.SpellcastingItem;
+import com.sorcery.item.StaffItem;
 import com.sorcery.spell.CastType;
 import com.sorcery.spell.Spell;
 import com.sorcery.spell.SpellUseContext;
 import com.sorcery.utils.Utils;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -23,9 +27,20 @@ public class DurationSpellEvent
     {
         if (event.getItem().getItem() instanceof SpellcastingItem)
         {
+            ItemStack spellProvider = null;
             LivingEntity entity = event.getEntityLiving();
-            Spell spell = Utils.getSpellFromProvider(event.getItem());
-
+            if (event.getItem().getItem() instanceof StaffItem)
+            {
+                spellProvider = Utils.getPlayerSpellbook((PlayerEntity)entity);
+            } else {
+                spellProvider = event.getItem();
+            }
+            Spell spell = Utils.getSpellFromProvider(spellProvider);
+            if (spell == null)
+            {
+                Sorcery.getLogger().debug("Spell Event Failed");
+                return;
+            }
             SpellUseContext context = new SpellUseContext(entity.getEntityWorld(), entity, entity.getActiveHand());
             context.setCastingTicks(spell.castDuration - event.getDuration());
             spell.castPerTick(context);
@@ -41,9 +56,20 @@ public class DurationSpellEvent
     {
         if (event.getItem().getItem() instanceof SpellcastingItem)
         {
+            ItemStack spellProvider = null;
             LivingEntity entity = event.getEntityLiving();
-            Spell spell = Utils.getSpellFromProvider(event.getItem());
-
+            if (event.getItem().getItem() instanceof StaffItem)
+            {
+                spellProvider = Utils.getPlayerSpellbook((PlayerEntity)entity);
+            } else {
+                spellProvider = event.getItem();
+            }
+            Spell spell = Utils.getSpellFromProvider(spellProvider);
+            if (spell == null)
+            {
+                Sorcery.getLogger().debug("Spell Event Failed");
+                return;
+            }
             if (spell.castType != CastType.DURATION)
             {
                 SpellUseContext context = new SpellUseContext(entity.getEntityWorld(), entity, entity.getActiveHand());
@@ -62,9 +88,20 @@ public class DurationSpellEvent
     {
         if (event.getItem().getItem() instanceof SpellcastingItem)
         {
+            ItemStack spellProvider = null;
             LivingEntity entity = event.getEntityLiving();
-            Spell spell = Utils.getSpellFromProvider(event.getItem());
-
+            if (event.getItem().getItem() instanceof StaffItem)
+            {
+                spellProvider = Utils.getPlayerSpellbook((PlayerEntity)entity);
+            } else {
+                spellProvider = event.getItem();
+            }
+            Spell spell = Utils.getSpellFromProvider(spellProvider);
+            if (spell == null)
+            {
+                Sorcery.getLogger().debug("Spell Event Failed");
+                return;
+            }
             SpellUseContext context = new SpellUseContext(entity.getEntityWorld(), entity, entity.getActiveHand());
             context.setCastingTicks(spell.castDuration - event.getDuration());
             spell.castFinal(context);

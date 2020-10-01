@@ -2,57 +2,49 @@ package com.sorcery.spell;
 
 import com.sorcery.Config;
 import com.sorcery.Constants;
+import net.minecraft.item.Item;
 import net.minecraft.potion.Effects;
 import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModSpell
 {
 
-    public static final Spell TEST_SPELL = new TestSpell("Test Spell 1", 0);
-
-    public static final Spell REMOVE_ARCANA_SPELL = new TestSpell("Arcana Removed!", 1000);
-
-    public static final PotionSpell SPEED_SPELL = new PotionSpell(Effects.SPEED, Config.SPEED_SPELL_COST.get(), Config.SPEED_SPELL_DURATION.get());
-
-    public static final BlinkSpell BLINK_SPELL = new BlinkSpell();
-
-    public static final DurationSpell DURATION_SPELL = new DurationSpell();
-
-    public static final IgniteSpell IGNITE_SPELL = new IgniteSpell();
-
-    public static final CombustionSpell COMBUSTION_SPELL = new CombustionSpell();
-
-    public static final PlantDeathSpell PLANT_DEATH_SPELL = new PlantDeathSpell();
-
-    public static final RepelSpell REPEL_SPELL = new RepelSpell();
-
-    public static final ArcanaDrainSpell ARCANA_DRAIN_SPELL = new ArcanaDrainSpell();
-
-    public static final FireboltSpell FIREBOLT_SPELL = new FireboltSpell();
-
-    public static final CreateWaterSpell CREATE_WATER_SPELL = new CreateWaterSpell();
+    public static final DeferredRegister<Spell> SPELLS = DeferredRegister.create(Spell.class, Constants.MODID);
 
 
-    public static void init(Register<Spell> event)
+    public static final RegistryObject<Spell> TEST_SPELL = SPELLS.register("test_spell", () -> new TestSpell("poof!", 0));
+
+    public static final RegistryObject<Spell> REMOVE_ARCANA_SPELL = SPELLS.register("remove_arcana_spell", () -> new TestSpell("Arcana Removed!", 1000));
+
+    public static final RegistryObject<Spell> SPEED_SPELL = SPELLS.register("speed_spell", () -> new PotionSpell(Effects.SPEED, Config.SPEED_SPELL_COST.get(), Config.SPEED_SPELL_DURATION.get()));
+
+    public static final RegistryObject<Spell> BLINK_SPELL = SPELLS.register("blink_spell", () -> new BlinkSpell());
+
+    public static final RegistryObject<Spell> DURATION_SPELL = SPELLS.register("duration_spell", () -> new DurationSpell());
+
+    public static final RegistryObject<Spell> IGNITE_SPELL = SPELLS.register("ignite_spell", () -> new IgniteSpell());
+
+    public static final RegistryObject<Spell> COMBUSTION_SPELL = SPELLS.register("combustion_spell", () -> new CombustionSpell());
+
+    public static final RegistryObject<Spell> PLANT_DEATH_SPELL = SPELLS.register("plant_death_spell", () -> new PlantDeathSpell());
+
+    public static final RegistryObject<Spell> REPEL_SPELL = SPELLS.register("repel_spell", () -> new RepelSpell());
+
+    public static final RegistryObject<Spell> ARCANA_DRAIN_SPELL = SPELLS.register("arcana_drain_spell", () -> new ArcanaDrainSpell());
+
+    public static final RegistryObject<Spell> FIREBOLT_SPELL = SPELLS.register("firebolt_spell", () -> new FireboltSpell());
+
+    public static final RegistryObject<Spell> CREATE_WATER_SPELL = SPELLS.register("create_water_spell", () -> new CreateWaterSpell());
+
+
+    public static void init()
     {
-        registerSpell("test_spell", TEST_SPELL, event);
-        registerSpell("remove_arcana_spell", REMOVE_ARCANA_SPELL, event);
-        registerSpell("speed_spell", SPEED_SPELL, event);
-        registerSpell("blink_spell", BLINK_SPELL, event);
-        registerSpell("duration_spell", DURATION_SPELL, event);
-        registerSpell("ignite_spell", IGNITE_SPELL, event);
-        registerSpell("combustion_spell", COMBUSTION_SPELL, event);
-        registerSpell("plant_death_spell", PLANT_DEATH_SPELL, event);
-        registerSpell("repel_spell", REPEL_SPELL, event);
-        registerSpell("arcana_drain_spell", ARCANA_DRAIN_SPELL, event);
-        registerSpell("firebolt_spell", FIREBOLT_SPELL, event);
-        registerSpell("create_water_spell", CREATE_WATER_SPELL, event);
-    }
-
-    public static void registerSpell(String registryName, Spell spell, Register<Spell> event)
-    {
-       spell.setRegistryName(Constants.MODID + ":" + registryName);
-       event.getRegistry().register(spell);
+        System.out.println("Initing spells");
+        SPELLS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
 }

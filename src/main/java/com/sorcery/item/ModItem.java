@@ -2,351 +2,113 @@ package com.sorcery.item;
 import com.sorcery.Constants;
 import com.sorcery.block.ModBlock;
 import com.sorcery.spell.ModSpell;
-import net.minecraft.block.Block;
-import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.HoeItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemTier;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ShovelItem;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 
 /**
  * Here is where we register the items in the mod.
  * Names in ObjectHolders correspond to resource pack names.
  */
-@ObjectHolder("sorcery")
 public class ModItem
 {
-    @ObjectHolder("arcane_dynamo")
-    public static Item arcane_dynamo;
-    @ObjectHolder("mundane_mechanism")
-    public static Item mundane_mechanism;
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Constants.MODID);
+
+    // Simple Items
+    public static final RegistryObject<Item> ARCANE_DYNAMO = ITEMS.register("arcane_dynamo", () -> new Item(Constants.ITEM_PROPS));
+
+    public static final RegistryObject<Item> MUNDANE_MECHANISM = ITEMS.register("mundane_mechanism", () -> new Item(Constants.ITEM_PROPS));
 
     // Materials
-    @ObjectHolder("lodestone")
-    public static Item LODESTONE;
-    @ObjectHolder("wolfram_ingot")
-    public static Item WOLFRAM_INGOT;
-    @ObjectHolder("mythril_ingot")
-    public static Item MYTHRIL_INGOT;
-    @ObjectHolder("sigil_slate")
-    public static Item SIGIL_SLATE;
+    public static final RegistryObject<Item> LODESTONE = ITEMS.register("lodestone", () -> new Item(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> WOLFRAM_INGOT = ITEMS.register("wolfram_ingot", () -> new Item(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> MYTHRIL_INGOT = ITEMS.register("mythril_ingot", () -> new Item(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> SIGIL_SLATE = ITEMS.register("sigil_slate", () -> new Item(Constants.ITEM_PROPS));
 
     // Tomes
-    @ObjectHolder("tome_abjuration")
-    public static Item TOME_ABJURATION;
-    @ObjectHolder("tome_conjuration")
-    public static Item TOME_CONJURATION;
-    @ObjectHolder("tome_enchantment")
-    public static Item TOME_ENCHANTMENT;
-    @ObjectHolder("tome_evocation")
-    public static Item TOME_EVOCATION;
-    @ObjectHolder("tome_necromancy")
-    public static Item TOME_NECROMANCY;
-    @ObjectHolder("tome_transmutation")
-    public static Item TOME_TRANSMUTATION;
+    public static final RegistryObject<Item> TOME_ABJURATION = ITEMS.register("tome_abjuration", () -> new Item(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> TOME_CONJURATION = ITEMS.register("tome_conjuration", () -> new Item(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> TOME_ENCHANTMENT = ITEMS.register("tome_enchantment", () -> new Item(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> TOME_EVOCATION = ITEMS.register("tome_evocation", () -> new Item(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> TOME_NECROMANCY = ITEMS.register("tome_necromancy", () -> new Item(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> TOME_TRANSMUTATION = ITEMS.register("tome_transmutation", () -> new Item(Constants.ITEM_PROPS));
 
     // Sigils
-    @ObjectHolder("sigil_evocation")
-    public static Item SIGIL_EVOCATION;
-    @ObjectHolder("sigil_conjuration")
-    public static Item SIGIL_CONJURATION;
-    @ObjectHolder("sigil_abjuration")
-    public static Item sigil_abjuration;
-    @ObjectHolder("sigil_enchantment")
-    public static Item sigil_enchantment;
-    @ObjectHolder("sigil_necromancy")
-    public static Item sigil_necromancy;
-    @ObjectHolder("sigil_transmutation")
-    public static Item sigil_transmutation;
+    public static final RegistryObject<Item> SIGIL_EVOCATION = ITEMS.register("sigil_evocation", () -> new SigilItem(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> SIGIL_CONJURATION = ITEMS.register("sigil_conjuration", () -> new SigilItem(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> SIGIL_ABJURATION = ITEMS.register("sigil_abjuration", () -> new SigilItem(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> SIGIL_ENCHANTMENT = ITEMS.register("sigil_enchantment", () -> new SigilItem(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> SIGIL_NECROMANCY = ITEMS.register("sigil_necromancy", () -> new SigilItem(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> SIGIL_TRANSMUTATION = ITEMS.register("sigil_transmutation", () -> new SigilItem(Constants.ITEM_PROPS));
 
     // Crystals
-    @ObjectHolder("crystal_arcane")
-    public static Item crystal_arcane;
-    @ObjectHolder("crystal_inert")
-    public static Item crystal_inert;
-    @ObjectHolder("crystal_carnelian")
-    public static Item crystal_carnelian;
-    @ObjectHolder("crystal_chalcedony")
-    public static Item crystal_chalcedony;
-    @ObjectHolder("crystal_sugilite")
-    public static Item crystal_sugilite;
-    @ObjectHolder("crystal_jasper")
-    public static Item crystal_jasper;
-    @ObjectHolder("crystal_serpentine")
-    public static Item crystal_serpentine;
-    @ObjectHolder("crystal_nuummite")
-    public static Item crystal_nuummite;
+    public static final RegistryObject<Item> CRYSTAL_ARCANE = ITEMS.register("crystal_arcane", () -> new CrystalItem(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> CRYSTAL_INERT = ITEMS.register("crystal_inert", () -> new CrystalItem(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> CRYSTAL_CARNELIAN = ITEMS.register("crystal_carnelian", () -> new CrystalItem(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> CRYSTAL_CHALCEDONY = ITEMS.register("crystal_chalcedony", () -> new CrystalItem(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> CRYSTAL_SUGILITE = ITEMS.register("crystal_sugilite", () -> new CrystalItem(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> CRYSTAL_JASPER = ITEMS.register("crystal_jasper", () -> new CrystalItem(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> CRYSTAL_SERPENTINE = ITEMS.register("crystal_serpentine", () -> new CrystalItem(Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> CRYSTAL_NUUMMITE = ITEMS.register("crystal_nuummite", () -> new CrystalItem(Constants.ITEM_PROPS));
 
     // Geode
-    @ObjectHolder("geode")
-    public static Item geode;
+    public static final RegistryObject<Item> GEODE = ITEMS.register("geode", () -> new GeodeItem(Constants.ITEM_PROPS));
 
     // Crushed Wolframite
-    @ObjectHolder("crushed_wolframite")
-    public static Item CRUSHED_WOLFRAMITE;
-
-    // Cryptoglyph
-    @ObjectHolder("cryptoglyph")
-    public static Item cryptoglyph;
+    public static final RegistryObject<Item> CRUSHED_WOLFRAMITE = ITEMS.register("crushed_wolframite", () -> new Item(Constants.ITEM_PROPS));
 
     // Grimoire
-    @ObjectHolder("grimoire")
-    public static Item GRIMOIRE;
-
-    // Spawn Eggs
-    @ObjectHolder("toad_spawn_egg")
-    public static Item toad_spawn_egg;
+    public static final RegistryObject<Item> GRIMOIRE = ITEMS.register("grimoire", () -> new Item(Constants.ITEM_PROPS));
 
     // Staves
-    @ObjectHolder("sorcerous_staff")
-    public static Item sorcerous_staff;
+    public static final RegistryObject<Item> SORCEROUS_STAFF = ITEMS.register("sorcerous_staff", () -> new StaffItem(Constants.ITEM_PROPS));
 
     // Utility Items
-    @ObjectHolder("crystal_resonator")
-    public static Item CRYSTAL_RESONATOR;
+    public static final RegistryObject<Item> CRYSTAL_RESONATOR = ITEMS.register("crystal_resonator", () -> new CrystalResonatorItem(Constants.ITEM_PROPS));
 
-    // Tools
-    @ObjectHolder("wolfram_pickaxe")
-    public static PickaxeItem WOLFRAM_PICKAXE;
-
-    @ObjectHolder("mythril_pickaxe")
-    public static PickaxeItem MYTHRIL_PICKAXE;
-
-    @ObjectHolder("wolfram_axe")
-    public static AxeItem WOLFRAM_AXE;
-
-    @ObjectHolder("mythril_axe")
-    public static AxeItem MYTHRIL_AXE;
-
-    @ObjectHolder("wolfram_shovel")
-    public static ShovelItem WOLFRAM_SHOVEL;
-
-    @ObjectHolder("mythril_shovel")
-    public static ShovelItem MYTHRIL_SHOVEL;
-
-    @ObjectHolder("wolfram_hoe")
-    public static HoeItem WOLFRAM_HOE;
-
-    @ObjectHolder("mythril_hoe")
-    public static HoeItem MYTHRIL_HOE;
-
-
-    // Staff Components
-    // Rods
-    @ObjectHolder("acacia_rod")
-    public static Item acacia_rod;
-    @ObjectHolder("birch_rod")
-    public static Item birch_rod;
-    @ObjectHolder("dark_oak_rod")
-    public static Item dark_oak_rod;
-    @ObjectHolder("jungle_rod")
-    public static Item jungle_rod;
-    @ObjectHolder("oak_rod")
-    public static Item oak_rod;
-    @ObjectHolder("spruce_rod")
-    public static Item spruce_rod;
-
-    // Catalysts
-    @ObjectHolder("initiate_catalyst")
-    public static Item initiate_catalyst;
-    @ObjectHolder("apprentice_catalyst")
-    public static Item apprentice_catalyst;
-    @ObjectHolder("magician_catalyst")
-    public static Item magician_catalyst;
-    @ObjectHolder("archmage_catalyst")
-    public static Item archmage_catalyst;
-
-    // Fittings
-    @ObjectHolder("iron_fittings")
-    public static Item iron_fittings;
-    @ObjectHolder("gold_fittings")
-    public static Item gold_fittings;
-    @ObjectHolder("wolfram_fittings")
-    public static Item wolfram_fittings;
-    @ObjectHolder("mythril_fittings")
-    public static Item mythril_fittings;
-
-    //Scrolls
-    @ObjectHolder("create_water_spell_scroll")
-    public static SpellScrollItem create_water_spell_scroll;
-
-    @ObjectHolder("remove_arcana_spell_scroll")
-    public static SpellScrollItem remove_arcana_spell_scroll;
+    // Spell Scrolls
+    public static final RegistryObject<Item> CREATE_WATER_SPELL_SCROLL = ITEMS.register("create_water_spell_scroll", () -> new SpellScrollItem(Constants.ITEM_PROPS_SCROLLS, ModSpell.CREATE_WATER_SPELL));
+    public static final RegistryObject<Item> REMOVE_ARCANA_SPELL_SCROLL = ITEMS.register("remove_arcana_spell_scroll", () -> new SpellScrollItem(Constants.ITEM_PROPS_SCROLLS, ModSpell.REMOVE_ARCANA_SPELL));
+    public static final RegistryObject<Item> COMBUSTION_SPELL_SCROLL = ITEMS.register("combustion_spell_scroll", () -> new SpellScrollItem(Constants.ITEM_PROPS_SCROLLS, ModSpell.COMBUSTION_SPELL));
+    public static final RegistryObject<Item> BLINK_SPELL_SCROLL = ITEMS.register("blink_spell_scroll", () -> new SpellScrollItem(Constants.ITEM_PROPS_SCROLLS, ModSpell.BLINK_SPELL));
 
     //Spellbook
-    @ObjectHolder("spell_book")
-    public static SpellbookItem spell_book;
+    public static final RegistryObject<Item> SPELL_BOOK = ITEMS.register("spell_book", () -> new SpellbookItem(Constants.ITEM_PROPS));
+
+    // Block Items
+    public static final RegistryObject<Item> POLISHED_WOLFRAM = ITEMS.register("polished_wolfram", () -> new BlockItem(ModBlock.POLISHED_WOLFRAM.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> RUNEWOOD_LOG = ITEMS.register("runewood_log", () -> new BlockItem(ModBlock.RUNEWOOD_LOG.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> STRIPPED_RUNEWOOD_LOG = ITEMS.register("stripped_runewood_log", () -> new BlockItem(ModBlock.STRIPPED_RUNEWOOD_LOG.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> RUNEWOOD_LEAVES = ITEMS.register("runewood_leaves", () -> new BlockItem(ModBlock.RUNEWOOD_LEAVES.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> RUNEWOOD_SAPLING = ITEMS.register("runewood_sapling", () -> new BlockItem(ModBlock.RUNEWOOD_SAPLING.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> RUNESTONE_BRICKS = ITEMS.register("runestone_bricks", () -> new BlockItem(ModBlock.RUNESTONE_BRICKS.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> RUNESTONE_BRICK_SLAB = ITEMS.register("runestone_brick_slab", () -> new BlockItem(ModBlock.RUNESTONE_BRICK_SLAB.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> RUNESTONE_BRICK_STAIRS = ITEMS.register("runestone_brick_stairs", () -> new BlockItem(ModBlock.RUNESTONE_BRICK_STAIRS.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> RUNESTONE_BRICK_WALL = ITEMS.register("runestone_brick_wall", () -> new BlockItem(ModBlock.RUNESTONE_BRICK_WALL.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> RUNEWOOD_PLANKS = ITEMS.register("runewood_planks", () -> new BlockItem(ModBlock.RUNEWOOD_PLANKS.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> RUNEWOOD_PLANK_SLAB = ITEMS.register("runewood_plank_slab", () -> new BlockItem(ModBlock.RUNEWOOD_PLANK_SLAB.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> RUNEWOOD_PLANK_STAIRS = ITEMS.register("runewood_plank_stairs", () -> new BlockItem(ModBlock.RUNEWOOD_PLANK_STAIRS.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> RUNEWOOD_PLANK_FENCE = ITEMS.register("runewood_plank_fence", () -> new BlockItem(ModBlock.RUNEWOOD_PLANK_FENCE.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> MONOLITH_CHISELED = ITEMS.register("monolith_chiseled", () -> new BlockItem(ModBlock.MONOLITH_CHISELED.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> MONOLITH_SOLAR = ITEMS.register("monolith_solar", () -> new BlockItem(ModBlock.MONOLITH_SOLAR.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> MONOLITH_LUNAR = ITEMS.register("monolith_lunar", () -> new BlockItem(ModBlock.MONOLITH_LUNAR.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> MONOLITH_DARK = ITEMS.register("monolith_dark", () -> new BlockItem(ModBlock.MONOLITH_DARK.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> CHISELED_RUNESTONE = ITEMS.register("chiseled_runestone", () -> new BlockItem(ModBlock.CHISELED_RUNESTONE.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> DARK_RUNESTONE = ITEMS.register("dark_runestone", () -> new BlockItem(ModBlock.DARK_RUNESTONE.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> LAPIS_RUNESTONE = ITEMS.register("lapis_runestone", () -> new BlockItem(ModBlock.LAPIS_RUNESTONE.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> LUNAR_RUNESTONE = ITEMS.register("lunar_runestone", () -> new BlockItem(ModBlock.LUNAR_RUNESTONE.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> SOLAR_RUNESTONE = ITEMS.register("solar_runestone", () -> new BlockItem(ModBlock.SOLAR_RUNESTONE.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> WOLFRAM_LANTERN = ITEMS.register("wolfram_lantern", () -> new BlockItem(ModBlock.WOLFRAM_LANTERN.get(), Constants.ITEM_PROPS));
+    public static final RegistryObject<Item> PYLON = ITEMS.register("pylon", () -> new BlockItem(ModBlock.PYLON.get(), Constants.ITEM_PROPS));
 
 
-    public static void init(RegistryEvent.Register<Item> event)
+    public static void init()
     {
-        // Simple Items
-        // Materials
-        simpleItemFactory("mundane_mechanism", event);
-        simpleItemFactory("lodestone", event);
-        simpleItemFactory("wolfram_ingot", event);
-        simpleItemFactory("mythril_ingot", event);
-        simpleItemFactory("sigil_slate", event);
-        simpleItemFactory("grimoire", event);
-        simpleItemFactory("arcane_dynamo", event);
-
-        // Tomes
-        simpleItemFactory("tome_abjuration", event);
-        simpleItemFactory("tome_conjuration", event);
-        simpleItemFactory("tome_enchantment", event);
-        simpleItemFactory("tome_evocation", event);
-        simpleItemFactory("tome_necromancy", event);
-        simpleItemFactory("tome_transmutation", event);
-
-        // Crystals
-        registerItem("crystal_arcane", new CrystalItem(Constants.ITEM_PROPS), event);
-        registerItem("crystal_inert", new CrystalItem(Constants.ITEM_PROPS), event);
-        registerItem("crystal_carnelian", new CrystalItem(Constants.ITEM_PROPS), event);
-        registerItem("crystal_chalcedony", new CrystalItem(Constants.ITEM_PROPS), event);
-        registerItem("crystal_sugilite", new CrystalItem(Constants.ITEM_PROPS), event);
-        registerItem("crystal_jasper", new CrystalItem(Constants.ITEM_PROPS), event);
-        registerItem("crystal_serpentine", new CrystalItem(Constants.ITEM_PROPS), event);
-        registerItem("crystal_nuummite", new CrystalItem(Constants.ITEM_PROPS), event);
-
-        // Geode
-        registerItem("geode", new GeodeItem(Constants.ITEM_PROPS), event);
-
-        // Crushed Wolframite
-        registerItem("crushed_wolframite", new CrushedWolframiteItem(), event);
-
-        // Sigils
-        registerItem("sigil_evocation", new SigilItem(Constants.ITEM_PROPS), event);
-        registerItem("sigil_conjuration", new SigilItem(Constants.ITEM_PROPS), event);
-        registerItem("sigil_abjuration", new SigilItem(Constants.ITEM_PROPS), event);
-        registerItem("sigil_enchantment", new SigilItem(Constants.ITEM_PROPS), event);
-        registerItem("sigil_necromancy", new SigilItem(Constants.ITEM_PROPS), event);
-        registerItem("sigil_transmutation", new SigilItem(Constants.ITEM_PROPS), event);
-
-
-        // Spellcasting Items
-        registerItem("sorcerous_staff", new StaffItem(Constants.ITEM_PROPS_NONSTACK), event);
-        registerItem("spell_book", new SpellbookItem(Constants.ITEM_PROPS_NONSTACK), event);
-
-        // Spell Scrolls
-        spellScrollFactory("create_water", event);
-        spellScrollFactory("remove_arcana", event);
-
-        // Utility Items
-        registerItem("crystal_resonator", new CrystalResonatorItem(Constants.ITEM_PROPS), event);
-
-        // Tools
-        // TODO: attack + speed values
-        registerItem("wolfram_pickaxe", new PickaxeItem(ItemTier.IRON, 1, 1, Constants.ITEM_PROPS_NONSTACK), event);
-        registerItem("mythril_pickaxe", new PickaxeItem(ItemTier.DIAMOND, 1, 1, Constants.ITEM_PROPS_NONSTACK), event);
-
-        registerItem("wolfram_axe", new AxeItem(ItemTier.IRON, 1, 1, Constants.ITEM_PROPS_NONSTACK), event);
-        registerItem("mythril_axe", new AxeItem(ItemTier.DIAMOND, 1, 1, Constants.ITEM_PROPS_NONSTACK), event);
-
-        registerItem("wolfram_shovel", new ShovelItem(ItemTier.IRON, 1, 1, Constants.ITEM_PROPS_NONSTACK), event);
-        registerItem("mythril_shovel", new ShovelItem(ItemTier.DIAMOND, 1, 1, Constants.ITEM_PROPS_NONSTACK), event);
-
-        registerItem("wolfram_hoe", new HoeItem(ItemTier.IRON, 1, -1.0F,Constants.ITEM_PROPS_NONSTACK), event);
-        registerItem("mythril_hoe", new HoeItem(ItemTier.DIAMOND, 1, -1.0F, Constants.ITEM_PROPS_NONSTACK), event);
-
-        // Staff Components
-
-        // Rods
-        staffComponentItemFactory("rod", "acacia", event);
-        staffComponentItemFactory("rod","birch", event);
-        staffComponentItemFactory("rod","dark_oak", event);
-        staffComponentItemFactory("rod","jungle", event);
-        staffComponentItemFactory("rod","oak", event);
-        staffComponentItemFactory("rod","spruce", event);
-
-        // Catalysts
-        staffComponentItemFactory("catalyst","initiate", event);
-        staffComponentItemFactory("catalyst","apprentice", event);
-        staffComponentItemFactory("catalyst","magician", event);
-        staffComponentItemFactory("catalyst","archmage", event);
-
-        // Fittings
-        staffComponentItemFactory("fittings","iron", event);
-        staffComponentItemFactory("fittings","gold", event);
-        staffComponentItemFactory("fittings","wolfram", event);
-        staffComponentItemFactory("fittings","mythril", event);
-
-        // Register Block Items
-        // Simple Blocks
-        blockItemFactory(ModBlock.POLISHED_WOLFRAM.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNEWOOD_LOG.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.STRIPPED_RUNEWOOD_LOG.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNEWOOD_LEAVES.get(), Constants.ITEM_PROPS, event);
-
-        blockItemFactory(ModBlock.RUNEWOOD_SAPLING.get(), Constants.ITEM_PROPS, event);
-
-        // Blocks with variations
-        blockItemFactory(ModBlock.RUNESTONE_BRICKS.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNESTONE_BRICK_SLAB.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNESTONE_BRICK_STAIRS.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNESTONE_BRICK_WALL.get(), Constants.ITEM_PROPS, event);
-
-        blockItemFactory(ModBlock.RUNEWOOD_PLANKS.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNEWOOD_PLANK_SLAB.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNEWOOD_PLANK_STAIRS.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.RUNEWOOD_PLANK_FENCE.get(), Constants.ITEM_PROPS, event);
-
-
-
-        // Blocks with tile entities
-
-        blockItemFactory(ModBlock.MONOLITH_CHISELED.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.MONOLITH_SOLAR.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.MONOLITH_LUNAR.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.MONOLITH_DARK.get(), Constants.ITEM_PROPS, event);
-
-        blockItemFactory(ModBlock.CHISELED_RUNESTONE.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.DARK_RUNESTONE.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.LAPIS_RUNESTONE.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.LUNAR_RUNESTONE.get(), Constants.ITEM_PROPS, event);
-        blockItemFactory(ModBlock.SOLAR_RUNESTONE.get(), Constants.ITEM_PROPS, event);
-
-
-        blockItemFactory(ModBlock.WOLFRAM_LANTERN.get(), Constants.ITEM_PROPS, event);
-
-        blockItemFactory(ModBlock.PYLON.get(), Constants.ITEM_PROPS, event);
-
+        ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
-
-    public static void simpleItemFactory(String registryName, RegistryEvent.Register<Item> event)
-    {
-        Item item = new Item(Constants.ITEM_PROPS);
-        item.setRegistryName(registryName);
-        event.getRegistry().register(item);
-    }
-
-    public static void registerItem(String registryName, Item item, RegistryEvent.Register<Item> event)
-    {
-        item.setRegistryName(registryName);
-        event.getRegistry().register(item);
-    }
-
-    public static void blockItemFactory(Block block, Item.Properties properties, RegistryEvent.Register<Item> event)
-    {
-        event.getRegistry().register(new BlockItem(block, properties).setRegistryName(block.getRegistryName()));
-    }
-
-    public static void staffComponentItemFactory(String componentType, String componentName, RegistryEvent.Register event)
-    {
-        StaffComponentItem item = new StaffComponentItem(Constants.ITEM_PROPS, componentName, 50);
-        item.setRegistryName(componentName + "_" + componentType);
-        event.getRegistry().register(item);
-    }
-
-    public static void spellScrollFactory(String spellName, RegistryEvent.Register event)
-    {
-        ResourceLocation spellLoc = new ResourceLocation(Constants.MODID, spellName + "_spell");
-        registerItem(spellName + "_spell_scroll", new SpellScrollItem(Constants.ITEM_PROPS_SCROLLS, spellLoc), event);
-    }
-
 }

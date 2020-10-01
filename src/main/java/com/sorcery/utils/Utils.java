@@ -4,6 +4,7 @@ import com.google.common.base.Predicate;
 import com.sorcery.arcana.IArcanaStorage;
 import com.sorcery.block.state.CrystalColor;
 import com.sorcery.item.SpellbookItem;
+import com.sorcery.spell.ModSpell;
 import com.sorcery.spell.Spell;
 import com.sorcery.spellcasting.ISpellcasting;
 import net.minecraft.entity.Entity;
@@ -23,6 +24,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityProvider;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import org.lwjgl.system.CallbackI;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -57,8 +59,11 @@ public class Utils {
 
     public static Spell getSpellFromProvider(CapabilityProvider<?> provider)
     {
+        System.out.println("getting spell from provider");
         ResourceLocation spellLoc = getSpellCap(provider).getActiveSpell();
-        return GameRegistry.findRegistry(Spell.class).getValue(spellLoc);
+        System.out.println("active spell:" + spellLoc);
+        Spell spellOut = GameRegistry.findRegistry(Spell.class).getValue(spellLoc);
+        return spellOut;
     }
 
     public static Vector3d nBlocksAlongVector(Vector3d pos, Vector3d unitVector, float distance)
