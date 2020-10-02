@@ -1,21 +1,12 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "sorcery:block/monolith_chiseled",
-    "textures": {
-      "0": "sorcery:blocks/monolith_chiseled",
-      "particle": "sorcery:blocks/monolith_chiseled"
-    },
-    "uvlock": true
-  },
   "variants": {
-    "active": {
-      "true": {
-        "textures": {"0": "sorcery:blocks/monolith_chiseled_active", "particle":  "sorcery:blocks/monolith_chiseled"}
-      },
-      "false": {
-        "textures": {"0": "sorcery:blocks/monolith_chiseled", "particle":  "sorcery:blocks/monolith_chiseled"}
-      }
+    "active=true": {
+      "model": "sorcery:block/monolith_chiseled_active",
+      "uvlock": true
+    },
+    "active=false": {
+      "model": "sorcery:block/monolith_chiseled",
+      "uvlock": true
     }
   }
 }

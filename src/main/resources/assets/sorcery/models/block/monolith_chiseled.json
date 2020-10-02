@@ -4,6 +4,11 @@
 		"0": "sorcery:block/monolith_chiseled",
 		"particle": "sorcery:block/monolith_chiseled"
 	},
+	"display": {
+		"ground":{
+			"translation": [0,-16,0]
+		}
+	},
 	"elements": [
 		{
 			"from": [3, -12, 3],

@@ -21,9 +21,9 @@ public class Recipes extends RecipeProvider
         ShapedRecipeBuilder.shapedRecipe(ModBlock.RUNESTONE_BRICKS.get())
                 .patternLine("xx")
                 .patternLine("xx")
-                .key('x', ModBlock.CHISELED_RUNESTONE.get())
+                .key('x', ModBlock.POLISHED_RUNESTONE.get())
                 .setGroup("sorcery")
-                .addCriterion("sorcery:chiseled_runestone", InventoryChangeTrigger.Instance.forItems(ModBlock.CHISELED_RUNESTONE.get()))
+                .addCriterion("sorcery:polished_runestone", InventoryChangeTrigger.Instance.forItems(ModBlock.POLISHED_RUNESTONE.get()))
                 .build(consumer);
     }
 }

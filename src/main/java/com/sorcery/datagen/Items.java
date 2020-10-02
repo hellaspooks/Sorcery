@@ -1,8 +1,10 @@
 package com.sorcery.datagen;
 
 import com.sorcery.Constants;
+import com.sorcery.block.ModBlock;
 import com.sorcery.item.*;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraft.util.ResourceLocation;
@@ -58,11 +60,44 @@ public class Items extends ItemModelProvider
         simpleSingleTexture(ModItem.COMBUSTION_SPELL_SCROLL.get(), "scroll_evocation");
         simpleSingleTexture(ModItem.BLINK_SPELL_SCROLL.get(), "scroll_evocation");
 
+
+        // Block Item Models
+        simpleBlockItem(ModItem.POLISHED_RUNESTONE.get(), "polished_runestone");
+        simpleBlockItem(ModItem.RUNEWOOD_LOG.get(), "runewood_log");
+        simpleBlockItem(ModItem.STRIPPED_RUNEWOOD_LOG.get(), "stripped_runewood_log");
+        simpleBlockItem(ModItem.RUNEWOOD_LEAVES.get(), "runewood_leaves");
+        simpleBlockItem(ModItem.RUNEWOOD_SAPLING.get(), "runewood_sapling");
+        simpleBlockItem(ModItem.RUNESTONE_BRICKS.get(), "runestone_bricks");
+        simpleBlockItem(ModItem.RUNESTONE_BRICK_SLAB.get(), "runestone_brick_slab");
+        simpleBlockItem(ModItem.RUNESTONE_BRICK_STAIRS.get(), "runestone_brick_stairs");
+        simpleBlockItem(ModItem.RUNESTONE_BRICK_WALL.get(), "runestone_brick_wall_inventory");
+        simpleBlockItem(ModItem.RUNEWOOD_PLANKS.get(), "runewood_planks");
+        simpleBlockItem(ModItem.RUNEWOOD_PLANK_SLAB.get(), "runewood_plank_slab");
+        simpleBlockItem(ModItem.RUNEWOOD_PLANK_STAIRS.get(), "runewood_plank_stairs");
+        simpleBlockItem(ModItem.RUNEWOOD_PLANK_FENCE.get(), "runewood_plank_fence_inventory");
+        simpleBlockItem(ModItem.MONOLITH_CHISELED.get(), "monolith_chiseled");
+        simpleBlockItem(ModItem.MONOLITH_SOLAR.get(), "monolith_solar");
+        simpleBlockItem(ModItem.MONOLITH_LUNAR.get(), "monolith_lunar");
+        simpleBlockItem(ModItem.MONOLITH_DARK.get(), "monolith_dark");
+        simpleBlockItem(ModItem.CHISELED_RUNESTONE.get(), "chiseled_runestone");
+        simpleBlockItem(ModItem.DARK_RUNESTONE.get(), "dark_runestone");
+        simpleBlockItem(ModItem.LAPIS_RUNESTONE.get(), "lapis_runestone");
+        simpleBlockItem(ModItem.LUNAR_RUNESTONE.get(), "lunar_runestone");
+        simpleBlockItem(ModItem.SOLAR_RUNESTONE.get(), "solar_runestone");
+        simpleBlockItem(ModItem.WOLFRAM_LANTERN.get(), "wolfram_lantern");
+        simpleBlockItem(ModItem.PYLON.get(), "pylon_inactive");
+
+
     }
 
     public void simpleSingleTexture(Item item, String pathName)
     {
         singleTexture(item.getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Constants.MODID, "item/"+pathName));
+    }
+
+    public void simpleBlockItem(Item item, String pathName)
+    {
+        withExistingParent(item.getRegistryName().getPath(), new ResourceLocation(Constants.MODID, "block/" + pathName));
     }
 
 }

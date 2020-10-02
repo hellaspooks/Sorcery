@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "sorcery:chiseled_runestone": {
+    "sorcery:polished_runestone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "sorcery:chiseled_runestone"
+            "item": "sorcery:polished_wolfram"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "sorcery:chiseled_runestone",
+      "sorcery:polished_runestone",
       "has_the_recipe"
     ]
   ]

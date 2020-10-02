@@ -31,7 +31,7 @@ public class ModBlock
     }
 
     // Simple Blocks
-    public static final RegistryObject<Block> POLISHED_WOLFRAM = BLOCKS.register("polished_wolfram", () -> new Block(Block.Properties.create(Material.ROCK)));
+    public static final RegistryObject<Block> POLISHED_RUNESTONE = BLOCKS.register("polished_runestone", () -> new Block(Block.Properties.create(Material.ROCK)));
     public static final RegistryObject<Block> RUNESTONE_BRICKS = BLOCKS.register("runestone_bricks", () -> new Block(Block.Properties.create(Material.ROCK)));
     public static final RegistryObject<Block> RUNEWOOD_PLANKS = BLOCKS.register("runewood_planks", () -> new Block(Block.Properties.create(Material.WOOD)));
 
