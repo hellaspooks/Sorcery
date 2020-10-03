@@ -45,6 +45,7 @@ public class Sorcery
         ModItem.init();
         ModSpell.init();
 
+
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
